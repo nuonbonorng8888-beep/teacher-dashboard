@@ -21,8 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load and apply profile data
   function renderProfile() {
     const p = window.appStore.data.profile;
-    if (userDisplayNameEl) userDisplayNameEl.textContent = p.name || 'នួន បូណង';
-    if (userRoleEl) userRoleEl.textContent = p.role || 'គ្រូបង្រៀន';
+    if (p) {
+      if (!p.schoolName || p.schoolName.includes('ស៊ីសុវត្ថិ') || p.schoolName.includes('បឹងត្របែក')) {
+        p.schoolName = 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
+        window.appStore.save();
+      }
+      if (!p.role || p.role === 'គ្រូបង្រៀន') {
+        p.role = 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
+        window.appStore.save();
+      }
+    }
+    if (userDisplayNameEl) userDisplayNameEl.textContent = p.name ? `លោកគ្រូ ${p.name.replace(/^លោកគ្រូ\s*/, '')}` : 'លោកគ្រូ នួន បូណង';
+    if (userRoleEl) userRoleEl.textContent = p.role || 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
     if (schoolTitleEl) schoolTitleEl.textContent = p.schoolName || 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
     if (academicYearEl) academicYearEl.textContent = `ឆ្នាំសិក្សា ${p.academicYear || '២០២៦-២០២៧'}`;
     

@@ -2,13 +2,13 @@
  * Data Storage & State Management for Teacher Bonorng Dashboard
  */
 
-const STORAGE_KEY = 'BONORNG_NGS_DASHBOARD_DATA_V1';
+const STORAGE_KEY = 'BONORNG_NGS_DASHBOARD_DATA_V2';
 
 const defaultData = {
   profile: {
     name: 'នួន បូណង',
     username: 'Bonorng11',
-    role: 'គ្រូបង្រៀន',
+    role: 'គ្រូបង្រៀនគណិតវិទ្យា NGS',
     subject: 'គណិតវិទ្យា',
     schoolName: 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី',
     academicYear: '២០២៦-២០២៧',
@@ -205,9 +205,20 @@ class DashboardStore {
 
   load() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      let stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        stored = localStorage.getItem('BONORNG_NGS_DASHBOARD_DATA_V1');
+      }
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        if (parsed && parsed.profile) {
+          parsed.profile.schoolName = 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
+          if (!parsed.profile.role || parsed.profile.role === 'គ្រូបង្រៀន') {
+            parsed.profile.role = 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
+          }
+          this.save(parsed);
+          return parsed;
+        }
       }
     } catch (e) {
       console.error('Error reading localStorage', e);
