@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="km" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យគ្រូបង្រៀន | លោកគ្រូ នួន បូណង (Bonorng11)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row antialiased">
+
+  <!-- ==================== LEFT SIDEBAR ==================== -->
+  <aside class="w-full md:w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700/80 shrink-0 flex flex-col z-30 transition-colors">
+    <!-- User Badge at Top of Sidebar -->
+    <div class="p-4 border-b border-slate-100 dark:border-slate-700/60">
+      <div class="flex items-center gap-3 p-2 bg-purple-50 dark:bg-purple-900/30 rounded-2xl border border-purple-100 dark:border-purple-800/40">
+        <div class="relative">
+          <img id="userAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" alt="Avatar" class="w-11 h-11 rounded-xl bg-purple-200 dark:bg-purple-700 border-2 border-white dark:border-slate-700 shadow-sm object-cover">
+          <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+        </div>
+        <div class="overflow-hidden">
+          <h3 id="userDisplayName" class="font-bold text-sm text-purple-900 dark:text-purple-200 truncate">នួន បូណង</h3>
+          <span id="userRole" class="text-xs text-purple-600 dark:text-purple-400 font-medium">គ្រូបង្រៀន</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Items -->
+    <div class="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+      <!-- Section: ប្រចាំថ្ងៃ -->
+      <div>
+        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">ប្រចាំថ្ងៃ</p>
+        <div class="space-y-1">
+          <button data-tab="dashboard" class="nav-link nav-active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-house w-4 text-center text-purple-600"></i>
+            <span>ផ្ទាំងដើម</span>
+          </button>
+          <button data-tab="schedule" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-regular fa-calendar-days w-4 text-center text-purple-600"></i>
+            <span>កាលវិភាគបង្រៀន</span>
+          </button>
+          <button data-tab="attendance" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-clipboard-user w-4 text-center text-purple-600"></i>
+            <span>ហៅឈ្មោះ & វត្តមាន</span>
+          </button>
+          <button data-tab="lessonplans" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-book-bookmark w-4 text-center text-purple-600"></i>
+            <span>កិច្ចតែងការ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section: លទ្ធផល & សិក្សា -->
+      <div>
+        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">លទ្ធផល & សិក្សា</p>
+        <div class="space-y-1">
+          <button data-tab="grades" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-chart-simple w-4 text-center text-purple-600"></i>
+            <span>បញ្ចូលពិន្ទុសិស្ស</span>
+          </button>
+          <button data-tab="portfolio" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-award w-4 text-center text-purple-600"></i>
+            <span>ស្នាដៃ & Portfolio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section: ឧបករណ៍ & ការកំណត់ -->
+      <div>
+        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">ឧបករណ៍ & ការកំណត់</p>
+        <div class="space-y-1">
+          <button data-tab="tools" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-toolbox w-4 text-center text-purple-600"></i>
+            <span>ឧបករណ៍បង្រៀន</span>
+          </button>
+          <button data-tab="settings" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
+            <i class="fa-solid fa-sliders w-4 text-center text-purple-600"></i>
+            <span>ការកំណត់ & Backup</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="p-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+      <button onclick="if(confirm('តើលោកគ្រូចង់កំណត់ទិន្នន័យឡើងវិញមែនទេ?')){window.appStore.reset(); location.reload();}" class="text-xs text-red-500 hover:text-red-700 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 font-medium">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>កំណត់ឡើងវិញ</span>
+      </button>
+      <span class="text-[10px] text-slate-400 font-mono">v1.0 NGS</span>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <div class="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700/80 px-4 md:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-20 transition-colors shadow-sm">
+      
+      <!-- School Info & Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 flex items-center justify-center font-moul text-xs shadow-inner">
+          NGS
+        </div>
+        <div>
+          <h1 id="schoolTitle" class="font-bold text-sm md:text-base text-slate-900 dark:text-white font-moul leading-snug">
+            វិទ្យាល័យព្រះស៊ីសុវត្ថិ សាលារៀនជំនាន់ថ្មី
+          </h1>
+          <p id="academicYear" class="text-xs text-purple-600 dark:text-purple-400 font-medium">
+            ឆ្នាំសិក្សា ២០២៦-២០២៧
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Clock & Actions -->
+      <div class="flex items-center gap-3 ml-auto">
+        <!-- Live Clock -->
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-700/60 text-xs text-slate-700 dark:text-slate-300 font-medium">
+          <i class="fa-regular fa-clock text-purple-600 dark:text-purple-400"></i>
+          <span id="liveClock">ម៉ោង ០៦:១៣ ល្ងាច</span>
+        </div>
+
+        <!-- Backup Button -->
+        <button id="btnBackupJSON" title="ទាញយកឯកសារបម្រុងទុក (Backup)" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-floppy-disk text-purple-600"></i>
+          <span class="hidden md:inline">បម្រុងទុក</span>
+        </button>
+
+        <!-- Print Button -->
+        <button id="btnPrintReport" title="បោះពុម្ពរបាយការណ៍ (Print)" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-print text-purple-600"></i>
+          <span class="hidden md:inline">បោះពុម្ព</span>
+        </button>
+
+        <!-- Dark/Light Mode Toggle -->
+        <button id="btnToggleTheme" title="ផ្លាស់ប្ដូរពន្លឺ / ងងឹត" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-circle-half-stroke text-amber-500"></i>
+          <span class="hidden md:inline">ពណ៌ផ្ទៃ</span>
+        </button>
+
+        <!-- Profile Chip -->
+        <div class="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-700">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" class="w-8 h-8 rounded-full border border-purple-300">
+          <span class="text-xs font-bold text-purple-700 dark:text-purple-300 hidden lg:inline">Bonorng11</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Pages Container -->
+    <main class="flex-1 p-4 md:p-8 space-y-6">
+
+      <!-- ==================== TAB: DASHBOARD ==================== -->
+      <section id="tab-dashboard" class="tab-content space-y-6">
+        
+        <!-- Welcome Hero Banner -->
+        <div class="card-soft hero-gradient text-white p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-purple-600/10">
+          <div class="flex items-center gap-5 z-10">
+            <div class="relative shrink-0">
+              <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md p-1.5 shadow-lg border border-white/30 flex items-center justify-center">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" class="w-full h-full object-cover rounded-xl">
+              </div>
+              <span class="absolute -bottom-1 -right-1 text-2xl">👨‍🏫</span>
+            </div>
+            <div>
+              <h2 id="greetingText" class="text-2xl md:text-3xl font-extrabold tracking-tight">
+                Good Evening, <span id="bannerTeacherName">Bonorng11</span>! 🕵️
+              </h2>
+              <p class="text-purple-100 text-xs md:text-sm mt-1">
+                ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យគ្រូបង្រៀន · សាលារៀនជំនាន់ថ្មី (NGS) · មុខវិជ្ជា <span id="bannerSubject" class="font-bold underline">គណិតវិទ្យា</span>
+              </p>
+              <!-- Action Buttons -->
+              <div class="flex flex-wrap items-center gap-3 mt-4">
+                <button id="btnBannerAddPlan" class="px-4 py-2 rounded-xl bg-white text-purple-700 hover:bg-purple-50 font-bold text-xs shadow-md transition flex items-center gap-2">
+                  <i class="fa-solid fa-play"></i> ដាក់កិច្ចតែងការបង្រៀន
+                </button>
+                <button id="btnBannerPortfolio" class="px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 border border-white/40 text-white font-bold text-xs backdrop-blur-sm transition flex items-center gap-2">
+                  <i class="fa-solid fa-book"></i> តម្រុយសន្លឹកភាព (Portfolio)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flame mascot on banner -->
+          <div class="hidden lg:flex flex-col items-center z-10">
+            <div class="animate-mascot bg-white/20 backdrop-blur-md p-3 rounded-2xl border border-white/30 shadow-lg text-center">
+              <span class="text-4xl">🔥</span>
+              <p class="text-[11px] font-bold mt-1 text-white">KhmerMath</p>
+              <span class="text-[9px] text-purple-200">គណិតវិទ្យា 🍀</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Classroom Tools & Attendance Today -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1: ហៅឈ្មោះសិស្ស -->
+          <div class="card-soft p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-amber-500 text-lg">🔔</span>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white">ហៅឈ្មោះសិស្ស</h3>
+              </div>
+              <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">ថ្ងៃនេះ - ថ្ងៃសុក្រ</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                ចុចលើមេរៀននីមួយៗ ដើម្បីហៅឈ្មោះសិស្ស — អាចទាញវត្តមានថ្ងៃនេះនឹងបង្ហាញនៅទីនេះ
+              </p>
+            </div>
+            <button onclick="document.querySelector('[data-tab=\'attendance\']').click()" class="mt-4 w-full py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 font-bold text-xs transition text-center flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-clipboard-check"></i> បើកផ្ទាំងហៅឈ្មោះ
+            </button>
+          </div>
+
+          <!-- Card 2: កង់ចាប់ឈ្មោះ (Spinning Wheel) -->
+          <div class="card-soft p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:border-purple-400 transition group" id="btnOpenWheel">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-12 transition">
+              🎯
+            </div>
+            <h3 class="font-bold text-sm text-slate-800 dark:text-white mt-3">កង់ចាប់ឈ្មោះ</h3>
+            <span class="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium">ចុចដើម្បីបង្វិល</span>
+          </div>
+
+          <!-- Card 3: នាឡិកាកំណត់ពេល (Timer) -->
+          <div class="card-soft p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:border-purple-400 transition group" id="btnOpenTimer">
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition">
+              ⏱️
+            </div>
+            <h3 class="font-bold text-sm text-slate-800 dark:text-white mt-3">នាឡិកាកំណត់ពេល</h3>
+            <span class="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium">ចុចដើម្បីបើក</span>
+          </div>
+        </div>
+
+        <!-- Section: កំណត់ចំណាំ & កិច្ចការផ្សេងៗ (Quick Task Logger) -->
+        <div class="card-soft p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xl">📝</span>
+            <div>
+              <h3 class="font-bold text-sm text-slate-800 dark:text-white">កំណត់ចំណាំ & កិច្ចការផ្សេងៗ</h3>
+              <p class="text-xs text-slate-400">កិច្ចការនៅសាលាក្រៅពីម៉ោងបង្រៀន (បើមាន) — ប្រជុំ ប្រចាំការ ត្រួតប្រឡង ជួយសិស្ស...</p>
+            </div>
+          </div>
+
+          <!-- Chips -->
+          <div class="flex flex-wrap gap-2 my-4">
+            <button class="task-chip bg-purple-600 text-white badge-tag border border-purple-600" data-category="ប្រជុំ">
+              🤝 ប្រជុំ
+            </button>
+            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ប្រចាំការ">
+              🛡️ ប្រចាំការ
+            </button>
+            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ត្រួតប្រឡង">
+              📝 ត្រួតប្រឡង
+            </button>
+            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ការងាររដ្ឋបាល">
+              📁 ការងាររដ្ឋបាល
+            </button>
+            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ជួយសិស្ស">
+              🧑‍🏫 ជួយសិស្ស
+            </button>
+            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ផ្សេងៗ">
+              ✨ ផ្សេងៗ
+            </button>
+          </div>
+
+          <!-- Input and Submit Button -->
+          <div class="space-y-3">
+            <input id="quickTaskInput" type="text" placeholder="បន្ថែមព័ត៌មានតិចតួច (មិនចាំបាច់)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:border-purple-500 transition">
+            <button id="btnSubmitTask" class="w-full py-2.5 rounded-xl bg-purple-200 dark:bg-purple-900/60 hover:bg-purple-300 dark:hover:bg-purple-900 text-purple-900 dark:text-purple-200 font-bold text-sm transition">
+              រួចរាល់ ✓
+            </button>
+          </div>
+
+          <!-- Recent Logged Tasks List -->
+          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+            <p class="text-xs font-bold text-slate-400 mb-2 font-battambang">កិច្ចការដែលបានកត់ត្រាថ្មីៗ៖</p>
+            <div id="dashboardTasksList" class="space-y-2">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: 3 Stat Cards (Streak & Stats) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Stat 1 -->
+          <div class="card-soft p-5 bg-purple-50/50 dark:bg-purple-950/20 border-purple-100 dark:border-purple-900/40">
+            <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-300 flex items-center justify-center text-sm mb-3">
+              🎵
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">ការសង្កេតទទួលបាន</p>
+            <h3 id="countObservations" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">2</h3>
+            <span class="text-[11px] text-purple-600 dark:text-purple-400 mt-1 block">ទម្រង់សង្កេតក្នុងឆ្នាំសិក្សានេះ</span>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="card-soft p-5 bg-pink-50/50 dark:bg-pink-950/20 border-pink-100 dark:border-pink-900/40">
+            <div class="w-9 h-9 rounded-xl bg-pink-100 dark:bg-pink-900/60 text-pink-600 dark:text-pink-300 flex items-center justify-center text-sm mb-3">
+              💖
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">កិច្ចតែងការបង្រៀន (Lesson Plans)</p>
+            <h3 id="countLessonPlans" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">3</h3>
+            <span class="text-[11px] text-pink-600 dark:text-pink-400 mt-1 block">កិច្ចតែងការដែលបានផ្ទៀងផ្ទាត់</span>
+          </div>
+
+          <!-- Stat 3 (Streak) -->
+          <div class="card-soft p-5 bg-sky-50/50 dark:bg-sky-950/20 border-sky-100 dark:border-sky-900/40">
+            <div class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-900/60 text-sky-600 dark:text-sky-300 flex items-center justify-center text-sm mb-3">
+              💧
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">ភាពជាប់លាប់ (Current Streak)</p>
+            <div class="flex items-center gap-2 mt-1">
+              <h3 id="streakCount" class="text-3xl font-extrabold text-slate-900 dark:text-white">12</h3>
+              <span class="text-2xl animate-bounce">🔥</span>
+            </div>
+            <span class="text-[11px] text-sky-600 dark:text-sky-400 mt-1 block">ថ្ងៃកត់ត្រាកិច្ចតែងការជាប់ៗគ្នា</span>
+          </div>
+        </div>
+
+        <!-- Section: Charts (Listening Overview & Quality) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Weekly Hours Chart (2 cols) -->
+          <div class="card-soft p-6 lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white">Listening Overview (របាយការណ៍ប្រចាំសប្ដាហ៍)</h3>
+                <p class="text-xs text-slate-400">ម៉ោងបង្រៀន និងសកម្មភាពកែលម្អគរុកោសល្យ</p>
+              </div>
+              <span class="text-xs bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg font-medium">សប្ដាហ៍នេះ</span>
+            </div>
+            <div class="h-56">
+              <canvas id="weeklyChart"></canvas>
+            </div>
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+              <span>មធ្យម ៥.២ ម៉ោង/ថ្ងៃ</span>
+              <span class="text-green-600 font-bold">កើនឡើង +១២% ធៀបនឹងសប្ដាហ៍មុន</span>
+            </div>
+          </div>
+
+          <!-- Quality Donut Chart (1 col) -->
+          <div class="card-soft p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-white">Top Genres (កម្រិតគុណភាពបង្រៀន)</h3>
+              </div>
+              <p class="text-xs text-slate-400 mb-4">ចំណាត់ថ្នាក់ពិន្ទុសង្កេតតាមស្ដង់ដារ ៥០ ពិន្ទុ</p>
+              <div class="h-44 relative flex items-center justify-center">
+                <canvas id="qualityChart"></canvas>
+              </div>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span> ល្អប្រសើរ</span>
+                <span class="font-bold">៦៥%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> ល្អណាស់</span>
+                <span class="font-bold">២៥%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> ល្អ</span>
+                <span class="font-bold">១០%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner: ស្វែងយល់ពីស្តង់ដារគ្រូកោសល្យ NGS -->
+        <div class="card-soft p-5 bg-gradient-to-r from-purple-100 via-indigo-50 to-pink-50 dark:from-purple-950/40 dark:via-indigo-950/30 dark:to-pink-950/30 border border-purple-200 dark:border-purple-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow">
+              ⭐
+            </div>
+            <div>
+              <h3 class="font-bold text-sm md:text-base text-slate-900 dark:text-white">ស្វែងយល់ពីស្តង់ដារគ្រូកោសល្យ NGS ✨</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                ស្វែងយល់ពីលក្ខណៈវិនិច្ឆ័យ ៥ ជំហានបង្រៀន (៥០ ពិន្ទុ) និងគន្លឹះរៀបចំកិច្ចតែងការគុណភាពខ្ពស់
+              </p>
+            </div>
+          </div>
+          <button onclick="document.querySelector('[data-tab=\'lessonplans\']').click()" class="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-purple-50 text-purple-700 dark:text-purple-300 font-bold text-xs shadow transition shrink-0 flex items-center gap-2">
+            ស្វែងយល់ឥឡូវនេះ (Explore Now) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ==================== TAB: SCHEDULE (កាលវិភាគ) ==================== -->
+      <section id="tab-schedule" class="tab-content hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">កាលវិភាគបង្រៀនប្រចាំសប្ដាហ៍</h2>
+            <p class="text-xs text-slate-500">តារាងម៉ោងបង្រៀនតាមថ្ងៃ និងតាមថ្នាក់</p>
+          </div>
+        </div>
+        <div id="scheduleList" class="space-y-4">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: ATTENDANCE (វត្តមាន) ==================== -->
+      <section id="tab-attendance" class="tab-content hidden space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">ស្រង់វត្តមានសិស្ស</h2>
+            <p class="text-xs text-slate-500">ស្រង់វត្តមានប្រចាំថ្ងៃ និងតាមម៉ោងបង្រៀន</p>
+          </div>
+          <button id="btnMarkAllPresent" class="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs shadow flex items-center gap-2 transition">
+            <i class="fa-solid fa-check-double"></i> វត្តមានទាំងអស់ (Mark All Present)
+          </button>
+        </div>
+
+        <div id="attendanceListContainer">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: GRADES & RANKING (បញ្ចូលពិន្ទុ) ==================== -->
+      <section id="tab-grades" class="tab-content hidden space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">បញ្ចូលពិន្ទុសិស្ស & ចំណាត់ថ្នាក់</h2>
+            <p class="text-xs text-slate-500">តេស្តប្រចាំខែ, ឆមាសទី១, ឆមាសទី២ និងគណនាចំណាត់ថ្នាក់ស្វ័យប្រវត្តិ</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="btnOpenAddStudent" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow flex items-center gap-2 transition">
+              <i class="fa-solid fa-user-plus"></i> + បន្ថែមសិស្ស
+            </button>
+            <button id="btnExportGradesCSV" class="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50 font-bold text-xs shadow-sm flex items-center gap-2 transition">
+              <i class="fa-solid fa-file-excel text-green-600"></i> ទាញយកជា Excel/CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Grade Table Card -->
+        <div class="card-soft overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs md:text-sm">
+              <thead class="bg-purple-50 dark:bg-slate-800/80 text-purple-900 dark:text-purple-200 font-bold border-b border-purple-100 dark:border-slate-700">
+                <tr>
+                  <th class="p-3 text-center">ល.រ</th>
+                  <th class="p-3">អត្តលេខ</th>
+                  <th class="p-3">គោត្តនាម-នាម</th>
+                  <th class="p-3 text-center">ភេទ</th>
+                  <th class="p-3 text-center">ថ្នាក់</th>
+                  <th class="p-3 text-center">តេស្ត១ (២០)</th>
+                  <th class="p-3 text-center">តេស្ត២ (២០)</th>
+                  <th class="p-3 text-center">ឆមាស១ (៥០)</th>
+                  <th class="p-3 text-center">ឆមាស២ (៥០)</th>
+                  <th class="p-3 text-center">សរុប (១០០)</th>
+                  <th class="p-3 text-center">និទ្ទេស</th>
+                  <th class="p-3 text-center">ចំណាត់ថ្នាក់</th>
+                  <th class="p-3 text-center">សកម្មភាព</th>
+                </tr>
+              </thead>
+              <tbody id="gradesTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: LESSON PLANS (កិច្ចតែងការ) ==================== -->
+      <section id="tab-lessonplans" class="tab-content hidden space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">កិច្ចតែងការបង្រៀន</h2>
+            <p class="text-xs text-slate-500">ការរៀបចំកិច្ចតែងការតាមស្តង់ដារ ៥ ជំហាន NGS</p>
+          </div>
+          <button id="btnOpenAddPlan" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow flex items-center gap-2 transition">
+            <i class="fa-solid fa-plus"></i> + ដាក់កិច្ចតែងការថ្មី
+          </button>
+        </div>
+
+        <div id="lessonPlansList">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: PORTFOLIO (ស្នាដៃ) ==================== -->
+      <section id="tab-portfolio" class="tab-content hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">ស្នាដៃ & Portfolio គ្រូបង្រៀន</h2>
+            <p class="text-xs text-slate-500">វិញ្ញាបនបត្រ ការស្រាវជ្រាវ និងការអភិវឌ្ឍវិជ្ជាជីវៈ</p>
+          </div>
+        </div>
+
+        <div id="portfolioList">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: CLASSROOM TOOLS ==================== -->
+      <section id="tab-tools" class="tab-content hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">ឧបករណ៍ជំនួយការបង្រៀនក្នុងថ្នាក់</h2>
+          <p class="text-xs text-slate-500">បង្វិលកង់ចាប់ឈ្មោះ, នាឡិកាកំណត់ម៉ោង, និងការបង្កើតក្រុមសិស្ស</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Lucky Wheel Trigger Card -->
+          <div class="card-soft p-6 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 flex items-center justify-center text-3xl mb-4">
+              🎯
+            </div>
+            <h3 class="font-bold text-base text-slate-800 dark:text-white">កង់ចាប់ឈ្មោះសិស្ស (Lucky Wheel)</h3>
+            <p class="text-xs text-slate-400 mt-1 max-w-sm">បង្វិលដើម្បីហៅឈ្មោះសិស្សដោយចៃដន្យ មានសំឡេង និង Effect កាំជ្រួចអបអរ!</p>
+            <button onclick="document.getElementById('btnOpenWheel').click()" class="mt-5 px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-arrows-rotate"></i> បើកកង់បង្វិល
+            </button>
+          </div>
+
+          <!-- Timer & Stopwatch Trigger Card -->
+          <div class="card-soft p-6 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 flex items-center justify-center text-3xl mb-4">
+              ⏱️
+            </div>
+            <h3 class="font-bold text-base text-slate-800 dark:text-white">នាឡិកាកំណត់ពេល (Classroom Timer)</h3>
+            <p class="text-xs text-slate-400 mt-1 max-w-sm">កំណត់ម៉ោងសម្រាប់សិស្សពិភាក្សា ឬធ្វើលំហាត់ មានសំឡេងរោទ៍ជូនដំណឹង!</p>
+            <button onclick="document.getElementById('btnOpenTimer').click()" class="mt-5 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow transition flex items-center gap-2">
+              <i class="fa-regular fa-clock"></i> បើកនាឡិកា
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB: SETTINGS & BACKUP ==================== -->
+      <section id="tab-settings" class="tab-content hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">ការកំណត់ & បម្រុងទុកទិន្នន័យ (Settings & Backup)</h2>
+          <p class="text-xs text-slate-500">កែប្រែព័ត៌មានផ្ទាល់ខ្លួន និងការពារទិន្នន័យ</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Profile Edit -->
+          <div class="card-soft p-6 space-y-4">
+            <h3 class="font-bold text-sm text-purple-700 dark:text-purple-400 flex items-center gap-2">
+              <i class="fa-solid fa-user-pen"></i> កែប្រែព័ត៌មានផ្ទាល់ខ្លួន
+            </h3>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">គោត្តនាម-នាម</label>
+              <input id="settingTeacherName" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ឈ្មោះគណនី (Username)</label>
+              <input id="settingUsername" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">តួនាទី</label>
+              <input id="settingRole" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">មុខវិជ្ជាបង្រៀន</label>
+              <input id="settingSubject" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ឈ្មោះសាលារៀន</label>
+              <input id="settingSchool" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ឆ្នាំសិក្សា</label>
+              <input id="settingYear" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            </div>
+            <button id="btnSaveSettings" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow transition">
+              រក្សាទុកព័ត៌មាន (Save Changes)
+            </button>
+          </div>
+
+          <!-- Backup & Restore -->
+          <div class="card-soft p-6 space-y-6">
+            <div>
+              <h3 class="font-bold text-sm text-green-600 dark:text-green-400 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-cloud-arrow-down"></i> ទាញយកទិន្នន័យបម្រុងទុក (Export Backup)
+              </h3>
+              <p class="text-xs text-slate-500 mb-3">
+                ទាញយកទិន្នន័យទាំងអស់ (សិស្ស, ពិន្ទុ, កិច្ចតែងការ, វត្តមាន) ជាឯកសារ `.json` ទុកក្នុងកុំព្យូទ័រ ដើម្បីកុំឱ្យបាត់បង់ទិន្នន័យ។
+              </p>
+              <button onclick="document.getElementById('btnBackupJSON').click()" class="w-full py-2.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs shadow transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-download"></i> ទាញយក JSON Backup
+              </button>
+            </div>
+
+            <div class="pt-6 border-t border-slate-100 dark:border-slate-700">
+              <h3 class="font-bold text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2 mb-2">
+                <i class="fa-solid fa-cloud-arrow-up"></i> នាំចូលទិន្នន័យចាស់ (Import Restore)
+              </h3>
+              <p class="text-xs text-slate-500 mb-3">
+                ជ្រើសរើសឯកសារ JSON Backup ដែលលោកគ្រូបានរក្សាទុក ដើម្បីស្ដារទិន្នន័យមកវិញ។
+              </p>
+              <input type="file" id="fileRestoreJSON" accept=".json" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: LUCKY WHEEL ==================== -->
+  <div id="wheelModal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="card-soft p-6 max-w-md w-full bg-white dark:bg-slate-800 relative shadow-2xl">
+      <button id="btnCloseWheel" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-4">
+        <h3 class="font-bold text-lg text-slate-900 dark:text-white">កង់ចាប់ឈ្មោះសិស្ស 🎯</h3>
+        <p class="text-xs text-purple-600 dark:text-purple-400">បង្វិលដើម្បីហៅឈ្មោះឆ្លើយ ឬធ្វើលំហាត់</p>
+      </div>
+
+      <!-- Canvas container with pointer -->
+      <div class="relative flex justify-center my-4">
+        <!-- Top Pointer Triangle -->
+        <div class="absolute -top-3 z-10 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[20px] border-t-red-600 filter drop-shadow"></div>
+        <canvas id="wheelCanvas" width="320" height="320" class="border-4 border-purple-200 dark:border-purple-800 rounded-full"></canvas>
+      </div>
+
+      <!-- Winner Announcement -->
+      <div id="wheelWinnerBox" class="hidden text-center p-3 mb-4 bg-purple-50 dark:bg-purple-900/40 rounded-xl border border-purple-200 dark:border-purple-800">
+        <span class="text-xs text-purple-600 dark:text-purple-300 font-bold uppercase tracking-wider">សិស្សដែលបានជ្រើសរើស៖</span>
+        <h4 id="wheelWinnerText" class="text-xl font-extrabold text-purple-700 dark:text-purple-300 mt-0.5">ចាន់ សុខា</h4>
+      </div>
+
+      <button id="btnTriggerSpin" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition">
+        🚀 បង្វិលកង់ (SPIN!)
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CLASSROOM TIMER ==================== -->
+  <div id="timerModal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="card-soft p-6 max-w-sm w-full bg-white dark:bg-slate-800 relative shadow-2xl text-center">
+      <button id="btnCloseTimer" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1">នាឡិកាកំណត់ពេល ⏱️</h3>
+      <p class="text-xs text-slate-400 mb-6">កំណត់ម៉ោងធ្វើលំហាត់ ឬកិច្ចការក្រុម</p>
+
+      <!-- Digital Display -->
+      <div class="my-6">
+        <span id="timerDisplay" class="font-mono text-5xl font-extrabold text-purple-700 dark:text-purple-400 tracking-wider">
+          05:00
+        </span>
+      </div>
+
+      <!-- Presets -->
+      <div class="flex justify-center gap-2 mb-6">
+        <button class="timer-preset-btn px-3 py-1 text-xs rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-purple-100" data-seconds="60">១ នាទី</button>
+        <button class="timer-preset-btn px-3 py-1 text-xs rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-purple-100" data-seconds="180">៣ នាទី</button>
+        <button class="timer-preset-btn px-3 py-1 text-xs rounded-lg bg-purple-100 text-purple-700 font-bold hover:bg-purple-200" data-seconds="300">៥ នាទី</button>
+        <button class="timer-preset-btn px-3 py-1 text-xs rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-purple-100" data-seconds="600">១០ នាទី</button>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex gap-2">
+        <button id="btnTimerStart" class="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow">
+          ចាប់ផ្ដើម (Start)
+        </button>
+        <button id="btnTimerPause" class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow">
+          ផ្អាក (Pause)
+        </button>
+        <button id="btnTimerReset" class="flex-1 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-700 dark:text-slate-200 font-bold text-xs">
+          កំណត់ឡើងវិញ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD STUDENT ==================== -->
+  <div id="addStudentModal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="card-soft p-6 max-w-md w-full bg-white dark:bg-slate-800 relative shadow-2xl">
+      <button id="btnCloseAddStudent" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-bold text-base text-slate-900 dark:text-white mb-4">បន្ថែមសិស្សថ្មី</h3>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">គោត្តនាម-នាម</label>
+          <input id="newStudentName" type="text" placeholder="ឧ. កែវ សំណាង" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ភេទ</label>
+            <select id="newStudentSex" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+              <option value="ប្រុស">ប្រុស</option>
+              <option value="ស្រី">ស្រី</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ថ្នាក់</label>
+            <select id="newStudentClass" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+              <option value="10A">10A</option>
+              <option value="11B">11B</option>
+              <option value="12A">12A</option>
+            </select>
+          </div>
+        </div>
+        <button id="btnSaveStudent" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow mt-2">
+          រក្សាទុកសិស្ស (Save Student)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD LESSON PLAN ==================== -->
+  <div id="addPlanModal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="card-soft p-6 max-w-md w-full bg-white dark:bg-slate-800 relative shadow-2xl">
+      <button id="btnCloseAddPlan" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-bold text-base text-slate-900 dark:text-white mb-4">ដាក់កិច្ចតែងការបង្រៀនថ្មី</h3>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ចំណងជើងកិច្ចតែងការ</label>
+          <input id="newPlanTitle" type="text" placeholder="ឧ. កិច្ចតែងការទី ០៤៖ អាំងតេក្រាលមិនកំណត់" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ថ្នាក់</label>
+            <select id="newPlanGrade" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+              <option value="ថ្នាក់ទី 10A">ថ្នាក់ទី 10A</option>
+              <option value="ថ្នាក់ទី 11B">ថ្នាក់ទី 11B</option>
+              <option value="ថ្នាក់ទី 12A">ថ្នាក់ទី 12A</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">សប្ដាហ៍</label>
+            <input id="newPlanWeek" type="text" placeholder="សប្ដាហ៍ទី ០៤" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Google Drive Link / URL ឯកសារ</label>
+          <input id="newPlanDrive" type="text" placeholder="https://drive.google.com/..." class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+        </div>
+        <button id="btnSavePlan" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow mt-2">
+          ដាក់កិច្ចតែងការ (Submit Lesson Plan)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/grades.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+
