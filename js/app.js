@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
       initFullTools();
     } else if (tabId === 'mathgames') {
       if (window.mathGames) {
-        window.mathGames.startBlitzGame();
+        window.mathGames.showBlitzStart();
       }
     } else if (tabId === 'settings') {
       loadSettingsForm();

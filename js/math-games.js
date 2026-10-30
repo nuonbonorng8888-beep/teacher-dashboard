@@ -11,10 +11,12 @@ class MathGamesEngine {
     this.selectedLesson = 'all';
     
     // Blitz State
+    this.blitzDuration = 15;
     this.blitzScore = 0;
     this.blitzStreak = 0;
     this.blitzTimer = null;
     this.blitzTimeLeft = 15;
+    this.blitzPaused = false;
     this.currentBlitzQ = null;
 
     // Team Battle State
@@ -31,12 +33,14 @@ class MathGamesEngine {
     this.lifelineHintUsed = false;
 
     // Space Defender State
+    this.defenderDuration = 30; // seconds to drop per question
+    this.defenderCustomLives = 3; // 3, 5, or 999
     this.defenderScore = 0;
     this.defenderLives = 3;
-    this.defenderSpeed = 20; // seconds to drop
     this.defenderTimer = null;
+    this.defenderTimeRemainingMs = 30000;
+    this.defenderPaused = false;
     this.currentDefenderQ = null;
-    this.defenderProgress = 0;
 
     // Fallback core formula pairs for Memory Match (Guaranteed 100% Unique)
     this.formulaPairs = [
@@ -147,9 +151,20 @@ class MathGamesEngine {
 
   updateQuestionCountBadge() {
     const badge = document.getElementById('filterQuestionCountBadge');
-    if (!badge) return;
-    const questions = this.getFilteredQuestions();
-    badge.textContent = `🎯 មាន ${questions.length} សំណួរ`;
+    if (badge) {
+      const questions = this.getFilteredQuestions();
+      badge.textContent = `🎯 មាន ${questions.length} សំណួរ`;
+    }
+    this.updateActiveTopicLabels();
+  }
+
+  updateActiveTopicLabels() {
+    const lbl = document.getElementById('defenderActiveTopicLabel');
+    if (lbl) {
+      const gText = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)' : this.selectedGrade;
+      const lText = this.selectedLesson === 'all' ? 'គ្រប់មេរៀនទាំងអស់' : this.selectedLesson;
+      lbl.textContent = `${gText} • ${lText}`;
+    }
   }
 
   /* ================== LATEX & AUDIO HELPERS ================== */
@@ -222,6 +237,9 @@ class MathGamesEngine {
 
   /* ================== NAVIGATION & GAME SWITCHER ================== */
   switchGameMode(mode) {
+    clearInterval(this.blitzTimer);
+    clearInterval(this.defenderTimer);
+
     document.querySelectorAll('.game-mode-panel').forEach(p => p.classList.add('hidden'));
     document.querySelectorAll('.game-tab-btn').forEach(btn => {
       btn.classList.remove('bg-purple-600', 'text-white', 'shadow');
@@ -237,24 +255,96 @@ class MathGamesEngine {
     const panel = document.getElementById(`panel-${mode}`);
     if (panel) panel.classList.remove('hidden');
 
-    if (mode === 'blitz') this.startBlitzGame();
+    if (mode === 'blitz') this.showBlitzStart();
     else if (mode === 'match') this.initFormulaMatch();
     else if (mode === 'battle') this.initTeamBattle();
     else if (mode === 'millionaire') this.startMillionaireGame();
-    else if (mode === 'defender') this.startDefenderGame();
+    else if (mode === 'defender') this.showDefenderStart();
   }
 
   /* ================== GAME 1: MATH SPEED BLITZ ================== */
+  showBlitzStart() {
+    clearInterval(this.blitzTimer);
+    this.blitzPaused = false;
+    const startView = document.getElementById('blitzStartView');
+    const gameView = document.getElementById('blitzGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+  }
+
+  initBlitzControls() {
+    document.querySelectorAll('.blitz-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.blitz-time-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-blitz-time-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-blitz-time-btn');
+
+        const sec = parseInt(btn.dataset.seconds, 10);
+        this.blitzDuration = sec;
+        const input = document.getElementById('blitzCustomTimeInput');
+        if (input) input.value = sec;
+        const badge = document.getElementById('blitzSelectedTimeBadge');
+        if (badge) badge.textContent = sec >= 60 ? `${sec / 60} នាទី (${sec} វិនាទី)` : `${sec} វិនាទី`;
+      });
+    });
+
+    const input = document.getElementById('blitzCustomTimeInput');
+    if (input) {
+      input.addEventListener('input', (e) => {
+        let sec = parseInt(e.target.value, 10);
+        if (isNaN(sec) || sec < 5) sec = 5;
+        if (sec > 300) sec = 300;
+        this.blitzDuration = sec;
+
+        document.querySelectorAll('.blitz-time-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-blitz-time-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+
+        const badge = document.getElementById('blitzSelectedTimeBadge');
+        if (badge) badge.textContent = sec >= 60 ? `${Math.floor(sec/60)} នាទី ${sec%60 > 0 ? (sec%60)+' វិ.' : ''}` : `${sec} វិនាទី`;
+      });
+    }
+  }
+
+  toggleBlitzPause() {
+    this.blitzPaused = !this.blitzPaused;
+    const btn = document.getElementById('btnPauseBlitz');
+    if (this.blitzPaused) {
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-play"></i> <span>បន្ត</span>`;
+    } else {
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
+    }
+  }
+
   startBlitzGame() {
+    const input = document.getElementById('blitzCustomTimeInput');
+    if (input && input.value) {
+      const parsed = parseInt(input.value, 10);
+      if (!isNaN(parsed) && parsed >= 5) this.blitzDuration = parsed;
+    }
+    const startView = document.getElementById('blitzStartView');
+    const gameView = document.getElementById('blitzGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
     this.blitzScore = 0;
     this.blitzStreak = 0;
+    this.blitzPaused = false;
     this.updateBlitzUI();
     this.nextBlitzQuestion();
   }
 
   nextBlitzQuestion() {
     clearInterval(this.blitzTimer);
-    this.blitzTimeLeft = 15;
+    this.blitzTimeLeft = this.blitzDuration;
+    this.blitzPaused = false;
+    const pauseBtn = document.getElementById('btnPauseBlitz');
+    if (pauseBtn) pauseBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
+
     const pool = this.getFilteredQuestions();
     const randomIndex = Math.floor(Math.random() * pool.length);
     this.currentBlitzQ = pool[randomIndex];
@@ -264,10 +354,16 @@ class MathGamesEngine {
     const gradeEl = document.getElementById('blitzGrade');
     const optionsContainer = document.getElementById('blitzOptionsContainer');
     const timerBar = document.getElementById('blitzTimerBar');
+    const timeDisplay = document.getElementById('blitzTimerText');
 
     if (questionEl) questionEl.innerHTML = this.formatMath(this.currentBlitzQ.q);
     if (topicEl) topicEl.textContent = this.currentBlitzQ.p || this.currentBlitzQ.l || 'មេរៀនគណិត';
     if (gradeEl) gradeEl.textContent = this.currentBlitzQ.g;
+    if (timeDisplay) timeDisplay.textContent = `${this.blitzTimeLeft}s`;
+    if (timerBar) {
+      timerBar.style.width = '100%';
+      timerBar.className = 'h-full bg-purple-600 rounded-full transition-all duration-1000';
+    }
 
     if (optionsContainer) {
       optionsContainer.innerHTML = this.currentBlitzQ.o.map((opt, idx) => `
@@ -286,12 +382,13 @@ class MathGamesEngine {
     }
 
     this.blitzTimer = setInterval(() => {
+      if (this.blitzPaused) return;
+
       this.blitzTimeLeft--;
-      const timeDisplay = document.getElementById('blitzTimerText');
       if (timeDisplay) timeDisplay.textContent = `${this.blitzTimeLeft}s`;
       if (timerBar) {
-        const pct = (this.blitzTimeLeft / 15) * 100;
-        timerBar.style.width = `${pct}%`;
+        const pct = (this.blitzTimeLeft / this.blitzDuration) * 100;
+        timerBar.style.width = `${Math.max(0, pct)}%`;
         timerBar.className = pct < 30 ? "h-full bg-red-500 rounded-full transition-all duration-1000" : "h-full bg-purple-600 rounded-full transition-all duration-1000";
       }
 
@@ -756,9 +853,129 @@ class MathGamesEngine {
   }
 
   /* ================== GAME 5: SPACE MATH DEFENDER (បាញ់កម្ទេចអាចម៍ផ្កាយ) ================== */
+  showDefenderStart() {
+    clearInterval(this.defenderTimer);
+    this.defenderPaused = false;
+    const startView = document.getElementById('defenderStartView');
+    const gameView = document.getElementById('defenderGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+    this.updateActiveTopicLabels();
+  }
+
+  initDefenderControls() {
+    // Time preset buttons
+    document.querySelectorAll('.defender-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.defender-time-btn').forEach(b => {
+          b.classList.remove('bg-amber-500', 'border-amber-400', 'text-slate-950', 'active-defender-time-btn');
+          b.classList.add('bg-indigo-900/60', 'border-indigo-700', 'text-indigo-200');
+        });
+        btn.classList.remove('bg-indigo-900/60', 'border-indigo-700', 'text-indigo-200');
+        btn.classList.add('bg-amber-500', 'border-amber-400', 'text-slate-950', 'active-defender-time-btn');
+
+        const sec = parseInt(btn.dataset.seconds, 10);
+        this.defenderDuration = sec;
+        const input = document.getElementById('defenderCustomTimeInput');
+        if (input) input.value = sec;
+        const badge = document.getElementById('defenderSelectedTimeBadge');
+        if (badge) {
+          if (sec >= 60) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            badge.textContent = `${m} នាទី ${s > 0 ? s + ' វិនាទី' : ''}`;
+          } else {
+            badge.textContent = `${sec} វិនាទី`;
+          }
+        }
+      });
+    });
+
+    // Custom time input
+    const input = document.getElementById('defenderCustomTimeInput');
+    if (input) {
+      input.addEventListener('input', (e) => {
+        let sec = parseInt(e.target.value, 10);
+        if (isNaN(sec) || sec < 5) sec = 5;
+        if (sec > 600) sec = 600;
+        this.defenderDuration = sec;
+
+        document.querySelectorAll('.defender-time-btn').forEach(b => {
+          b.classList.remove('bg-amber-500', 'border-amber-400', 'text-slate-950', 'active-defender-time-btn');
+          b.classList.add('bg-indigo-900/60', 'border-indigo-700', 'text-indigo-200');
+        });
+
+        const badge = document.getElementById('defenderSelectedTimeBadge');
+        if (badge) {
+          if (sec >= 60) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            badge.textContent = `${m} នាទី ${s > 0 ? s + ' វិនាទី' : ''}`;
+          } else {
+            badge.textContent = `${sec} វិនាទី`;
+          }
+        }
+      });
+    }
+
+    // Lives buttons
+    document.querySelectorAll('.defender-lives-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.defender-lives-btn').forEach(b => {
+          b.classList.remove('bg-red-600', 'border-red-400', 'text-white', 'active-defender-lives-btn');
+          b.classList.add('bg-indigo-900/60', 'border-indigo-700', 'text-indigo-200');
+        });
+        btn.classList.remove('bg-indigo-900/60', 'border-indigo-700', 'text-indigo-200');
+        btn.classList.add('bg-red-600', 'border-red-400', 'text-white', 'active-defender-lives-btn');
+
+        this.defenderCustomLives = parseInt(btn.dataset.lives, 10);
+      });
+    });
+
+    this.updateActiveTopicLabels();
+  }
+
+  toggleDefenderPause() {
+    this.defenderPaused = !this.defenderPaused;
+    const overlay = document.getElementById('defenderPauseOverlay');
+    const btn = document.getElementById('btnPauseDefender');
+
+    if (this.defenderPaused) {
+      if (overlay) overlay.classList.remove('hidden');
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-play"></i> <span>បន្ត</span>`;
+    } else {
+      if (overlay) overlay.classList.add('hidden');
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
+    }
+  }
+
   startDefenderGame() {
+    const input = document.getElementById('defenderCustomTimeInput');
+    if (input && input.value) {
+      const parsed = parseInt(input.value, 10);
+      if (!isNaN(parsed) && parsed >= 5) this.defenderDuration = parsed;
+    }
+
+    const startView = document.getElementById('defenderStartView');
+    const gameView = document.getElementById('defenderGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
     this.defenderScore = 0;
-    this.defenderLives = 3;
+    this.defenderLives = this.defenderCustomLives;
+    this.defenderPaused = false;
+    const overlay = document.getElementById('defenderPauseOverlay');
+    if (overlay) overlay.classList.add('hidden');
+    const pauseBtn = document.getElementById('btnPauseDefender');
+    if (pauseBtn) pauseBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
+
+    const sub = document.getElementById('defenderGameLessonSub');
+    if (sub) {
+      const gText = this.selectedGrade === 'all' ? 'គ្រប់ថ្នាក់' : this.selectedGrade;
+      const lText = this.selectedLesson === 'all' ? 'គ្រប់មេរៀន' : this.selectedLesson;
+      sub.textContent = `${gText} • ${lText}`;
+    }
+
     this.updateDefenderUI();
     this.nextDefenderWave();
   }
@@ -767,11 +984,61 @@ class MathGamesEngine {
     const scoreEl = document.getElementById('defenderScoreText');
     const livesEl = document.getElementById('defenderLivesText');
     if (scoreEl) scoreEl.textContent = this.defenderScore;
-    if (livesEl) livesEl.textContent = '❤️'.repeat(this.defenderLives);
+    if (livesEl) {
+      if (this.defenderLives >= 900) {
+        livesEl.textContent = '🛡️ សេរី';
+      } else {
+        livesEl.textContent = '❤️'.repeat(Math.max(0, this.defenderLives));
+      }
+    }
+  }
+
+  updateDefenderTimerDisplay() {
+    const totalMs = this.defenderDuration * 1000;
+    const remainMs = Math.max(0, this.defenderTimeRemainingMs);
+    const secRemain = Math.ceil(remainMs / 1000);
+
+    const timeTextEl = document.getElementById('defenderTimeLeftText');
+    if (timeTextEl) {
+      if (secRemain >= 60) {
+        const m = Math.floor(secRemain / 60);
+        const s = secRemain % 60;
+        timeTextEl.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+      } else {
+        timeTextEl.textContent = `${secRemain}s`;
+      }
+
+      if (secRemain <= 5) {
+        timeTextEl.className = "font-mono text-xl font-black text-red-400 animate-pulse";
+      } else if (secRemain <= 10) {
+        timeTextEl.className = "font-mono text-xl font-black text-amber-400";
+      } else {
+        timeTextEl.className = "font-mono text-xl font-black text-emerald-400";
+      }
+    }
+
+    const timerBar = document.getElementById('defenderTimerProgress');
+    if (timerBar) {
+      const pct = (remainMs / totalMs) * 100;
+      timerBar.style.width = `${pct}%`;
+      if (pct < 20) {
+        timerBar.className = "h-full bg-red-500 rounded-full transition-all duration-100";
+      } else if (pct < 50) {
+        timerBar.className = "h-full bg-amber-400 rounded-full transition-all duration-100";
+      } else {
+        timerBar.className = "h-full bg-emerald-400 rounded-full transition-all duration-100";
+      }
+    }
   }
 
   nextDefenderWave() {
     clearInterval(this.defenderTimer);
+    this.defenderPaused = false;
+    const overlay = document.getElementById('defenderPauseOverlay');
+    if (overlay) overlay.classList.add('hidden');
+    const pauseBtn = document.getElementById('btnPauseDefender');
+    if (pauseBtn) pauseBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
+
     const pool = this.getFilteredQuestions();
     this.currentDefenderQ = pool[Math.floor(Math.random() * pool.length)];
 
@@ -781,11 +1048,13 @@ class MathGamesEngine {
 
     if (qTextEl) qTextEl.innerHTML = this.formatMath(this.currentDefenderQ.q);
 
-    this.defenderProgress = 0;
+    this.defenderTimeRemainingMs = this.defenderDuration * 1000;
     if (meteorEl) {
-      meteorEl.style.top = '10%';
+      meteorEl.style.top = '8%';
       meteorEl.classList.remove('opacity-0', 'scale-0');
     }
+
+    this.updateDefenderTimerDisplay();
 
     if (optionsGrid) {
       optionsGrid.innerHTML = this.currentDefenderQ.o.map((opt, idx) => `
@@ -803,61 +1072,80 @@ class MathGamesEngine {
       });
     }
 
-    // Meteor Descent Animation
+    this.runDefenderTimer();
+  }
+
+  runDefenderTimer() {
+    clearInterval(this.defenderTimer);
+    const totalMs = this.defenderDuration * 1000;
+    const meteorEl = document.getElementById('defenderMeteor');
+
     this.defenderTimer = setInterval(() => {
-      this.defenderProgress += 2;
+      if (this.defenderPaused) return;
+
+      this.defenderTimeRemainingMs -= 100;
+      if (this.defenderTimeRemainingMs < 0) this.defenderTimeRemainingMs = 0;
+
+      const elapsedRatio = 1 - (this.defenderTimeRemainingMs / totalMs);
       if (meteorEl) {
-        meteorEl.style.top = `${10 + (this.defenderProgress * 0.7)}%`;
+        meteorEl.style.top = `${8 + (elapsedRatio * 68)}%`;
       }
 
-      if (this.defenderProgress >= 100) {
+      this.updateDefenderTimerDisplay();
+
+      if (this.defenderTimeRemainingMs <= 0) {
         clearInterval(this.defenderTimer);
-        clearInterval(this.defenderTimer);
-        this.playWrongSound();
-        this.defenderLives--;
-        this.updateDefenderUI();
-
-        const isGameOver = this.defenderLives <= 0;
-        const correctText = this.currentDefenderQ ? this.formatMath(this.currentDefenderQ.o[this.currentDefenderQ.a]) : '';
-        const expText = this.currentDefenderQ && this.currentDefenderQ.e ? this.formatMath(this.currentDefenderQ.e) : '';
-
-        window.showStandardDialog({
-          title: isGameOver ? '💥 ហ្គេមចប់ហើយ! ពិបាកចិត្តណាស់...' : '😭 អូយ! អស់ពេលហើយ... ពិបាកចិត្តណាស់!',
-          html: `
-            <div class="py-2 text-center">
-              <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-300 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
-                <span class="text-6xl">😭</span>
-                <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
-              </div>
-              <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">
-                ${isGameOver ? 'អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី! ខែលការពារអស់ហើយ!' : 'អាចម៍ផ្កាយធ្លាក់ដល់ដី! បាត់បង់ ១ ជីវិត'}
-              </h4>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
-                ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`}
-              </p>
-
-              <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 text-left">
-                <div class="font-bold mb-1">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-sm font-extrabold text-emerald-600">${correctText}</span></div>
-                ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-200/60 dark:border-red-800/60 text-[11px] text-slate-600 dark:text-slate-300">${expText}</div>` : ''}
-              </div>
-
-              <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
-                ${isGameOver ? `ពិន្ទុសរុប៖ <span class="text-amber-500 font-black text-xl">${this.defenderScore}</span> ពិន្ទុ` : `ពិន្ទុបច្ចុប្បន្ន៖ <span class="text-purple-600 font-black">${this.defenderScore}</span>`}
-              </div>
-            </div>
-          `,
-          icon: 'error',
-          confirmText: isGameOver ? '🔄 ចាប់ផ្ដើមលេងម្ដងទៀត' : '👉 បន្តសំណួរបន្ទាប់',
-          onConfirm: () => {
-            if (isGameOver) {
-              this.startDefenderGame();
-            } else {
-              this.nextDefenderWave();
-            }
-          }
-        });
+        this.handleDefenderTimeout();
       }
-    }, 200);
+    }, 100);
+  }
+
+  handleDefenderTimeout() {
+    this.playWrongSound();
+    if (this.defenderLives < 900) {
+      this.defenderLives--;
+    }
+    this.updateDefenderUI();
+
+    const isGameOver = this.defenderLives <= 0;
+    const correctText = this.currentDefenderQ ? this.formatMath(this.currentDefenderQ.o[this.currentDefenderQ.a]) : '';
+    const expText = this.currentDefenderQ && this.currentDefenderQ.e ? this.formatMath(this.currentDefenderQ.e) : '';
+
+    window.showStandardDialog({
+      title: isGameOver ? '💥 ហ្គេមចប់ហើយ! ពិបាកចិត្តណាស់...' : '😭 អូយ! អស់ពេលហើយ... ពិបាកចិត្តណាស់!',
+      html: `
+        <div class="py-2 text-center">
+          <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-300 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+            <span class="text-6xl">😭</span>
+            <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
+          </div>
+          <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">
+            ${isGameOver ? 'អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី! ខែលការពារអស់ហើយ!' : 'អាចម៍ផ្កាយធ្លាក់ដល់ដី! បាត់បង់ ១ ជីវិត'}
+          </h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
+            ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : (this.defenderLives >= 900 ? 'របៀបហ្វឹកហាត់សេរី' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`)}
+          </p>
+
+          <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 text-left">
+            <div class="font-bold mb-1">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-sm font-extrabold text-emerald-600">${correctText}</span></div>
+            ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-200/60 dark:border-red-800/60 text-[11px] text-slate-600 dark:text-slate-300">${expText}</div>` : ''}
+          </div>
+
+          <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
+            ${isGameOver ? `ពិន្ទុសរុប៖ <span class="text-amber-500 font-black text-xl">${this.defenderScore}</span> ពិន្ទុ` : `ពិន្ទុបច្ចុប្បន្ន៖ <span class="text-purple-600 font-black">${this.defenderScore}</span>`}
+          </div>
+        </div>
+      `,
+      icon: 'error',
+      confirmText: isGameOver ? '🔄 ចាប់ផ្ដើមលេងម្ដងទៀត' : '👉 បន្តសំណួរបន្ទាប់',
+      onConfirm: () => {
+        if (isGameOver) {
+          this.startDefenderGame();
+        } else {
+          this.nextDefenderWave();
+        }
+      }
+    });
   }
 
   handleDefenderShot(selectedIdx) {
@@ -882,7 +1170,9 @@ class MathGamesEngine {
       setTimeout(() => this.nextDefenderWave(), 800);
     } else {
       this.playWrongSound();
-      this.defenderLives--;
+      if (this.defenderLives < 900) {
+        this.defenderLives--;
+      }
       this.updateDefenderUI();
 
       const isGameOver = this.defenderLives <= 0;
@@ -902,7 +1192,7 @@ class MathGamesEngine {
               ${isGameOver ? 'បាញ់ខុស! ខែលការពារត្រូវបានកម្ទេចអស់ហើយ!' : 'ឆ្លើយខុសហើយ! បាត់បង់ ១ ជីវិត'}
             </h4>
             <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
-              ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`}
+              ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : (this.defenderLives >= 900 ? 'របៀបហ្វឹកហាត់សេរី' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`)}
             </p>
 
             <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 text-left">
@@ -931,7 +1221,7 @@ class MathGamesEngine {
 
 window.mathGames = new MathGamesEngine();
 
-// Auto-initialize filters when DOM is ready
+// Auto-initialize filters and game controls when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   const gradeSelect = document.getElementById('filterGameGrade');
   const lessonSelect = document.getElementById('filterGameLesson');
@@ -950,6 +1240,10 @@ document.addEventListener('DOMContentLoaded', () => {
       window.mathGames.updateQuestionCountBadge();
     });
   }
+
+  // Initialize interactive game controls
+  window.mathGames.initBlitzControls();
+  window.mathGames.initDefenderControls();
 
   // Populate initial dropdowns
   window.mathGames.updateLessonDropdown();
