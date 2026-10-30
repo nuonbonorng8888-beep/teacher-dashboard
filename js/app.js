@@ -106,6 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPortfolios();
     } else if (tabId === 'tools') {
       initFullTools();
+    } else if (tabId === 'mathgames') {
+      if (window.mathGames) {
+        window.mathGames.startBlitzGame();
+      }
     } else if (tabId === 'settings') {
       loadSettingsForm();
     }
