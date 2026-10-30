@@ -1,6 +1,42 @@
 /**
- * Classroom Tools: Lucky Wheel, Timer, Stopwatch, Sound Effects
+ * Classroom Tools: Lucky Wheel, Timer, Stopwatch, Sound Effects, Standard Dialogs
  */
+
+function showStandardDialog({ title, text, html, icon = 'info', confirmText = 'យល់ព្រម', showCancel = false, cancelText = 'បោះបង់', onConfirm = null }) {
+  if (typeof Swal !== 'undefined') {
+    Swal.fire({
+      title: title,
+      text: text,
+      html: html,
+      icon: icon,
+      confirmButtonText: confirmText,
+      showCancelButton: showCancel,
+      cancelButtonText: cancelText,
+      confirmButtonColor: '#7c3aed',
+      cancelButtonColor: '#94a3b8',
+      reverseButtons: true,
+      customClass: {
+        popup: 'rounded-3xl border border-purple-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white shadow-2xl font-kantumruy',
+        title: 'text-lg md:text-xl font-bold text-slate-900 dark:text-white',
+        htmlContainer: 'text-sm text-slate-600 dark:text-slate-300',
+        confirmButton: 'rounded-xl px-5 py-2.5 font-bold text-xs shadow-md',
+        cancelButton: 'rounded-xl px-5 py-2.5 font-bold text-xs'
+      }
+    }).then((result) => {
+      if (result.isConfirmed && onConfirm) {
+        onConfirm();
+      }
+    });
+  } else {
+    if (showCancel) {
+      if (confirm(text || title) && onConfirm) onConfirm();
+    } else {
+      alert(text || title);
+      if (onConfirm) onConfirm();
+    }
+  }
+}
+window.showStandardDialog = showStandardDialog;
 
 class ClassroomTools {
   constructor() {

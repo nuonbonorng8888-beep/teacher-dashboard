@@ -441,7 +441,18 @@ class MathGamesEngine {
             if (matchedCount === 6) {
               this.playVictoryFanfare();
               setTimeout(() => {
-                alert('🎉 អបអរសាទរ! សិស្សានុសិស្សបានផ្គូផ្គងរូបមន្តគណិតវិទ្យាបានត្រឹមត្រូវទាំងអស់!');
+                window.showStandardDialog({
+                  title: '🎉 អបអរសាទរ!',
+                  html: `
+                    <div class="py-2 text-center">
+                      <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400">សិស្សានុសិស្សបានផ្គូផ្គងរូបមន្តគណិតវិទ្យាបានត្រឹមត្រូវទាំងអស់!</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">យល់ដឹងច្បាស់លាស់ពីរូបមន្តគណិតវិទ្យា NGS ✨</p>
+                    </div>
+                  `,
+                  icon: 'success',
+                  confirmText: '🔄 លេងវគ្គថ្មី',
+                  onConfirm: () => this.initFormulaMatch()
+                });
               }, 400);
             }
           } else {
@@ -617,7 +628,18 @@ class MathGamesEngine {
       if (this.millionaireLevel === 10) {
         this.playVictoryFanfare();
         setTimeout(() => {
-          alert('🏆 អស្ចារ្យណាស់! អ្នកបានឆ្លើយត្រូវគ្រប់ ១០ សំណួរ ក្លាយជាជើងឯកគណិតវិទ្យា NGS!');
+          window.showStandardDialog({
+            title: '🏆 អស្ចារ្យណាស់!',
+            html: `
+              <div class="py-2 text-center">
+                <p class="text-base font-extrabold text-amber-600 dark:text-amber-400">អ្នកបានឆ្លើយត្រូវគ្រប់ ១០ សំណួរ!</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ក្លាយជាជើងឯកគណិតវិទ្យា NGS ថ្នាក់ជាតិ 🥇</p>
+              </div>
+            `,
+            icon: 'success',
+            confirmText: '🎉 អស្ចារ្យ!',
+            onConfirm: () => this.startMillionaireGame()
+          });
         }, 500);
       } else {
         this.millionaireLevel++;
@@ -627,9 +649,24 @@ class MathGamesEngine {
       clickedBtn.classList.remove('bg-white', 'border-slate-200');
       clickedBtn.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
       this.playWrongSound();
+      const finalPts = this.millionaireLevel >= 5 ? 5 : 0;
       setTimeout(() => {
-        alert(`❌ ចម្លើយមិនត្រឹមត្រូវទេ! ចម្លើយត្រឹមត្រូវគឺ៖ ${this.currentMillionaireQ.o[this.currentMillionaireQ.a]}\n\nអ្នកទទួលបានពិន្ទុ៖ ${this.millionaireLevel >= 5 ? 5 : 0} ពិន្ទុ`);
-        this.startMillionaireGame();
+        window.showStandardDialog({
+          title: '❌ ចម្លើយមិនត្រឹមត្រូវទេ!',
+          html: `
+            <div class="py-2 text-left">
+              <div class="p-3.5 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300 mb-3">
+                <span class="font-bold">ចម្លើយត្រឹមត្រូវគឺ៖</span> ${this.formatMath(this.currentMillionaireQ.o[this.currentMillionaireQ.a])}
+              </div>
+              <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
+                ពិន្ទុដែលទទួលបាន៖ <span class="text-purple-600 font-extrabold text-lg">${finalPts}</span> ពិន្ទុ
+              </div>
+            </div>
+          `,
+          icon: 'error',
+          confirmText: '🔄 សាកល្បងម្ដងទៀត',
+          onConfirm: () => this.startMillionaireGame()
+        });
       }, 1000);
     }
   }
@@ -664,9 +701,20 @@ class MathGamesEngine {
     const students = (window.appStore && window.appStore.data && window.appStore.data.students) || [];
     const studentName = students.length > 0 ? students[Math.floor(Math.random() * students.length)].name : 'មិត្តរួមថ្នាក់';
 
-    const hint = `👥 សិស្សដែលត្រូវបានជ្រើសរើសឱ្យជួយឆ្លើយគឺ៖ «${studentName}»`;
-    alert(hint);
     this.playTone(600, 'triangle', 0.2);
+    window.showStandardDialog({
+      title: '👥 ជំនួយពីមិត្តរួមថ្នាក់',
+      html: `
+        <div class="py-3 text-center">
+          <p class="text-xs text-slate-500 mb-2 font-medium">សិស្សដែលត្រូវបានជ្រើសរើសឱ្យជួយឆ្លើយគឺ៖</p>
+          <div class="inline-block px-5 py-2.5 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 font-extrabold text-xl shadow-sm">
+            👨‍🎓 ${studentName}
+          </div>
+        </div>
+      `,
+      icon: 'info',
+      confirmText: 'យល់ព្រម'
+    });
   }
 
   useLifelineHint() {
@@ -676,8 +724,19 @@ class MathGamesEngine {
     if (btn) { btn.disabled = true; btn.classList.add('opacity-40', 'line-through'); }
 
     const exp = this.currentMillionaireQ.e || "សូមពិនិត្យមើលរូបមន្តគន្លឹះនៃមេរៀននេះ!";
-    alert(`💡 គន្លឹះដោះស្រាយ៖\n${exp}`);
     this.playTone(550, 'sine', 0.15);
+    window.showStandardDialog({
+      title: '💡 គន្លឹះដោះស្រាយ & រូបមន្ត',
+      html: `
+        <div class="py-2 text-left">
+          <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs md:text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
+            ${this.formatMath(exp)}
+          </div>
+        </div>
+      `,
+      icon: 'info',
+      confirmText: 'យល់ព្រម'
+    });
   }
 
   /* ================== GAME 5: SPACE MATH DEFENDER (បាញ់កម្ទេចអាចម៍ផ្កាយ) ================== */
@@ -742,8 +801,21 @@ class MathGamesEngine {
         this.updateDefenderUI();
 
         if (this.defenderLives <= 0) {
-          alert(`💥 កម្ទេចខែលការពារអស់ហើយ! ពិន្ទុសរុបរបស់អ្នកគឺ៖ ${this.defenderScore}`);
-          this.startDefenderGame();
+          window.showStandardDialog({
+            title: '💥 ខែលការពារត្រូវបានកម្ទេច!',
+            html: `
+              <div class="py-2 text-center">
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី!</p>
+                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2">
+                  <span>ពិន្ទុសរុប៖</span>
+                  <span class="text-amber-500">${this.defenderScore}</span>
+                </div>
+              </div>
+            `,
+            icon: 'info',
+            confirmText: '🔄 លេងម្ដងទៀត',
+            onConfirm: () => this.startDefenderGame()
+          });
         } else {
           setTimeout(() => this.nextDefenderWave(), 800);
         }
@@ -777,8 +849,21 @@ class MathGamesEngine {
       this.updateDefenderUI();
 
       if (this.defenderLives <= 0) {
-        alert(`💥 ហ្គេមត្រូវបានបញ្ចប់! ពិន្ទុសរុប៖ ${this.defenderScore}`);
-        this.startDefenderGame();
+        window.showStandardDialog({
+          title: '💥 ហ្គេមត្រូវបានបញ្ចប់!',
+          html: `
+            <div class="py-2 text-center">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">ខែលការពារត្រូវបានកម្ទេចអស់ហើយ!</p>
+              <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2">
+                <span>ពិន្ទុសរុប៖</span>
+                <span class="text-amber-500">${this.defenderScore}</span>
+              </div>
+            </div>
+          `,
+          icon: 'info',
+          confirmText: '🔄 លេងម្ដងទៀត',
+          onConfirm: () => this.startDefenderGame()
+        });
       } else {
         setTimeout(() => this.nextDefenderWave(), 800);
       }

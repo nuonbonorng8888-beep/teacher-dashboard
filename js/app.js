@@ -329,7 +329,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTriggerSpin.addEventListener('click', () => {
       const names = (window.appStore.data.students || []).map(s => s.name);
       if (names.length === 0) {
-        alert('សូមបញ្ចូលបញ្ជីឈ្មោះសិស្សជាមុនសិន!');
+        window.showStandardDialog({
+          title: 'មិនទាន់មានសិស្ស',
+          text: 'សូមបញ្ចូលបញ្ជីឈ្មោះសិស្សជាមុនសិន!',
+          icon: 'warning'
+        });
         return;
       }
       if (wheelWinnerBox) wheelWinnerBox.classList.add('hidden');
@@ -449,12 +453,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-delete-student').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-        if (confirm(`តើលោកគ្រូពិតជាចង់លុបសិស្សអត្តលេខ ${id} នេះមែនទេ?`)) {
-          window.appStore.data.students = window.appStore.data.students.filter(s => s.id !== id);
-          window.appStore.save();
-          renderGradesTable();
-          showNotification('លុបរួចរាល់', `បានលុបសិស្សអត្តលេខ ${id}`, 'info');
-        }
+        window.showStandardDialog({
+          title: 'បញ្ជាក់ការលុបសិស្ស',
+          text: `តើលោកគ្រូពិតជាចង់លុបសិស្សអត្តលេខ ${id} នេះមែនទេ?`,
+          icon: 'warning',
+          showCancel: true,
+          confirmText: 'លុបចេញ',
+          cancelText: 'បោះបង់',
+          onConfirm: () => {
+            window.appStore.data.students = window.appStore.data.students.filter(s => s.id !== id);
+            window.appStore.save();
+            renderGradesTable();
+            showNotification('លុបរួចរាល់', `បានលុបសិស្សអត្តលេខ ${id}`, 'info');
+          }
+        });
       });
     });
   }
@@ -483,7 +495,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const sex = document.getElementById('newStudentSex').value;
       const sClass = document.getElementById('newStudentClass').value;
       if (!name) {
-        alert('សូមបញ្ចូលឈ្មោះសិស្ស!');
+        window.showStandardDialog({
+          title: 'ខ្វះទិន្នន័យ',
+          text: 'សូមបញ្ចូលឈ្មោះសិស្ស!',
+          icon: 'warning'
+        });
         return;
       }
       const newId = `NGS-${(window.appStore.data.students.length + 1).toString().padStart(3, '0')}`;
@@ -647,7 +663,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const drive = document.getElementById('newPlanDrive').value.trim();
 
       if (!title) {
-        alert('សូមបញ្ចូលចំណងជើងកិច្ចតែងការ!');
+        window.showStandardDialog({
+          title: 'ខ្វះទិន្នន័យ',
+          text: 'សូមបញ្ចូលចំណងជើងកិច្ចតែងការ!',
+          icon: 'warning'
+        });
         return;
       }
 
@@ -745,7 +765,11 @@ document.addEventListener('DOMContentLoaded', () => {
           renderTasksList();
           showNotification('ស្ដារទិន្នន័យជោគជ័យ', 'ទិន្នន័យទាំងអស់ត្រូវបាននាំចូលរួចរាល់!', 'success');
         } else {
-          alert('ឯកសារ JSON មិនត្រឹមត្រូវ សូមព្យាយាមម្ដងទៀត!');
+          window.showStandardDialog({
+            title: 'ឯកសារមិនត្រឹមត្រូវ',
+            text: 'ឯកសារ JSON មិនត្រឹមត្រូវ សូមព្យាយាមម្ដងទៀត!',
+            icon: 'error'
+          });
         }
       };
       reader.readAsText(file);

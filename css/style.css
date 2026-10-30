@@ -140,6 +140,32 @@ body {
   color: #c4b5fd;
 }
 
+/* SweetAlert2 Standard Styling */
+div:where(.swal2-container) .swal2-popup {
+  border-radius: 1.5rem !important;
+  font-family: 'Kantumruy Pro', 'Poppins', sans-serif !important;
+  padding: 1.75rem !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25) !important;
+}
+.dark div:where(.swal2-container) .swal2-popup {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+div:where(.swal2-container) button.swal2-styled.swal2-confirm {
+  background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+  border-radius: 0.875rem !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35) !important;
+}
+div:where(.swal2-container) button.swal2-styled.swal2-cancel {
+  border-radius: 0.875rem !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
 /* Modal Transitions */
 .modal-overlay {
   background: rgba(15, 23, 42, 0.55);

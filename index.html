@@ -44,8 +44,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 
+  <!-- SweetAlert2 CDN for Standard Professional Dialogs -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/style.css?v=2.0">
+  <link rel="stylesheet" href="css/style.css?v=2.1">
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row antialiased">
 
@@ -127,7 +130,7 @@
 
     <!-- Bottom Actions -->
     <div class="p-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
-      <button onclick="if(confirm('តើលោកគ្រូចង់កំណត់ទិន្នន័យឡើងវិញមែនទេ?')){window.appStore.reset(); location.reload();}" class="text-xs text-red-500 hover:text-red-700 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 font-medium">
+      <button onclick="window.showStandardDialog({ title: 'កំណត់ទិន្នន័យឡើងវិញ', text: 'តើលោកគ្រូចង់កំណត់ទិន្នន័យឡើងវិញមែនទេ? ទិន្នន័យគំរូដើមនឹងត្រូវបានផ្ទុកឡើងវិញ។', icon: 'warning', showCancel: true, confirmText: 'កំណត់ឡើងវិញ', cancelText: 'បោះបង់', onConfirm: () => { window.appStore.reset(); location.reload(); } })" class="text-xs text-red-500 hover:text-red-700 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 font-medium">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>កំណត់ឡើងវិញ</span>
       </button>
@@ -1069,12 +1072,12 @@
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm"></div>
 
   <!-- Scripts -->
-  <script src="js/data.js?v=2.0"></script>
-  <script src="js/tools.js?v=2.0"></script>
-  <script src="js/grades.js?v=2.0"></script>
-  <script src="js/curriculum-questions.js?v=2.0"></script>
-  <script src="js/math-games.js?v=2.0"></script>
-  <script src="js/app.js?v=2.0"></script>
+  <script src="js/data.js?v=2.2"></script>
+  <script src="js/tools.js?v=2.2"></script>
+  <script src="js/grades.js?v=2.2"></script>
+  <script src="js/curriculum-questions.js?v=2.2"></script>
+  <script src="js/math-games.js?v=2.2"></script>
+  <script src="js/app.js?v=2.2"></script>
 </body>
 </html>
 
