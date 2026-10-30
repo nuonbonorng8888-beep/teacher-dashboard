@@ -335,8 +335,19 @@ class MathGamesEngine {
     const feedbackBox = document.getElementById('blitzFeedbackBox');
     if (!feedbackBox) return;
     feedbackBox.innerHTML = `
-      <div class="p-4 rounded-2xl ${correct ? 'bg-green-50 text-green-800 border-green-200' : 'bg-red-50 text-red-800 border-red-200'} border text-center font-bold text-sm">
-        <div>${msg}</div>
+      <div class="p-5 rounded-2xl ${correct ? 'bg-green-50 text-green-800 border-green-200' : 'bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-200 border-2 border-red-200 dark:border-red-800'} border text-center font-bold text-sm shadow-sm">
+        ${correct ? `
+          <div class="w-16 h-16 mx-auto mb-2 bg-emerald-100 dark:bg-emerald-900/40 rounded-full flex items-center justify-center text-4xl shadow-sm animate-bounce">
+            🥳
+          </div>
+          <p class="text-xs text-emerald-600 dark:text-emerald-300 mb-1 font-bold">អស្ចារ្យណាស់! ឆ្លើយត្រឹមត្រូវ!</p>
+        ` : `
+          <div class="w-16 h-16 mx-auto mb-2 bg-red-100 dark:bg-red-900/40 rounded-full flex items-center justify-center text-4xl shadow-sm animate-bounce">
+            😭
+          </div>
+          <p class="text-xs text-red-600 dark:text-red-400 mb-1 font-bold">អូយ! ពិបាកចិត្តណាស់... ឆ្លើយខុសហើយ!</p>
+        `}
+        <div class="mt-2 text-slate-800 dark:text-slate-200">${msg}</div>
         <button id="btnBlitzNext" class="mt-3 block mx-auto px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow transition">
           សំណួរបន្ទាប់ ➔
         </button>
@@ -652,14 +663,19 @@ class MathGamesEngine {
       const finalPts = this.millionaireLevel >= 5 ? 5 : 0;
       setTimeout(() => {
         window.showStandardDialog({
-          title: '❌ ចម្លើយមិនត្រឹមត្រូវទេ!',
+          title: 'អូយ! ពិបាកចិត្តណាស់... ឆ្លើយខុសហើយ!',
           html: `
-            <div class="py-2 text-left">
-              <div class="p-3.5 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300 mb-3">
+            <div class="py-2 text-center">
+              <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+                <span class="text-6xl">😭</span>
+                <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!</p>
+              <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-700 dark:text-red-300 text-left">
                 <span class="font-bold">ចម្លើយត្រឹមត្រូវគឺ៖</span> ${this.formatMath(this.currentMillionaireQ.o[this.currentMillionaireQ.a])}
               </div>
-              <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
-                ពិន្ទុដែលទទួលបាន៖ <span class="text-purple-600 font-extrabold text-lg">${finalPts}</span> ពិន្ទុ
+              <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200 mt-2">
+                ពិន្ទុដែលទទួលបាន៖ <span class="text-purple-600 font-extrabold text-xl">${finalPts}</span> ពិន្ទុ
               </div>
             </div>
           `,
@@ -802,17 +818,22 @@ class MathGamesEngine {
 
         if (this.defenderLives <= 0) {
           window.showStandardDialog({
-            title: '💥 ខែលការពារត្រូវបានកម្ទេច!',
+            title: 'អូយ! ពិបាកចិត្តណាស់... ហ្គេមចប់ហើយ!',
             html: `
               <div class="py-2 text-center">
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី!</p>
-                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2">
+                <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+                  <span class="text-6xl">😭</span>
+                  <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
+                </div>
+                <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី!</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">កម្ទេចខែលការពារអស់ហើយ... កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!</p>
+                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2 shadow-sm">
                   <span>ពិន្ទុសរុប៖</span>
-                  <span class="text-amber-500">${this.defenderScore}</span>
+                  <span class="text-amber-500 font-extrabold">${this.defenderScore}</span>
                 </div>
               </div>
             `,
-            icon: 'info',
+            icon: 'error',
             confirmText: '🔄 លេងម្ដងទៀត',
             onConfirm: () => this.startDefenderGame()
           });
@@ -850,21 +871,35 @@ class MathGamesEngine {
 
       if (this.defenderLives <= 0) {
         window.showStandardDialog({
-          title: '💥 ហ្គេមត្រូវបានបញ្ចប់!',
+          title: 'អូយ! ពិបាកចិត្តណាស់... ហ្គេមចប់ហើយ!',
           html: `
             <div class="py-2 text-center">
-              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">ខែលការពារត្រូវបានកម្ទេចអស់ហើយ!</p>
-              <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2">
+              <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+                <span class="text-6xl">😭</span>
+                <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
+              </div>
+              <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">បាញ់ខុស! កម្ទេចខែលការពារអស់ហើយ!</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!</p>
+              <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2 shadow-sm">
                 <span>ពិន្ទុសរុប៖</span>
-                <span class="text-amber-500">${this.defenderScore}</span>
+                <span class="text-amber-500 font-extrabold">${this.defenderScore}</span>
               </div>
             </div>
           `,
-          icon: 'info',
+          icon: 'error',
           confirmText: '🔄 លេងម្ដងទៀត',
           onConfirm: () => this.startDefenderGame()
         });
       } else {
+        // Flash in arena: sad/crying indicator
+        const arena = document.getElementById('defenderArena');
+        if (arena) {
+          const sadBanner = document.createElement('div');
+          sadBanner.className = 'absolute top-3 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-2xl bg-red-600/90 text-white font-bold text-xs flex items-center gap-2 shadow-2xl z-20 animate-bounce';
+          sadBanner.innerHTML = '<span>😭</span> <span>អូយ! ឆ្លើយខុសហើយ... ពិបាកចិត្តណាស់! (-១ ជីវិត)</span>';
+          arena.appendChild(sadBanner);
+          setTimeout(() => sadBanner.remove(), 1200);
+        }
         setTimeout(() => this.nextDefenderWave(), 800);
       }
     }
