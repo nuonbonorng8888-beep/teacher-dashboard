@@ -579,16 +579,56 @@
             <p class="text-xs text-slate-500">ល្បែងអន្តរកម្មលើកទឹកចិត្តសិស្ស ជំរុញការគិតរហ័ស និងពង្រឹងរូបមន្តគណិតវិទ្យា</p>
           </div>
           <!-- Game Mode Selector Tabs -->
-          <div class="flex items-center gap-2 bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl">
-            <button id="tabBtn-blitz" onclick="window.mathGames.switchGameMode('blitz')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs bg-purple-600 text-white shadow transition">
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl">
+            <button id="tabBtn-blitz" onclick="window.mathGames.switchGameMode('blitz')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs bg-purple-600 text-white shadow transition">
               ⚡ គណិតរហ័ស
             </button>
-            <button id="tabBtn-match" onclick="window.mathGames.switchGameMode('match')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+            <button id="tabBtn-match" onclick="window.mathGames.switchGameMode('match')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
               🧩 ផ្គូផ្គងរូបមន្ត
             </button>
-            <button id="tabBtn-battle" onclick="window.mathGames.switchGameMode('battle')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+            <button id="tabBtn-battle" onclick="window.mathGames.switchGameMode('battle')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
               ⚔️ ប្រកួតជាក្រុម
             </button>
+            <button id="tabBtn-millionaire" onclick="window.mathGames.switchGameMode('millionaire')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+              🏆 សេដ្ឋីគណិត
+            </button>
+            <button id="tabBtn-defender" onclick="window.mathGames.switchGameMode('defender')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+              🚀 បាញ់អាចម៍ផ្កាយ
+            </button>
+          </div>
+        </div>
+
+        <!-- Grade & Curriculum Lesson Filter Toolbar -->
+        <div class="card-soft p-4 bg-purple-50/70 dark:bg-slate-800/80 border-purple-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3 flex-1">
+            <!-- Grade Select -->
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-purple-900 dark:text-purple-300 shrink-0">🎓 កម្រិតថ្នាក់៖</span>
+              <select id="filterGameGrade" class="px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+                <option value="all">🌟 គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)</option>
+                <option value="ថ្នាក់ទី ៧">ថ្នាក់ទី ៧ (៧៧០ សំណួរ)</option>
+                <option value="ថ្នាក់ទី ៨">ថ្នាក់ទី ៨ (៧៤០ សំណួរ)</option>
+                <option value="ថ្នាក់ទី ៩">ថ្នាក់ទី ៩ (៧៨០ សំណួរ)</option>
+                <option value="ថ្នាក់ទី ១០">ថ្នាក់ទី ១០ (៧៦០ សំណួរ)</option>
+                <option value="ថ្នាក់ទី ១១">ថ្នាក់ទី ១១ (១,៣២០ សំណួរ)</option>
+                <option value="ថ្នាក់ទី ១២">ថ្នាក់ទី ១២ (១,០៦០ សំណួរ)</option>
+              </select>
+            </div>
+
+            <!-- Lesson Select -->
+            <div class="flex items-center gap-2 flex-1 min-w-[200px]">
+              <span class="text-xs font-bold text-purple-900 dark:text-purple-300 shrink-0">📖 មេរៀន/ចំណុច៖</span>
+              <select id="filterGameLesson" class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-medium text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500 truncate">
+                <option value="all">📚 គ្រប់មេរៀនទាំងអស់</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Total Questions Count Badge -->
+          <div class="shrink-0">
+            <span id="filterQuestionCountBadge" class="px-3.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs shadow flex items-center gap-1.5">
+              🎯 មាន 5,470 សំណួរ
+            </span>
           </div>
         </div>
 
@@ -705,6 +745,106 @@
             </div>
           </div>
         </div>
+
+        <!-- MODE 4: MATH MILLIONAIRE (សេដ្ឋីគណិតវិទ្យា) -->
+        <div id="panel-millionaire" class="game-mode-panel hidden space-y-6">
+          <div class="card-soft p-6 md:p-8 bg-gradient-to-br from-amber-50/60 via-white to-purple-50/60 dark:from-slate-800 dark:via-slate-800 dark:to-amber-950/20">
+            <!-- Header & Lifelines -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-amber-200 dark:border-slate-700">
+              <div>
+                <h3 class="font-bold text-base md:text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>🏆 សេដ្ឋីគណិតវិទ្យា (Math Millionaire)</span>
+                </h3>
+                <span id="millionaireCurrentLvlText" class="text-xs text-amber-700 dark:text-amber-400 font-bold">សំណួរទី ១ (ប្រជែងយក ១ ពិន្ទុ)</span>
+              </div>
+
+              <!-- 3 Lifelines -->
+              <div class="flex items-center gap-2">
+                <button id="btnLife5050" onclick="window.mathGames.useLifeline5050()" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs shadow transition" title="លុបចោល ២ ចម្លើយខុស">
+                  50:50
+                </button>
+                <button id="btnLifeStudent" onclick="window.mathGames.useLifelineStudent()" class="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow transition" title="ហៅសិស្សក្នុងបញ្ជីវត្តមានជួយ">
+                  👥 ហៅសិស្សជួយ
+                </button>
+                <button id="btnLifeHint" onclick="window.mathGames.useLifelineHint()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow transition" title="មើលគន្លឹះដោះស្រាយ">
+                  💡 គន្លឹះដោះស្រាយ
+                </button>
+              </div>
+            </div>
+
+            <!-- Main Layout: Question on Left (3 cols), Ladder on Right (1 col) -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-6">
+              <div class="lg:col-span-3 space-y-6">
+                <!-- Question Card -->
+                <div class="p-6 md:p-8 bg-white dark:bg-slate-800/90 rounded-2xl border-2 border-amber-300 dark:border-amber-600 shadow-md text-center">
+                  <span class="text-xs uppercase tracking-widest text-amber-600 font-bold">សំណួរប្រឡងយកពិន្ទុ</span>
+                  <h3 id="millionaireQuestionText" class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white mt-2 leading-relaxed">
+                    កំពុងរៀបចំសំណួរ...
+                  </h3>
+                </div>
+
+                <!-- 4 Options -->
+                <div id="millionaireOptionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+              <!-- Ladder Steps -->
+              <div class="card-soft p-4 space-y-1.5 bg-white dark:bg-slate-800 border-amber-200 dark:border-slate-700">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 font-battambang text-center">ជណ្ដើរពិន្ទុ (Score Ladder)</h4>
+                <div id="millionaireLadder" class="space-y-1">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 5: SPACE MATH DEFENDER -->
+        <div id="panel-defender" class="game-mode-panel hidden space-y-6">
+          <div class="card-soft p-6 md:p-8 bg-slate-900 text-white relative overflow-hidden border-2 border-indigo-500 shadow-2xl">
+            <!-- Top Status -->
+            <div class="flex items-center justify-between pb-4 border-b border-indigo-800">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🚀</span>
+                <div>
+                  <h3 class="font-extrabold text-base text-white">បាញ់កម្ទេចអាចម៍ផ្កាយគណិត (Space Defender)</h3>
+                  <span class="text-xs text-indigo-300">គណនា និងបាញ់កម្ទេចអាចម៍ផ្កាយមុនពេលវាធ្លាក់មកដល់ដី!</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-6">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-indigo-300 font-bold">ខែលការពារ៖</span>
+                  <span id="defenderLivesText" class="text-lg">❤️❤️❤️</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-indigo-800/80 px-3.5 py-1.5 rounded-xl border border-indigo-600">
+                  <span class="text-xs text-indigo-200 font-bold">ពិន្ទុ៖</span>
+                  <span id="defenderScoreText" class="text-xl font-black text-amber-400">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Game Arena with descending Meteor -->
+            <div id="defenderArena" class="relative h-72 my-6 bg-slate-950/80 rounded-2xl border border-indigo-900 overflow-hidden flex items-center justify-center p-4">
+              <!-- Meteor Question Object -->
+              <div id="defenderMeteor" class="absolute w-11/12 max-w-lg p-5 rounded-2xl bg-gradient-to-r from-red-600 via-amber-600 to-orange-600 text-white shadow-2xl border-2 border-yellow-300 text-center transition-all duration-200" style="top: 10%;">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                  <span class="text-xl animate-spin">☄️</span>
+                  <span class="text-[11px] uppercase tracking-wider font-extrabold text-yellow-200">អាចម៍ផ្កាយគណិតវិទ្យា</span>
+                </div>
+                <div id="defenderQuestionContent" class="text-base md:text-lg font-black leading-snug">
+                  កំពុងទាញយក...
+                </div>
+              </div>
+            </div>
+
+            <!-- Defense Lasers / 4 Options -->
+            <div id="defenderOptionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- ==================== TAB: SETTINGS & BACKUP ==================== -->
@@ -932,6 +1072,7 @@
   <script src="js/data.js?v=2.0"></script>
   <script src="js/tools.js?v=2.0"></script>
   <script src="js/grades.js?v=2.0"></script>
+  <script src="js/curriculum-questions.js?v=2.0"></script>
   <script src="js/math-games.js?v=2.0"></script>
   <script src="js/app.js?v=2.0"></script>
 </body>
