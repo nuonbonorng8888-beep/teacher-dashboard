@@ -110,6 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window.mathGames) {
         window.mathGames.showBlitzStart();
       }
+    } else if (tabId === 'questionbank') {
+      if (window.questionBank) {
+        window.questionBank.init();
+      }
     } else if (tabId === 'settings') {
       loadSettingsForm();
     }
