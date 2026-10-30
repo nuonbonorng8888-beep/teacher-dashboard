@@ -404,8 +404,8 @@ class MathGamesEngine {
 
     let cards = [];
     selected.forEach(p => {
-      cards.push({ id: p.id, latex: p.left, type: 'left' });
-      cards.push({ id: p.id, latex: p.right, type: 'right' });
+      cards.push({ id: p.id, latex: p.left, type: 'left', target: p.right });
+      cards.push({ id: p.id, latex: p.right, type: 'right', target: p.left });
     });
 
     // Shuffle
@@ -414,7 +414,12 @@ class MathGamesEngine {
     container.innerHTML = cards.map((c, idx) => {
       const renderedLatex = this.renderLatex(c.latex, true);
       return `
-        <div class="match-card group relative h-32 cursor-pointer rounded-2xl border-2 border-purple-200 dark:border-purple-800 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-all duration-200 select-none overflow-hidden" data-id="${c.id}" data-idx="${idx}">
+        <div class="match-card group relative h-32 cursor-pointer rounded-2xl border-2 border-purple-200 dark:border-purple-800 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-all duration-200 select-none overflow-hidden" 
+             data-id="${c.id}" 
+             data-type="${c.type}"
+             data-val="${encodeURIComponent(c.latex)}" 
+             data-target="${encodeURIComponent(c.target)}"
+             data-idx="${idx}">
           <!-- Front Face (Unflipped) -->
           <div class="card-front absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-800 flex flex-col items-center justify-center text-white transition-all">
             <span class="text-3xl font-extrabold filter drop-shadow">❓</span>
@@ -448,9 +453,11 @@ class MathGamesEngine {
         if (!firstCard) {
           firstCard = card;
         } else {
-          // Compare
+          // Compare: True if identical ID OR mathematical equivalence (target matches value)
           lockBoard = true;
-          const isMatch = firstCard.dataset.id === card.dataset.id;
+          const isMatch = (firstCard.dataset.id === card.dataset.id) || 
+                          (firstCard.dataset.target && firstCard.dataset.target === card.dataset.val) ||
+                          (card.dataset.target && card.dataset.target === firstCard.dataset.val);
 
           if (isMatch) {
             this.playCorrectSound();
