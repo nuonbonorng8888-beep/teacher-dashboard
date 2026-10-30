@@ -10,7 +10,7 @@ const defaultData = {
     username: 'Bonorng11',
     role: 'គ្រូបង្រៀន',
     subject: 'គណិតវិទ្យា',
-    schoolName: 'វិទ្យាល័យព្រះស៊ីសុវត្ថិ សាលារៀនជំនាន់ថ្មី',
+    schoolName: 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី',
     academicYear: '២០២៦-២០២៧',
     phone: '012 345 678',
     email: 'bonorng@ngs.edu.kh',

@@ -539,7 +539,7 @@ class QuestionBankController {
       if (typeof window.showToast === 'function') {
         window.showToast('✅ បានចម្លងសំណួររួចរាល់!');
       } else {
-        alert('បានចម្លងសំណួររួចរាល់!');
+        window.showToast('✅ បានចម្លងសំណួររួចរាល់!');
       }
     });
   }
@@ -612,7 +612,7 @@ class QuestionBankController {
     const all = this.getAllQuestions();
     const picked = all.filter(q => this.selectedIds.has(q.id));
     if (picked.length === 0) {
-      alert('សូមជ្រើសរើសសំណួរយ៉ាងតិច ១ ជាមុនសិន!');
+      window.showStandardDialog({ title: '⚠️ សូមជ្រើសរើសសំណួរ', text: 'សូមជ្រើសរើសសំណួរយ៉ាងតិច ១ ជាមុនសិន!', icon: 'warning' });
       return;
     }
     this.openPrintPreview('កិច្ចការតេស្តគណិតវិទ្យា NGS (សំណួរដែលបានជ្រើស)', picked, true);
@@ -658,7 +658,7 @@ class QuestionBankController {
           <div class="text-left space-y-1">
             <p class="font-moul text-xs">ក្រសួងអប់រំ យុវជន និងកីឡា</p>
             <p class="font-bold text-xs text-purple-900">សាលារៀនជំនាន់ថ្មី (New Generation School)</p>
-            <p class="text-xs">វិទ្យាល័យព្រះស៊ីសុវត្ថិ • វិទ្យាល័យបឹងត្របែក</p>
+            <p class="text-xs">វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី</p>
             <p class="text-xs text-slate-600">គ្រូបង្រៀន៖ <strong>នួន បូណង (Bonorng11)</strong></p>
           </div>
           <div class="text-center space-y-0.5">
@@ -809,7 +809,7 @@ class QuestionBankController {
         const opt3 = document.getElementById('newQOpt3')?.value?.trim() || '';
 
         if (!qText || !opt0 || !opt1) {
-          alert('សូមបញ្ចូលខ្លឹមសារសំណួរ និងជម្រើសចម្លើយឱ្យបានគ្រប់គ្រាន់!');
+          window.showStandardDialog({ title: '⚠️ ព័ត៌មានមិនទាន់គ្រប់គ្រាន់', text: 'សូមបញ្ចូលខ្លឹមសារសំណួរ និងជម្រើសចម្លើយឱ្យបានគ្រប់គ្រាន់!', icon: 'warning' });
           return;
         }
 
@@ -866,7 +866,7 @@ class QuestionBankController {
         if (fileInput && fileInput.files && fileInput.files[0]) {
           this.handleExcelFile(fileInput.files[0]);
         } else {
-          alert('សូមជ្រើសរើសឯកសារ Excel មួយជាមុនសិន!');
+          window.showStandardDialog({ title: '⚠️ មិនទាន់មានឯកសារ', text: 'សូមជ្រើសរើសឯកសារ Excel មួយជាមុនសិន!', icon: 'warning' });
         }
       }
     });
@@ -936,9 +936,9 @@ class QuestionBankController {
         this.saveCustomQuestions();
         this.renderGradeChips();
         this.renderQuestions();
-        alert(`✅ បាននាំចូលជោគជ័យ ${importedCount} សំណួរ!`);
+        window.showStandardDialog({ title: '✅ នាំចូលជោគជ័យ', text: `បាននាំចូលជោគជ័យ ${importedCount} សំណួរ!`, icon: 'success' });
       } catch (err) {
-        alert('មានបញ្ហាក្នុងការអានឯកសារ Excel: ' + err.message);
+        window.showStandardDialog({ title: '❌ បរាជ័យក្នុងការអានឯកសារ', text: 'មានបញ្ហាក្នុងការអានឯកសារ Excel: ' + err.message, icon: 'error' });
       }
     };
     reader.readAsArrayBuffer(file);

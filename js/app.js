@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const p = window.appStore.data.profile;
     if (userDisplayNameEl) userDisplayNameEl.textContent = p.name || 'នួន បូណង';
     if (userRoleEl) userRoleEl.textContent = p.role || 'គ្រូបង្រៀន';
-    if (schoolTitleEl) schoolTitleEl.textContent = p.schoolName || 'វិទ្យាល័យព្រះស៊ីសុវត្ថិ សាលារៀនជំនាន់ថ្មី';
+    if (schoolTitleEl) schoolTitleEl.textContent = p.schoolName || 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
     if (academicYearEl) academicYearEl.textContent = `ឆ្នាំសិក្សា ${p.academicYear || '២០២៦-២០២៧'}`;
     
     const bannerName = document.getElementById('bannerTeacherName');

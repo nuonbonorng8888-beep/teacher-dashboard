@@ -1,5 +1,6 @@
 /**
- * NGS Interactive Math Games Engine with Curriculum Database (5,470 Questions)
+ * NGS Interactive Math Games Engine (សាលារៀនជំនាន់ថ្មី - វិទ្យាល័យព្រះយុគន្ធរ)
+ * Standardized Educational Math Games with Full Curriculum Integration (5,470 Questions)
  * Filterable by Grade (7, 8, 9, 10, 11, 12) and Lesson / Topic
  * Specially Crafted for Teacher Nuon Bonorng (Bonorng11)
  */
@@ -9,7 +10,7 @@ class MathGamesEngine {
     this.audioCtx = null;
     this.selectedGrade = 'all';
     this.selectedLesson = 'all';
-    
+
     // Blitz State
     this.blitzDuration = 15;
     this.blitzScore = 0;
@@ -19,7 +20,19 @@ class MathGamesEngine {
     this.blitzPaused = false;
     this.currentBlitzQ = null;
 
+    // Formula Match State
+    this.matchPairsCount = 6;
+    this.matchDuration = 0; // 0 = free
+    this.matchTimer = null;
+    this.matchTimeLeft = 0;
+    this.matchMoves = 0;
+    this.matchMatchedCount = 0;
+
     // Team Battle State
+    this.battleTargetScore = 50;
+    this.battleTurnDuration = 30; // 0 = free
+    this.battleTimer = null;
+    this.battleTimeLeft = 30;
     this.teamAScore = 0;
     this.teamBScore = 0;
     this.activeTeam = 'A';
@@ -27,14 +40,17 @@ class MathGamesEngine {
 
     // Millionaire State
     this.millionaireLevel = 1;
+    this.millionaireDuration = 0; // 0 = free
+    this.millionaireTimer = null;
+    this.millionaireTimeLeft = 0;
     this.currentMillionaireQ = null;
     this.lifeline5050Used = false;
     this.lifelineStudentUsed = false;
     this.lifelineHintUsed = false;
 
     // Space Defender State
-    this.defenderDuration = 30; // seconds to drop per question
-    this.defenderCustomLives = 3; // 3, 5, or 999
+    this.defenderDuration = 30;
+    this.defenderCustomLives = 3;
     this.defenderScore = 0;
     this.defenderLives = 3;
     this.defenderTimer = null;
@@ -42,21 +58,40 @@ class MathGamesEngine {
     this.defenderPaused = false;
     this.currentDefenderQ = null;
 
-    // Fallback core formula pairs for Memory Match (Guaranteed 100% Unique)
-    this.formulaPairs = [
-      { id: 1, left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
-      { id: 2, left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
-      { id: 3, left: "a^2 - b^2", right: "(a - b)(a + b)" },
-      { id: 4, left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
-      { id: 5, left: "\\frac{d}{dx}[x^n]", right: "n \\cdot x^{n-1}" },
-      { id: 6, left: "\\frac{d}{dx}[\\sin(x)]", right: "\\cos(x)" },
-      { id: 7, left: "i^2", right: "-1" },
-      { id: 8, left: "\\log(a \\cdot b)", right: "\\log(a) + \\log(b)" },
-      { id: 9, left: "\\int 2x\\,dx", right: "x^2 + C" },
-      { id: 10, left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
-      { id: 11, left: "\\lim_{x \\to +\\infty} \\frac{1}{x}", right: "0" },
-      { id: 12, left: "\\frac{d}{dx}[e^x]", right: "e^x" }
-    ];
+    // Comprehensive Grade-Specific Formula Packs (100% Unique Left & Right)
+    this.formulaPacks = {
+      lowerSecondary: [
+        { id: 'm_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'm_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'm_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
+        { id: 'm_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
+        { id: 'm_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'm_6', left: "(a^m)^n", right: "a^{m \\cdot n}" },
+        { id: 'm_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
+        { id: 'm_8', left: "c^2 \\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'm_9', left: "S_\\triangle", right: "\\frac{1}{2} b \\cdot h" },
+        { id: 'm_10', left: "S_\\circ", right: "\\pi R^2" },
+        { id: 'm_11', left: "P_\\circ", right: "2\\pi R" },
+        { id: 'm_12', left: "\\Delta", right: "b^2 - 4ac" }
+      ],
+      upperSecondary: [
+        { id: 'u_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
+        { id: 'u_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
+        { id: 'u_3', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
+        { id: 'u_4', left: "(x^n)'", right: "n \\cdot x^{n-1}" },
+        { id: 'u_5', left: "(\\sin x)'", right: "\\cos(x)" },
+        { id: 'u_6', left: "(\\cos x)'", right: "-\\sin(x)" },
+        { id: 'u_7', left: "(e^x)'", right: "e^x" },
+        { id: 'u_8', left: "(\\ln x)'", right: "\\frac{1}{x}" },
+        { id: 'u_9', left: "i^2", right: "-1" },
+        { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
+        { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
+        { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
+        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
+        { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
+        { id: 'u_15', left: "u_n \\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" }
+      ]
+    };
 
     // Fallback starter questions
     this.fallbackQuestions = [
@@ -128,13 +163,12 @@ class MathGamesEngine {
     if (!lessonSelect) return;
 
     if (!window.MATH_DATABASE || !window.MATH_DATABASE.grades) {
-      lessonSelect.innerHTML = `<option value="all">គ្រប់មេរៀនទាំងអស់</option>`;
+      lessonSelect.innerHTML = `<option value="all">📚 គ្រប់មេរៀនទាំងអស់</option>`;
       return;
     }
 
     let lessons = [];
     if (this.selectedGrade === 'all') {
-      // Collect all lessons across all grades
       const allLessons = new Set();
       Object.values(window.MATH_DATABASE.grades).forEach(arr => arr.forEach(l => allLessons.add(l)));
       lessons = Array.from(allLessons).sort();
@@ -155,36 +189,41 @@ class MathGamesEngine {
       const questions = this.getFilteredQuestions();
       badge.textContent = `🎯 មាន ${questions.length} សំណួរ`;
     }
-    this.updateActiveTopicLabels();
-  }
-
-  updateActiveTopicLabels() {
-    const lbl = document.getElementById('defenderActiveTopicLabel');
-    if (lbl) {
-      const gText = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)' : this.selectedGrade;
-      const lText = this.selectedLesson === 'all' ? 'គ្រប់មេរៀនទាំងអស់' : this.selectedLesson;
-      lbl.textContent = `${gText} • ${lText}`;
-    }
   }
 
   /* ================== LATEX & AUDIO HELPERS ================== */
   formatMath(text) {
     if (!text) return '';
     if (typeof katex === 'undefined') return text;
-    return text.replace(/\$([^\$]+)\$/g, (match, formula) => {
+
+    // Render explicit $...$
+    if (text.includes('$')) {
+      return text.replace(/\$([^\$]+)\$/g, (match, formula) => {
+        try {
+          return katex.renderToString(formula.trim(), { throwOnError: false, displayMode: false });
+        } catch (e) {
+          return formula;
+        }
+      });
+    }
+
+    // Auto-detect math formulas or LaTeX commands without $
+    const hasMathMacro = /\\(frac|lim|sqrt|sin|cos|tan|log|ln|int|pm|times|div|le|ge|neq|alpha|beta|theta|pi|infty|vec|sum|to)/.test(text);
+    if (hasMathMacro) {
       try {
-        return katex.renderToString(formula.trim(), { throwOnError: false, displayMode: false });
-      } catch (e) {
-        return formula;
-      }
-    });
+        return katex.renderToString(text.trim(), { throwOnError: false, displayMode: false });
+      } catch (e) {}
+    }
+
+    return text;
   }
 
   renderLatex(formula, displayMode = false) {
     if (!formula) return '';
     if (typeof katex === 'undefined') return formula;
+    const cleanFormula = formula.replace(/^\$|\$$/g, '').trim();
     try {
-      return katex.renderToString(formula, { throwOnError: false, displayMode: displayMode });
+      return katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
     } catch (e) {
       return formula;
     }
@@ -237,8 +276,7 @@ class MathGamesEngine {
 
   /* ================== NAVIGATION & GAME SWITCHER ================== */
   switchGameMode(mode) {
-    clearInterval(this.blitzTimer);
-    clearInterval(this.defenderTimer);
+    this.clearAllTimers();
 
     document.querySelectorAll('.game-mode-panel').forEach(p => p.classList.add('hidden'));
     document.querySelectorAll('.game-tab-btn').forEach(btn => {
@@ -255,11 +293,20 @@ class MathGamesEngine {
     const panel = document.getElementById(`panel-${mode}`);
     if (panel) panel.classList.remove('hidden');
 
+    // Standard behavior: show Start screen for selected game
     if (mode === 'blitz') this.showBlitzStart();
-    else if (mode === 'match') this.initFormulaMatch();
-    else if (mode === 'battle') this.initTeamBattle();
-    else if (mode === 'millionaire') this.startMillionaireGame();
+    else if (mode === 'match') this.showMatchStart();
+    else if (mode === 'battle') this.showBattleStart();
+    else if (mode === 'millionaire') this.showMillionaireStart();
     else if (mode === 'defender') this.showDefenderStart();
+  }
+
+  clearAllTimers() {
+    clearInterval(this.blitzTimer);
+    clearInterval(this.matchTimer);
+    clearInterval(this.battleTimer);
+    clearInterval(this.millionaireTimer);
+    clearInterval(this.defenderTimer);
   }
 
   /* ================== GAME 1: MATH SPEED BLITZ ================== */
@@ -345,6 +392,9 @@ class MathGamesEngine {
     const pauseBtn = document.getElementById('btnPauseBlitz');
     if (pauseBtn) pauseBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>ផ្អាក</span>`;
 
+    const feedbackBox = document.getElementById('blitzFeedbackBox');
+    if (feedbackBox) feedbackBox.classList.add('hidden');
+
     const pool = this.getFilteredQuestions();
     const randomIndex = Math.floor(Math.random() * pool.length);
     this.currentBlitzQ = pool[randomIndex];
@@ -375,7 +425,7 @@ class MathGamesEngine {
 
       document.querySelectorAll('.blitz-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const selected = parseInt(btn.dataset.idx);
+          const selected = parseInt(btn.dataset.idx, 10);
           this.handleBlitzAnswer(selected, btn);
         });
       });
@@ -417,7 +467,7 @@ class MathGamesEngine {
         confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
       }
       this.updateBlitzUI();
-      setTimeout(() => this.nextBlitzQuestion(), 1200);
+      setTimeout(() => this.nextBlitzQuestion(), 1000);
     } else {
       clickedBtn.classList.remove('bg-white', 'border-slate-200');
       clickedBtn.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
@@ -465,21 +515,132 @@ class MathGamesEngine {
   }
 
   /* ================== GAME 2: FORMULA MEMORY MATCH ================== */
+  showMatchStart() {
+    clearInterval(this.matchTimer);
+    const startView = document.getElementById('matchStartView');
+    const gameView = document.getElementById('matchGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+  }
+
+  initMatchControls() {
+    // Grid Size Preset buttons
+    document.querySelectorAll('.match-size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.match-size-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-size-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-size-btn');
+
+        this.matchPairsCount = parseInt(btn.dataset.pairs, 10);
+      });
+    });
+
+    // Timer challenge buttons
+    document.querySelectorAll('.match-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.match-time-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-time-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-time-btn');
+
+        this.matchDuration = parseInt(btn.dataset.time, 10);
+      });
+    });
+  }
+
+  getFormulaPackForCurrentGrade() {
+    const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(this.selectedGrade);
+    const pack = isLower ? this.formulaPacks.lowerSecondary : this.formulaPacks.upperSecondary;
+    return [...pack];
+  }
+
+  startMatchGame() {
+    const startView = document.getElementById('matchStartView');
+    const gameView = document.getElementById('matchGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
+    this.matchMoves = 0;
+    this.matchMatchedCount = 0;
+    this.updateMatchStatsUI();
+    this.initFormulaMatch();
+
+    // Handle timer
+    clearInterval(this.matchTimer);
+    const timerContainer = document.getElementById('matchTimerContainer');
+    const timerText = document.getElementById('matchTimerText');
+
+    if (this.matchDuration > 0) {
+      if (timerContainer) timerContainer.classList.remove('hidden');
+      this.matchTimeLeft = this.matchDuration;
+      if (timerText) timerText.textContent = `${this.matchTimeLeft}s`;
+
+      this.matchTimer = setInterval(() => {
+        this.matchTimeLeft--;
+        if (timerText) timerText.textContent = `${this.matchTimeLeft}s`;
+
+        if (this.matchTimeLeft <= 0) {
+          clearInterval(this.matchTimer);
+          this.playWrongSound();
+          window.showStandardDialog({
+            title: '😭 អូយ! អស់ពេលហើយ... ពិបាកចិត្តណាស់!',
+            html: `
+              <div class="py-2 text-center">
+                <div class="w-20 h-20 mx-auto mb-3 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center text-5xl animate-bounce">
+                  😭
+                </div>
+                <p class="text-xs text-slate-500 mb-2">ពេលវេលាកំណត់បានបញ្ចប់ហើយ!</p>
+                <div class="text-sm font-bold text-slate-700 dark:text-slate-200">
+                  ផ្គូផ្គងបាន៖ <strong class="text-purple-600">${this.matchMatchedCount}</strong> នៃ <strong>${this.matchPairsCount}</strong> គូ
+                </div>
+              </div>
+            `,
+            icon: 'error',
+            confirmText: '🔄 សាកល្បងម្ដងទៀត',
+            onConfirm: () => this.startMatchGame()
+          });
+        }
+      }, 1000);
+    } else {
+      if (timerContainer) timerContainer.classList.add('hidden');
+    }
+  }
+
+  updateMatchStatsUI() {
+    const movesEl = document.getElementById('matchMovesText');
+    const pairsEl = document.getElementById('matchPairsText');
+    const badgeEl = document.getElementById('matchGradeBadge');
+
+    if (movesEl) movesEl.textContent = this.matchMoves;
+    if (pairsEl) pairsEl.textContent = `${this.matchMatchedCount}/${this.matchPairsCount}`;
+    if (badgeEl) {
+      badgeEl.textContent = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់' : this.selectedGrade;
+    }
+  }
+
   initFormulaMatch() {
     const container = document.getElementById('formulaMatchGrid');
     if (!container) return;
 
-    const shuffledPairs = [...this.formulaPairs].sort(() => Math.random() - 0.5);
-    const selected = [];
-    const usedRights = new Set();
-    const usedLefts = new Set();
+    const pack = this.getFormulaPackForCurrentGrade();
+    pack.sort(() => Math.random() - 0.5);
 
-    for (const p of shuffledPairs) {
-      if (!usedRights.has(p.right) && !usedLefts.has(p.left)) {
+    // Pick pairs ensuring 100% unique left and right values
+    const selected = [];
+    const usedLefts = new Set();
+    const usedRights = new Set();
+
+    for (const p of pack) {
+      if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
         selected.push(p);
-        usedRights.add(p.right);
         usedLefts.add(p.left);
-        if (selected.length === 6) break;
+        usedRights.add(p.right);
+        if (selected.length === this.matchPairsCount) break;
       }
     }
 
@@ -513,7 +674,6 @@ class MathGamesEngine {
 
     let firstCard = null;
     let lockBoard = false;
-    let matchedCount = 0;
 
     document.querySelectorAll('.match-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -530,6 +690,9 @@ class MathGamesEngine {
           firstCard = card;
         } else {
           lockBoard = true;
+          this.matchMoves++;
+          this.updateMatchStatsUI();
+
           const isMatch = (firstCard.dataset.id === card.dataset.id) || 
                           (firstCard.dataset.target && firstCard.dataset.target === card.dataset.val) ||
                           (card.dataset.target && card.dataset.target === firstCard.dataset.val);
@@ -544,22 +707,29 @@ class MathGamesEngine {
 
             firstCard = null;
             lockBoard = false;
-            matchedCount++;
+            this.matchMatchedCount++;
+            this.updateMatchStatsUI();
 
-            if (matchedCount === 6) {
+            if (this.matchMatchedCount === this.matchPairsCount) {
+              clearInterval(this.matchTimer);
               this.playVictoryFanfare();
               setTimeout(() => {
                 window.showStandardDialog({
-                  title: '🎉 អបអរសាទរ!',
+                  title: '🎉 អបអរសាទរ! ផ្គូផ្គងបានជោគជ័យ!',
                   html: `
                     <div class="py-2 text-center">
+                      <div class="text-5xl mb-2">⭐⭐⭐</div>
                       <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400">សិស្សានុសិស្សបានផ្គូផ្គងរូបមន្តគណិតវិទ្យាបានត្រឹមត្រូវទាំងអស់!</p>
-                      <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">យល់ដឹងច្បាស់លាស់ពីរូបមន្តគណិតវិទ្យា NGS ✨</p>
+                      <div class="my-3 p-3 rounded-2xl bg-purple-50 dark:bg-slate-700 text-xs text-purple-900 dark:text-purple-200 font-bold">
+                        <div>ចំនួនបើកសរុប៖ <strong>${this.matchMoves}</strong> ដង</div>
+                        ${this.matchDuration > 0 ? `<div>ពេលនៅសល់៖ <strong>${this.matchTimeLeft} វិ.</strong></div>` : ''}
+                      </div>
+                      <p class="text-xs text-slate-500">ស្ទាត់ជំនាញ និងយល់ដឹងច្បាស់លាស់ពីរូបមន្តគណិតវិទ្យា NGS ✨</p>
                     </div>
                   `,
                   icon: 'success',
                   confirmText: '🔄 លេងវគ្គថ្មី',
-                  onConfirm: () => this.initFormulaMatch()
+                  onConfirm: () => this.startMatchGame()
                 });
               }, 400);
             }
@@ -574,7 +744,7 @@ class MathGamesEngine {
               });
               firstCard = null;
               lockBoard = false;
-            }, 1000);
+            }, 900);
           }
         }
       });
@@ -582,10 +752,57 @@ class MathGamesEngine {
   }
 
   /* ================== GAME 3: TEAM BATTLE (RED VS BLUE) ================== */
-  initTeamBattle() {
+  showBattleStart() {
+    clearInterval(this.battleTimer);
+    const startView = document.getElementById('battleStartView');
+    const gameView = document.getElementById('battleGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+  }
+
+  initBattleControls() {
+    // Target score presets
+    document.querySelectorAll('.battle-target-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.battle-target-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-battle-target-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-battle-target-btn');
+
+        this.battleTargetScore = parseInt(btn.dataset.target, 10);
+      });
+    });
+
+    // Time per turn presets
+    document.querySelectorAll('.battle-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.battle-time-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-battle-time-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-battle-time-btn');
+
+        this.battleTurnDuration = parseInt(btn.dataset.seconds, 10);
+      });
+    });
+  }
+
+  startBattleGame() {
+    const startView = document.getElementById('battleStartView');
+    const gameView = document.getElementById('battleGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
     this.teamAScore = 0;
     this.teamBScore = 0;
     this.activeTeam = 'A';
+
+    const targetEl = document.getElementById('battleTargetDisplay');
+    if (targetEl) targetEl.textContent = `${this.battleTargetScore} ពិន្ទុ`;
+
     this.updateBattleUI();
     this.nextBattleQuestion();
   }
@@ -594,17 +811,31 @@ class MathGamesEngine {
     const aScore = document.getElementById('battleScoreTeamA');
     const bScore = document.getElementById('battleScoreTeamB');
     const turnEl = document.getElementById('battleActiveTurn');
+    const boxA = document.getElementById('battleTeamABox');
+    const boxB = document.getElementById('battleTeamBBox');
 
     if (aScore) aScore.textContent = this.teamAScore;
     if (bScore) bScore.textContent = this.teamBScore;
+
     if (turnEl) {
       turnEl.innerHTML = this.activeTeam === 'A' ? 
-        `<span class="px-4 py-1.5 rounded-full bg-red-100 text-red-700 font-bold text-xs shadow-sm">វេនក្រុមទី ១ (ក្រុមក្រហម) 🔴</span>` :
-        `<span class="px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-bold text-xs shadow-sm">វេនក្រុមទី ២ (ក្រុមខៀវ) 🔵</span>`;
+        `<span class="px-4 py-1.5 rounded-full bg-red-100 text-red-700 font-bold text-xs shadow-sm ring-2 ring-red-400 animate-pulse">វេនក្រុមទី ១ (ក្រុមក្រហម) 🔴</span>` :
+        `<span class="px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-bold text-xs shadow-sm ring-2 ring-blue-400 animate-pulse">វេនក្រុមទី ២ (ក្រុមខៀវ) 🔵</span>`;
+    }
+
+    if (boxA && boxB) {
+      if (this.activeTeam === 'A') {
+        boxA.classList.add('ring-4', 'ring-red-400', 'scale-105');
+        boxB.classList.remove('ring-4', 'ring-blue-400', 'scale-105');
+      } else {
+        boxB.classList.add('ring-4', 'ring-blue-400', 'scale-105');
+        boxA.classList.remove('ring-4', 'ring-red-400', 'scale-105');
+      }
     }
   }
 
   nextBattleQuestion() {
+    clearInterval(this.battleTimer);
     const pool = this.getFilteredQuestions();
     const randomIndex = Math.floor(Math.random() * pool.length);
     const q = pool[randomIndex];
@@ -614,6 +845,37 @@ class MathGamesEngine {
     const optContainer = document.getElementById('battleOptionsContainer');
 
     if (qEl) qEl.innerHTML = this.formatMath(q.q);
+
+    // Setup turn timer
+    const timerWrapper = document.getElementById('battleTimerWrapper');
+    const timerText = document.getElementById('battleTimerText');
+    const timerBar = document.getElementById('battleTimerBar');
+
+    if (this.battleTurnDuration > 0) {
+      if (timerWrapper) timerWrapper.classList.remove('hidden');
+      this.battleTimeLeft = this.battleTurnDuration;
+      if (timerText) timerText.textContent = `${this.battleTimeLeft}s`;
+      if (timerBar) {
+        timerBar.style.width = '100%';
+        timerBar.className = this.activeTeam === 'A' ? 'h-full bg-red-500 rounded-full transition-all duration-1000' : 'h-full bg-blue-500 rounded-full transition-all duration-1000';
+      }
+
+      this.battleTimer = setInterval(() => {
+        this.battleTimeLeft--;
+        if (timerText) timerText.textContent = `${this.battleTimeLeft}s`;
+        if (timerBar) {
+          const pct = (this.battleTimeLeft / this.battleTurnDuration) * 100;
+          timerBar.style.width = `${Math.max(0, pct)}%`;
+        }
+
+        if (this.battleTimeLeft <= 0) {
+          clearInterval(this.battleTimer);
+          this.handleBattleTimeout();
+        }
+      }, 1000);
+    } else {
+      if (timerWrapper) timerWrapper.classList.add('hidden');
+    }
 
     if (optContainer) {
       optContainer.innerHTML = q.o.map((opt, idx) => `
@@ -625,26 +887,164 @@ class MathGamesEngine {
 
       document.querySelectorAll('.battle-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const selected = parseInt(btn.dataset.idx);
-          if (selected === q.a) {
-            this.playCorrectSound();
-            if (this.activeTeam === 'A') this.teamAScore += 10;
-            else this.teamBScore += 10;
-            if (typeof confetti === 'function') confetti({ particleCount: 60, spread: 70 });
-          } else {
-            this.playWrongSound();
-          }
-
-          this.activeTeam = this.activeTeam === 'A' ? 'B' : 'A';
-          this.updateBattleUI();
-          setTimeout(() => this.nextBattleQuestion(), 1000);
+          const selected = parseInt(btn.dataset.idx, 10);
+          this.handleBattleAnswer(selected, btn);
         });
       });
     }
   }
 
+  handleBattleAnswer(selectedIdx, clickedBtn) {
+    clearInterval(this.battleTimer);
+    document.querySelectorAll('.battle-opt-btn').forEach(btn => btn.disabled = true);
+
+    const isCorrect = selectedIdx === this.currentBattleQ.a;
+    const currentTeamName = this.activeTeam === 'A' ? 'ក្រុមទី ១ (ក្រុមក្រហម 🔴)' : 'ក្រុមទី ២ (ក្រុមខៀវ 🔵)';
+    const nextTeamName = this.activeTeam === 'A' ? 'ក្រុមទី ២ (ក្រុមខៀវ 🔵)' : 'ក្រុមទី ១ (ក្រុមក្រហម 🔴)';
+
+    if (isCorrect) {
+      clickedBtn.classList.remove('bg-white', 'border-slate-200');
+      clickedBtn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+      this.playCorrectSound();
+
+      if (this.activeTeam === 'A') this.teamAScore += 10;
+      else this.teamBScore += 10;
+
+      if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 80 });
+      this.updateBattleUI();
+
+      // Check for winning score
+      const currentScore = this.activeTeam === 'A' ? this.teamAScore : this.teamBScore;
+      if (currentScore >= this.battleTargetScore) {
+        this.playVictoryFanfare();
+        setTimeout(() => {
+          window.showStandardDialog({
+            title: '🏆 អបអរសាទរជើងឯក!',
+            html: `
+              <div class="py-2 text-center">
+                <div class="text-6xl mb-2 animate-bounce">🏆</div>
+                <h3 class="text-lg font-black ${this.activeTeam === 'A' ? 'text-red-600' : 'text-blue-600'} mb-2">
+                  ${currentTeamName} បានទទួលជ័យជម្នះ!
+                </h3>
+                <p class="text-xs text-slate-500 mb-3">បានសម្រេចពិន្ទុគោលដៅ ${this.battleTargetScore} ពិន្ទុមុនគេ!</p>
+                <div class="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-700 text-xs font-bold">
+                  <div>ក្រុមក្រហម៖ <strong class="text-red-600 text-sm">${this.teamAScore}</strong> ពិន្ទុ</div>
+                  <div>ក្រុមខៀវ៖ <strong class="text-blue-600 text-sm">${this.teamBScore}</strong> ពិន្ទុ</div>
+                </div>
+              </div>
+            `,
+            icon: 'success',
+            confirmText: '🔄 ប្រកួតឡើងវិញ',
+            onConfirm: () => this.startBattleGame()
+          });
+        }, 500);
+        return;
+      }
+
+      this.activeTeam = this.activeTeam === 'A' ? 'B' : 'A';
+      this.updateBattleUI();
+      setTimeout(() => this.nextBattleQuestion(), 1100);
+    } else {
+      clickedBtn.classList.remove('bg-white', 'border-slate-200');
+      clickedBtn.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+      this.playWrongSound();
+
+      // Highlight correct option
+      document.querySelectorAll('.battle-opt-btn').forEach(b => {
+        if (parseInt(b.dataset.idx, 10) === this.currentBattleQ.a) {
+          b.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+        }
+      });
+
+      const correctText = this.formatMath(this.currentBattleQ.o[this.currentBattleQ.a]);
+      const expText = this.currentBattleQ.e ? this.formatMath(this.currentBattleQ.e) : '';
+
+      setTimeout(() => {
+        window.showStandardDialog({
+          title: '😭 អូយ! ឆ្លើយខុសហើយ... ពិបាកចិត្តណាស់!',
+          html: `
+            <div class="py-2 text-center">
+              <div class="w-20 h-20 mx-auto mb-2 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center text-5xl animate-bounce">
+                😭
+              </div>
+              <h4 class="text-sm font-bold text-red-600 mb-1">${currentTeamName} ឆ្លើយមិនត្រឹមត្រូវទេ!</h4>
+              <div class="p-3 my-2 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 text-xs text-left">
+                <div>✅ ចម្លើយត្រឹមត្រូវគឺ៖ <strong class="text-emerald-600 text-sm">${correctText}</strong></div>
+                ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-200/60 text-slate-600 dark:text-slate-300 text-[11px]">${expText}</div>` : ''}
+              </div>
+              <p class="text-xs text-purple-600 font-bold mt-2">វេនបន្ទាប់៖ ${nextTeamName}</p>
+            </div>
+          `,
+          icon: 'error',
+          confirmText: '👉 បន្តទៅវេនបន្ទាប់',
+          onConfirm: () => {
+            this.activeTeam = this.activeTeam === 'A' ? 'B' : 'A';
+            this.updateBattleUI();
+            this.nextBattleQuestion();
+          }
+        });
+      }, 500);
+    }
+  }
+
+  handleBattleTimeout() {
+    this.playWrongSound();
+    const currentTeamName = this.activeTeam === 'A' ? 'ក្រុមទី ១ (ក្រុមក្រហម 🔴)' : 'ក្រុមទី ២ (ក្រុមខៀវ 🔵)';
+    const nextTeamName = this.activeTeam === 'A' ? 'ក្រុមទី ២ (ក្រុមខៀវ 🔵)' : 'ក្រុមទី ១ (ក្រុមក្រហម 🔴)';
+    const correctText = this.formatMath(this.currentBattleQ.o[this.currentBattleQ.a]);
+
+    window.showStandardDialog({
+      title: '😭 អូយ! អស់ពេលហើយ... ពិបាកចិត្តណាស់!',
+      html: `
+        <div class="py-2 text-center">
+          <div class="w-20 h-20 mx-auto mb-2 bg-red-100 dark:bg-red-950/50 rounded-full flex items-center justify-center text-5xl animate-bounce">
+            😭
+          </div>
+          <h4 class="text-sm font-bold text-red-600 mb-1">${currentTeamName} បានអស់ពេលហើយ!</h4>
+          <p class="text-xs text-slate-500 mb-2">ចម្លើយត្រឹមត្រូវគឺ៖ <strong class="text-emerald-600">${correctText}</strong></p>
+          <p class="text-xs text-purple-600 font-bold">វេនបន្ទាប់៖ ${nextTeamName}</p>
+        </div>
+      `,
+      icon: 'error',
+      confirmText: '👉 ផ្ទេរវេនទៅក្រុមបន្ទាប់',
+      onConfirm: () => {
+        this.activeTeam = this.activeTeam === 'A' ? 'B' : 'A';
+        this.updateBattleUI();
+        this.nextBattleQuestion();
+      }
+    });
+  }
+
   /* ================== GAME 4: MATH MILLIONAIRE (សេដ្ឋីគណិតវិទ្យា) ================== */
+  showMillionaireStart() {
+    clearInterval(this.millionaireTimer);
+    const startView = document.getElementById('millionaireStartView');
+    const gameView = document.getElementById('millionaireGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+  }
+
+  initMillionaireControls() {
+    document.querySelectorAll('.millionaire-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.millionaire-time-btn').forEach(b => {
+          b.classList.remove('bg-amber-500', 'border-amber-400', 'text-slate-950', 'active-millionaire-time-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-amber-500', 'border-amber-400', 'text-slate-950', 'active-millionaire-time-btn');
+
+        this.millionaireDuration = parseInt(btn.dataset.seconds, 10);
+      });
+    });
+  }
+
   startMillionaireGame() {
+    const startView = document.getElementById('millionaireStartView');
+    const gameView = document.getElementById('millionaireGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
     this.millionaireLevel = 1;
     this.lifeline5050Used = false;
     this.lifelineStudentUsed = false;
@@ -690,7 +1090,7 @@ class MathGamesEngine {
 
     if (btn5050) { btn5050.disabled = false; btn5050.classList.remove('opacity-40', 'line-through'); }
     if (btnStudent) { btnStudent.disabled = false; btnStudent.classList.remove('opacity-40', 'line-through'); }
-    if (btnHint) { btnHint.disabled = false; btnHint.classList.remove('opacity-40', 'line-hint'); }
+    if (btnHint) { btnHint.disabled = false; btnHint.classList.remove('opacity-40', 'line-through'); }
   }
 
   nextMillionaireQuestion() {
@@ -717,7 +1117,7 @@ class MathGamesEngine {
 
       document.querySelectorAll('.millionaire-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const selected = parseInt(btn.dataset.idx);
+          const selected = parseInt(btn.dataset.idx, 10);
           this.handleMillionaireAnswer(selected, btn);
         });
       });
@@ -740,18 +1140,19 @@ class MathGamesEngine {
             title: '🏆 អស្ចារ្យណាស់!',
             html: `
               <div class="py-2 text-center">
+                <div class="text-6xl mb-2 animate-bounce">🥇</div>
                 <p class="text-base font-extrabold text-amber-600 dark:text-amber-400">អ្នកបានឆ្លើយត្រូវគ្រប់ ១០ សំណួរ!</p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ក្លាយជាជើងឯកគណិតវិទ្យា NGS ថ្នាក់ជាតិ 🥇</p>
               </div>
             `,
             icon: 'success',
-            confirmText: '🎉 អស្ចារ្យ!',
+            confirmText: '🎉 អស្ចារ្យ! លេងម្ដងទៀត',
             onConfirm: () => this.startMillionaireGame()
           });
         }, 500);
       } else {
         this.millionaireLevel++;
-        setTimeout(() => this.nextMillionaireQuestion(), 1300);
+        setTimeout(() => this.nextMillionaireQuestion(), 1100);
       }
     } else {
       clickedBtn.classList.remove('bg-white', 'border-slate-200');
@@ -760,7 +1161,7 @@ class MathGamesEngine {
       const finalPts = this.millionaireLevel >= 5 ? 5 : 0;
       setTimeout(() => {
         window.showStandardDialog({
-          title: 'អូយ! ពិបាកចិត្តណាស់... ឆ្លើយខុសហើយ!',
+          title: '😭 អូយ! ពិបាកចិត្តណាស់... ឆ្លើយខុសហើយ!',
           html: `
             <div class="py-2 text-center">
               <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
@@ -772,7 +1173,7 @@ class MathGamesEngine {
                 <span class="font-bold">ចម្លើយត្រឹមត្រូវគឺ៖</span> ${this.formatMath(this.currentMillionaireQ.o[this.currentMillionaireQ.a])}
               </div>
               <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200 mt-2">
-                ពិន្ទុដែលទទួលបាន៖ <span class="text-purple-600 font-extrabold text-xl">${finalPts}</span> ពិន្ទុ
+                ពិន្ទុដែលទទួលបាន៖ <span class="text-purple-600 font-extrabold text-xl">${finalPts}</span> ពិន្ទុ ${finalPts === 5 ? '(កម្រិតសុវត្ថិភាព 🛡️)' : ''}
               </div>
             </div>
           `,
@@ -780,8 +1181,30 @@ class MathGamesEngine {
           confirmText: '🔄 សាកល្បងម្ដងទៀត',
           onConfirm: () => this.startMillionaireGame()
         });
-      }, 1000);
+      }, 700);
     }
+  }
+
+  walkAwayMillionaire() {
+    const currentPts = this.millionaireLevel - 1;
+    window.showStandardDialog({
+      title: '🚪 ឈប់លេង និងយកពិន្ទុបច្ចុប្បន្ន?',
+      html: `
+        <div class="py-2 text-center">
+          <p class="text-xs text-slate-500 mb-2">លោកគ្រូ/សិស្សានុសិស្សជ្រើសរើសរក្សាទុកពិន្ទុបច្ចុប្បន្ន៖</p>
+          <div class="text-2xl font-black text-amber-500 my-2">${currentPts} ពិន្ទុ</div>
+          <p class="text-[11px] text-slate-400">ពិន្ទុនេះនឹងត្រូវបានកត់ត្រាទុកយ៉ាងមានសុវត្ថិភាព!</p>
+        </div>
+      `,
+      icon: 'question',
+      showCancel: true,
+      cancelText: 'បន្តប្រជែងទៀត',
+      confirmText: 'យកពិន្ទុ និងបញ្ចប់',
+      onConfirm: () => {
+        window.showToast(`✅ បានបញ្ចប់ការប្រកួតជាមួយ ${currentPts} ពិន្ទុ!`);
+        this.showMillionaireStart();
+      }
+    });
   }
 
   useLifeline5050() {
@@ -796,7 +1219,7 @@ class MathGamesEngine {
     const toRemove = wrongIndices.slice(0, 2);
 
     document.querySelectorAll('.millionaire-opt-btn').forEach(b => {
-      const idx = parseInt(b.dataset.idx);
+      const idx = parseInt(b.dataset.idx, 10);
       if (toRemove.includes(idx)) {
         b.style.visibility = 'hidden';
       }
@@ -810,7 +1233,6 @@ class MathGamesEngine {
     const btn = document.getElementById('btnLifeStudent');
     if (btn) { btn.disabled = true; btn.classList.add('opacity-40', 'line-through'); }
 
-    // Pick random student from roster
     const students = (window.appStore && window.appStore.data && window.appStore.data.students) || [];
     const studentName = students.length > 0 ? students[Math.floor(Math.random() * students.length)].name : 'មិត្តរួមថ្នាក់';
 
@@ -933,6 +1355,15 @@ class MathGamesEngine {
     });
 
     this.updateActiveTopicLabels();
+  }
+
+  updateActiveTopicLabels() {
+    const lbl = document.getElementById('defenderActiveTopicLabel');
+    if (lbl) {
+      const gText = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)' : this.selectedGrade;
+      const lText = this.selectedLesson === 'all' ? 'គ្រប់មេរៀនទាំងអស់' : this.selectedLesson;
+      lbl.textContent = `${gText} • ${lText}`;
+    }
   }
 
   toggleDefenderPause() {
@@ -1066,7 +1497,7 @@ class MathGamesEngine {
 
       document.querySelectorAll('.defender-opt-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const selected = parseInt(btn.dataset.idx);
+          const selected = parseInt(btn.dataset.idx, 10);
           this.handleDefenderShot(selected);
         });
       });
@@ -1241,8 +1672,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize interactive game controls
+  // Initialize interactive game controls for all 5 modes
   window.mathGames.initBlitzControls();
+  window.mathGames.initMatchControls();
+  window.mathGames.initBattleControls();
+  window.mathGames.initMillionaireControls();
   window.mathGames.initDefenderControls();
 
   // Populate initial dropdowns

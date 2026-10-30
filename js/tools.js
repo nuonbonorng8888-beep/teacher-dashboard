@@ -28,15 +28,56 @@ function showStandardDialog({ title, text, html, icon = 'info', confirmText = 'á
       }
     });
   } else {
-    if (showCancel) {
-      if (confirm(text || title) && onConfirm) onConfirm();
-    } else {
-      alert(text || title);
+    // Custom modal fallback without native browser alert
+    const fallbackBox = document.createElement('div');
+    fallbackBox.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm';
+    fallbackBox.innerHTML = `
+      <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl space-y-4">
+        <h4 class="font-bold text-base text-slate-900 dark:text-white">${title || ''}</h4>
+        <div class="text-xs text-slate-600 dark:text-slate-300">${html || text || ''}</div>
+        <div class="flex items-center justify-center gap-2 pt-2">
+          ${showCancel ? `<button id="fbCancel" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs">${cancelText}</button>` : ''}
+          <button id="fbOk" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs shadow">${confirmText}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(fallbackBox);
+    fallbackBox.querySelector('#fbOk').onclick = () => {
+      fallbackBox.remove();
       if (onConfirm) onConfirm();
+    };
+    if (showCancel) {
+      fallbackBox.querySelector('#fbCancel').onclick = () => fallbackBox.remove();
     }
   }
 }
 window.showStandardDialog = showStandardDialog;
+
+function showToast(message, type = 'success') {
+  let container = document.getElementById('toastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.className = 'fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = `pointer-events-auto transform transition-all duration-300 translate-y-2 opacity-0 px-4 py-3 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-2 mb-2 ${
+    type === 'error' ? 'bg-red-600 text-white' :
+    type === 'warning' ? 'bg-amber-500 text-white' :
+    'bg-purple-700 text-white'
+  }`;
+  toast.innerHTML = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.classList.remove('translate-y-2', 'opacity-0');
+  });
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-2');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+window.showToast = showToast;
 
 class ClassroomTools {
   constructor() {
