@@ -812,34 +812,50 @@ class MathGamesEngine {
 
       if (this.defenderProgress >= 100) {
         clearInterval(this.defenderTimer);
+        clearInterval(this.defenderTimer);
         this.playWrongSound();
         this.defenderLives--;
         this.updateDefenderUI();
 
-        if (this.defenderLives <= 0) {
-          window.showStandardDialog({
-            title: 'អូយ! ពិបាកចិត្តណាស់... ហ្គេមចប់ហើយ!',
-            html: `
-              <div class="py-2 text-center">
-                <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
-                  <span class="text-6xl">😭</span>
-                  <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
-                </div>
-                <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី!</h4>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">កម្ទេចខែលការពារអស់ហើយ... កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!</p>
-                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2 shadow-sm">
-                  <span>ពិន្ទុសរុប៖</span>
-                  <span class="text-amber-500 font-extrabold">${this.defenderScore}</span>
-                </div>
+        const isGameOver = this.defenderLives <= 0;
+        const correctText = this.currentDefenderQ ? this.formatMath(this.currentDefenderQ.o[this.currentDefenderQ.a]) : '';
+        const expText = this.currentDefenderQ && this.currentDefenderQ.e ? this.formatMath(this.currentDefenderQ.e) : '';
+
+        window.showStandardDialog({
+          title: isGameOver ? '💥 ហ្គេមចប់ហើយ! ពិបាកចិត្តណាស់...' : '😭 អូយ! អស់ពេលហើយ... ពិបាកចិត្តណាស់!',
+          html: `
+            <div class="py-2 text-center">
+              <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-300 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+                <span class="text-6xl">😭</span>
+                <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
               </div>
-            `,
-            icon: 'error',
-            confirmText: '🔄 លេងម្ដងទៀត',
-            onConfirm: () => this.startDefenderGame()
-          });
-        } else {
-          setTimeout(() => this.nextDefenderWave(), 800);
-        }
+              <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">
+                ${isGameOver ? 'អាចម៍ផ្កាយបានធ្លាក់មកដល់ដី! ខែលការពារអស់ហើយ!' : 'អាចម៍ផ្កាយធ្លាក់ដល់ដី! បាត់បង់ ១ ជីវិត'}
+              </h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
+                ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`}
+              </p>
+
+              <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 text-left">
+                <div class="font-bold mb-1">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-sm font-extrabold text-emerald-600">${correctText}</span></div>
+                ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-200/60 dark:border-red-800/60 text-[11px] text-slate-600 dark:text-slate-300">${expText}</div>` : ''}
+              </div>
+
+              <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
+                ${isGameOver ? `ពិន្ទុសរុប៖ <span class="text-amber-500 font-black text-xl">${this.defenderScore}</span> ពិន្ទុ` : `ពិន្ទុបច្ចុប្បន្ន៖ <span class="text-purple-600 font-black">${this.defenderScore}</span>`}
+              </div>
+            </div>
+          `,
+          icon: 'error',
+          confirmText: isGameOver ? '🔄 ចាប់ផ្ដើមលេងម្ដងទៀត' : '👉 បន្តសំណួរបន្ទាប់',
+          onConfirm: () => {
+            if (isGameOver) {
+              this.startDefenderGame();
+            } else {
+              this.nextDefenderWave();
+            }
+          }
+        });
       }
     }, 200);
   }
@@ -869,39 +885,46 @@ class MathGamesEngine {
       this.defenderLives--;
       this.updateDefenderUI();
 
-      if (this.defenderLives <= 0) {
-        window.showStandardDialog({
-          title: 'អូយ! ពិបាកចិត្តណាស់... ហ្គេមចប់ហើយ!',
-          html: `
-            <div class="py-2 text-center">
-              <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-200 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
-                <span class="text-6xl">😭</span>
-                <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
-              </div>
-              <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">បាញ់ខុស! កម្ទេចខែលការពារអស់ហើយ!</h4>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!</p>
-              <div class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-900 dark:text-purple-200 font-black text-2xl my-2 shadow-sm">
-                <span>ពិន្ទុសរុប៖</span>
-                <span class="text-amber-500 font-extrabold">${this.defenderScore}</span>
-              </div>
+      const isGameOver = this.defenderLives <= 0;
+      const correctText = this.currentDefenderQ ? this.formatMath(this.currentDefenderQ.o[this.currentDefenderQ.a]) : '';
+      const expText = this.currentDefenderQ && this.currentDefenderQ.e ? this.formatMath(this.currentDefenderQ.e) : '';
+
+      window.showStandardDialog({
+        title: isGameOver ? '💥 ហ្គេមចប់ហើយ! ពិបាកចិត្តណាស់...' : '😭 អូយ! ឆ្លើយខុសហើយ... ពិបាកចិត្តណាស់!',
+        html: `
+          <div class="py-2 text-center">
+            <div class="w-24 h-24 mx-auto mb-3 bg-red-50 dark:bg-red-950/50 rounded-full border-2 border-red-300 dark:border-red-800 flex items-center justify-center shadow-inner relative animate-bounce">
+              <span class="text-6xl">😭</span>
+              <span class="absolute -bottom-1 -right-1 text-2xl">💔</span>
             </div>
-          `,
-          icon: 'error',
-          confirmText: '🔄 លេងម្ដងទៀត',
-          onConfirm: () => this.startDefenderGame()
-        });
-      } else {
-        // Flash in arena: sad/crying indicator
-        const arena = document.getElementById('defenderArena');
-        if (arena) {
-          const sadBanner = document.createElement('div');
-          sadBanner.className = 'absolute top-3 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-2xl bg-red-600/90 text-white font-bold text-xs flex items-center gap-2 shadow-2xl z-20 animate-bounce';
-          sadBanner.innerHTML = '<span>😭</span> <span>អូយ! ឆ្លើយខុសហើយ... ពិបាកចិត្តណាស់! (-១ ជីវិត)</span>';
-          arena.appendChild(sadBanner);
-          setTimeout(() => sadBanner.remove(), 1200);
+            
+            <h4 class="text-base font-extrabold text-red-600 dark:text-red-400 mb-1">
+              ${isGameOver ? 'បាញ់ខុស! ខែលការពារត្រូវបានកម្ទេចអស់ហើយ!' : 'ឆ្លើយខុសហើយ! បាត់បង់ ១ ជីវិត'}
+            </h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">
+              ${isGameOver ? 'កុំទាន់អស់សង្ឃឹម សាកល្បងម្ដងទៀតណា៎!' : `នៅសល់ខែលការពារ៖ ${'❤️'.repeat(Math.max(0, this.defenderLives))}`}
+            </p>
+
+            <div class="p-3.5 my-3 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-xs text-red-800 dark:text-red-200 text-left">
+              <div class="font-bold mb-1">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-sm font-extrabold text-emerald-600">${correctText}</span></div>
+              ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-200/60 dark:border-red-800/60 text-[11px] text-slate-600 dark:text-slate-300">${expText}</div>` : ''}
+            </div>
+
+            <div class="text-center font-bold text-sm text-slate-700 dark:text-slate-200">
+              ${isGameOver ? `ពិន្ទុសរុប៖ <span class="text-amber-500 font-black text-xl">${this.defenderScore}</span> ពិន្ទុ` : `ពិន្ទុបច្ចុប្បន្ន៖ <span class="text-purple-600 font-black">${this.defenderScore}</span>`}
+            </div>
+          </div>
+        `,
+        icon: 'error',
+        confirmText: isGameOver ? '🔄 ចាប់ផ្ដើមលេងម្ដងទៀត' : '👉 បន្តសំណួរបន្ទាប់',
+        onConfirm: () => {
+          if (isGameOver) {
+            this.startDefenderGame();
+          } else {
+            this.nextDefenderWave();
+          }
         }
-        setTimeout(() => this.nextDefenderWave(), 800);
-      }
+      });
     }
   }
 }
