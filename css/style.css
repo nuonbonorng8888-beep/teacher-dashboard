@@ -124,6 +124,22 @@ body {
   user-select: none;
 }
 
+/* KaTeX Math Styling */
+.katex {
+  font-size: 1.15em;
+  user-select: none;
+}
+.katex-display {
+  margin: 0.5em 0 !important;
+}
+.match-card .katex {
+  font-size: 1.25em;
+  color: #4c1d95;
+}
+.dark .match-card .katex {
+  color: #c4b5fd;
+}
+
 /* Modal Transitions */
 .modal-overlay {
   background: rgba(15, 23, 42, 0.55);

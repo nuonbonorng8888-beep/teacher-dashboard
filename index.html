@@ -40,6 +40,10 @@
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <!-- KaTeX for Beautiful LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
   <!-- Custom Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -576,13 +580,13 @@
           </div>
           <!-- Game Mode Selector Tabs -->
           <div class="flex items-center gap-2 bg-slate-200 dark:bg-slate-800 p-1 rounded-2xl">
-            <button onclick="document.querySelectorAll('.game-mode-panel').forEach(p=>p.classList.add('hidden')); document.getElementById('panel-blitz').classList.remove('hidden'); window.mathGames.startBlitzGame();" class="px-3.5 py-1.5 rounded-xl font-bold text-xs bg-purple-600 text-white shadow transition">
+            <button id="tabBtn-blitz" onclick="window.mathGames.switchGameMode('blitz')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs bg-purple-600 text-white shadow transition">
               ⚡ គណិតរហ័ស
             </button>
-            <button onclick="document.querySelectorAll('.game-mode-panel').forEach(p=>p.classList.add('hidden')); document.getElementById('panel-match').classList.remove('hidden'); window.mathGames.initFormulaMatch();" class="px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+            <button id="tabBtn-match" onclick="window.mathGames.switchGameMode('match')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
               🧩 ផ្គូផ្គងរូបមន្ត
             </button>
-            <button onclick="document.querySelectorAll('.game-mode-panel').forEach(p=>p.classList.add('hidden')); document.getElementById('panel-battle').classList.remove('hidden'); window.mathGames.initTeamBattle();" class="px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+            <button id="tabBtn-battle" onclick="window.mathGames.switchGameMode('battle')" class="game-tab-btn px-3.5 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
               ⚔️ ប្រកួតជាក្រុម
             </button>
           </div>
