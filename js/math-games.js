@@ -156,18 +156,20 @@ class MathGamesEngine {
       }
     ];
 
-    // High school formula pairs for Memory Match (Written in clean LaTeX)
+    // High school formula pairs for Memory Match (Guaranteed 100% Unique - No duplicate answers)
     this.formulaPairs = [
       { id: 1, left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
       { id: 2, left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
       { id: 3, left: "a^2 - b^2", right: "(a - b)(a + b)" },
       { id: 4, left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
       { id: 5, left: "\\frac{d}{dx}[x^n]", right: "n \\cdot x^{n-1}" },
-      { id: 6, left: "\\lim_{x \\to 0} \\frac{\\sin(x)}{x}", right: "1" },
+      { id: 6, left: "\\frac{d}{dx}[\\sin(x)]", right: "\\cos(x)" },
       { id: 7, left: "i^2", right: "-1" },
       { id: 8, left: "\\log(a \\cdot b)", right: "\\log(a) + \\log(b)" },
       { id: 9, left: "\\int 2x\\,dx", right: "x^2 + C" },
-      { id: 10, left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" }
+      { id: 10, left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
+      { id: 11, left: "\\lim_{x \\to +\\infty} \\frac{1}{x}", right: "0" },
+      { id: 12, left: "\\frac{d}{dx}[e^x]", right: "e^x" }
     ];
   }
 
@@ -385,8 +387,21 @@ class MathGamesEngine {
     const container = document.getElementById('formulaMatchGrid');
     if (!container) return;
 
-    // Pick 6 pairs (12 cards)
-    const selected = this.formulaPairs.slice(0, 6);
+    // Pick 6 pairs (12 cards) with guaranteed 100% unique values (No duplicate 1s or identical answers)
+    const shuffledPairs = [...this.formulaPairs].sort(() => Math.random() - 0.5);
+    const selected = [];
+    const usedRights = new Set();
+    const usedLefts = new Set();
+
+    for (const p of shuffledPairs) {
+      if (!usedRights.has(p.right) && !usedLefts.has(p.left)) {
+        selected.push(p);
+        usedRights.add(p.right);
+        usedLefts.add(p.left);
+        if (selected.length === 6) break;
+      }
+    }
+
     let cards = [];
     selected.forEach(p => {
       cards.push({ id: p.id, latex: p.left, type: 'left' });
