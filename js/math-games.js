@@ -27,6 +27,16 @@ class MathGamesEngine {
     this.matchTimeLeft = 0;
     this.matchMoves = 0;
     this.matchMatchedCount = 0;
+    this.matchPlayersCount = 1; // 1, 2, or 4 players
+    this.matchActivePlayer = 0;
+    this.matchPlayerScores = [0, 0, 0, 0];
+    this.praiseTimer = null;
+    this.matchPlayerConfigs = [
+      { name: 'អ្នកលេង ១', color: 'blue', bg: 'bg-blue-50 dark:bg-blue-950/40', border: 'border-blue-400', ring: 'ring-blue-500', text: 'text-blue-700 dark:text-blue-300', icon: '🔵' },
+      { name: 'អ្នកលេង ២', color: 'rose', bg: 'bg-rose-50 dark:bg-rose-950/40', border: 'border-rose-400', ring: 'ring-rose-500', text: 'text-rose-700 dark:text-rose-300', icon: '🔴' },
+      { name: 'អ្នកលេង ៣', color: 'emerald', bg: 'bg-emerald-50 dark:bg-emerald-950/40', border: 'border-emerald-400', ring: 'ring-emerald-500', text: 'text-emerald-700 dark:text-emerald-300', icon: '🟢' },
+      { name: 'អ្នកលេង ៤', color: 'amber', bg: 'bg-amber-50 dark:bg-amber-950/40', border: 'border-amber-400', ring: 'ring-amber-500', text: 'text-amber-700 dark:text-amber-300', icon: '🟡' }
+    ];
 
     // Team Battle State
     this.battleTargetScore = 50;
@@ -1019,6 +1029,25 @@ class MathGamesEngine {
         this.matchDuration = parseInt(btn.dataset.time, 10);
       });
     });
+
+    // Players count preset buttons (១នាក់, ២នាក់, ឬ ៤នាក់)
+    document.querySelectorAll('.match-player-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.match-player-btn').forEach(b => {
+          b.classList.remove('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-player-btn');
+          b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'border-slate-200', 'dark:border-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        btn.classList.add('bg-purple-600', 'border-purple-500', 'text-white', 'active-match-player-btn');
+
+        this.matchPlayersCount = parseInt(btn.dataset.players, 10);
+        const badge = document.getElementById('matchPlayersBadge');
+        if (badge) {
+          badge.textContent = this.matchPlayersCount === 1 ? '👤 ម្នាក់ឯង (Solo)' :
+                              this.matchPlayersCount === 2 ? '⚔️ ២ នាក់ (1 vs 1)' : '🏆 ៤ នាក់ (4 Players)';
+        }
+      });
+    });
   }
 
   getFormulaPackForCurrentGrade() {
@@ -1153,6 +1182,88 @@ class MathGamesEngine {
     return isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
   }
 
+  showMatchPraise(customMsg = null) {
+    const praiseMessages = [
+      { text: "អស្ចារ្យណាស់! រកឃើញគូត្រឹមត្រូវឥតខ្ចោះ!", icon: "🌟" },
+      { text: "ពូកែណាស់! ចងចាំរូបមន្តបានល្អឥតខ្ចោះ!", icon: "🎉" },
+      { text: "ឆ្លាតវៃមែនទែន! +១ គូ!", icon: "💡" },
+      { text: "ត្រឹមត្រូវឥតខ្ចោះ! ល្បឿនលឿនអស្ចារ្យ!", icon: "🎯" },
+      { text: "សិស្សឆ្នើម! ចងចាំរូបមន្តបានយ៉ាងស្ទាត់!", icon: "🏆" },
+      { text: "ពូកែណាស់! បន្តរក្សាភាពឈ្នះនេះទៀត!", icon: "👏" },
+      { text: "អបអរសាទរ! គូត្រូវគ្មានទាស់!", icon: "⚡" },
+      { text: "ពិតជាអស្ចារ្យ! កំពូលអ្នកចងចាំរូបមន្ត!", icon: "🔥" }
+    ];
+
+    const pick = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+    const banner = document.getElementById('matchPraiseBanner');
+    const textEl = document.getElementById('matchPraiseText');
+    const iconEl = document.getElementById('matchPraiseIcon');
+
+    if (!banner || !textEl || !iconEl) return;
+
+    if (customMsg) {
+      textEl.textContent = customMsg;
+      iconEl.textContent = "🌟";
+    } else {
+      textEl.textContent = pick.text;
+      iconEl.textContent = pick.icon;
+    }
+
+    // Trigger animation
+    banner.classList.add('show-praise');
+    banner.classList.remove('opacity-0', 'scale-50');
+
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 35, spread: 65, origin: { y: 0.28 } });
+    }
+
+    clearTimeout(this.praiseTimer);
+    this.praiseTimer = setTimeout(() => {
+      banner.classList.remove('show-praise');
+      banner.classList.add('opacity-0', 'scale-50');
+    }, 1350);
+  }
+
+  updateMatchMultiplayerUI() {
+    const multiPanel = document.getElementById('matchMultiplayerPanel');
+    const playersGrid = document.getElementById('matchPlayersGrid');
+    const turnText = document.getElementById('matchCurrentTurnText');
+
+    if (!multiPanel) return;
+
+    if (this.matchPlayersCount <= 1) {
+      multiPanel.classList.add('hidden');
+      return;
+    }
+
+    multiPanel.classList.remove('hidden');
+
+    const activeCfg = this.matchPlayerConfigs[this.matchActivePlayer];
+    if (turnText) {
+      turnText.innerHTML = `វេនរបស់អ្នកលេង៖ <span class="${activeCfg.text} font-black text-sm md:text-base">${activeCfg.icon} ${activeCfg.name}</span> <span class="text-xs text-slate-500 font-normal">(សូមជ្រើសកាត ២ សន្លឹក)</span>`;
+    }
+
+    if (playersGrid) {
+      playersGrid.innerHTML = Array.from({ length: this.matchPlayersCount }).map((_, idx) => {
+        const cfg = this.matchPlayerConfigs[idx];
+        const isActive = idx === this.matchActivePlayer;
+        const score = this.matchPlayerScores[idx] || 0;
+        return `
+          <div class="p-3 rounded-2xl border-2 transition-all duration-200 ${cfg.bg} ${isActive ? `${cfg.border} ring-4 ${cfg.ring} scale-105 shadow-md` : 'border-slate-200 dark:border-slate-700 opacity-70'}">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold ${cfg.text}">${cfg.icon} ${cfg.name}</span>
+              ${isActive ? '<span class="px-2 py-0.5 rounded-full bg-purple-600 text-white text-[9px] font-black animate-pulse">កំពុងលេង</span>' : ''}
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">ផ្គូផ្គងបាន៖</span>
+              <span class="text-lg md:text-xl font-black ${cfg.text}">${score} <span class="text-[11px] font-normal">គូ</span></span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
   startMatchGame() {
     const startView = document.getElementById('matchStartView');
     const gameView = document.getElementById('matchGameView');
@@ -1161,6 +1272,8 @@ class MathGamesEngine {
 
     this.matchMoves = 0;
     this.matchMatchedCount = 0;
+    this.matchActivePlayer = 0;
+    this.matchPlayerScores = [0, 0, 0, 0];
     this.updateMatchStatsUI();
     this.initFormulaMatch();
 
@@ -1215,6 +1328,7 @@ class MathGamesEngine {
     if (badgeEl) {
       badgeEl.textContent = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់' : this.selectedGrade;
     }
+    this.updateMatchMultiplayerUI();
   }
 
   initFormulaMatch() {
@@ -1306,32 +1420,103 @@ class MathGamesEngine {
             firstCard = null;
             lockBoard = false;
             this.matchMatchedCount++;
+
+            // Handle points and praise
+            if (this.matchPlayersCount > 1) {
+              this.matchPlayerScores[this.matchActivePlayer]++;
+              const cfg = this.matchPlayerConfigs[this.matchActivePlayer];
+              this.showMatchPraise(`🎉 ${cfg.name} រកឃើញគូត្រូវ! (+១ គូ) បានលេងបន្ត!`);
+            } else {
+              this.showMatchPraise();
+            }
+
             this.updateMatchStatsUI();
 
             if (this.matchMatchedCount === this.matchPairsCount) {
               clearInterval(this.matchTimer);
               this.playVictoryFanfare();
               setTimeout(() => {
-                window.showStandardDialog({
-                  title: '🎉 អបអរសាទរ! ផ្គូផ្គងបានជោគជ័យ!',
-                  html: `
-                    <div class="py-2 text-center">
-                      <div class="text-5xl mb-2">⭐⭐⭐</div>
-                      <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400">សិស្សានុសិស្សបានផ្គូផ្គងរូបមន្តគណិតវិទ្យាបានត្រឹមត្រូវទាំងអស់!</p>
-                      <div class="my-3 p-3 rounded-2xl bg-purple-50 dark:bg-slate-700 text-xs text-purple-900 dark:text-purple-200 font-bold">
-                        <div>ចំនួនបើកសរុប៖ <strong>${this.matchMoves}</strong> ដង</div>
-                        ${this.matchDuration > 0 ? `<div>ពេលនៅសល់៖ <strong>${this.matchTimeLeft} វិ.</strong></div>` : ''}
+                if (this.matchPlayersCount > 1) {
+                  // Multiplayer Podium & Winner celebration
+                  let maxScore = -1;
+                  let winners = [];
+                  for (let i = 0; i < this.matchPlayersCount; i++) {
+                    const score = this.matchPlayerScores[i] || 0;
+                    if (score > maxScore) {
+                      maxScore = score;
+                      winners = [i];
+                    } else if (score === maxScore) {
+                      winners.push(i);
+                    }
+                  }
+
+                  let resultTitle = '';
+                  let winnerDesc = '';
+                  if (winners.length === 1) {
+                    const wCfg = this.matchPlayerConfigs[winners[0]];
+                    resultTitle = `🏆 អបអរសាទរ! ${wCfg.name} ជាអ្នកឈ្នះ!`;
+                    winnerDesc = `<p class="text-base font-black ${wCfg.text}">${wCfg.icon} ${wCfg.name} ឈ្នះដាច់គេ ដោយរកបាន ${maxScore} គូ!</p>`;
+                  } else {
+                    const wNames = winners.map(w => this.matchPlayerConfigs[w].name).join(' និង ');
+                    resultTitle = `🤝 លទ្ធផលស្មើគ្នា! (${maxScore} គូស្មើគ្នា)`;
+                    winnerDesc = `<p class="text-sm font-bold text-purple-600">ពូកែដូចគ្នា! ${wNames} រកបាន ${maxScore} គូស្មើគ្នា!</p>`;
+                  }
+
+                  const rankingHtml = Array.from({ length: this.matchPlayersCount }).map((_, idx) => {
+                    const cfg = this.matchPlayerConfigs[idx];
+                    const sc = this.matchPlayerScores[idx] || 0;
+                    const isWin = winners.includes(idx);
+                    return `
+                      <div class="flex items-center justify-between p-2.5 rounded-xl ${isWin ? 'bg-amber-50 dark:bg-amber-950/40 border border-amber-300' : 'bg-slate-50 dark:bg-slate-700/50'} text-xs font-bold">
+                        <span class="flex items-center gap-2 ${cfg.text}">
+                          <span>${isWin ? '🥇' : '🎖️'}</span>
+                          <span>${cfg.name}</span>
+                        </span>
+                        <span class="font-black text-sm ${cfg.text}">${sc} គូ</span>
                       </div>
-                      <p class="text-xs text-slate-500">ស្ទាត់ជំនាញ និងយល់ដឹងច្បាស់លាស់ពីរូបមន្តគណិតវិទ្យា NGS ✨</p>
-                    </div>
-                  `,
-                  icon: 'success',
-                  confirmText: '🔄 លេងវគ្គថ្មី',
-                  onConfirm: () => this.startMatchGame()
-                });
+                    `;
+                  }).join('');
+
+                  window.showStandardDialog({
+                    title: resultTitle,
+                    html: `
+                      <div class="py-2 text-center space-y-3">
+                        <div class="text-5xl animate-bounce">🏆</div>
+                        ${winnerDesc}
+                        <div class="space-y-1.5 text-left max-w-xs mx-auto">
+                          ${rankingHtml}
+                        </div>
+                        <p class="text-xs text-slate-500">ការប្រកួតពង្រឹងការចងចាំរូបមន្តគណិតវិទ្យា NGS យ៉ាងស្វិតស្វាញ ✨</p>
+                      </div>
+                    `,
+                    icon: 'success',
+                    confirmText: '🔄 ប្រកួតវគ្គថ្មី',
+                    onConfirm: () => this.startMatchGame()
+                  });
+                } else {
+                  // Solo Winner Dialog
+                  window.showStandardDialog({
+                    title: '🎉 អបអរសាទរ! ផ្គូផ្គងបានជោគជ័យ!',
+                    html: `
+                      <div class="py-2 text-center">
+                        <div class="text-5xl mb-2">⭐⭐⭐</div>
+                        <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400">សិស្សានុសិស្សបានផ្គូផ្គងរូបមន្តគណិតវិទ្យាបានត្រឹមត្រូវទាំងអស់!</p>
+                        <div class="my-3 p-3 rounded-2xl bg-purple-50 dark:bg-slate-700 text-xs text-purple-900 dark:text-purple-200 font-bold">
+                          <div>ចំនួនបើកសរុប៖ <strong>${this.matchMoves}</strong> ដង</div>
+                          ${this.matchDuration > 0 ? `<div>ពេលនៅសល់៖ <strong>${this.matchTimeLeft} វិ.</strong></div>` : ''}
+                        </div>
+                        <p class="text-xs text-slate-500">ស្ទាត់ជំនាញ និងយល់ដឹងច្បាស់លាស់ពីរូបមន្តគណិតវិទ្យា NGS ✨</p>
+                      </div>
+                    `,
+                    icon: 'success',
+                    confirmText: '🔄 លេងវគ្គថ្មី',
+                    onConfirm: () => this.startMatchGame()
+                  });
+                }
               }, 400);
             }
           } else {
+            // Mismatch: Cards shake/glow red, then turn passes to NEXT player if multiplayer!
             this.playWrongSound();
             [firstCard, card].forEach(c => c.classList.add('ring-4', 'ring-red-400'));
             setTimeout(() => {
@@ -1342,6 +1527,12 @@ class MathGamesEngine {
               });
               firstCard = null;
               lockBoard = false;
+
+              // Turn passes to next player if multiplayer
+              if (this.matchPlayersCount > 1) {
+                this.matchActivePlayer = (this.matchActivePlayer + 1) % this.matchPlayersCount;
+                this.updateMatchStatsUI();
+              }
             }, 900);
           }
         }
