@@ -65,135 +65,254 @@ class MathGamesEngine {
         { id: 'c_1', left: "i^2", right: "-1" },
         { id: 'c_2', left: "i^3", right: "-i" },
         { id: 'c_3', left: "i^4", right: "1" },
-        { id: 'c_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
-        { id: 'c_5', left: "\\overline{a + bi}", right: "a - bi" },
-        { id: 'c_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
+        { id: 'c_4', left: "|a + bi|", right: "\sqrt{a^2 + b^2}" },
+        { id: 'c_5', left: "\overline{a + bi}", right: "a - bi" },
+        { id: 'c_6', left: "z \cdot \bar{z}", right: "|z|^2" },
         { id: 'c_7', left: "|3 - 4i|", right: "5" },
-        { id: 'c_8', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
+        { id: 'c_8', left: "(\cos\theta + i\sin\theta)^n", right: "\cos(n\theta) + i\sin(n\theta)" },
         { id: 'c_9', left: "(2+i)(3-2i)", right: "8 - i" },
-        { id: 'c_10', left: "\\sqrt{-4}", right: "2i" },
-        { id: 'c_11', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
-        { id: 'c_12', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" }
+        { id: 'c_10', left: "\sqrt{-4}", right: "2i" },
+        { id: 'c_11', left: "|z \cdot z'|", right: "|z| \cdot |z'|" },
+        { id: 'c_12', left: "\overline{z + z'}", right: "\bar{z} + \bar{z}'" },
+        { id: 'c_13', left: "\frac{1}{i}", right: "-i\cdot 1" },
+        { id: 'c_14', left: "\sqrt{-9}", right: "3i" },
+        { id: 'c_15', left: "(1-i)^2", right: "-2i" },
+        { id: 'c_16', left: "\arg(z \cdot z')", right: "\arg(z) + \arg(z')" }
       ],
       // ជំពូកទី ២ ៖ លីមីតនៃអនុគមន៍
       limits: [
-        { id: 'lim_1', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
-        { id: 'lim_2', left: "\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}", right: "\\frac{1}{2}" },
-        { id: 'lim_3', left: "\\lim_{x \\to 0} \\frac{e^x - 1}{x}", right: "1" },
-        { id: 'lim_4', left: "\\lim_{x \\to 0} \\frac{\\ln(1+x)}{x}", right: "1" },
-        { id: 'lim_5', left: "\\lim_{x \\to +\\infty} (1 + \\frac{1}{x})^x", right: "e" },
-        { id: 'lim_6', left: "\\lim_{x \\to 0} \\frac{\\tan x}{x}", right: "1" },
-        { id: 'lim_7', left: "\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2}", right: "4" },
-        { id: 'lim_8', left: "\\lim_{x \\to +\\infty} \\frac{1}{x}", right: "0" }
+        { id: 'lim_1', left: "\lim_{x \to 0} \frac{\sin x}{x}", right: "1" },
+        { id: 'lim_2', left: "\lim_{x \to 0} \frac{1 - \cos x}{x^2}", right: "\frac{1}{2}" },
+        { id: 'lim_3', left: "\lim_{x \to 0} \frac{e^{2x} - 1}{x}", right: "2" },
+        { id: 'lim_4', left: "\lim_{x \to 0} \frac{\ln(1+3x)}{x}", right: "3" },
+        { id: 'lim_5', left: "\lim_{x \to 0} \frac{\tan(4x)}{x}", right: "4" },
+        { id: 'lim_6', left: "\lim_{x \to 0} \frac{\sin(5x)}{x}", right: "5" },
+        { id: 'lim_7', left: "\lim_{x \to 3} \frac{x^2 - 9}{x - 3}", right: "6" },
+        { id: 'lim_8', left: "\lim_{x \to +\infty} (1 + \frac{1}{x})^x", right: "e" },
+        { id: 'lim_9', left: "\lim_{x \to +\infty} \frac{1}{x}", right: "0" },
+        { id: 'lim_10', left: "\lim_{x \to 0^+} \frac{1}{x}", right: "+\infty" },
+        { id: 'lim_11', left: "\lim_{x \to 0^-} \frac{1}{x}", right: "-\infty" },
+        { id: 'lim_12', left: "\lim_{x \to 1} \frac{x^3 - 1}{x - 1}", right: "3\cdot 1" },
+        { id: 'lim_13', left: "\lim_{x \to 2} (3x + 1)", right: "7" },
+        { id: 'lim_14', left: "\lim_{x \to 4} \sqrt{x}", right: "\sqrt{4}" }
       ],
       // ជំពូកទី ៣ ៖ ដេរីវេនៃអនុគមន៍
       derivatives: [
         { id: 'der_1', left: "(x^n)'", right: "n x^{n-1}" },
-        { id: 'der_2', left: "(\\ln x)'", right: "\\frac{1}{x}" },
+        { id: 'der_2', left: "(\ln x)'", right: "\frac{1}{x}" },
         { id: 'der_3', left: "(e^x)'", right: "e^x" },
-        { id: 'der_4', left: "(\\sin x)'", right: "\\cos x" },
-        { id: 'der_5', left: "(\\cos x)'", right: "-\\sin x" },
-        { id: 'der_6', left: "(\\tan x)'", right: "\\frac{1}{\\cos^2 x}" },
-        { id: 'der_7', left: "(u \\cdot v)'", right: "u'v + uv'" },
-        { id: 'der_8', left: "(\\frac{u}{v})'", right: "\\frac{u'v - uv'}{v^2}" },
-        { id: 'der_9', left: "(\\sqrt{x})'", right: "\\frac{1}{2\\sqrt{x}}" }
+        { id: 'der_4', left: "(\sin x)'", right: "\cos x" },
+        { id: 'der_5', left: "(\cos x)'", right: "-\sin x" },
+        { id: 'der_6', left: "(\tan x)'", right: "\frac{1}{\cos^2 x}" },
+        { id: 'der_7', left: "(u \cdot v)'", right: "u'v + uv'" },
+        { id: 'der_8', left: "(\frac{u}{v})'", right: "\frac{u'v - uv'}{v^2}" },
+        { id: 'der_9', left: "(\sqrt{x})'", right: "\frac{1}{2\sqrt{x}}" },
+        { id: 'der_10', left: "(a^x)'", right: "a^x \ln a" },
+        { id: 'der_11', left: "(\cot x)'", right: "-\frac{1}{\sin^2 x}" },
+        { id: 'der_12', left: "(e^{kx})'", right: "k e^{kx}" },
+        { id: 'der_13', left: "(x^3)'", right: "3x^2" },
+        { id: 'der_14', left: "(x^4)'", right: "4x^3" },
+        { id: 'der_15', left: "(\frac{1}{x})'", right: "-\frac{1}{x^2}" }
       ],
       // ជំពូកទី ៦ ៖ អាំងតេក្រាល
       integrals: [
-        { id: 'int_1', left: "\\int x^n\\,dx", right: "\\frac{x^{n+1}}{n+1} + C" },
-        { id: 'int_2', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'int_3', left: "\\int e^x\\,dx", right: "e^x + C" },
-        { id: 'int_4', left: "\\int \\cos x\\,dx", right: "\\sin x + C" },
-        { id: 'int_5', left: "\\int \\sin x\\,dx", right: "-\\cos x + C" },
-        { id: 'int_6', left: "\\int \\frac{1}{\\cos^2 x}\\,dx", right: "\\tan x + C" },
-        { id: 'int_7', left: "\\int 2x\\,dx", right: "x^2 + C" },
-        { id: 'int_8', left: "\\int u' v\\,dx", right: "uv - \\int u v'\\,dx" }
+        { id: 'int_1', left: "\int x^n\,dx", right: "\frac{x^{n+1}}{n+1} + C" },
+        { id: 'int_2', left: "\int \frac{1}{x}\,dx", right: "\ln|x| + C" },
+        { id: 'int_3', left: "\int e^x\,dx", right: "e^x + C" },
+        { id: 'int_4', left: "\int \cos x\,dx", right: "\sin x + C" },
+        { id: 'int_5', left: "\int \sin x\,dx", right: "-\cos x + C" },
+        { id: 'int_6', left: "\int \frac{1}{\cos^2 x}\,dx", right: "\tan x + C" },
+        { id: 'int_7', left: "\int 2x\,dx", right: "x^2 + C" },
+        { id: 'int_8', left: "\int 3x^2\,dx", right: "x^3 + C" },
+        { id: 'int_9', left: "\int u' v\,dx", right: "uv - \int u v'\,dx" },
+        { id: 'int_10', left: "\int e^{2x}\,dx", right: "\frac{1}{2}e^{2x} + C" },
+        { id: 'int_11', left: "\int \frac{1}{\sqrt{x}}\,dx", right: "2\sqrt{x} + C" },
+        { id: 'int_12', left: "\int 0\,dx", right: "C" },
+        { id: 'int_13', left: "\int 1\,dx", right: "x + C" },
+        { id: 'int_14', left: "\int \frac{u'}{u}\,dx", right: "\ln|u| + C" }
+      ],
+      // ជំពូកស្វ៊ីត (ថ្នាក់ទី ១១ និង ១២)
+      sequences: [
+        { id: 'seq_1', left: "u_n\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'seq_2', left: "S_n\text{ (នព្វន្ត)}", right: "\frac{n(u_1 + u_n)}{2}" },
+        { id: 'seq_3', left: "u_n\text{ (ធរណីមាត្រ)}", right: "u_1 \cdot q^{n-1}" },
+        { id: 'seq_4', left: "S_n\text{ (ធរណីមាត្រ)}", right: "\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'seq_5', left: "\sum_{k=1}^n k", right: "\frac{n(n+1)}{2}" },
+        { id: 'seq_6', left: "S_\infty\text{ (|q|<1)}", right: "\frac{u_1}{1 - q}" },
+        { id: 'seq_7', left: "d\text{ (ផលសងរួម)}", right: "u_{n} - u_{n-1}" },
+        { id: 'seq_8', left: "q\text{ (ផលធៀបរួម)}", right: "\frac{u_n}{u_{n-1}}" },
+        { id: 'seq_9', left: "b\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\frac{a + c}{2}" },
+        { id: 'seq_10', left: "b\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\sqrt{ac}" },
+        { id: 'seq_11', left: "\sum_{k=1}^n 1", right: "n" },
+        { id: 'seq_12', left: "1 + 2 + 3 + \dots + 10", right: "55" },
+        { id: 'seq_13', left: "2 + 4 + 6 + \dots + 2n", right: "n(n+1)" },
+        { id: 'seq_14', left: "1 + 3 + 5 + \dots + (2n-1)", right: "n^2" }
+      ],
+      // ម៉ាទ្រីស និងដេទែរមីណង់ (ថ្នាក់ទី ១១)
+      matrices: [
+        { id: 'mat_1', left: "\det\begin{pmatrix}a & b \\ c & d\end{pmatrix}", right: "ad - bc" },
+        { id: 'mat_2', left: "A \cdot I", right: "A" },
+        { id: 'mat_3', left: "A + 0", right: "A + 0_M" },
+        { id: 'mat_4', left: "(A^T)^T", right: "A^T{}^T = A" },
+        { id: 'mat_5', left: "(AB)^T", right: "B^T A^T" },
+        { id: 'mat_6', left: "\det(AB)", right: "\det(A) \cdot \det(B)" },
+        { id: 'mat_7', left: "A \cdot A^{-1}", right: "I" },
+        { id: 'mat_8', left: "\det(A^{-1})", right: "\frac{1}{\det(A)}" },
+        { id: 'mat_9', left: "\det(I)", right: "1" },
+        { id: 'mat_10', left: "\begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix}", right: "I_2" },
+        { id: 'mat_11', left: "\det\begin{pmatrix}1 & 2 \\ 3 & 4\end{pmatrix}", right: "-2" },
+        { id: 'mat_12', left: "\det\begin{pmatrix}2 & 0 \\ 0 & 3\end{pmatrix}", right: "6" },
+        { id: 'mat_13', left: "A + B", right: "B + A" },
+        { id: 'mat_14', left: "k(A + B)", right: "kA + kB" }
+      ],
+      // ប្រូបាប (ថ្នាក់ទី ១១ និង ១២)
+      probability: [
+        { id: 'pr_1', left: "P(A)", right: "\frac{n(A)}{n(S)}" },
+        { id: 'pr_2', left: "P(\bar{A})", right: "1 - P(A)" },
+        { id: 'pr_3', left: "P(A \cup B)", right: "P(A) + P(B) - P(A \cap B)" },
+        { id: 'pr_4', left: "P(A | B)", right: "\frac{P(A \cap B)}{P(B)}" },
+        { id: 'pr_5', left: "P(S)", right: "1" },
+        { id: 'pr_6', left: "P(\emptyset)", right: "0" },
+        { id: 'pr_7', left: "0!", right: "1\cdot 0! = 1" },
+        { id: 'pr_8', left: "3!", right: "6" },
+        { id: 'pr_9', left: "4!", right: "24" },
+        { id: 'pr_10', left: "C(4, 2)", right: "6\cdot 1" },
+        { id: 'pr_11', left: "C(n, 0)", right: "1_C" },
+        { id: 'pr_12', left: "C(n, n)", right: "1_n" },
+        { id: 'pr_13', left: "P(n, 1)", right: "n" },
+        { id: 'pr_14', left: "P(A \cap B)\text{ (ឯករាជ្យ)}", right: "P(A) \cdot P(B)" }
+      ],
+      // ស្ថិតិវិទ្យា
+      statistics: [
+        { id: 'st_1', left: "\bar{x}\text{ (មធ្យម)}", right: "\frac{\sum x_i}{n}" },
+        { id: 'st_2', left: "Me", right: "\text{មេដ្យាន}" },
+        { id: 'st_3', left: "Mo", right: "\text{ម៉ូដ}" },
+        { id: 'st_4', left: "R\text{ (ទំហំប្រែប្រួល)}", right: "x_{\max} - x_{\min}" },
+        { id: 'st_5', left: "s^2", right: "\text{វ៉ារ្យង់}" },
+        { id: 'st_6', left: "s", right: "\sqrt{s^2}" },
+        { id: 'st_7', left: "Q_2", right: "Me\text{ (ក្វាទទីលទី ២)}" },
+        { id: 'st_8', left: "IQR", right: "Q_3 - Q_1" },
+        { id: 'st_9', left: "\sum f_i", right: "N" },
+        { id: 'st_10', left: "\bar{x}\text{ នៃ 2, 4, 6}", right: "4" },
+        { id: 'st_11', left: "Me\text{ នៃ 1, 3, 5, 7, 9}", right: "5" },
+        { id: 'st_12', left: "Mo\text{ នៃ 1, 2, 2, 3}", right: "2" }
       ],
       // ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ
       vectors: [
-        { id: 'vec_1', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" },
-        { id: 'vec_2', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2 + z^2}" },
-        { id: 'vec_3', left: "\\vec{u} \\perp \\vec{v}", right: "\\vec{u} \\cdot \\vec{v} = 0" },
-        { id: 'vec_4', left: "\\vec{u} \\parallel \\vec{v}", right: "\\vec{u} \\times \\vec{v} = \\vec{0}" },
+        { id: 'vec_1', left: "\vec{u} \cdot \vec{v}", right: "xx' + yy' + zz'" },
+        { id: 'vec_2', left: "|\vec{u}|", right: "\sqrt{x^2 + y^2 + z^2}" },
+        { id: 'vec_3', left: "\vec{u} \perp \vec{v}", right: "\vec{u} \cdot \vec{v} = 0" },
+        { id: 'vec_4', left: "\vec{u} \parallel \vec{v}", right: "\vec{u} \times \vec{v} = \vec{0}" },
         { id: 'vec_5', left: "|(3, 4)|", right: "5" },
-        { id: 'vec_6', left: "\\cos(\\vec{u}, \\vec{v})", right: "\\frac{\\vec{u}\\cdot\\vec{v}}{|\\vec{u}||\\vec{v}|}" }
+        { id: 'vec_6', left: "|(1, 1)|", right: "\sqrt{2}" },
+        { id: 'vec_7', left: "|(1, 2, 2)|", right: "3" },
+        { id: 'vec_8', left: "\cos(\vec{u}, \vec{v})", right: "\frac{\vec{u}\cdot\vec{v}}{|\vec{u}||\vec{v}|}" },
+        { id: 'vec_9', left: "\vec{u} \times \vec{v}", right: "-\vec{v} \times \vec{u}" },
+        { id: 'vec_10', left: "\vec{u} \cdot \vec{u}", right: "|\vec{u}|^2" },
+        { id: 'vec_11', left: "|(0, 0, 5)|", right: "5\cdot 1" },
+        { id: 'vec_12', left: "S_{ABC}", right: "\frac{1}{2}|\vec{AB} \times \vec{AC}|" }
       ],
       // ជំពូកទី ១០ ៖ កោនិក (ប៉ារ៉ាបូល អេលីប អ៊ីពែបូល)
       conics: [
-        { id: 'con_1', left: "y^2 = 4px", right: "(p, 0)" },
-        { id: 'con_2', left: "x^2 = 4py", right: "(0, p)" },
-        { id: 'con_3', left: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
-        { id: 'con_4', left: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
-        { id: 'con_5', left: "e", right: "\\frac{c}{a}" },
-        { id: 'con_6', left: "y", right: "\\pm \\frac{b}{a}x" }
-      ],
-      // ស្វ៊ីត
-      sequences: [
-        { id: 'seq_1', left: "u_n", right: "u_1 + (n-1)d" },
-        { id: 'seq_2', left: "S_n", right: "\\frac{n(u_1 + u_n)}{2}" },
-        { id: 'seq_3', left: "u_n", right: "u_1 \\cdot q^{n-1}" },
-        { id: 'seq_4', left: "S_n", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
-        { id: 'seq_5', left: "\\sum_{k=1}^n k", right: "\\frac{n(n+1)}{2}" }
+        { id: 'con_1', left: "y^2 = 4px", right: "F(p, 0)" },
+        { id: 'con_2', left: "x^2 = 4py", right: "F(0, p)" },
+        { id: 'con_3', left: "\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
+        { id: 'con_4', left: "\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
+        { id: 'con_5', left: "e\text{ (អិចសង់ទ្រិស៊ីតេ)}", right: "\frac{c}{a}" },
+        { id: 'con_6', left: "y\text{ (អាស៊ីមតូត)}", right: "\pm \frac{b}{a}x" },
+        { id: 'con_7', left: "e = 1", right: "\text{ប៉ារ៉ាបូល}" },
+        { id: 'con_8', left: "e < 1", right: "\text{អេលីប}" },
+        { id: 'con_9', left: "e > 1", right: "\text{អ៊ីពែបូល}" },
+        { id: 'con_10', left: "x = -p", right: "\text{បន្ទាត់ប្រាប់ទិស}" },
+        { id: 'con_11', left: "2a\text{ (អេលីប)}", right: "\text{ប្រវែងអ័ក្សធំ}" },
+        { id: 'con_12', left: "2b\text{ (អេលីប)}", right: "\text{ប្រវែងអ័ក្សតូច}" }
       ],
       // ត្រីកោណមាត្រ
       trigonometry: [
-        { id: 'trig_1', left: "\\sin^2 x + \\cos^2 x", right: "1" },
-        { id: 'trig_2', left: "\\tan x", right: "\\frac{\\sin x}{\\cos x}" },
-        { id: 'trig_3', left: "1 + \\tan^2 x", right: "\\frac{1}{\\cos^2 x}" },
-        { id: 'trig_4', left: "\\sin(2x)", right: "2\\sin x \\cos x" },
-        { id: 'trig_5', left: "\\cos(2x)", right: "\\cos^2 x - \\sin^2 x" },
-        { id: 'trig_6', left: "\\sin(\\frac{\\pi}{2} - x)", right: "\\cos x" }
+        { id: 'trig_1', left: "\sin^2 x + \cos^2 x", right: "1" },
+        { id: 'trig_2', left: "\tan x", right: "\frac{\sin x}{\cos x}" },
+        { id: 'trig_3', left: "1 + \tan^2 x", right: "\frac{1}{\cos^2 x}" },
+        { id: 'trig_4', left: "\sin(2x)", right: "2\sin x \cos x" },
+        { id: 'trig_5', left: "\cos(2x)", right: "\cos^2 x - \sin^2 x" },
+        { id: 'trig_6', left: "\sin(\frac{\pi}{2} - x)", right: "\cos x" },
+        { id: 'trig_7', left: "\cos(\frac{\pi}{2} - x)", right: "\sin x" },
+        { id: 'trig_8', left: "\sin(-x)", right: "-\sin x" },
+        { id: 'trig_9', left: "\cot x", right: "\frac{\cos x}{\sin x}" },
+        { id: 'trig_10', left: "\cos^2 x", right: "\frac{1 + \cos(2x)}{2}" },
+        { id: 'trig_11', left: "\sin^2 x", right: "\frac{1 - \cos(2x)}{2}" },
+        { id: 'trig_12', left: "\tan(2x)", right: "\frac{2\tan x}{1 - \tan^2 x}" },
+        { id: 'trig_13', left: "\sin(0)", right: "0" },
+        { id: 'trig_14', left: "\cos(0)", right: "1\cdot 1" }
       ],
       // ពីជគណិតគ្រឹះ
       algebra_basic: [
         { id: 'alg_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
         { id: 'alg_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
         { id: 'alg_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
-        { id: 'alg_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'alg_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'alg_4', left: "a^m \cdot a^n", right: "a^{m+n}" },
+        { id: 'alg_5', left: "\frac{a^m}{a^n}", right: "a^{m-n}" },
         { id: 'alg_6', left: "(a^m)^n", right: "a^{mn}" },
-        { id: 'alg_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'alg_8', left: "\\Delta", right: "b^2 - 4ac" }
+        { id: 'alg_7', left: "a^{-n}", right: "\frac{1}{a^n}" },
+        { id: 'alg_8', left: "\Delta", right: "b^2 - 4ac" },
+        { id: 'alg_9', left: "(a + b)^3", right: "a^3 + 3a^2b + 3ab^2 + b^3" },
+        { id: 'alg_10', left: "(a - b)^3", right: "a^3 - 3a^2b + 3ab^2 - b^3" },
+        { id: 'alg_11', left: "a^3 + b^3", right: "(a + b)(a^2 - ab + b^2)" },
+        { id: 'alg_12', left: "a^3 - b^3", right: "(a - b)(a^2 + ab + b^2)" },
+        { id: 'alg_13', left: "a^0\text{ (}a\neq 0)", right: "1" },
+        { id: 'alg_14', left: "\sqrt{ab}", right: "\sqrt{a}\sqrt{b}" }
       ],
       // ធរណីមាត្រគ្រឹះ
       geometry_basic: [
         { id: 'geo_1', left: "c^2", right: "a^2 + b^2" },
-        { id: 'geo_2', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'geo_3', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'geo_4', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'geo_5', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
-        { id: 'geo_6', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" }
+        { id: 'geo_2', left: "S_\triangle", right: "\frac{1}{2} b h" },
+        { id: 'geo_3', left: "S_\circ", right: "\pi R^2" },
+        { id: 'geo_4', left: "P_\circ", right: "2\pi R" },
+        { id: 'geo_5', left: "V_{\text{ស៊ីឡាំង}}", right: "\pi R^2 h" },
+        { id: 'geo_6', left: "V_{\text{ស្វ៊ែរ}}", right: "\frac{4}{3}\pi R^3" },
+        { id: 'geo_7', left: "S_{\text{ចតុកោណកែង}}", right: "a \cdot b" },
+        { id: 'geo_8', left: "P_{\text{ចតុកោណកែង}}", right: "2(a + b)" },
+        { id: 'geo_9', left: "S_{\text{ការេ}}", right: "a^2" },
+        { id: 'geo_10', left: "P_{\text{ការេ}}", right: "4a" },
+        { id: 'geo_11', left: "V_{\text{គូប}}", right: "a^3" },
+        { id: 'geo_12', left: "V_{\text{កោន}}", right: "\frac{1}{3}\pi R^2 h" },
+        { id: 'geo_13', left: "S_{\text{ស្វ៊ែរ}}", right: "4\pi R^2" },
+        { id: 'geo_14', left: "\sum\text{មុំក្នុងត្រីកោណ}", right: "180^\circ" }
       ],
       lowerSecondary: [
         { id: 'm_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
         { id: 'm_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
         { id: 'm_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
-        { id: 'm_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'm_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'm_6', left: "(a^m)^n", right: "a^{m \\cdot n}" },
-        { id: 'm_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
+        { id: 'm_4', left: "a^m \cdot a^n", right: "a^{m+n}" },
+        { id: 'm_5', left: "\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'm_6', left: "(a^m)^n", right: "a^{m \cdot n}" },
+        { id: 'm_7', left: "a^{-n}", right: "\frac{1}{a^n}" },
         { id: 'm_8', left: "c^2", right: "a^2 + b^2" },
-        { id: 'm_9', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'm_10', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'm_11', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'm_12', left: "\\Delta", right: "b^2 - 4ac" }
+        { id: 'm_9', left: "S_\triangle", right: "\frac{1}{2} b h" },
+        { id: 'm_10', left: "S_\circ", right: "\pi R^2" },
+        { id: 'm_11', left: "P_\circ", right: "2\pi R" },
+        { id: 'm_12', left: "\Delta", right: "b^2 - 4ac" },
+        { id: 'm_13', left: "S_{\text{ការេ}}", right: "a^2" },
+        { id: 'm_14', left: "P_{\text{ការេ}}", right: "4a" },
+        { id: 'm_15', left: "V_{\text{គូប}}", right: "a^3" },
+        { id: 'm_16', left: "\sqrt{a \cdot b}", right: "\sqrt{a}\sqrt{b}" }
       ],
       upperSecondary: [
-        { id: 'u_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
-        { id: 'u_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
-        { id: 'u_3', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
-        { id: 'u_4', left: "(x^n)'", right: "n \\cdot x^{n-1}" },
-        { id: 'u_5', left: "(\\sin x)'", right: "\\cos(x)" },
-        { id: 'u_6', left: "(\\cos x)'", right: "-\\sin(x)" },
+        { id: 'u_1', left: "\sin^2(x) + \cos^2(x)", right: "1" },
+        { id: 'u_2', left: "\tan(x)", right: "\frac{\sin(x)}{\cos(x)}" },
+        { id: 'u_3', left: "\cos(2x)", right: "\cos^2(x) - \sin^2(x)" },
+        { id: 'u_4', left: "(x^n)'", right: "n \cdot x^{n-1}" },
+        { id: 'u_5', left: "(\sin x)'", right: "\cos(x)" },
+        { id: 'u_6', left: "(\cos x)'", right: "-\sin(x)" },
         { id: 'u_7', left: "(e^x)'", right: "e^x" },
-        { id: 'u_8', left: "(\\ln x)'", right: "\\frac{1}{x}" },
+        { id: 'u_8', left: "(\ln x)'", right: "\frac{1}{x}" },
         { id: 'u_9', left: "i^2", right: "-1" },
-        { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
-        { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
-        { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
-        { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
-        { id: 'u_15', left: "u_n", right: "u_1 + (n-1)d" }
+        { id: 'u_10', left: "\int 2x\,dx", right: "x^2 + C" },
+        { id: 'u_11', left: "\int e^x\,dx", right: "e^x + C" },
+        { id: 'u_12', left: "\int \frac{1}{x}\,dx", right: "\ln|x| + C" },
+        { id: 'u_13', left: "\lim_{x \to 0} \frac{\sin x}{x}", right: "1\cdot 1" },
+        { id: 'u_14', left: "\ln(a \cdot b)", right: "\ln(a) + \ln(b)" },
+        { id: 'u_15', left: "u_n\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'u_16', left: "\vec{u} \cdot \vec{v}", right: "xx' + yy' + zz'" }
       ]
     };
 
@@ -785,6 +904,12 @@ class MathGamesEngine {
       return [...this.formulaPacks.conics];
     } else if (topicText.includes('ស្វ៊ីត')) {
       return [...this.formulaPacks.sequences];
+    } else if (topicText.includes('ម៉ាទ្រីស') || topicText.includes('ដេទែរមីណង់')) {
+      return [...this.formulaPacks.matrices];
+    } else if (topicText.includes('ប្រូបាប') || topicText.includes('បន្សំ') || topicText.includes('ចម្រាស់') || topicText.includes('បាយែស')) {
+      return [...this.formulaPacks.probability];
+    } else if (topicText.includes('ស្ថិតិ')) {
+      return [...this.formulaPacks.statistics];
     } else if (topicText.includes('ត្រីកោណមាត្រ')) {
       return [...this.formulaPacks.trigonometry];
     } else if (topicText.includes('ធរណីមាត្រ') || topicText.includes('ផ្ទៃក្រឡា') || topicText.includes('មាឌ')) {
@@ -898,6 +1023,7 @@ class MathGamesEngine {
     const usedLefts = new Set();
     const usedRights = new Set();
 
+    // 1st Pass: from topic pack
     for (const p of pack) {
       if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
         selected.push(p);
@@ -906,6 +1032,26 @@ class MathGamesEngine {
         if (selected.length === this.matchPairsCount) break;
       }
     }
+
+    // 2nd Pass: if topic pack didn't have enough pairs, fill from general grade pack
+    if (selected.length < this.matchPairsCount) {
+      const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(this.selectedGrade);
+      const fallbackPack = isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
+      fallbackPack.sort(() => Math.random() - 0.5);
+
+      for (const p of fallbackPack) {
+        if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
+          selected.push(p);
+          usedLefts.add(p.left);
+          usedRights.add(p.right);
+          if (selected.length === this.matchPairsCount) break;
+        }
+      }
+    }
+
+    // Ensure matchPairsCount is synchronized with actual selected pairs
+    this.matchPairsCount = selected.length;
+    this.updateMatchStatsUI();
 
     let cards = [];
     selected.forEach(p => {
