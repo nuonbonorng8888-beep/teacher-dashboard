@@ -1468,177 +1468,7 @@
       </section>
 
       <!-- ==================== TAB: QUESTION BANK (ធនាគារសំណួរ 5,470 សំណួរ) ==================== -->
-      <section id="tab-questionbank" class="tab-content hidden space-y-6">
-        <!-- 1. Teacher & Portal Banner (ដូចរូប KhmerMath ខាងលើ) -->
-        <div class="card-soft p-4 bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-purple-500/10 border-l-4 border-amber-500 flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center font-bold text-lg shrink-0">
-              <i class="fa-solid fa-crown"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 font-bold text-xs">គណនីគ្រូសាកល្បង</span>
-                <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">គ្រូបង្រៀនគណិតវិទ្យា NGS: <strong>លោកគ្រូ នួន បូណង (Bonorng11)</strong></span>
-              </div>
-              <div class="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-bold mt-1">
-                <span>ថ្នាក់៖ <strong class="text-purple-600">៧ ដល់ ១២</strong></span>
-                <span>•</span>
-                <span>សិស្ស៖ <strong class="text-purple-600">៣៦ នាក់</strong></span>
-                <span>•</span>
-                <span>សំណួរក្នុងធនាគារ៖ <strong class="text-emerald-600 font-black">5,470 សំណួរ</strong></span>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <a href="https://exam.khmermath.org/teacher" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-900/40 hover:bg-purple-100 text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center gap-1.5">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              <span>Exam Khmer (khmermath.org)</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 2. Question Bank Main Header Card (ដូចរូបបេះបិទ) -->
-        <div class="card-soft p-6 space-y-5">
-          <!-- Title & Actions -->
-          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-700">
-            <div>
-              <h2 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2.5 font-battambang">
-                <i class="fa-solid fa-folder-open text-purple-600"></i>
-                <span>ធនាគារសំណួរ</span>
-                <span id="bankTotalCountBadge" class="text-base text-purple-600 font-mono font-bold">(5,470)</span>
-              </h2>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                រៀបតាមថ្នាក់ ➔ ជំពូក ➔ មេរៀន។ បន្ថែមសំណួរចូលជំពូក និងមេរៀន រួចពេលបង្កើតតេស្ត គ្រាន់តែជ្រើសរើសពីមេរៀន ឬផ្នែកដែលចង់បាន។
-              </p>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <button onclick="window.questionBank.openExportModal()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
-                <i class="fa-solid fa-file-arrow-down"></i>
-                <span>ទាញយកលំហាត់ PDF / Word</span>
-              </button>
-              <button onclick="window.questionBank.openAddQuestionModal()" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
-                <i class="fa-solid fa-plus"></i>
-                <span>+ សំណួរថ្មី</span>
-              </button>
-              <button onclick="window.questionBank.openImportExcelModal()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
-                <i class="fa-solid fa-file-excel"></i>
-                <span>នាំចូល Excel</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Grade Filter Chips (ប៊ូតុងជ្រើសរើសថ្នាក់) -->
-          <div class="flex flex-wrap items-center gap-2 pt-1" id="bankGradeChips">
-            <!-- Dynamically populated chips -->
-          </div>
-        </div>
-
-        <!-- 3. Question Filter Toolbar & Selection Control (Card 3 ក្នុងរូប) -->
-        <div class="card-soft p-6 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <h3 class="text-lg font-black text-slate-900 dark:text-white font-battambang flex items-center gap-2">
-              <i class="fa-solid fa-list-check text-purple-600"></i>
-              <span>សំណួរ</span>
-              <span id="bankFilterCountLabel" class="text-xs text-slate-500 font-normal">(បង្ហាញ 15 នៃ 5,470 សំណួរ)</span>
-            </h3>
-
-            <!-- Random Test Button -->
-            <button onclick="window.questionBank.openRandomTestModal()" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-              <i class="fa-solid fa-dice"></i>
-              <span>🎲 បង្កើតតេស្តចៃដន្យពីធនាគារ</span>
-            </button>
-          </div>
-
-          <!-- Filters Row -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-            <!-- Grade select -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-500 mb-1">កម្រិតថ្នាក់</label>
-              <select id="bankSelectGrade" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-white">
-                <option value="all">គ្រប់កម្រិត</option>
-                <option value="ថ្នាក់ទី ៧">ថ្នាក់ទី ៧</option>
-                <option value="ថ្នាក់ទី ៨">ថ្នាក់ទី ៨</option>
-                <option value="ថ្នាក់ទី ៩">ថ្នាក់ទី ៩</option>
-                <option value="ថ្នាក់ទី ១០">ថ្នាក់ទី ១០</option>
-                <option value="11SC">ថ្នាក់ទី ១១ (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="11SS">ថ្នាក់ទី ១១ (វិទ្យាសាស្ត្រសង្គម)</option>
-                <option value="12SC">ថ្នាក់ទី ១២ (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="12SS">ថ្នាក់ទី ១២ (វិទ្យាសាស្ត្រសង្គម)</option>
-                <option value="NGS">តម្រង់ទិស NGS</option>
-              </select>
-            </div>
-
-            <!-- Lesson select -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-500 mb-1">មេរៀន / ជំពូក</label>
-              <select id="bankSelectLesson" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white truncate">
-                <option value="all">📚 គ្រប់មេរៀន</option>
-              </select>
-            </div>
-
-            <!-- Difficulty / Level select -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-500 mb-1">កម្រិតពិបាក</label>
-              <select id="bankSelectLevel" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white">
-                <option value="all">គ្រប់កម្រិតពិបាក</option>
-                <option value="ងាយ">ងាយ (Easy)</option>
-                <option value="មធ្យម">មធ្យម (Medium)</option>
-                <option value="ពិបាក">ពិបាក (Hard)</option>
-                <option value="បែប PISA">បែប PISA</option>
-              </select>
-            </div>
-
-            <!-- Search box -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-500 mb-1">ស្វែងរក</label>
-              <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
-                <input id="bankSearchInput" type="text" placeholder="ស្វែងរកតាមពាក្យគន្លឹះ..." class="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs">
-              </div>
-            </div>
-          </div>
-
-          <!-- Multi-select & Batch Actions -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
-            <div class="flex items-center gap-3">
-              <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-600 dark:text-slate-300 select-none">
-                <input type="checkbox" id="bankSelectAllVisible" class="w-4 h-4 rounded text-purple-600 border-slate-300">
-                <span>ជ្រើសទាំងអស់ដែលបង្ហាញ</span>
-              </label>
-              <span id="bankSelectedCountBadge" class="text-xs text-purple-600 font-bold hidden bg-purple-50 dark:bg-purple-900/40 px-2.5 py-0.5 rounded-full border border-purple-200 dark:border-purple-800">
-                បានជ្រើសរើស: 0 សំណួរ
-              </span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button id="btnBankExportSelected" onclick="window.questionBank.exportSelectedQuestions()" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-                <i class="fa-solid fa-print"></i>
-                <span>បោះពុម្ពសំណួរដែលបានជ្រើស (<span id="bankSelectedBtnCount">0</span>)</span>
-              </button>
-              <button id="btnBankClearSelected" onclick="window.questionBank.clearSelection()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-600 dark:text-slate-300 text-xs font-bold transition hidden">
-                សម្អាតការជ្រើស
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Questions List Container & Pagination -->
-        <div class="space-y-4">
-          <!-- Cards populated dynamically -->
-          <div id="bankQuestionsContainer" class="space-y-4">
-            <!-- Dynamically populated cards -->
-          </div>
-
-          <!-- Pagination Controls -->
-          <div class="card-soft p-4 flex flex-wrap items-center justify-between gap-3">
-            <div class="text-xs text-slate-500 font-medium" id="bankPaginationInfo">
-              ទំព័រ 1 នៃ 365
-            </div>
-            <div class="flex items-center gap-1.5" id="bankPaginationControls">
-              <!-- Prev, Page numbers, Next -->
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <!-- ==================== TAB: SETTINGS & BACKUP ==================== -->
       <section id="tab-settings" class="tab-content hidden space-y-6">
@@ -1862,13 +1692,13 @@
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm"></div>
 
   <!-- Scripts -->
-  <script src="js/data.js?v=3.4"></script>
-  <script src="js/tools.js?v=3.4"></script>
-  <script src="js/grades.js?v=3.4"></script>
-  <script src="js/curriculum-questions.js?v=3.4"></script>
-  <script src="js/math-games.js?v=3.4"></script>
-  <script src="js/question-bank.js?v=3.4"></script>
-  <script src="js/app.js?v=3.4"></script>
+  <script src="js/data.js?v=3.5"></script>
+  <script src="js/tools.js?v=3.5"></script>
+  <script src="js/grades.js?v=3.5"></script>
+  <script src="js/curriculum-questions.js?v=3.5"></script>
+  <script src="js/math-games.js?v=3.5"></script>
+  <script src="js/question-bank.js?v=3.5"></script>
+  <script src="js/app.js?v=3.5"></script>
 </body>
 </html>
 

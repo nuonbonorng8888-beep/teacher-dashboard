@@ -60,7 +60,50 @@ class MathGamesEngine {
 
     // Comprehensive Grade & Topic-Specific Formula Packs (100% Unique Left & Right, Strictly No Euler)
     this.formulaPacks = {
-      // ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (ថ្នាក់ទី ១២ និង ១១ - ស្តង់ដារក្រសួងអប់រំ មិនប្រើរូបមន្ត Euler)
+      // ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (ថ្នាក់ទី ១២)
+      // មេរៀនទី ១ ៖ ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form - Strictly No Trig, No Euler)
+      complex_algebraic: [
+        { id: 'ca_1', left: "i^2", right: "-1" },
+        { id: 'ca_2', left: "i^3", right: "-i" },
+        { id: 'ca_3', left: "i^4", right: "1" },
+        { id: 'ca_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'ca_5', left: "\\overline{a + bi}", right: "a - bi" },
+        { id: 'ca_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
+        { id: 'ca_7', left: "|3 - 4i|", right: "5" },
+        { id: 'ca_8', left: "|1 + i|", right: "\\sqrt{2}" },
+        { id: 'ca_9', left: "(2+i)(3-2i)", right: "8 - i" },
+        { id: 'ca_10', left: "\\sqrt{-4}", right: "2i" },
+        { id: 'ca_11', left: "\\sqrt{-9}", right: "3i" },
+        { id: 'ca_12', left: "\\sqrt{-16}", right: "4i" },
+        { id: 'ca_13', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
+        { id: 'ca_14', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
+        { id: 'ca_15', left: "\\frac{1}{i}", right: "-i" },
+        { id: 'ca_16', left: "(1+i)^2", right: "2i" },
+        { id: 'ca_17', left: "(1-i)^2", right: "-2i" },
+        { id: 'ca_18', left: "\\overline{z \\cdot z'}", right: "\\bar{z} \\cdot \\bar{z}'" }
+      ],
+
+      // មេរៀនទី ២ ៖ ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form & De Moivre - Strictly No Euler)
+      complex_trigonometric: [
+        { id: 'ct_1', left: "z\\text{ (ទម្រង់ត្រីកោណមាត្រ)}", right: "r(\\cos\\theta + i\\sin\\theta)" },
+        { id: 'ct_2', left: "r\\text{ (ម៉ូឌុលនៃ }z)", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'ct_3', left: "\\cos\\theta", right: "\\frac{a}{r}" },
+        { id: 'ct_4', left: "\\sin\\theta", right: "\\frac{b}{r}" },
+        { id: 'ct_5', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
+        { id: 'ct_6', left: "[r(\\cos\\theta + i\\sin\\theta)]^n", right: "r^n[\\cos(n\\theta) + i\\sin(n\\theta)]" },
+        { id: 'ct_7', left: "z \\cdot z'", right: "rr'[\\cos(\\theta+\\theta') + i\\sin(\\theta+\\theta')]" },
+        { id: 'ct_8', left: "\\frac{z}{z'}", right: "\\frac{r}{r'}[\\cos(\\theta-\\theta') + i\\sin(\\theta-\\theta')]" },
+        { id: 'ct_9', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" },
+        { id: 'ct_10', left: "\\arg(\\frac{z}{z'})", right: "\\arg(z) - \\arg(z')" },
+        { id: 'ct_11', left: "\\arg(z^n)", right: "n\\arg(z)" },
+        { id: 'ct_12', left: "1+i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}(\\cos\\frac{\\pi}{4} + i\\sin\\frac{\\pi}{4})" },
+        { id: 'ct_13', left: "i\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}" },
+        { id: 'ct_14', left: "-1\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\pi + i\\sin\\pi" },
+        { id: 'ct_15', left: "1-i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}[\\cos(-\\frac{\\pi}{4}) + i\\sin(-\\frac{\\pi}{4})]" },
+        { id: 'ct_16', left: "\\arg(\\bar{z})", right: "-\\arg(z)" }
+      ],
+
+      // ជំពូកកុំផ្លិចទាំងមូល (Chapter Fallback)
       complex_numbers: [
         { id: 'c_1', left: "i^2", right: "-1" },
         { id: 'c_2', left: "i^3", right: "-i" },
@@ -74,11 +117,94 @@ class MathGamesEngine {
         { id: 'c_10', left: "\\sqrt{-4}", right: "2i" },
         { id: 'c_11', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
         { id: 'c_12', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
-        { id: 'c_13', left: "\\frac{1}{i}", right: "-i\\cdot 1" },
+        { id: 'c_13', left: "\\frac{1}{i}", right: "-i" },
         { id: 'c_14', left: "\\sqrt{-9}", right: "3i" },
         { id: 'c_15', left: "(1-i)^2", right: "-2i" },
         { id: 'c_16', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" }
       ],
+
+      // ជំពូកទី ១ ៖ ស្វ៊ីត (ថ្នាក់ទី ១១)
+      // មេរៀនទី ១ ៖ ស្វ៊ីតចំនួនពិត (Real Sequences - Strictly No Arithmetic, No Geometric)
+      sequences_real: [
+        { id: 'sr_1', left: "u_{n+1} - u_n > 0", right: "\\text{ស្វ៊ីតកើនដាច់ខាត}" },
+        { id: 'sr_2', left: "u_{n+1} - u_n < 0", right: "\\text{ស្វ៊ីតចុះដាច់ខាត}" },
+        { id: 'sr_3', left: "u_{n+1} = u_n", right: "\\text{ស្វ៊ីតថេរ}" },
+        { id: 'sr_4', left: "u_n \\le M", right: "\\text{ស្វ៊ីតទល់លើដោយ }M" },
+        { id: 'sr_5', left: "u_n \\ge m", right: "\\text{ស្វ៊ីតទល់ក្រោមដោយ }m" },
+        { id: 'sr_6', left: "m \\le u_n \\le M", right: "\\text{ស្វ៊ីតទល់}" },
+        { id: 'sr_7', left: "u_n = 2n + 1 \\implies u_1", right: "3" },
+        { id: 'sr_8', left: "u_n = 2n + 1 \\implies u_2", right: "5" },
+        { id: 'sr_9', left: "u_n = n^2 - 1 \\implies u_3", right: "8" },
+        { id: 'sr_10', left: "u_n = \\frac{1}{n} \\implies u_4", right: "\\frac{1}{4}" },
+        { id: 'sr_11', left: "u_n = 3n - 1 \\implies u_1", right: "2" },
+        { id: 'sr_12', left: "u_n = (-1)^n", right: "\\text{ស្វ៊ីតឆ្លាស់}" },
+        { id: 'sr_13', left: "u_n = 2^n \\implies u_3", right: "8" },
+        { id: 'sr_14', left: "u_{n+1} = u_n + 3,\\, u_1 = 1 \\implies u_2", right: "4" },
+        { id: 'sr_15', left: "u_{n+1} = 2u_n,\\, u_1 = 3 \\implies u_2", right: "6" },
+        { id: 'sr_16', left: "u_n = \\frac{n}{n+1} \\implies u_1", right: "\\frac{1}{2}" },
+        { id: 'sr_17', left: "u_n = \\frac{n}{n+1} \\implies u_2", right: "\\frac{2}{3}" },
+        { id: 'sr_18', left: "u_n = n^2 + 1 \\implies u_1", right: "2" }
+      ],
+
+      // មេរៀនទី ២ ៖ ស្វ៊ីតនព្វន្ត (Arithmetic Sequences - Strictly No Geometric)
+      sequences_arithmetic: [
+        { id: 'sa_1', left: "d\\text{ (ផលសងរួម)}", right: "u_n - u_{n-1}" },
+        { id: 'sa_2', left: "u_n\\text{ (តួទី }n\\text{ នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'sa_3', left: "S_n\\text{ (ផលបូក }n\\text{ តួនព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
+        { id: 'sa_4', left: "S_n\\text{ (រូបមន្តទី ២)}", right: "\\frac{n[2u_1 + (n-1)d]}{2}" },
+        { id: 'sa_5', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
+        { id: 'sa_6', left: "2b\\text{ (លក្ខខណ្ឌ ៣ តួតគ្នានព្វន្ត)}", right: "a + c" },
+        { id: 'sa_7', left: "1 + 2 + 3 + \\dots + n", right: "\\frac{n(n+1)}{2}" },
+        { id: 'sa_8', left: "1 + 2 + 3 + \\dots + 10", right: "55" },
+        { id: 'sa_9', left: "2 + 4 + 6 + \\dots + 2n", right: "n(n+1)" },
+        { id: 'sa_10', left: "1 + 3 + 5 + \\dots + (2n-1)", right: "n^2" },
+        { id: 'sa_11', left: "u_n - u_p", right: "(n-p)d" },
+        { id: 'sa_12', left: "u_5 - u_1", right: "4d" },
+        { id: 'sa_13', left: "u_1 = 2,\\, d = 3 \\implies u_3", right: "8" },
+        { id: 'sa_14', left: "u_1 = 5,\\, d = 2 \\implies u_2", right: "7" },
+        { id: 'sa_15', left: "u_1 = 1,\\, u_2 = 4 \\implies d", right: "3" },
+        { id: 'sa_16', left: "u_1 = 3,\\, u_3 = 7 \\implies d", right: "2" }
+      ],
+
+      // មេរៀនទី ៣ ៖ ស្វ៊ីតធរណីមាត្រ (Geometric Sequences)
+      sequences_geometric: [
+        { id: 'sg_1', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
+        { id: 'sg_2', left: "u_n\\text{ (តួទី }n\\text{ ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
+        { id: 'sg_3', left: "S_n\\text{ (ផលបូក }n\\text{ តួធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'sg_4', left: "b^2\\text{ (លក្ខខណ្ឌ ៣ តួតគ្នាធរណីមាត្រ)}", right: "ac" },
+        { id: 'sg_5', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'sg_6', left: "S_\\infty\\text{ (ផលបូកអនន្ត, }|q|<1)", right: "\\frac{u_1}{1 - q}" },
+        { id: 'sg_7', left: "\\frac{u_n}{u_p}", right: "q^{n-p}" },
+        { id: 'sg_8', left: "u_1 = 2,\\, q = 3 \\implies u_2", right: "6" },
+        { id: 'sg_9', left: "u_1 = 1,\\, q = 2 \\implies u_3", right: "4" },
+        { id: 'sg_10', left: "u_1 = 3,\\, q = 2 \\implies u_2", right: "6" },
+        { id: 'sg_11', left: "1 + q + q^2 + \\dots + q^{n-1}", right: "\\frac{1 - q^n}{1 - q}" },
+        { id: 'sg_12', left: "1 + \\frac{1}{2} + \\frac{1}{4} + \\dots", right: "2" },
+        { id: 'sg_13', left: "u_1 = 4,\\, q = \\frac{1}{2} \\implies S_\\infty", right: "8" },
+        { id: 'sg_14', left: "u_1 = 1,\\, q = 3 \\implies u_4", right: "27" },
+        { id: 'sg_15', left: "u_1 = 5,\\, q = 10 \\implies u_2", right: "50" },
+        { id: 'sg_16', left: "u_2 = 6,\\, u_1 = 2 \\implies q", right: "3" }
+      ],
+
+      // ជំពូកស្វ៊ីតទាំងមូល (Chapter Fallback)
+      sequences: [
+        { id: 'seq_1', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'seq_2', left: "S_n\\text{ (នព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
+        { id: 'seq_3', left: "u_n\\text{ (ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
+        { id: 'seq_4', left: "S_n\\text{ (ធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'seq_5', left: "\\sum_{k=1}^n k", right: "\\frac{n(n+1)}{2}" },
+        { id: 'seq_6', left: "S_\\infty\\text{ (|q|<1)}", right: "\\frac{u_1}{1 - q}" },
+        { id: 'seq_7', left: "d\\text{ (ផលសងរួម)}", right: "u_{n} - u_{n-1}" },
+        { id: 'seq_8', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
+        { id: 'seq_9', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
+        { id: 'seq_10', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'seq_11', left: "\\sum_{k=1}^n 1", right: "n" },
+        { id: 'seq_12', left: "1 + 2 + 3 + \\dots + 10", right: "55" },
+        { id: 'seq_13', left: "2 + 4 + 6 + \\dots + 2n", right: "n(n+1)" },
+        { id: 'seq_14', left: "1 + 3 + 5 + \\dots + (2n-1)", right: "n^2" },
+        { id: 'seq_15', left: "1 + \\frac{1}{2} + \\frac{1}{4} + \\dots", right: "2" }
+      ],
+
       // ជំពូកទី ២ ៖ លីមីតនៃអនុគមន៍
       limits: [
         { id: 'lim_1', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
@@ -92,10 +218,11 @@ class MathGamesEngine {
         { id: 'lim_9', left: "\\lim_{x \\to +\\infty} \\frac{1}{x}", right: "0" },
         { id: 'lim_10', left: "\\lim_{x \\to 0^+} \\frac{1}{x}", right: "+\\infty" },
         { id: 'lim_11', left: "\\lim_{x \\to 0^-} \\frac{1}{x}", right: "-\\infty" },
-        { id: 'lim_12', left: "\\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}", right: "3\\cdot 1" },
+        { id: 'lim_12', left: "\\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}", right: "3" },
         { id: 'lim_13', left: "\\lim_{x \\to 2} (3x + 1)", right: "7" },
-        { id: 'lim_14', left: "\\lim_{x \\to 4} \\sqrt{x}", right: "\\sqrt{4}" }
+        { id: 'lim_14', left: "\\lim_{x \\to 4} \\sqrt{x}", right: "2" }
       ],
+
       // ជំពូកទី ៣ ៖ ដេរីវេនៃអនុគមន៍
       derivatives: [
         { id: 'der_1', left: "(x^n)'", right: "n x^{n-1}" },
@@ -114,6 +241,7 @@ class MathGamesEngine {
         { id: 'der_14', left: "(x^4)'", right: "4x^3" },
         { id: 'der_15', left: "(\\frac{1}{x})'", right: "-\\frac{1}{x^2}" }
       ],
+
       // ជំពូកទី ៦ ៖ អាំងតេក្រាល
       integrals: [
         { id: 'int_1', left: "\\int x^n\\,dx", right: "\\frac{x^{n+1}}{n+1} + C" },
@@ -131,162 +259,153 @@ class MathGamesEngine {
         { id: 'int_13', left: "\\int 1\\,dx", right: "x + C" },
         { id: 'int_14', left: "\\int \\frac{u'}{u}\\,dx", right: "\\ln|u| + C" }
       ],
-      // ជំពូកស្វ៊ីត (ថ្នាក់ទី ១១ និង ១២)
-      sequences: [
-        { id: 'seq_1', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
-        { id: 'seq_2', left: "S_n\\text{ (នព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
-        { id: 'seq_3', left: "u_n\\text{ (ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
-        { id: 'seq_4', left: "S_n\\text{ (ធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
-        { id: 'seq_5', left: "\\sum_{k=1}^n k", right: "\\frac{n(n+1)}{2}" },
-        { id: 'seq_6', left: "S_\\infty\\text{ (|q|<1)}", right: "\\frac{u_1}{1 - q}" },
-        { id: 'seq_7', left: "d\\text{ (ផលសងរួម)}", right: "u_{n} - u_{n-1}" },
-        { id: 'seq_8', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
-        { id: 'seq_9', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
-        { id: 'seq_10', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
-        { id: 'seq_11', left: "\\sum_{k=1}^n 1", right: "n" },
-        { id: 'seq_12', left: "1 + 2 + 3 + \\dots + 10", right: "55" },
-        { id: 'seq_13', left: "2 + 4 + 6 + \\dots + 2n", right: "n(n+1)" },
-        { id: 'seq_14', left: "1 + 3 + 5 + \\dots + (2n-1)", right: "n^2" }
-      ],
+
       // ម៉ាទ្រីស និងដេទែរមីណង់ (ថ្នាក់ទី ១១)
       matrices: [
-        { id: 'mat_1', left: "\\det\\begin{pmatrix}a & b \\ c & d\\end{pmatrix}", right: "ad - bc" },
+        { id: 'mat_1', left: "\\det\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}", right: "ad - bc" },
         { id: 'mat_2', left: "A \\cdot I", right: "A" },
-        { id: 'mat_3', left: "A + 0", right: "A + 0_M" },
-        { id: 'mat_4', left: "(A^T)^T", right: "A^T{}^T = A" },
+        { id: 'mat_3', left: "A + 0", right: "A" },
+        { id: 'mat_4', left: "(A^T)^T", right: "A" },
         { id: 'mat_5', left: "(AB)^T", right: "B^T A^T" },
         { id: 'mat_6', left: "\\det(AB)", right: "\\det(A) \\cdot \\det(B)" },
         { id: 'mat_7', left: "A \\cdot A^{-1}", right: "I" },
         { id: 'mat_8', left: "\\det(A^{-1})", right: "\\frac{1}{\\det(A)}" },
-        { id: 'mat_9', left: "\\det(I)", right: "1" },
-        { id: 'mat_10', left: "\\begin{pmatrix}1 & 0 \\ 0 & 1\\end{pmatrix}", right: "I_2" },
-        { id: 'mat_11', left: "\\det\\begin{pmatrix}1 & 2 \\ 3 & 4\\end{pmatrix}", right: "-2" },
-        { id: 'mat_12', left: "\\det\\begin{pmatrix}2 & 0 \\ 0 & 3\\end{pmatrix}", right: "6" },
-        { id: 'mat_13', left: "A + B", right: "B + A" },
-        { id: 'mat_14', left: "k(A + B)", right: "kA + kB" }
+        { id: 'mat_9', left: "\\det(kA)", right: "k^n \\det(A)" },
+        { id: 'mat_10', left: "A(B+C)", right: "AB + AC" },
+        { id: 'mat_11', left: "\\det(I_n)", right: "1" },
+        { id: 'mat_12', left: "(A+B)^T", right: "A^T + B^T" }
       ],
-      // ប្រូបាប (ថ្នាក់ទី ១១ និង ១២)
-      probability: [
-        { id: 'pr_1', left: "P(A)", right: "\\frac{n(A)}{n(S)}" },
-        { id: 'pr_2', left: "P(\\bar{A})", right: "1 - P(A)" },
-        { id: 'pr_3', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
-        { id: 'pr_4', left: "P(A | B)", right: "\\frac{P(A \\cap B)}{P(B)}" },
-        { id: 'pr_5', left: "P(S)", right: "1" },
-        { id: 'pr_6', left: "P(\\emptyset)", right: "0" },
-        { id: 'pr_7', left: "0!", right: "1\\cdot 0! = 1" },
-        { id: 'pr_8', left: "3!", right: "6" },
-        { id: 'pr_9', left: "4!", right: "24" },
-        { id: 'pr_10', left: "C(4, 2)", right: "6\\cdot 1" },
-        { id: 'pr_11', left: "C(n, 0)", right: "1_C" },
-        { id: 'pr_12', left: "C(n, n)", right: "1_n" },
-        { id: 'pr_13', left: "P(n, 1)", right: "n" },
-        { id: 'pr_14', left: "P(A \\cap B)\\text{ (ឯករាជ្យ)}", right: "P(A) \\cdot P(B)" }
-      ],
-      // ស្ថិតិវិទ្យា
-      statistics: [
-        { id: 'st_1', left: "\\bar{x}\\text{ (មធ្យម)}", right: "\\frac{\\sum x_i}{n}" },
-        { id: 'st_2', left: "Me", right: "\\text{មេដ្យាន}" },
-        { id: 'st_3', left: "Mo", right: "\\text{ម៉ូដ}" },
-        { id: 'st_4', left: "R\\text{ (ទំហំប្រែប្រួល)}", right: "x_{\\max} - x_{\\min}" },
-        { id: 'st_5', left: "s^2", right: "\\text{វ៉ារ្យង់}" },
-        { id: 'st_6', left: "s", right: "\\sqrt{s^2}" },
-        { id: 'st_7', left: "Q_2", right: "Me\\text{ (ក្វាទទីលទី ២)}" },
-        { id: 'st_8', left: "IQR", right: "Q_3 - Q_1" },
-        { id: 'st_9', left: "\\sum f_i", right: "N" },
-        { id: 'st_10', left: "\\bar{x}\\text{ នៃ 2, 4, 6}", right: "4" },
-        { id: 'st_11', left: "Me\\text{ នៃ 1, 3, 5, 7, 9}", right: "5" },
-        { id: 'st_12', left: "Mo\\text{ នៃ 1, 2, 2, 3}", right: "2" }
-      ],
-      // ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ
+
+      // វ៉ិចទ័រក្នុងលំហ និងប្លង់
       vectors: [
         { id: 'vec_1', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" },
         { id: 'vec_2', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2 + z^2}" },
-        { id: 'vec_3', left: "\\vec{u} \\perp \\vec{v}", right: "\\vec{u} \\cdot \\vec{v} = 0" },
-        { id: 'vec_4', left: "\\vec{u} \\parallel \\vec{v}", right: "\\vec{u} \\times \\vec{v} = \\vec{0}" },
-        { id: 'vec_5', left: "|(3, 4)|", right: "5" },
-        { id: 'vec_6', left: "|(1, 1)|", right: "\\sqrt{2}" },
-        { id: 'vec_7', left: "|(1, 2, 2)|", right: "3" },
-        { id: 'vec_8', left: "\\cos(\\vec{u}, \\vec{v})", right: "\\frac{\\vec{u}\\cdot\\vec{v}}{|\\vec{u}||\\vec{v}|}" },
-        { id: 'vec_9', left: "\\vec{u} \\times \\vec{v}", right: "-\\vec{v} \\times \\vec{u}" },
-        { id: 'vec_10', left: "\\vec{u} \\cdot \\vec{u}", right: "|\\vec{u}|^2" },
-        { id: 'vec_11', left: "|(0, 0, 5)|", right: "5\\cdot 1" },
-        { id: 'vec_12', left: "S_{ABC}", right: "\\frac{1}{2}|\\vec{AB} \\times \\vec{AC}|" }
+        { id: 'vec_3', left: "\\cos(\\vec{u}, \\vec{v})", right: "\\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}| \\cdot |\\vec{v}|}" },
+        { id: 'vec_4', left: "\\vec{u} \\perp \\vec{v} \\iff", right: "\\vec{u} \\cdot \\vec{v} = 0" },
+        { id: 'vec_5', left: "\\vec{u} \\parallel \\vec{v} \\iff", right: "\\vec{u} \\times \\vec{v} = \\vec{0}" },
+        { id: 'vec_6', left: "\\vec{u} \\cdot \\vec{u}", right: "|\\vec{u}|^2" },
+        { id: 'vec_7', left: "|\\vec{u} \\times \\vec{v}|", right: "|\\vec{u}||\\vec{v}|\\sin\\theta" },
+        { id: 'vec_8', left: "\\vec{v} \\times \\vec{u}", right: "-\\vec{u} \\times \\vec{v}" },
+        { id: 'vec_9', left: "S_\\triangle\\text{ (វ៉ិចទ័រ)}", right: "\\frac{1}{2}|\\vec{AB} \\times \\vec{AC}|" },
+        { id: 'vec_10', left: "V\\text{ (ប្រលេឡូពីប៉ែត)}", right: "|(\\vec{u} \\times \\vec{v}) \\cdot \\vec{w}|" },
+        { id: 'vec_11', left: "\\vec{AB}", right: "(x_B-x_A,\\, y_B-y_A,\\, z_B-z_A)" },
+        { id: 'vec_12', left: "\\vec{u} \\cdot \\vec{0}", right: "0" }
       ],
-      // ជំពូកទី ១០ ៖ កោនិក (ប៉ារ៉ាបូល អេលីប អ៊ីពែបូល)
+
+      // កោនិក (ប៉ារ៉ាបូល អេលីប អ៊ីពែបូល)
       conics: [
-        { id: 'con_1', left: "y^2 = 4px", right: "F(p, 0)" },
-        { id: 'con_2', left: "x^2 = 4py", right: "F(0, p)" },
-        { id: 'con_3', left: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
-        { id: 'con_4', left: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
-        { id: 'con_5', left: "e\\text{ (អិចសង់ទ្រិស៊ីតេ)}", right: "\\frac{c}{a}" },
-        { id: 'con_6', left: "y\\text{ (អាស៊ីមតូត)}", right: "\\pm \\frac{b}{a}x" },
-        { id: 'con_7', left: "e = 1", right: "\\text{ប៉ារ៉ាបូល}" },
-        { id: 'con_8', left: "e < 1", right: "\\text{អេលីប}" },
-        { id: 'con_9', left: "e > 1", right: "\\text{អ៊ីពែបូល}" },
-        { id: 'con_10', left: "x = -p", right: "\\text{បន្ទាត់ប្រាប់ទិស}" },
-        { id: 'con_11', left: "2a\\text{ (អេលីប)}", right: "\\text{ប្រវែងអ័ក្សធំ}" },
-        { id: 'con_12', left: "2b\\text{ (អេលីប)}", right: "\\text{ប្រវែងអ័ក្សតូច}" }
+        { id: 'con_1', left: "y^2 = 4px\\text{ (ប៉ារ៉ាបូល)}", right: "F(p, 0)" },
+        { id: 'con_2', left: "x^2 = 4py\\text{ (ប៉ារ៉ាបូល)}", right: "F(0, p)" },
+        { id: 'con_3', left: "D\\text{ (បន្ទាត់ប្រាប់ទិស }y^2=4px)", right: "x = -p" },
+        { id: 'con_4', left: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
+        { id: 'con_5', left: "e\\text{ (អេឡិចត្រីស៊ីតេអេលីប)}", right: "\\frac{c}{a} < 1" },
+        { id: 'con_6', left: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
+        { id: 'con_7', left: "y = \\pm \\frac{b}{a}x", right: "\\text{អាស៊ីមតូតអ៊ីពែបូល}" },
+        { id: 'con_8', left: "e\\text{ (អ៊ីពែបូល)}", right: "\\frac{c}{a} > 1" },
+        { id: 'con_9', left: "e\\text{ (ប៉ារ៉ាបូល)}", right: "1" },
+        { id: 'con_10', left: "(x-h)^2 + (y-k)^2", right: "R^2" }
       ],
+
+      // ប្រូបាប និងបន្សំ
+      probability: [
+        { id: 'pr_1', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
+        { id: 'pr_2', left: "P(\\bar{A})", right: "1 - P(A)" },
+        { id: 'pr_3', left: "P(A \\mid B)", right: "\\frac{P(A \\cap B)}{P(B)}" },
+        { id: 'pr_4', left: "P(A \\cap B)\\text{ (ឯករាជ្យ)}", right: "P(A) \\cdot P(B)" },
+        { id: 'pr_5', left: "C(n, k)", right: "\\frac{n!}{k!(n-k)!}" },
+        { id: 'pr_6', left: "P(n, k)", right: "\\frac{n!}{(n-k)!}" },
+        { id: 'pr_7', left: "n!", right: "n(n-1)\\cdots 1" },
+        { id: 'pr_8', left: "0!", right: "1" },
+        { id: 'pr_9', left: "C(n, 0)", right: "1" },
+        { id: 'pr_10', left: "C(n, 1)", right: "n" },
+        { id: 'pr_11', left: "C(n, n)", right: "1" },
+        { id: 'pr_12', left: "E(X)\\text{ (គណិតសង្ឃឹម)}", right: "\\sum x_i P(X = x_i)" },
+        { id: 'pr_13', left: "P(B_k \\mid A)\\text{ (បាយែស)}", right: "\\frac{P(B_k)P(A|B_k)}{\\sum P(B_i)P(A|B_i)}" },
+        { id: 'pr_14', left: "E(X)\\text{ (ទ្វេធា }B(n,p))", right: "np" }
+      ],
+
+      // ស្ថិតិ
+      statistics: [
+        { id: 'st_1', left: "\\bar{x}\\text{ (មធ្យមនព្វន្ត)}", right: "\\frac{\\sum f_i x_i}{N}" },
+        { id: 'st_2', left: "M_o", right: "\\text{តម្លៃដែលមានប្រេកង់ច្រើនបំផុត}" },
+        { id: 'st_3', left: "V(X)\\text{ (វ៉ារ្យង់)}", right: "\\frac{\\sum f_i (x_i - \\bar{x})^2}{N}" },
+        { id: 'st_4', left: "\\sigma\\text{ (គម្លាតស្តង់ដារ)}", right: "\\sqrt{V(X)}" },
+        { id: 'st_5', left: "\\text{Cov}(X, Y)", right: "\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{N}" },
+        { id: 'st_6', left: "r\\text{ (មេគុណតម្រែតម្រង់)}", right: "\\frac{\\text{Cov}(X, Y)}{\\sigma_X \\cdot \\sigma_Y}" },
+        { id: 'st_7', left: "y = ax + b\\text{ (បន្ទាត់តម្រែតម្រង់)}", right: "a = \\frac{\\text{Cov}(X,Y)}{\\sigma_X^2}" },
+        { id: 'st_8', left: "b\\text{ (ចំណុចកាត់អ័ក្ស)}", right: "\\bar{y} - a\\bar{x}" },
+        { id: 'st_9', left: "M_e", right: "\\text{មេដ្យាន (ពាក់កណ្តាលទិន្នន័យ)}" },
+        { id: 'st_10', left: "Q_1", right: "\\text{ចតុតភាគទី ១ (២៥%)}" },
+        { id: 'st_11', left: "Q_3", right: "\\text{ចតុតភាគទី ៣ (៧៥%)}" },
+        { id: 'st_12', left: "IQR", right: "Q_3 - Q_1" }
+      ],
+
       // ត្រីកោណមាត្រ
       trigonometry: [
-        { id: 'trig_1', left: "\\sin^2 x + \\cos^2 x", right: "1" },
-        { id: 'trig_2', left: "\\tan x", right: "\\frac{\\sin x}{\\cos x}" },
-        { id: 'trig_3', left: "1 + \\tan^2 x", right: "\\frac{1}{\\cos^2 x}" },
-        { id: 'trig_4', left: "\\sin(2x)", right: "2\\sin x \\cos x" },
-        { id: 'trig_5', left: "\\cos(2x)", right: "\\cos^2 x - \\sin^2 x" },
-        { id: 'trig_6', left: "\\sin(\\frac{\\pi}{2} - x)", right: "\\cos x" },
-        { id: 'trig_7', left: "\\cos(\\frac{\\pi}{2} - x)", right: "\\sin x" },
-        { id: 'trig_8', left: "\\sin(-x)", right: "-\\sin x" },
-        { id: 'trig_9', left: "\\cot x", right: "\\frac{\\cos x}{\\sin x}" },
-        { id: 'trig_10', left: "\\cos^2 x", right: "\\frac{1 + \\cos(2x)}{2}" },
-        { id: 'trig_11', left: "\\sin^2 x", right: "\\frac{1 - \\cos(2x)}{2}" },
-        { id: 'trig_12', left: "\\tan(2x)", right: "\\frac{2\\tan x}{1 - \\tan^2 x}" },
-        { id: 'trig_13', left: "\\sin(0)", right: "0" },
-        { id: 'trig_14', left: "\\cos(0)", right: "1\\cdot 1" }
+        { id: 'tr_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
+        { id: 'tr_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
+        { id: 'tr_3', left: "1 + \\tan^2(x)", right: "\\frac{1}{\\cos^2(x)}" },
+        { id: 'tr_4', left: "\\sin(2x)", right: "2\\sin(x)\\cos(x)" },
+        { id: 'tr_5', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
+        { id: 'tr_6', left: "\\cos(2x)\\text{ (ស៊ីនុស)}", right: "1 - 2\\sin^2(x)" },
+        { id: 'tr_7', left: "\\cos(2x)\\text{ (កូស៊ីនុស)}", right: "2\\cos^2(x) - 1" },
+        { id: 'tr_8', left: "\\tan(2x)", right: "\\frac{2\\tan(x)}{1 - \\tan^2(x)}" },
+        { id: 'tr_9', left: "\\sin(a+b)", right: "\\sin a\\cos b + \\cos a\\sin b" },
+        { id: 'tr_10', left: "\\cos(a+b)", right: "\\cos a\\cos b - \\sin a\\sin b" },
+        { id: 'tr_11', left: "\\sin(a-b)", right: "\\sin a\\cos b - \\cos a\\sin b" },
+        { id: 'tr_12', left: "\\cos(a-b)", right: "\\cos a\\cos b + \\sin a\\sin b" },
+        { id: 'tr_13', left: "\\sin(0)", right: "0" },
+        { id: 'tr_14', left: "\\cos(0)", right: "1" },
+        { id: 'tr_15', left: "\\sin(\\frac{\\pi}{2})", right: "1" },
+        { id: 'tr_16', left: "\\cos(\\frac{\\pi}{2})", right: "0" }
       ],
-      // ពីជគណិតគ្រឹះ
-      algebra_basic: [
-        { id: 'alg_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
-        { id: 'alg_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
-        { id: 'alg_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
-        { id: 'alg_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'alg_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'alg_6', left: "(a^m)^n", right: "a^{mn}" },
-        { id: 'alg_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'alg_8', left: "\\Delta", right: "b^2 - 4ac" },
-        { id: 'alg_9', left: "(a + b)^3", right: "a^3 + 3a^2b + 3ab^2 + b^3" },
-        { id: 'alg_10', left: "(a - b)^3", right: "a^3 - 3a^2b + 3ab^2 - b^3" },
-        { id: 'alg_11', left: "a^3 + b^3", right: "(a + b)(a^2 - ab + b^2)" },
-        { id: 'alg_12', left: "a^3 - b^3", right: "(a - b)(a^2 + ab + b^2)" },
-        { id: 'alg_13', left: "a^0\\text{ (}a\\neq 0)", right: "1" },
-        { id: 'alg_14', left: "\\sqrt{ab}", right: "\\sqrt{a}\\sqrt{b}" }
-      ],
+
       // ធរណីមាត្រគ្រឹះ
       geometry_basic: [
-        { id: 'geo_1', left: "c^2", right: "a^2 + b^2" },
-        { id: 'geo_2', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'geo_3', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'geo_4', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'geo_5', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
-        { id: 'geo_6', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
-        { id: 'geo_7', left: "S_{\\text{ចតុកោណកែង}}", right: "a \\cdot b" },
-        { id: 'geo_8', left: "P_{\\text{ចតុកោណកែង}}", right: "2(a + b)" },
-        { id: 'geo_9', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'geo_10', left: "P_{\\text{ការេ}}", right: "4a" },
-        { id: 'geo_11', left: "V_{\\text{គូប}}", right: "a^3" },
-        { id: 'geo_12', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
-        { id: 'geo_13', left: "S_{\\text{ស្វ៊ែរ}}", right: "4\\pi R^2" },
-        { id: 'geo_14', left: "\\sum\\text{មុំក្នុងត្រីកោណ}", right: "180^\\circ" }
+        { id: 'geo_1', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
+        { id: 'geo_2', left: "S_\\circ", right: "\\pi R^2" },
+        { id: 'geo_3', left: "P_\\circ", right: "2\\pi R" },
+        { id: 'geo_4', left: "S_{\\text{ចតុកោណកែង}}", right: "a \\times b" },
+        { id: 'geo_5', left: "P_{\\text{ចតុកោណកែង}}", right: "2(a + b)" },
+        { id: 'geo_6', left: "S_{\\text{ការេ}}", right: "a^2" },
+        { id: 'geo_7', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'geo_8', left: "V_{\\text{គូប}}", right: "a^3" },
+        { id: 'geo_9', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
+        { id: 'geo_10', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
+        { id: 'geo_11', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
+        { id: 'geo_12', left: "S_{\\text{ស្វ៊ែរ}}", right: "4\\pi R^2" },
+        { id: 'geo_13', left: "c^2\\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'geo_14', left: "S_{\\text{ចតុកោណព្នាយ}}", right: "\\frac{(a+b)h}{2}" }
       ],
+
+      // ពីជគណិតគ្រឹះ
+      algebra_basic: [
+        { id: 'alg_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
+        { id: 'alg_2', left: "(a^m)^n", right: "a^{m \\cdot n}" },
+        { id: 'alg_3', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'alg_4', left: "a^0\\text{ (}a \\ne 0)", right: "1" },
+        { id: 'alg_5', left: "a^{-n}", right: "\\frac{1}{a^n}" },
+        { id: 'alg_6', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'alg_7', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'alg_8', left: "a^2 - b^2", right: "(a-b)(a+b)" },
+        { id: 'alg_9', left: "(a+b)^3", right: "a^3 + 3a^2b + 3ab^2 + b^3" },
+        { id: 'alg_10', left: "a^3 - b^3", right: "(a-b)(a^2 + ab + b^2)" },
+        { id: 'alg_11', left: "\\Delta", right: "b^2 - 4ac" },
+        { id: 'alg_12', left: "x_{1,2}\\text{ (}ax^2+bx+c=0)", right: "\\frac{-b \\pm \\sqrt{\\Delta}}{2a}" },
+        { id: 'alg_13', left: "S = x_1 + x_2", right: "-\\frac{b}{a}" },
+        { id: 'alg_14', left: "P = x_1 \\cdot x_2", right: "\\frac{c}{a}" }
+      ],
+
+      // កម្រិតអនុវិទ្យាល័យ (ថ្នាក់ទី ៧, ៨, ៩)
       lowerSecondary: [
-        { id: 'm_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
-        { id: 'm_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
-        { id: 'm_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
-        { id: 'm_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'm_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'm_6', left: "(a^m)^n", right: "a^{m \\cdot n}" },
-        { id: 'm_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'm_8', left: "c^2", right: "a^2 + b^2" },
+        { id: 'm_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
+        { id: 'm_2', left: "(a^m)^n", right: "a^{m \\cdot n}" },
+        { id: 'm_3', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'm_4', left: "a^0\\text{ (ចំពោះ }a \\ne 0)", right: "1" },
+        { id: 'm_5', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'm_6', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'm_7', left: "a^2 - b^2", right: "(a-b)(a+b)" },
+        { id: 'm_8', left: "a^{-n}", right: "\\frac{1}{a^n}" },
         { id: 'm_9', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
         { id: 'm_10', left: "S_\\circ", right: "\\pi R^2" },
         { id: 'm_11', left: "P_\\circ", right: "2\\pi R" },
@@ -296,6 +415,8 @@ class MathGamesEngine {
         { id: 'm_15', left: "V_{\\text{គូប}}", right: "a^3" },
         { id: 'm_16', left: "\\sqrt{a \\cdot b}", right: "\\sqrt{a}\\sqrt{b}" }
       ],
+
+      // កម្រិតវិទ្យាល័យ (ថ្នាក់ទី ១០, ១១, ១២)
       upperSecondary: [
         { id: 'u_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
         { id: 'u_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
@@ -309,7 +430,7 @@ class MathGamesEngine {
         { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
         { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
         { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1\\cdot 1" },
+        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
         { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
         { id: 'u_15', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
         { id: 'u_16', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" }
@@ -484,52 +605,47 @@ class MathGamesEngine {
   }
 
   /* ================== LATEX & AUDIO HELPERS ================== */
+  /* ================== LATEX & AUDIO HELPERS ================== */
   cleanLatexFormula(formula) {
     if (!formula) return '';
     let f = formula.replace(/^\$+|\$+$/g, '').trim();
 
-    // Auto-repair control characters from unescaped JavaScript strings
-    // 1. Backspace (\x08 from \b)
-    f = f.replace(/[\x08]ar/g, '\\bar');
-    f = f.replace(/[\x08]egin/g, '\\begin');
+    // 1. Repair unescaped control characters from JS literals
+    f = f.replace(/\x08ar/g, '\\bar');
+    f = f.replace(/\x08egin/g, '\\begin');
+    f = f.replace(/[\t\x09]ext/g, '\\text');
+    f = f.replace(/[\t\x09]heta/g, '\\theta');
+    f = f.replace(/[\t\x09]imes/g, '\\times');
+    f = f.replace(/[\t\x09]an/g, '\\tan');
+    f = f.replace(/[\t\x09]o([\s\$]|$)/g, '\\to$1');
+    f = f.replace(/[\t\x09]riangle/g, '\\triangle');
+    f = f.replace(/\x0crac/g, '\\frac');
 
-    // 2. Tab (\t from \t)
-    f = f.replace(/[\t]ext/g, '\\text');
-    f = f.replace(/[\t]heta/g, '\\theta');
-    f = f.replace(/[\t]imes/g, '\\times');
-    f = f.replace(/[\t]an/g, '\\tan');
-    f = f.replace(/[\t]o([\s\$]|$)/g, '\\to$1');
-    f = f.replace(/[\t]riangle/g, '\\triangle');
+    // 2. Eliminate red KaTeX \t errors and repair double escapes
+    f = f.replace(/\\t\\text\{/g, '\\text{');
+    f = f.replace(/\\t\\theta/g, '\\theta');
+    f = f.replace(/\\t\\times/g, '\\times');
+    f = f.replace(/\\t\\tan/g, '\\tan');
+    f = f.replace(/\\t\\to/g, '\\to');
+    f = f.replace(/\\t(?![a-zA-Z])/g, '');
 
-    // 3. Standalone keywords without leading backslash
-    f = f.replace(/(^|[^\\])dots\b/g, '$1\\dots');
-    f = f.replace(/(^|[^\\])text\{/g, '$1\\text{');
-    f = f.replace(/(^|[^\\])ext\{/g, '$1\\text{');
-    f = f.replace(/(^|[^\\])begin\{/g, '$1\\begin{');
-    f = f.replace(/(^|[^\\])end\{/g, '$1\\end{');
-    f = f.replace(/(^|[^\\])pmatrix/g, '$1\\pmatrix');
-    f = f.replace(/(^|[^\\])cdot/g, '$1\\cdot');
-    f = f.replace(/(^|[^\\])sqrt/g, '$1\\sqrt');
-    f = f.replace(/(^|[^\\])overline/g, '$1\\overline');
-    f = f.replace(/(^|[^\\])theta/g, '$1\\theta');
-    f = f.replace(/(^|[^\\])cos/g, '$1\\cos');
-    f = f.replace(/(^|[^\\])sin/g, '$1\\sin');
-    f = f.replace(/(^|[^\\])tan/g, '$1\\tan');
-    f = f.replace(/(^|[^\\])cot/g, '$1\\cot');
-    f = f.replace(/(^|[^\\])lim/g, '$1\\lim');
-    f = f.replace(/(^|[^\\])frac/g, '$1\\frac');
-    f = f.replace(/(^|[^\\])dfrac/g, '$1\\dfrac');
-    f = f.replace(/(^|[^\\])int/g, '$1\\int');
-    f = f.replace(/(^|[^\\])sum/g, '$1\\sum');
-    f = f.replace(/(^|[^\\])infty/g, '$1\\infty');
-    f = f.replace(/(^|[^\\])vec/g, '$1\\vec');
-    f = f.replace(/(^|[^\\])times/g, '$1\\times');
-    f = f.replace(/(^|[^\\])pm/g, '$1\\pm');
-    f = f.replace(/(^|[^\\])Delta/g, '$1\\Delta');
-    f = f.replace(/(^|[^\\])det/g, '$1\\det');
-    f = f.replace(/(^|[^\\])arg/g, '$1\\arg');
-    f = f.replace(/(^|[^\\])bar([\{a-zA-Z])/g, '$1\\bar$2');
-    f = f.replace(/(^|[^\\])pi([^\w]|$)/g, '$1\\pi$2');
+    // 3. Repair missing backslashes on standard LaTeX math macros
+    const macros = [
+      'dots', 'text', 'begin', 'end', 'pmatrix', 'cdot', 'sqrt', 'overline',
+      'theta', 'cos', 'sin', 'tan', 'cot', 'lim', 'frac', 'dfrac', 'int',
+      'sum', 'infty', 'vec', 'times', 'pm', 'Delta', 'det', 'arg'
+    ];
+    macros.forEach(m => {
+      const reg = new RegExp('(^|[^\\\\])\\b' + m + '\\b', 'g');
+      f = f.replace(reg, '$1\\' + m);
+    });
+
+    f = f.replace(/(^|[^\\])\bbar([\{a-zA-Z])/g, '$1\\bar$2');
+    f = f.replace(/(^|[^\\])\bpi\b/g, '$1\\pi');
+
+    // 4. Strictly exclude/convert any Euler formula ($e^{i\theta}$) mentions
+    f = f.replace(/r\s*e\^\{i\s*\\?theta\}/g, 'r(\\cos\\theta + i\\sin\\theta)');
+    f = f.replace(/e\^\{i\s*\\?theta\}/g, '\\cos\\theta + i\\sin\\theta');
 
     return f;
   }
@@ -901,14 +1017,92 @@ class MathGamesEngine {
     const les = this.selectedLesson || '';
     const grade = this.selectedGrade || 'all';
 
-    // 1. Identify Topic from selected lesson, chapter, or grade
-    let topicText = '';
+    // 1. Exact Lesson Matching (Strict Pedagogical Sequencing)
     if (les && les !== 'all') {
-      topicText = this.getLessonDisplayName(les);
-      if (window.MATH_DATABASE && window.MATH_DATABASE.questions) {
-        const sample = window.MATH_DATABASE.questions.find(q => q.lesId === les || q.l === les || q.chId === les.replace('chapter:', ''));
-        if (sample) topicText += ' ' + sample.ch + ' ' + sample.l;
+      const lesName = this.getLessonDisplayName(les);
+
+      // Sequences (Grade 11 Chapter 1):
+      // Lesson 1: ស្វ៊ីតចំនួនពិត (Real Sequences ONLY - no arithmetic, no geometric)
+      if (les === 'les-g11b-1-1' || (lesName.includes('ស្វ៊ីត') && (lesName.includes('ពិត') || lesName.includes('មេរៀនទី ១')))) {
+        return [...this.formulaPacks.sequences_real];
       }
+      // Lesson 2: ស្វ៊ីតនព្វន្ត (Arithmetic Sequences ONLY - no geometric)
+      if (les === 'les-g11b-1-2' || (lesName.includes('ស្វ៊ីត') && lesName.includes('នព្វន្ត'))) {
+        return [...this.formulaPacks.sequences_arithmetic];
+      }
+      // Lesson 3: ស្វ៊ីតធរណីមាត្រ (Geometric Sequences ONLY)
+      if (les === 'les-g11b-1-3' || (lesName.includes('ស្វ៊ីត') && lesName.includes('ធរណីមាត្រ'))) {
+        return [...this.formulaPacks.sequences_geometric];
+      }
+
+      // Complex Numbers (Grade 12 Chapter 1):
+      // Lesson 1: ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form ONLY - strictly no trig, no Euler)
+      if (les === 'les-g12a-1-1' || (lesName.includes('កុំផ្លិច') && lesName.includes('ពីជគណិត'))) {
+        return [...this.formulaPacks.complex_algebraic];
+      }
+      // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form ONLY - strictly no Euler)
+      if (les === 'les-g12a-1-2' || (lesName.includes('កុំផ្លិច') && lesName.includes('ត្រីកោណមាត្រ'))) {
+        return [...this.formulaPacks.complex_trigonometric];
+      }
+
+      // Calculus Lessons
+      if (lesName.includes('លីមីត')) {
+        return [...this.formulaPacks.limits];
+      }
+      if (lesName.includes('ដេរីវេ')) {
+        return [...this.formulaPacks.derivatives];
+      }
+      if (lesName.includes('អាំងតេក្រាល') || lesName.includes('ព្រីមីទីវ')) {
+        return [...this.formulaPacks.integrals];
+      }
+      if (lesName.includes('វ៉ិចទ័រ')) {
+        return [...this.formulaPacks.vectors];
+      }
+      if (lesName.includes('កោនិក') || lesName.includes('ប៉ារ៉ាបូល') || lesName.includes('អេលីប') || lesName.includes('អ៊ីពែបូល')) {
+        return [...this.formulaPacks.conics];
+      }
+      if (lesName.includes('ម៉ាទ្រីស') || lesName.includes('ដេទែរមីណង់')) {
+        return [...this.formulaPacks.matrices];
+      }
+      if (lesName.includes('ប្រូបាប') || lesName.includes('បន្សំ') || lesName.includes('ចម្រាស់') || lesName.includes('បាយែស')) {
+        return [...this.formulaPacks.probability];
+      }
+      if (lesName.includes('ស្ថិតិ')) {
+        return [...this.formulaPacks.statistics];
+      }
+      if (lesName.includes('ត្រីកោណមាត្រ')) {
+        return [...this.formulaPacks.trigonometry];
+      }
+
+      // Dynamic pair extraction from the questions of this exact lesson
+      const filteredQ = this.getFilteredQuestions();
+      if (filteredQ && filteredQ.length >= 6) {
+        const dynPairs = [];
+        const usedL = new Set();
+        const usedR = new Set();
+        for (const q of filteredQ) {
+          let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\\s*/g, '')
+                                .replace(/(\\s*ស្មើនឹង៖?|\\s*គឺ\\s*៖?|\\s*៖?)$/g, '').trim();
+          const right = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
+          // Strictly exclude any Euler formula references
+          if (left.includes('e^{i') || right.includes('e^{i') || left.includes('Euler') || right.includes('Euler') || left.includes('អយល័រ')) continue;
+          if (left && right && left.length <= 45 && right.length <= 35 && left !== right && !usedL.has(left) && !usedR.has(right)) {
+            dynPairs.push({ id: `dyn_${dynPairs.length + 1}`, left, right });
+            usedL.add(left);
+            usedR.add(right);
+            if (dynPairs.length >= 14) break;
+          }
+        }
+        if (dynPairs.length >= 6) {
+          return dynPairs;
+        }
+      }
+    }
+
+    // 2. Identify Topic by selected Chapter / Grade when no single lesson is active
+    let topicText = '';
+    if (les && les.startsWith('chapter:')) {
+      topicText = this.getLessonDisplayName(les);
     }
 
     if (topicText.includes('កុំផ្លិច')) {
@@ -939,31 +1133,14 @@ class MathGamesEngine {
       return [...this.formulaPacks.algebra_basic];
     }
 
-    // 2. Dynamic pair extraction from questions of the selected lesson
-    const filteredQ = this.getFilteredQuestions();
-    if (les && les !== 'all' && filteredQ && filteredQ.length >= 6) {
-      const dynPairs = [];
-      const usedL = new Set();
-      const usedR = new Set();
-      for (const q of filteredQ) {
-        let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\s*/g, '')
-                              .replace(/(\s*ស្មើនឹង៖?|\s*គឺ\s*៖?|\s*៖?)$/g, '').trim();
-        const right = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
-        // Strictly exclude any Euler formula references
-        if (left.includes('e^{i') || right.includes('e^{i') || left.includes('Euler') || right.includes('Euler') || left.includes('អយល័រ')) continue;
-        if (left && right && left.length <= 45 && right.length <= 35 && left !== right && !usedL.has(left) && !usedR.has(right)) {
-          dynPairs.push({ id: `dyn_${dynPairs.length + 1}`, left, right });
-          usedL.add(left);
-          usedR.add(right);
-          if (dynPairs.length >= 10) break;
-        }
-      }
-      if (dynPairs.length >= 6) {
-        return dynPairs;
-      }
+    // 3. Fallback strictly based on Grade level (no lesson cross-contamination)
+    if (grade === 'ថ្នាក់ទី ១២') {
+      return [...this.formulaPacks.complex_algebraic];
+    } else if (grade === 'ថ្នាក់ទី ១១') {
+      return [...this.formulaPacks.sequences_real];
+    } else if (grade === 'ថ្នាក់ទី ១០') {
+      return [...this.formulaPacks.trigonometry];
     }
-
-    // 3. Fallback based on Grade
     const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(grade);
     return isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
   }
@@ -1044,29 +1221,12 @@ class MathGamesEngine {
     const usedLefts = new Set();
     const usedRights = new Set();
 
-    // 1st Pass: from topic pack
     for (const p of pack) {
       if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
         selected.push(p);
         usedLefts.add(p.left);
         usedRights.add(p.right);
         if (selected.length === this.matchPairsCount) break;
-      }
-    }
-
-    // 2nd Pass: if topic pack didn't have enough pairs, fill from general grade pack
-    if (selected.length < this.matchPairsCount) {
-      const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(this.selectedGrade);
-      const fallbackPack = isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
-      fallbackPack.sort(() => Math.random() - 0.5);
-
-      for (const p of fallbackPack) {
-        if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
-          selected.push(p);
-          usedLefts.add(p.left);
-          usedRights.add(p.right);
-          if (selected.length === this.matchPairsCount) break;
-        }
       }
     }
 
