@@ -34,12 +34,36 @@ class QuestionBankController {
     } catch (e) {}
   }
 
+  cleanLatexFormula(formula) {
+    if (!formula) return '';
+    let f = formula.replace(/^\$+|\$+$/g, '').trim();
+    f = f.replace(/[\x08]ar/g, '\\bar');
+    f = f.replace(/(^|[^\\])cdot/g, '$1\\cdot');
+    f = f.replace(/(^|[^\\])sqrt/g, '$1\\sqrt');
+    f = f.replace(/(^|[^\\])overline/g, '$1\\overline');
+    f = f.replace(/(^|[^\\])theta/g, '$1\\theta');
+    f = f.replace(/[\t]heta/g, '\\theta');
+    f = f.replace(/(^|[^\\])cos/g, '$1\\cos');
+    f = f.replace(/(^|[^\\])sin/g, '$1\\sin');
+    f = f.replace(/(^|[^\\])tan/g, '$1\\tan');
+    f = f.replace(/(^|[^\\])lim/g, '$1\\lim');
+    f = f.replace(/(^|[^\\])frac/g, '$1\\frac');
+    f = f.replace(/(^|[^\\])int/g, '$1\\int');
+    f = f.replace(/(^|[^\\])infty/g, '$1\\infty');
+    f = f.replace(/(^|[^\\])vec/g, '$1\\vec');
+    f = f.replace(/(^|[^\\])times/g, '$1\\times');
+    f = f.replace(/(^|[^\\])pm/g, '$1\\pm');
+    f = f.replace(/(^|[^\\])Delta/g, '$1\\Delta');
+    return f;
+  }
+
   formatMath(text) {
     if (!text) return '';
     if (typeof katex === 'undefined') return text;
     return text.replace(/\$([^\$]+)\$/g, (match, formula) => {
       try {
-        return katex.renderToString(formula.trim(), { throwOnError: false, displayMode: false });
+        const clean = this.cleanLatexFormula(formula);
+        return katex.renderToString(clean, { throwOnError: false, displayMode: false });
       } catch (e) {
         return formula;
       }
@@ -302,7 +326,7 @@ class QuestionBankController {
           optionsHtml += `<option value="chapter:${ch.id}" ${this.selectedLesson === 'chapter:' + ch.id ? 'selected' : ''}>📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
           ch.lessons.forEach(les => {
             const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
-            optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>${les.title}${countText}</option>`;
+            optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>[${ch.title}] ➔ ${les.title}${countText}</option>`;
           });
           optionsHtml += `</optgroup>`;
         });
@@ -320,7 +344,7 @@ class QuestionBankController {
         optionsHtml += `<option value="chapter:${ch.id}" ${this.selectedLesson === 'chapter:' + ch.id ? 'selected' : ''}>📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
         ch.lessons.forEach(les => {
           const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
-          optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>${les.title}${countText}</option>`;
+          optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>[${ch.title}] ➔ ${les.title}${countText}</option>`;
         });
         optionsHtml += `</optgroup>`;
       });
