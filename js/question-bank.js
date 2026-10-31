@@ -87,7 +87,8 @@ class QuestionBankController {
       'ថ្នាក់ទី ១០': 0,
       '11SC': 0,
       '11SS': 0,
-      '12SC': 0
+      '12SC': 0,
+      '12SS': 0
     };
 
     all.forEach((q, idx) => {
@@ -96,8 +97,13 @@ class QuestionBankController {
       else if (q.g === 'ថ្នាក់ទី ៨') counts['ថ្នាក់ទី ៨']++;
       else if (q.g === 'ថ្នាក់ទី ៩') counts['ថ្នាក់ទី ៩']++;
       else if (q.g === 'ថ្នាក់ទី ១០') counts['ថ្នាក់ទី ១០']++;
-      else if (q.g === 'ថ្នាក់ទី ១១' || q.g === '11SC') counts['11SC']++;
-      else if (q.g === 'ថ្នាក់ទី ១២' || q.g === '12SC') counts['12SC']++;
+      else if (q.g === 'ថ្នាក់ទី ១១') {
+        if (q.stream && q.stream.includes('កម្រិតខ្ពស់')) counts['11SC']++;
+        else counts['11SS']++;
+      } else if (q.g === 'ថ្នាក់ទី ១២') {
+        if (q.stream && q.stream.includes('កម្រិតខ្ពស់')) counts['12SC']++;
+        else counts['12SS']++;
+      }
     });
 
     return counts;
@@ -110,20 +116,31 @@ class QuestionBankController {
     if (this.selectedGrade && this.selectedGrade !== 'all') {
       if (this.selectedGrade === 'NGS') {
         list = list.slice(0, 126);
-      } else if (this.selectedGrade === '11SC' || this.selectedGrade === 'ថ្នាក់ទី ១១') {
-        list = list.filter(q => q.g === 'ថ្នាក់ទី ១១' || q.g === '11SC');
+      } else if (this.selectedGrade === '11SC') {
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១១' && q.stream && q.stream.includes('កម្រិតខ្ពស់'));
       } else if (this.selectedGrade === '11SS') {
-        list = [];
-      } else if (this.selectedGrade === '12SC' || this.selectedGrade === 'ថ្នាក់ទី ១២') {
-        list = list.filter(q => q.g === 'ថ្នាក់ទី ១២' || q.g === '12SC');
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១១' && q.stream && q.stream.includes('មូលដ្ឋាន'));
+      } else if (this.selectedGrade === '12SC') {
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១២' && q.stream && q.stream.includes('កម្រិតខ្ពស់'));
+      } else if (this.selectedGrade === '12SS') {
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១២' && q.stream && q.stream.includes('មូលដ្ឋាន'));
+      } else if (this.selectedGrade === 'ថ្នាក់ទី ១១') {
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១១');
+      } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
+        list = list.filter(q => q.g === 'ថ្នាក់ទី ១២');
       } else {
         list = list.filter(q => q.g === this.selectedGrade);
       }
     }
 
-    // Lesson filter
+    // Lesson or Chapter filter
     if (this.selectedLesson && this.selectedLesson !== 'all') {
-      list = list.filter(q => q.l === this.selectedLesson);
+      if (this.selectedLesson.startsWith('chapter:')) {
+        const chId = this.selectedLesson.replace('chapter:', '');
+        list = list.filter(q => q.chId === chId || q.ch === chId);
+      } else {
+        list = list.filter(q => q.lesId === this.selectedLesson || q.l === this.selectedLesson);
+      }
     }
 
     // Level filter
@@ -236,7 +253,8 @@ class QuestionBankController {
       { id: 'ថ្នាក់ទី ១០', label: 'ថ្នាក់ទី ១០', count: counts['ថ្នាក់ទី ១០'] },
       { id: '11SC', label: 'ថ្នាក់ទី ១១ (វិទ្យាសាស្ត្រពិត)', count: counts['11SC'] },
       { id: '11SS', label: 'ថ្នាក់ទី ១១ (វិទ្យាសាស្ត្រសង្គម)', count: counts['11SS'] },
-      { id: '12SC', label: 'ថ្នាក់ទី ១២', count: counts['12SC'] }
+      { id: '12SC', label: 'ថ្នាក់ទី ១២ (វិទ្យាសាស្ត្រពិត)', count: counts['12SC'] },
+      { id: '12SS', label: 'ថ្នាក់ទី ១២ (វិទ្យាសាស្ត្រសង្គម)', count: counts['12SS'] }
     ];
 
     container.innerHTML = chipsData.map(chip => {
@@ -266,24 +284,49 @@ class QuestionBankController {
     const lessonSelect = document.getElementById('bankSelectLesson');
     if (!lessonSelect) return;
 
-    if (!window.MATH_DATABASE || !window.MATH_DATABASE.grades) {
-      lessonSelect.innerHTML = `<option value="all">គ្រប់មេរៀនទាំងអស់</option>`;
+    if (!window.MATH_DATABASE || !window.MATH_DATABASE.chaptersByGrade) {
+      lessonSelect.innerHTML = `<option value="all">📚 គ្រប់ជំពូក និងមេរៀនទាំងអស់</option>`;
       return;
     }
 
-    let lessons = [];
-    if (this.selectedGrade === 'all' || this.selectedGrade === 'NGS') {
-      const allLessons = new Set();
-      Object.values(window.MATH_DATABASE.grades).forEach(arr => arr.forEach(l => allLessons.add(l)));
-      lessons = Array.from(allLessons).sort();
+    const gKey = (this.selectedGrade === '11SC' || this.selectedGrade === '11SS') ? 'ថ្នាក់ទី ១១' :
+                 (this.selectedGrade === '12SC' || this.selectedGrade === '12SS') ? 'ថ្នាក់ទី ១២' : this.selectedGrade;
+
+    let optionsHtml = `<option value="all">📚 គ្រប់ជំពូក និងមេរៀនទាំងអស់</option>`;
+
+    if (gKey === 'all' || gKey === 'NGS') {
+      Object.entries(window.MATH_DATABASE.chaptersByGrade).forEach(([gradeName, chapters]) => {
+        chapters.forEach(ch => {
+          const streamBadge = ch.stream ? ` (${ch.stream})` : '';
+          optionsHtml += `<optgroup label="${gradeName} ➔ ${ch.title}${streamBadge}">`;
+          optionsHtml += `<option value="chapter:${ch.id}" ${this.selectedLesson === 'chapter:' + ch.id ? 'selected' : ''}>📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
+          ch.lessons.forEach(les => {
+            const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
+            optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>${les.title}${countText}</option>`;
+          });
+          optionsHtml += `</optgroup>`;
+        });
+      });
     } else {
-      const gKey = this.selectedGrade === '11SC' ? 'ថ្នាក់ទី ១១' :
-                   this.selectedGrade === '12SC' ? 'ថ្នាក់ទី ១២' : this.selectedGrade;
-      lessons = window.MATH_DATABASE.grades[gKey] || [];
+      let chapters = window.MATH_DATABASE.chaptersByGrade[gKey] || [];
+      if (this.selectedGrade === '11SC' || this.selectedGrade === '12SC') {
+        chapters = chapters.filter(ch => ch.stream && ch.stream.includes('កម្រិតខ្ពស់'));
+      } else if (this.selectedGrade === '11SS' || this.selectedGrade === '12SS') {
+        chapters = chapters.filter(ch => ch.stream && ch.stream.includes('មូលដ្ឋាន'));
+      }
+      chapters.forEach(ch => {
+        const streamBadge = ch.stream ? ` (${ch.stream})` : '';
+        optionsHtml += `<optgroup label="${ch.title}${streamBadge}">`;
+        optionsHtml += `<option value="chapter:${ch.id}" ${this.selectedLesson === 'chapter:' + ch.id ? 'selected' : ''}>📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
+        ch.lessons.forEach(les => {
+          const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
+          optionsHtml += `<option value="${les.id}" ${this.selectedLesson === les.id ? 'selected' : ''}>${les.title}${countText}</option>`;
+        });
+        optionsHtml += `</optgroup>`;
+      });
     }
 
-    lessonSelect.innerHTML = `<option value="all">📚 គ្រប់មេរៀន (${lessons.length} មេរៀន)</option>` +
-      lessons.map(l => `<option value="${l}" ${this.selectedLesson === l ? 'selected' : ''}>${l}</option>`).join('');
+    lessonSelect.innerHTML = optionsHtml;
   }
 
   renderQuestions() {

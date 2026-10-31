@@ -58,38 +58,141 @@ class MathGamesEngine {
     this.defenderPaused = false;
     this.currentDefenderQ = null;
 
-    // Comprehensive Grade-Specific Formula Packs (100% Unique Left & Right)
+    // Comprehensive Grade & Topic-Specific Formula Packs (100% Unique Left & Right)
     this.formulaPacks = {
+      // ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (ថ្នាក់ទី ១២ និង ១១)
+      complex_numbers: [
+        { id: 'c_1', left: "i^2", right: "-1" },
+        { id: 'c_2', left: "i^3", right: "-i" },
+        { id: 'c_3', left: "i^4", right: "1" },
+        { id: 'c_4', left: "|a + bi|", right: "\sqrt{a^2 + b^2}" },
+        { id: 'c_5', left: "\overline{a + bi}", right: "a - bi" },
+        { id: 'c_6', left: "z \cdot \bar{z}", right: "|z|^2" },
+        { id: 'c_7', left: "|3 - 4i|", right: "5" },
+        { id: 'c_8', left: "e^{i\pi}", right: "-1" },
+        { id: 'c_9', left: "(2+i)(3-2i)", right: "8 - i" },
+        { id: 'c_10', left: "r(\cos\theta + i\sin\theta)", right: "r e^{i\theta}" }
+      ],
+      // ជំពូកទី ២ ៖ លីមីតនៃអនុគមន៍
+      limits: [
+        { id: 'lim_1', left: "\lim_{x \to 0} \frac{\sin x}{x}", right: "1" },
+        { id: 'lim_2', left: "\lim_{x \to 0} \frac{1 - \cos x}{x^2}", right: "\frac{1}{2}" },
+        { id: 'lim_3', left: "\lim_{x \to 0} \frac{e^x - 1}{x}", right: "1" },
+        { id: 'lim_4', left: "\lim_{x \to 0} \frac{\ln(1+x)}{x}", right: "1" },
+        { id: 'lim_5', left: "\lim_{x \to +\infty} (1 + \frac{1}{x})^x", right: "e" },
+        { id: 'lim_6', left: "\lim_{x \to 0} \frac{\tan x}{x}", right: "1" },
+        { id: 'lim_7', left: "\lim_{x \to 2} \frac{x^2 - 4}{x - 2}", right: "4" },
+        { id: 'lim_8', left: "\lim_{x \to +\infty} \frac{1}{x}", right: "0" }
+      ],
+      // ជំពូកទី ៣ ៖ ដេរីវេនៃអនុគមន៍
+      derivatives: [
+        { id: 'der_1', left: "(x^n)'", right: "n x^{n-1}" },
+        { id: 'der_2', left: "(\ln x)'", right: "\frac{1}{x}" },
+        { id: 'der_3', left: "(e^x)'", right: "e^x" },
+        { id: 'der_4', left: "(\sin x)'", right: "\cos(x)" },
+        { id: 'der_5', left: "(\cos x)'", right: "-\sin(x)" },
+        { id: 'der_6', left: "(\tan x)'", right: "\frac{1}{\cos^2 x}" },
+        { id: 'der_7', left: "(u \cdot v)'", right: "u'v + uv'" },
+        { id: 'der_8', left: "(\frac{u}{v})'", right: "\frac{u'v - uv'}{v^2}" },
+        { id: 'der_9', left: "(\sqrt{x})'", right: "\frac{1}{2\sqrt{x}}" }
+      ],
+      // ជំពូកទី ៦ ៖ អាំងតេក្រាល
+      integrals: [
+        { id: 'int_1', left: "\int x^n\,dx", right: "\frac{x^{n+1}}{n+1} + C" },
+        { id: 'int_2', left: "\int \frac{1}{x}\,dx", right: "\ln|x| + C" },
+        { id: 'int_3', left: "\int e^x\,dx", right: "e^x + C" },
+        { id: 'int_4', left: "\int \cos x\,dx", right: "\sin x + C" },
+        { id: 'int_5', left: "\int \sin x\,dx", right: "-\cos x + C" },
+        { id: 'int_6', left: "\int \frac{1}{\cos^2 x}\,dx", right: "\tan x + C" },
+        { id: 'int_7', left: "\int 2x\,dx", right: "x^2 + C" },
+        { id: 'int_8', left: "\int u' v\,dx", right: "uv - \int u v'\,dx" }
+      ],
+      // ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ
+      vectors: [
+        { id: 'vec_1', left: "\vec{u} \cdot \vec{v}", right: "xx' + yy' + zz'" },
+        { id: 'vec_2', left: "|\vec{u}|", right: "\sqrt{x^2 + y^2 + z^2}" },
+        { id: 'vec_3', left: "\vec{u} \perp \vec{v}", right: "\vec{u} \cdot \vec{v} = 0" },
+        { id: 'vec_4', left: "\vec{u} \parallel \vec{v}", right: "\vec{u} \times \vec{v} = \vec{0}" },
+        { id: 'vec_5', left: "|(3, 4)|", right: "5" },
+        { id: 'vec_6', left: "\cos(\vec{u}, \vec{v})", right: "\frac{\vec{u}\cdot\vec{v}}{|\vec{u}||\vec{v}|}" }
+      ],
+      // ជំពូកទី ១០ ៖ កោនិក (ប៉ារ៉ាបូល អេលីប អ៊ីពែបូល)
+      conics: [
+        { id: 'con_1', left: "y^2 = 4px", right: "\text{ប៉ារ៉ាបូលអ័ក្សដេក}" },
+        { id: 'con_2', left: "x^2 = 4py", right: "\text{ប៉ារ៉ាបូលអ័ក្សឈរ}" },
+        { id: 'con_3', left: "\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1", right: "\text{សមីការអេលីប}" },
+        { id: 'con_4', left: "\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1", right: "\text{សមីការអ៊ីពែបូល}" },
+        { id: 'con_5', left: "c^2 \text{ (អេលីប)}", right: "a^2 - b^2" },
+        { id: 'con_6', left: "c^2 \text{ (អ៊ីពែបូល)}", right: "a^2 + b^2" },
+        { id: 'con_7', left: "e = \frac{c}{a}", right: "\text{អិចសង់ទ្រិស៊ីតេ}" }
+      ],
+      // ស្វ៊ីត
+      sequences: [
+        { id: 'seq_1', left: "u_n \text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'seq_2', left: "S_n \text{ (នព្វន្ត)}", right: "\frac{n(u_1 + u_n)}{2}" },
+        { id: 'seq_3', left: "u_n \text{ (ធរណីមាត្រ)}", right: "u_1 \cdot q^{n-1}" },
+        { id: 'seq_4', left: "S_n \text{ (ធរណីមាត្រ)}", right: "\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'seq_5', left: "\sum_{k=1}^n k", right: "\frac{n(n+1)}{2}" }
+      ],
+      // ត្រីកោណមាត្រ
+      trigonometry: [
+        { id: 'trig_1', left: "\sin^2 x + \cos^2 x", right: "1" },
+        { id: 'trig_2', left: "\tan x", right: "\frac{\sin x}{\cos x}" },
+        { id: 'trig_3', left: "1 + \tan^2 x", right: "\frac{1}{\cos^2 x}" },
+        { id: 'trig_4', left: "\sin(2x)", right: "2\sin x \cos x" },
+        { id: 'trig_5', left: "\cos(2x)", right: "\cos^2 x - \sin^2 x" },
+        { id: 'trig_6', left: "\sin(\frac{\pi}{2} - x)", right: "\cos x" }
+      ],
+      // ពីជគណិតគ្រឹះ
+      algebra_basic: [
+        { id: 'alg_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'alg_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'alg_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
+        { id: 'alg_4', left: "a^m \cdot a^n", right: "a^{m+n}" },
+        { id: 'alg_5', left: "\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'alg_6', left: "(a^m)^n", right: "a^{mn}" },
+        { id: 'alg_7', left: "a^{-n}", right: "\frac{1}{a^n}" },
+        { id: 'alg_8', left: "\Delta \text{ (ដឺក្រេ២)}", right: "b^2 - 4ac" }
+      ],
+      // ធរណីមាត្រគ្រឹះ
+      geometry_basic: [
+        { id: 'geo_1', left: "c^2 \text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'geo_2', left: "S_\triangle", right: "\frac{1}{2} b \cdot h" },
+        { id: 'geo_3', left: "S_\circ", right: "\pi R^2" },
+        { id: 'geo_4', left: "P_\circ", right: "2\pi R" },
+        { id: 'geo_5', left: "V_{\text{ស៊ីឡាំង}}", right: "\pi R^2 h" },
+        { id: 'geo_6', left: "V_{\text{ស្វ៊ែរ}}", right: "\frac{4}{3}\pi R^3" }
+      ],
       lowerSecondary: [
         { id: 'm_1', left: "(a + b)^2", right: "a^2 + 2ab + b^2" },
         { id: 'm_2', left: "(a - b)^2", right: "a^2 - 2ab + b^2" },
         { id: 'm_3', left: "a^2 - b^2", right: "(a - b)(a + b)" },
-        { id: 'm_4', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'm_5', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'm_6', left: "(a^m)^n", right: "a^{m \\cdot n}" },
-        { id: 'm_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'm_8', left: "c^2 \\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
-        { id: 'm_9', left: "S_\\triangle", right: "\\frac{1}{2} b \\cdot h" },
-        { id: 'm_10', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'm_11', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'm_12', left: "\\Delta", right: "b^2 - 4ac" }
+        { id: 'm_4', left: "a^m \cdot a^n", right: "a^{m+n}" },
+        { id: 'm_5', left: "\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'm_6', left: "(a^m)^n", right: "a^{m \cdot n}" },
+        { id: 'm_7', left: "a^{-n}", right: "\frac{1}{a^n}" },
+        { id: 'm_8', left: "c^2 \text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'm_9', left: "S_\triangle", right: "\frac{1}{2} b \cdot h" },
+        { id: 'm_10', left: "S_\circ", right: "\pi R^2" },
+        { id: 'm_11', left: "P_\circ", right: "2\pi R" },
+        { id: 'm_12', left: "\Delta", right: "b^2 - 4ac" }
       ],
       upperSecondary: [
-        { id: 'u_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
-        { id: 'u_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
-        { id: 'u_3', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
-        { id: 'u_4', left: "(x^n)'", right: "n \\cdot x^{n-1}" },
-        { id: 'u_5', left: "(\\sin x)'", right: "\\cos(x)" },
-        { id: 'u_6', left: "(\\cos x)'", right: "-\\sin(x)" },
+        { id: 'u_1', left: "\sin^2(x) + \cos^2(x)", right: "1" },
+        { id: 'u_2', left: "\tan(x)", right: "\frac{\sin(x)}{\cos(x)}" },
+        { id: 'u_3', left: "\cos(2x)", right: "\cos^2(x) - \sin^2(x)" },
+        { id: 'u_4', left: "(x^n)'", right: "n \cdot x^{n-1}" },
+        { id: 'u_5', left: "(\sin x)'", right: "\cos(x)" },
+        { id: 'u_6', left: "(\cos x)'", right: "-\sin(x)" },
         { id: 'u_7', left: "(e^x)'", right: "e^x" },
-        { id: 'u_8', left: "(\\ln x)'", right: "\\frac{1}{x}" },
+        { id: 'u_8', left: "(\ln x)'", right: "\frac{1}{x}" },
         { id: 'u_9', left: "i^2", right: "-1" },
-        { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
-        { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
-        { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
-        { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
-        { id: 'u_15', left: "u_n \\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" }
+        { id: 'u_10', left: "\int 2x\,dx", right: "x^2 + C" },
+        { id: 'u_11', left: "\int e^x\,dx", right: "e^x + C" },
+        { id: 'u_12', left: "\int \frac{1}{x}\,dx", right: "\ln|x| + C" },
+        { id: 'u_13', left: "\lim_{x \to 0} \frac{\sin x}{x}", right: "1" },
+        { id: 'u_14', left: "\ln(a \cdot b)", right: "\ln(a) + \ln(b)" },
+        { id: 'u_15', left: "u_n \text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" }
       ]
     };
 
@@ -150,37 +253,103 @@ class MathGamesEngine {
     }
     let list = window.MATH_DATABASE.questions;
     if (this.selectedGrade && this.selectedGrade !== 'all') {
-      list = list.filter(q => q.g === this.selectedGrade);
+      list = list.filter(q => q.g === this.selectedGrade || (q.gradeLabel && q.gradeLabel.includes(this.selectedGrade)));
     }
     if (this.selectedLesson && this.selectedLesson !== 'all') {
-      list = list.filter(q => q.l === this.selectedLesson);
+      if (this.selectedLesson.startsWith('chapter:')) {
+        const chId = this.selectedLesson.replace('chapter:', '');
+        list = list.filter(q => q.chId === chId || q.ch === chId);
+      } else {
+        list = list.filter(q => q.lesId === this.selectedLesson || q.l === this.selectedLesson);
+      }
     }
     return list.length > 0 ? list : this.fallbackQuestions;
+  }
+
+  getLessonDisplayName(lesVal) {
+    if (!lesVal || lesVal === 'all') return 'គ្រប់មេរៀនទាំងអស់';
+    if (lesVal.startsWith('chapter:')) {
+      const chId = lesVal.replace('chapter:', '');
+      if (window.MATH_DATABASE && window.MATH_DATABASE.courses) {
+        for (const c of window.MATH_DATABASE.courses) {
+          for (const ch of c.chapters) {
+            if (ch.id === chId) return `ជំពូកទាំងមូល ៖ ${ch.title}`;
+          }
+        }
+      }
+      return lesVal;
+    }
+    if (window.MATH_DATABASE && window.MATH_DATABASE.courses) {
+      for (const c of window.MATH_DATABASE.courses) {
+        for (const ch of c.chapters) {
+          for (const les of ch.lessons) {
+            if (les.id === lesVal || les.title === lesVal) {
+              return `${ch.title} ➔ ${les.title}`;
+            }
+          }
+        }
+      }
+    }
+    return lesVal;
   }
 
   updateLessonDropdown() {
     const lessonSelect = document.getElementById('filterGameLesson');
     if (!lessonSelect) return;
 
-    if (!window.MATH_DATABASE || !window.MATH_DATABASE.grades) {
-      lessonSelect.innerHTML = `<option value="all">📚 គ្រប់មេរៀនទាំងអស់</option>`;
+    if (!window.MATH_DATABASE || !window.MATH_DATABASE.chaptersByGrade) {
+      lessonSelect.innerHTML = `<option value="all">📚 គ្រប់ជំពូក និងមេរៀនទាំងអស់</option>`;
       return;
     }
 
-    let lessons = [];
+    let optionsHtml = `<option value="all">📚 គ្រប់ជំពូក និងមេរៀនទាំងអស់</option>`;
+
     if (this.selectedGrade === 'all') {
-      const allLessons = new Set();
-      Object.values(window.MATH_DATABASE.grades).forEach(arr => arr.forEach(l => allLessons.add(l)));
-      lessons = Array.from(allLessons).sort();
+      Object.entries(window.MATH_DATABASE.chaptersByGrade).forEach(([gradeName, chapters]) => {
+        chapters.forEach(ch => {
+          const streamBadge = ch.stream ? ` (${ch.stream})` : '';
+          optionsHtml += `<optgroup label="${gradeName} ➔ ${ch.title}${streamBadge}">`;
+          optionsHtml += `<option value="chapter:${ch.id}">📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
+          ch.lessons.forEach(les => {
+            const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
+            optionsHtml += `<option value="${les.id}">${les.title}${countText}</option>`;
+          });
+          optionsHtml += `</optgroup>`;
+        });
+      });
     } else {
-      lessons = window.MATH_DATABASE.grades[this.selectedGrade] || [];
+      const chapters = window.MATH_DATABASE.chaptersByGrade[this.selectedGrade] || [];
+      chapters.forEach(ch => {
+        const streamBadge = ch.stream ? ` (${ch.stream})` : '';
+        optionsHtml += `<optgroup label="${ch.title}${streamBadge}">`;
+        optionsHtml += `<option value="chapter:${ch.id}">📖 ជំពូកទាំងមូល ៖ ${ch.title}</option>`;
+        ch.lessons.forEach(les => {
+          const countText = les.questionCount ? ` (${les.questionCount} សំណួរ)` : '';
+          optionsHtml += `<option value="${les.id}">${les.title}${countText}</option>`;
+        });
+        optionsHtml += `</optgroup>`;
+      });
     }
 
-    lessonSelect.innerHTML = `<option value="all">📚 គ្រប់មេរៀនទាំងអស់ (${lessons.length} មេរៀន)</option>` +
-      lessons.map(l => `<option value="${l}">${l}</option>`).join('');
-
+    lessonSelect.innerHTML = optionsHtml;
     this.selectedLesson = 'all';
     this.updateQuestionCountBadge();
+    this.updateActiveTopicLabels();
+  }
+
+  updateActiveTopicLabels() {
+    const lbl = document.getElementById('defenderActiveTopicLabel');
+    if (lbl) {
+      const gText = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)' : this.selectedGrade;
+      const lText = this.getLessonDisplayName(this.selectedLesson);
+      lbl.textContent = `${gText} • ${lText}`;
+    }
+    const sub = document.getElementById('defenderGameLessonSub');
+    if (sub) {
+      const gText = this.selectedGrade === 'all' ? 'គ្រប់ថ្នាក់' : this.selectedGrade;
+      const lText = this.getLessonDisplayName(this.selectedLesson);
+      sub.textContent = `${gText} • ${lText}`;
+    }
   }
 
   updateQuestionCountBadge() {
@@ -407,7 +576,7 @@ class MathGamesEngine {
     const timeDisplay = document.getElementById('blitzTimerText');
 
     if (questionEl) questionEl.innerHTML = this.formatMath(this.currentBlitzQ.q);
-    if (topicEl) topicEl.textContent = this.currentBlitzQ.p || this.currentBlitzQ.l || 'មេរៀនគណិត';
+    if (topicEl) topicEl.textContent = (this.currentBlitzQ.ch ? this.currentBlitzQ.ch + ' ➔ ' : '') + this.currentBlitzQ.l;
     if (gradeEl) gradeEl.textContent = this.currentBlitzQ.g;
     if (timeDisplay) timeDisplay.textContent = `${this.blitzTimeLeft}s`;
     if (timerBar) {
@@ -554,9 +723,66 @@ class MathGamesEngine {
   }
 
   getFormulaPackForCurrentGrade() {
-    const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(this.selectedGrade);
-    const pack = isLower ? this.formulaPacks.lowerSecondary : this.formulaPacks.upperSecondary;
-    return [...pack];
+    const les = this.selectedLesson || '';
+    const grade = this.selectedGrade || 'all';
+
+    // 1. Identify Topic from selected lesson, chapter, or grade
+    let topicText = '';
+    if (les && les !== 'all') {
+      topicText = this.getLessonDisplayName(les);
+      if (window.MATH_DATABASE && window.MATH_DATABASE.questions) {
+        const sample = window.MATH_DATABASE.questions.find(q => q.lesId === les || q.l === les || q.chId === les.replace('chapter:', ''));
+        if (sample) topicText += ' ' + sample.ch + ' ' + sample.l;
+      }
+    }
+
+    if (topicText.includes('កុំផ្លិច')) {
+      return [...this.formulaPacks.complex_numbers];
+    } else if (topicText.includes('លីមីត')) {
+      return [...this.formulaPacks.limits];
+    } else if (topicText.includes('ដេរីវេ')) {
+      return [...this.formulaPacks.derivatives];
+    } else if (topicText.includes('អាំងតេក្រាល') || topicText.includes('ព្រីមីទីវ')) {
+      return [...this.formulaPacks.integrals];
+    } else if (topicText.includes('វ៉ិចទ័រ')) {
+      return [...this.formulaPacks.vectors];
+    } else if (topicText.includes('កោនិក') || topicText.includes('ប៉ារ៉ាបូល') || topicText.includes('អេលីប') || topicText.includes('អ៊ីពែបូល')) {
+      return [...this.formulaPacks.conics];
+    } else if (topicText.includes('ស្វ៊ីត')) {
+      return [...this.formulaPacks.sequences];
+    } else if (topicText.includes('ត្រីកោណមាត្រ')) {
+      return [...this.formulaPacks.trigonometry];
+    } else if (topicText.includes('ធរណីមាត្រ') || topicText.includes('ផ្ទៃក្រឡា') || topicText.includes('មាឌ')) {
+      return [...this.formulaPacks.geometry_basic];
+    } else if (topicText.includes('ពីជគណិត') || topicText.includes('ស្វ័យគុណ') || topicText.includes('កន្សោម')) {
+      return [...this.formulaPacks.algebra_basic];
+    }
+
+    // 2. Dynamic pair extraction from questions of the selected lesson
+    const filteredQ = this.getFilteredQuestions();
+    if (les && les !== 'all' && filteredQ && filteredQ.length >= 6) {
+      const dynPairs = [];
+      const usedL = new Set();
+      const usedR = new Set();
+      for (const q of filteredQ) {
+        let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\s*/g, '')
+                              .replace(/(\s*ស្មើនឹង៖?|\s*គឺ\s*៖?|\s*៖?)$/g, '').trim();
+        const right = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
+        if (left && right && left.length <= 45 && right.length <= 35 && left !== right && !usedL.has(left) && !usedR.has(right)) {
+          dynPairs.push({ id: `dyn_${dynPairs.length + 1}`, left, right });
+          usedL.add(left);
+          usedR.add(right);
+          if (dynPairs.length >= 10) break;
+        }
+      }
+      if (dynPairs.length >= 6) {
+        return dynPairs;
+      }
+    }
+
+    // 3. Fallback based on Grade
+    const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(grade);
+    return isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
   }
 
   startMatchGame() {
@@ -844,7 +1070,11 @@ class MathGamesEngine {
     const qEl = document.getElementById('battleQuestionText');
     const optContainer = document.getElementById('battleOptionsContainer');
 
-    if (qEl) qEl.innerHTML = this.formatMath(q.q);
+    if (qEl) {
+      const infoEl = document.getElementById('battleQuestionInfo');
+      if (infoEl) infoEl.textContent = `${q.g} • ${q.ch ? q.ch + ' ➔ ' : ''}${q.l}`;
+      qEl.innerHTML = this.formatMath(q.q);
+    }
 
     // Setup turn timer
     const timerWrapper = document.getElementById('battleTimerWrapper');
@@ -1105,7 +1335,11 @@ class MathGamesEngine {
     const lvlText = document.getElementById('millionaireCurrentLvlText');
 
     if (lvlText) lvlText.textContent = `សំណួរទី ${this.millionaireLevel} (ប្រជែងយក ${this.millionaireLevel} ពិន្ទុ)`;
-    if (qEl) qEl.innerHTML = this.formatMath(this.currentMillionaireQ.q);
+    if (qEl) {
+      const infoEl = document.getElementById('millionaireQuestionInfo');
+      if (infoEl) infoEl.textContent = `${this.currentMillionaireQ.g} • ${this.currentMillionaireQ.ch ? this.currentMillionaireQ.ch + ' ➔ ' : ''}${this.currentMillionaireQ.l}`;
+      qEl.innerHTML = this.formatMath(this.currentMillionaireQ.q);
+    }
 
     if (optContainer) {
       optContainer.innerHTML = this.currentMillionaireQ.o.map((opt, idx) => `
@@ -1477,7 +1711,10 @@ class MathGamesEngine {
     const qTextEl = document.getElementById('defenderQuestionContent');
     const optionsGrid = document.getElementById('defenderOptionsGrid');
 
-    if (qTextEl) qTextEl.innerHTML = this.formatMath(this.currentDefenderQ.q);
+    if (qTextEl) {
+      const metaHtml = `<div class="text-[11px] font-bold text-amber-200 mb-1 opacity-90">${this.currentDefenderQ.ch ? this.currentDefenderQ.ch + ' ➔ ' : ''}${this.currentDefenderQ.l}</div>`;
+      qTextEl.innerHTML = metaHtml + this.formatMath(this.currentDefenderQ.q);
+    }
 
     this.defenderTimeRemainingMs = this.defenderDuration * 1000;
     if (meteorEl) {
@@ -1669,6 +1906,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lessonSelect.addEventListener('change', (e) => {
       window.mathGames.selectedLesson = e.target.value;
       window.mathGames.updateQuestionCountBadge();
+      window.mathGames.updateActiveTopicLabels();
     });
   }
 
