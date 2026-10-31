@@ -200,3 +200,24 @@ div:where(.swal2-container) button.swal2-styled.swal2-cancel {
   }
 }
 
+
+/* KaTeX Khmer Unicode Font Support (Fixes DaunPenh font clipping and missing ត្រីស័ព្ទ) */
+.katex .text,
+.katex .mord.text,
+.katex span.text,
+.katex [class*="text"],
+.match-card .card-back {
+  font-family: 'Kantumruy Pro', 'Battambang', system-ui, -apple-system, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+
+.khmer-card-text {
+  font-family: 'Kantumruy Pro', 'Battambang', sans-serif !important;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #4c1d95;
+}
+.dark .khmer-card-text {
+  color: #c4b5fd;
+}

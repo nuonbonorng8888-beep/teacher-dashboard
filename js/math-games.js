@@ -680,6 +680,14 @@ class MathGamesEngine {
 
   renderLatex(formula, displayMode = false) {
     if (!formula) return '';
+    const trimmed = formula.trim();
+
+    // If formula is pure Khmer text without math operators, render directly in Kantumruy Pro font
+    const pureTextMatch = trimmed.match(/^\\text\{([^\}]+)\}$/);
+    if (pureTextMatch && !/[\\\$_\^=+\-*\/]/.test(pureTextMatch[1])) {
+      return `<span class="khmer-card-text font-battambang font-bold">${pureTextMatch[1]}</span>`;
+    }
+
     if (typeof katex === 'undefined') return formula;
     const cleanFormula = this.cleanLatexFormula(formula);
     try {
@@ -1064,7 +1072,7 @@ class MathGamesEngine {
       if (lesName.includes('ម៉ាទ្រីស') || lesName.includes('ដេទែរមីណង់')) {
         return [...this.formulaPacks.matrices];
       }
-      if (lesName.includes('ប្រូបាប') || lesName.includes('បន្សំ') || lesName.includes('ចម្រាស់') || lesName.includes('បាយែស')) {
+      if (lesName.includes('ប្រូបាប') || lesName.includes('បន្សំ') || lesName.includes('ចម្រាស') || lesName.includes('បាយែស')) {
         return [...this.formulaPacks.probability];
       }
       if (lesName.includes('ស្ថិតិ')) {
@@ -1121,7 +1129,7 @@ class MathGamesEngine {
       return [...this.formulaPacks.sequences];
     } else if (topicText.includes('ម៉ាទ្រីស') || topicText.includes('ដេទែរមីណង់')) {
       return [...this.formulaPacks.matrices];
-    } else if (topicText.includes('ប្រូបាប') || topicText.includes('បន្សំ') || topicText.includes('ចម្រាស់') || topicText.includes('បាយែស')) {
+    } else if (topicText.includes('ប្រូបាប') || topicText.includes('បន្សំ') || topicText.includes('ចម្រាស') || topicText.includes('បាយែស')) {
       return [...this.formulaPacks.probability];
     } else if (topicText.includes('ស្ថិតិ')) {
       return [...this.formulaPacks.statistics];
