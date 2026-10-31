@@ -37,23 +37,50 @@ class QuestionBankController {
   cleanLatexFormula(formula) {
     if (!formula) return '';
     let f = formula.replace(/^\$+|\$+$/g, '').trim();
+
+    // Auto-repair control characters from unescaped JavaScript strings
+    // 1. Backspace (\x08 from \b)
     f = f.replace(/[\x08]ar/g, '\\bar');
+    f = f.replace(/[\x08]egin/g, '\\begin');
+
+    // 2. Tab (\t from \t)
+    f = f.replace(/[\t]ext/g, '\\text');
+    f = f.replace(/[\t]heta/g, '\\theta');
+    f = f.replace(/[\t]imes/g, '\\times');
+    f = f.replace(/[\t]an/g, '\\tan');
+    f = f.replace(/[\t]o([\s\$]|$)/g, '\\to$1');
+    f = f.replace(/[\t]riangle/g, '\\triangle');
+
+    // 3. Standalone keywords without leading backslash
+    f = f.replace(/(^|[^\\])dots\b/g, '$1\\dots');
+    f = f.replace(/(^|[^\\])text\{/g, '$1\\text{');
+    f = f.replace(/(^|[^\\])ext\{/g, '$1\\text{');
+    f = f.replace(/(^|[^\\])begin\{/g, '$1\\begin{');
+    f = f.replace(/(^|[^\\])end\{/g, '$1\\end{');
+    f = f.replace(/(^|[^\\])pmatrix/g, '$1\\pmatrix');
     f = f.replace(/(^|[^\\])cdot/g, '$1\\cdot');
     f = f.replace(/(^|[^\\])sqrt/g, '$1\\sqrt');
     f = f.replace(/(^|[^\\])overline/g, '$1\\overline');
     f = f.replace(/(^|[^\\])theta/g, '$1\\theta');
-    f = f.replace(/[\t]heta/g, '\\theta');
     f = f.replace(/(^|[^\\])cos/g, '$1\\cos');
     f = f.replace(/(^|[^\\])sin/g, '$1\\sin');
     f = f.replace(/(^|[^\\])tan/g, '$1\\tan');
+    f = f.replace(/(^|[^\\])cot/g, '$1\\cot');
     f = f.replace(/(^|[^\\])lim/g, '$1\\lim');
     f = f.replace(/(^|[^\\])frac/g, '$1\\frac');
+    f = f.replace(/(^|[^\\])dfrac/g, '$1\\dfrac');
     f = f.replace(/(^|[^\\])int/g, '$1\\int');
+    f = f.replace(/(^|[^\\])sum/g, '$1\\sum');
     f = f.replace(/(^|[^\\])infty/g, '$1\\infty');
     f = f.replace(/(^|[^\\])vec/g, '$1\\vec');
     f = f.replace(/(^|[^\\])times/g, '$1\\times');
     f = f.replace(/(^|[^\\])pm/g, '$1\\pm');
     f = f.replace(/(^|[^\\])Delta/g, '$1\\Delta');
+    f = f.replace(/(^|[^\\])det/g, '$1\\det');
+    f = f.replace(/(^|[^\\])arg/g, '$1\\arg');
+    f = f.replace(/(^|[^\\])bar([\{a-zA-Z])/g, '$1\\bar$2');
+    f = f.replace(/(^|[^\\])pi([^\w]|$)/g, '$1\\pi$2');
+
     return f;
   }
 
