@@ -8,7 +8,7 @@ const defaultData = {
   profile: {
     name: 'នួន បូណង',
     username: 'Bonorng11',
-    role: 'គ្រូបង្រៀនគណិតវិទ្យា NGS',
+    role: 'គ្រូបង្រៀនគណិតវិទ្យា · វិទ្យាល័យព្រះយុគន្ធរ NGS',
     subject: 'គណិតវិទ្យា',
     schoolName: 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី',
     academicYear: '២០២៦-២០២៧',

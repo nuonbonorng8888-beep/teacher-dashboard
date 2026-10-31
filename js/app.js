@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
         window.appStore.save();
       }
       if (!p.role || p.role === 'គ្រូបង្រៀន') {
-        p.role = 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
+        p.role = 'គ្រូបង្រៀនគណិតវិទ្យា · វិទ្យាល័យព្រះយុគន្ធរ NGS';
         window.appStore.save();
       }
     }
     if (userDisplayNameEl) userDisplayNameEl.textContent = p.name ? `លោកគ្រូ ${p.name.replace(/^លោកគ្រូ\s*/, '')}` : 'លោកគ្រូ នួន បូណង';
-    if (userRoleEl) userRoleEl.textContent = p.role || 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
+    if (userRoleEl) userRoleEl.textContent = p.role || 'គ្រូបង្រៀនគណិតវិទ្យា · វិទ្យាល័យព្រះយុគន្ធរ NGS';
     if (schoolTitleEl) schoolTitleEl.textContent = p.schoolName || 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
     if (academicYearEl) academicYearEl.textContent = `ឆ្នាំសិក្សា ${p.academicYear || '២០២៦-២០២៧'}`;
     
