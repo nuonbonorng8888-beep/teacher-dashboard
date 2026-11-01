@@ -5,8 +5,9 @@ Teacher: Nuon Bonorng (នួន បូណង)
 School: Preah Yukunthor High School - New Generation School (NGS)
 """
 
-import fitz, os, sys, argparse
+import fitz, os, sys, subprocess
 from datetime import datetime, timedelta
+from PIL import Image
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -19,97 +20,181 @@ KHMER_MONTHS = [
 def to_khmer_num(num):
     return ''.join(KHMER_DIGITS[int(d)] if d.isdigit() else d for d in str(num))
 
-def format_khmer_date(dt):
+def format_khmer_date_dots(dt):
     d = to_khmer_num(dt.day)
     m = KHMER_MONTHS[dt.month - 1]
     y = to_khmer_num(dt.year)
     return f"ថ្ងៃទី...{d}.....ខែ ...{m}.....ឆ្នាំ...{y}....."
 
-def format_khmer_sig_date(dt):
-    d = to_khmer_num(dt.day)
-    m = KHMER_MONTHS[dt.month - 1]
-    y = to_khmer_num(dt.year)
-    return f"រាជធានីភ្នំពេញ ថ្ងៃទី   {d}   ខែ  {m}  ឆ្នាំ {y}"
+def generate_schedule(start_date_str, count, step_days=2):
+    dt = datetime.strptime(start_date_str, '%Y-%m-%d')
+    dates = []
+    for _ in range(count):
+        dates.append(dt)
+        dt += timedelta(days=step_days)
+        if dt.weekday() == 6: # Skip Sunday
+            dt += timedelta(days=1)
+    return dates
+
+def render_all_banners_html(dates_list, out_png):
+    """Render high-res banners using headless Edge"""
+    html = '''<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+body { margin: 0; padding: 0; background: white; font-family: 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif; }
+.banner { width: 900px; height: 100px; box-sizing: border-box; padding: 6px 12px; display: flex; flex-direction: column; justify-content: center; }
+.cover-date { font-size: 26px; font-weight: bold; line-height: 42px; color: #000; }
+.sig-banner { width: 900px; height: 60px; box-sizing: border-box; display: flex; align-items: center; justify-content: flex-end; padding-right: 20px; }
+.sig-date { font-size: 24px; font-weight: bold; color: #000; }
+</style>
+</head>
+<body>
+'''
+    for i, dt in enumerate(dates_list):
+        kd = format_khmer_date_dots(dt)
+        html += f'''
+        <div id='cover_{i}' class='banner'>
+            <div class='cover-date'>កាលបរិច្ឆេទ\t:   {kd}</div>
+            <div class='cover-date'>បង្រៀនដោយ\t:   ....នួន បូណង......</div>
+        </div>
+        <div id='sig_{i}' class='sig-banner'>
+            <div class='sig-date'>រាជធានីភ្នំពេញ {kd}</div>
+        </div>
+        '''
+    html += '</body></html>'
+
+    tmp_html = 'scratch/banners_temp.html'
+    with open(tmp_html, 'w', encoding='utf-8') as f:
+        f.write(html)
+
+    edge_path = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+    abs_out = os.path.abspath(out_png)
+    abs_html = 'file:///' + os.path.abspath(tmp_html).replace('\\', '/')
+    total_h = len(dates_list) * 160 + 100
+    cmd = [
+        edge_path, '--headless', '--disable-gpu',
+        f'--screenshot={abs_out}',
+        f'--window-size=950,{total_h}',
+        abs_html
+    ]
+    subprocess.run(cmd, capture_output=True)
 
 def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days=2):
-    cur_date = datetime.strptime(start_date_str, '%Y-%m-%d')
     print(f"=== Synchronizing NGS PDFs with Start Date: {start_date_str}, Class: {class_name} ===")
 
     logo_img = 'scratch/yukunthor_logo.jpg'
     text_img = 'scratch/yukunthor_header_text.png'
-    date_teacher_img = 'scratch/sample_date_teacher_tight.png'
-    sig_img = 'scratch/sample_sig_block_tight.png'
+    sig_columns_img = 'images/sample_sig_columns_clean.png'
 
-    # Chapter 2: Limits
+    # 13 dates for limits, 11 dates for vectors
+    dates_ch2 = generate_schedule(start_date_str, 13, step_days)
+    dates_ch5 = generate_schedule(start_date_str, 11, step_days)
+
+    all_dates = dates_ch2 + dates_ch5
+    banners_png = 'scratch/all_generated_banners.png'
+    render_all_banners_html(all_dates, banners_png)
+    banners_im = Image.open(banners_png)
+
+    def get_banners_for_index(idx):
+        y_top = idx * 160
+        cover_crop = banners_im.crop((0, y_top, 900, y_top + 100))
+        sig_crop = banners_im.crop((0, y_top + 100, 900, y_top + 160))
+        c_path = f'scratch/c_banner_{idx}.png'
+        s_path = f'scratch/s_banner_{idx}.png'
+        cover_crop.save(c_path)
+        sig_crop.save(s_path)
+        return c_path, s_path
+
+    # ==========================
+    # CHAPTER 2: LIMITS (13 PLANS)
+    # ==========================
     doc_l = fitz.open('ជំពូកទី 2 លីមីត (2).pdf')
+    
+    # 1. Redact headers and stamp Yukunthor NGS
     for p in doc_l:
-        p.draw_rect(fitz.Rect(70, 9, 550, 46.5), color=(1, 1, 1), fill=(1, 1, 1))
+        p.add_redact_annot(fitz.Rect(70, 9, 550, 46.5), fill=(1, 1, 1))
+        p.apply_redactions()
         p.insert_image(fitz.Rect(70.9, 11.2, 104.9, 45.2), filename=logo_img)
         p.insert_image(fitz.Rect(112.0, 22.0, 112.0 + 237.8, 22.0 + 20.3), filename=text_img)
 
     cover_pages_l = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 45, 49]
-    for pno in cover_pages_l:
+    for i, pno in enumerate(cover_pages_l):
         p = doc_l[pno]
         b_date = [b for b in p.get_text('blocks') if 'កាលបរិ' in b[4]]
         b_obj = [b for b in p.get_text('blocks') if '១. វ' in b[4] or '១.' in b[4]]
+        c_path, _ = get_banners_for_index(i)
         if b_date and b_obj:
             y0_d = b_date[0][1]
             y0_o = b_obj[0][1]
-            p.draw_rect(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), color=(1, 1, 1), fill=(1, 1, 1))
+            p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
+            p.apply_redactions()
             img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * 8.039
-            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=date_teacher_img)
+            img_w = img_h * (900.0 / 100.0)
+            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
 
     sig_pages_l = [3, 7, 11, 15, 19, 22, 26, 30, 34, 38, 43, 47, 51]
-    for pno in sig_pages_l:
+    for i, pno in enumerate(sig_pages_l):
         p = doc_l[pno]
-        sig_blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ'])]
-        if sig_blocks:
-            min_y = min(b[1] for b in sig_blocks)
-            p.draw_rect(fitz.Rect(70, min_y - 2, 550, min_y + 128), color=(1, 1, 1), fill=(1, 1, 1))
-            p.insert_image(fitz.Rect(70, min_y, 70 + 495, min_y + 126), filename=sig_img)
+        blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ', 'គណិែ', 'បូណង'])]
+        _, s_path = get_banners_for_index(i)
+        if blocks:
+            min_y = min(b[1] for b in blocks)
+            max_y = max(b[3] for b in blocks)
+            # Physical redaction of old text - 100% permanently deleted from PDF stream
+            p.add_redact_annot(fitz.Rect(65, min_y - 2, 565, max_y + 8), fill=(1, 1, 1))
+            p.apply_redactions()
+            # Insert dynamic date for this lesson
+            p.insert_image(fitz.Rect(310, min_y + 4, 555, min_y + 4 + 18), filename=s_path)
+            # Insert clean 3 columns
+            p.insert_image(fitz.Rect(65, min_y + 26, 565, min_y + 26 + 110.5), filename=sig_columns_img)
 
     doc_l.save('ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf')
     doc_l.close()
-    print("✓ Chapter 2 PDF Updated successfully.")
+    print("✓ Chapter 2 PDF Updated successfully (with physical redactions & unique dates).")
 
-    # Chapter 5: Vectors
+    # ==========================
+    # CHAPTER 5: VECTORS (11 PLANS)
+    # ==========================
     doc_v = fitz.open('ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ.pdf')
     for p in doc_v:
-        p.draw_rect(fitz.Rect(70, 20, 550, 62.5), color=(1, 1, 1), fill=(1, 1, 1))
+        p.add_redact_annot(fitz.Rect(70, 20, 550, 62.5), fill=(1, 1, 1))
+        p.apply_redactions()
         p.insert_image(fitz.Rect(70.9, 27.35, 104.9, 61.35), filename=logo_img)
         p.insert_image(fitz.Rect(112.0, 36.0, 112.0 + 237.8, 36.0 + 20.3), filename=text_img)
 
     cover_pages_v = [0, 6, 16, 23, 29, 33, 39, 44, 51, 55, 60]
-    for pno in cover_pages_v:
+    for i, pno in enumerate(cover_pages_v):
         p = doc_v[pno]
         b_date = [b for b in p.get_text('blocks') if 'កាលបរិ' in b[4]]
         b_obj = [b for b in p.get_text('blocks') if '១. វ' in b[4] or '១.' in b[4]]
+        c_path, _ = get_banners_for_index(13 + i)
         if b_date and b_obj:
             y0_d = b_date[0][1]
             y0_o = b_obj[0][1]
-            p.draw_rect(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), color=(1, 1, 1), fill=(1, 1, 1))
+            p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
+            p.apply_redactions()
             img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * 8.039
-            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=date_teacher_img)
+            img_w = img_h * (900.0 / 100.0)
+            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
 
     sig_pages_v = [4, 14, 22, 27, 31, 37, 42, 49, 53, 58, 63]
-    for pno in sig_pages_v:
+    for i, pno in enumerate(sig_pages_v):
         p = doc_v[pno]
-        sig_blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ'])]
-        if sig_blocks:
-            min_y = min(b[1] for b in sig_blocks)
-            p.draw_rect(fitz.Rect(70, min_y - 2, 550, min_y + 128), color=(1, 1, 1), fill=(1, 1, 1))
-            p.insert_image(fitz.Rect(70, min_y, 70 + 495, min_y + 126), filename=sig_img)
+        blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ', 'គណិែ', 'បូណង'])]
+        _, s_path = get_banners_for_index(13 + i)
+        if blocks:
+            min_y = min(b[1] for b in blocks)
+            max_y = max(b[3] for b in blocks)
+            p.add_redact_annot(fitz.Rect(65, min_y - 2, 565, max_y + 8), fill=(1, 1, 1))
+            p.apply_redactions()
+            p.insert_image(fitz.Rect(310, min_y + 4, 555, min_y + 4 + 18), filename=s_path)
+            p.insert_image(fitz.Rect(65, min_y + 26, 565, min_y + 26 + 110.5), filename=sig_columns_img)
 
     doc_v.save('ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf')
     doc_v.close()
-    print("✓ Chapter 5 PDF Updated successfully.")
+    print("✓ Chapter 5 PDF Updated successfully (with physical redactions & unique dates).")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Update NGS PDFs with schedule")
-    parser.add_argument('--start-date', default='2026-10-19', help='Start date YYYY-MM-DD')
-    parser.add_argument('--class-name', default='១២A', help='Class name e.g. ១២A')
-    parser.add_argument('--step-days', type=int, default=2, help='Days between lessons')
-    args = parser.parse_args()
-    update_all_pdfs(args.start_date, args.class_name, args.step_days)
+    update_all_pdfs()

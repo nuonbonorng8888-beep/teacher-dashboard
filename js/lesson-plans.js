@@ -308,6 +308,65 @@
               height: 18.0,
             });
           }
+
+          // Also update Signature Page if available (Wipes old text & inserts customized date + clean columns)
+          const sIdx = plan.sig_page_index !== undefined ? plan.sig_page_index : null;
+          if (sIdx !== null && sIdx < pdfDoc.getPageCount()) {
+            const sigPage = pdfDoc.getPage(sIdx);
+            const sigPageH = sigPage.getHeight();
+            const sig_y_top = plan.sig_y0 || 320.0;
+            const sig_box_h = plan.sig_h || 156.0;
+            // In pdf-lib y=0 is at bottom
+            const sig_y_bottom = sigPageH - sig_y_top - sig_box_h;
+
+            // 1. Wipe out old signature text completely (full-height pure white mask)
+            sigPage.drawRectangle({
+              x: 65,
+              y: Math.max(0, sig_y_bottom - 8),
+              width: 505,
+              height: sig_box_h + 16,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+
+            // 2. Render dynamic signature date via canvas
+            const sigDateCanvas = document.createElement('canvas');
+            sigDateCanvas.width = 900;
+            sigDateCanvas.height = 70;
+            const sctx = sigDateCanvas.getContext('2d');
+            sctx.fillStyle = '#ffffff';
+            sctx.fillRect(0, 0, sigDateCanvas.width, sigDateCanvas.height);
+            sctx.fillStyle = '#000000';
+            sctx.font = 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+            sctx.textAlign = 'right';
+            sctx.fillText('រាជធានីភ្នំពេញ ' + khmerDateDots, 880, 48);
+
+            const sigDatePngUrl = sigDateCanvas.toDataURL('image/png');
+            const sigDatePngBytes = await fetch(sigDatePngUrl).then(res => res.arrayBuffer());
+            const sigDateImg = await pdfDoc.embedPng(sigDatePngBytes);
+
+            const sigDateYBottom = sigPageH - sig_y_top - 22.0;
+            sigPage.drawImage(sigDateImg, {
+              x: 310,
+              y: sigDateYBottom,
+              width: 245.0,
+              height: 18.0,
+            });
+
+            // 3. Render clean 3 columns (Teacher Bonorng, Tech Head, NGS Assistant)
+            try {
+              const colsBytes = await fetch('images/sample_sig_columns_clean.png').then(res => res.arrayBuffer());
+              const colsImg = await pdfDoc.embedPng(colsBytes);
+              const colsYBottom = sigPageH - sig_y_top - 26.0 - 110.5;
+              sigPage.drawImage(colsImg, {
+                x: 65,
+                y: colsYBottom,
+                width: 500.0,
+                height: 110.5,
+              });
+            } catch (errCols) {
+              console.warn('Could not embed signature columns image:', errCols);
+            }
+          }
         }
 
         const modifiedBytes = await pdfDoc.save();

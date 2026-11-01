@@ -1,8 +1,3 @@
-/**
- * NGS Lesson Plans Database - Teacher Nuon Bonorng
- * Preah Yukunthor High School - New Generation School (NGS)
- * Grade 12 Advanced Mathematics
- */
 window.NGS_LESSON_PLANS_DATA = [
   {
     "id": "plan_1",
@@ -46,7 +41,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 0,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 2,
+    "sig_y0": 583.8,
+    "sig_h": 128.2
   },
   {
     "id": "plan_2",
@@ -59,8 +57,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "២.ប្រមាណវិធីលើចំនួនកុំផ្លិច · ២.១ វិធីបូកចំនួនកុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-21",
+    "date_khmer": "ថ្ងៃទី ២១ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -93,7 +91,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 4,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 7,
+    "sig_y0": 300.7,
+    "sig_h": 198.8
   },
   {
     "id": "plan_3",
@@ -106,8 +107,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "២.ប្រមាណវិធីលើចំនួនកុំផ្លិច · ២.៤ វិធីចែកចំនួនកុំផ្លិច",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-23",
+    "date_khmer": "ថ្ងៃទី ២៣ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -139,7 +140,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 10,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 13,
+    "sig_y0": 311.3,
+    "sig_h": 231.2
   },
   {
     "id": "plan_4",
@@ -152,8 +156,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "៣. ចំនួនកុំផ្លិចក្នុងប្លង់កុំផ្លិច · ៣.១ការតាងចំនួនកុំផ្លិចក្នុងប្លង់កុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-26",
+    "date_khmer": "ថ្ងៃទី ២៦ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -184,7 +188,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 16,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 19,
+    "sig_y0": 366.3,
+    "sig_h": 220.0
   },
   {
     "id": "plan_5",
@@ -197,8 +204,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "៤. វ៉ិចទ័ររូបភាពនៃផលបូក ផលដកចំនួនកុំផ្លិចនិងផលគុណចំនួនពិតជាមួយនឹងចំនួនកុំផ្លិច · ៤.១ វ៉ិចទ័ររូបភាពនៃផលបូកចំនួនកុំផ្លិចក្នុងប្លង់កុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-28",
+    "date_khmer": "ថ្ងៃទី ២៨ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -230,7 +237,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 22,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 25,
+    "sig_y0": 306.7,
+    "sig_h": 127.4
   },
   {
     "id": "plan_6",
@@ -243,8 +253,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "1.  ម៉ុឌុលនៃចំនួនកុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-30",
+    "date_khmer": "ថ្ងៃទី ៣០ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -274,7 +284,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 28,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 32,
+    "sig_y0": 303.1,
+    "sig_h": 250.0
   },
   {
     "id": "plan_7",
@@ -287,8 +300,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ",
     "topic": "្រាយប្រតិបត្តិនិងលំហាត់បានីត",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-02",
+    "date_khmer": "ថ្ងៃទី ២ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -324,7 +337,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 35,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 38,
+    "sig_y0": 312.6,
+    "sig_h": 250.0
   },
   {
     "id": "plan_8",
@@ -337,8 +353,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ",
     "topic": "3. ទម្រង់ត្រីកោណមាត្រនៃចំនួនកុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-04",
+    "date_khmer": "ថ្ងៃទី ៤ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -372,7 +388,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 41,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 43,
+    "sig_y0": 309.9,
+    "sig_h": 250.0
   },
   {
     "id": "plan_9",
@@ -385,8 +404,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "ផលគុណចំនួនកុំផ្លិចតាមទម្រង់ត្រីកោណមាត្រ",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-06",
+    "date_khmer": "ថ្ងៃទី ៦ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -422,7 +441,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 45,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 48,
+    "sig_y0": 300.2,
+    "sig_h": 184.8
   },
   {
     "id": "plan_10",
@@ -435,8 +457,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "5. ផលចែកចំនួនកុំផ្លិចតាមទម្រង់ត្រីកោណមាត្រ",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-09",
+    "date_khmer": "ថ្ងៃទី ៩ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -471,7 +493,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 51,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 54,
+    "sig_y0": 300.5,
+    "sig_h": 181.0
   },
   {
     "id": "plan_11",
@@ -484,8 +509,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "6. បំប្លែងវិលជុំវិញគល់តម្រុយនៃប្លង់កុំផ្លិច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-11",
+    "date_khmer": "ថ្ងៃទី ១១ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -521,7 +546,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 57,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 61,
+    "sig_y0": 277.8,
+    "sig_h": 127.4
   },
   {
     "id": "plan_12",
@@ -534,8 +562,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "្រាយប្រតិបត្តិនិងលំហាត់បានីត",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-13",
+    "date_khmer": "ថ្ងៃទី ១៣ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -567,7 +595,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 65,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 67,
+    "sig_y0": 312.3,
+    "sig_h": 127.4
   },
   {
     "id": "plan_13",
@@ -580,8 +611,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពីជគណិត",
     "topic": "",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-16",
+    "date_khmer": "ថ្ងៃទី ១៦ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -612,7 +643,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 69,
     "box_y0": 172.0,
-    "class_y0": 99.2
+    "class_y0": 99.2,
+    "sig_page_index": 71,
+    "sig_y0": 135.3,
+    "sig_h": 90.9
   },
   {
     "id": "plan_14",
@@ -667,7 +701,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 0,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 3,
+    "sig_y0": 319.51,
+    "sig_h": 156.0
   },
   {
     "id": "plan_15",
@@ -680,8 +717,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីតនៃអនុគមន៍",
     "topic": "មេរៀន",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-21",
+    "date_khmer": "ថ្ងៃទី ២១ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -718,7 +755,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 4,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 7,
+    "sig_y0": 607.27,
+    "sig_h": 155.86
   },
   {
     "id": "plan_16",
@@ -731,8 +771,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីតនៃអនុគមន៍",
     "topic": "មេរៀន",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-23",
+    "date_khmer": "ថ្ងៃទី ២៣ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -769,7 +809,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 8,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 11,
+    "sig_y0": 576.96,
+    "sig_h": 155.88
   },
   {
     "id": "plan_17",
@@ -782,8 +825,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីតនៃអនុគមន៍",
     "topic": "មេរៀន",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-26",
+    "date_khmer": "ថ្ងៃទី ២៦ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -819,7 +862,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 12,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 15,
+    "sig_y0": 628.66,
+    "sig_h": 155.88
   },
   {
     "id": "plan_18",
@@ -832,8 +878,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីតនៃអនុគមន៍",
     "topic": "មេរៀន",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-28",
+    "date_khmer": "ថ្ងៃទី ២៨ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -868,7 +914,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 16,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 19,
+    "sig_y0": 315.71,
+    "sig_h": 155.9
   },
   {
     "id": "plan_19",
@@ -881,8 +930,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ចំនួនកុំផ្លិចទម្រង់ពិជគណិត",
     "topic": "លីមីតនៃអនុគមន៍អិចស្ប៉ូណង់ស្យែល",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-30",
+    "date_khmer": "ថ្ងៃទី ៣០ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -914,7 +963,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 20,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 22,
+    "sig_y0": 271.61,
+    "sig_h": 156.0
   },
   {
     "id": "plan_20",
@@ -927,8 +979,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "អនុគមន៍លោការីតនេពែ",
     "topic": "លីមីតនៃអនុគមន៍លោការីតនេពែ",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-02",
+    "date_khmer": "ថ្ងៃទី ២ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -959,7 +1011,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 24,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 26,
+    "sig_y0": 334.11,
+    "sig_h": 156.0
   },
   {
     "id": "plan_21",
@@ -972,8 +1027,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍",
     "topic": "ភាពជាប់នៃអនុគមន៍ត្រង់មួយចំណុច",
     "duration": "៤៥ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-04",
+    "date_khmer": "ថ្ងៃទី ៤ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1005,7 +1060,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 28,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 30,
+    "sig_y0": 316.51,
+    "sig_h": 156.0
   },
   {
     "id": "plan_22",
@@ -1018,8 +1076,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍ (ត)",
     "topic": "លក្ខណៈនៃភាពជាប់",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-06",
+    "date_khmer": "ថ្ងៃទី ៦ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1050,7 +1108,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 32,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 34,
+    "sig_y0": 481.14,
+    "sig_h": 155.89
   },
   {
     "id": "plan_23",
@@ -1063,8 +1124,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍ (ត)",
     "topic": "ភាពជាប់លើចន្លោះបើក និងចន្លោះបិទ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-09",
+    "date_khmer": "ថ្ងៃទី ៩ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1095,7 +1156,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 36,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 38,
+    "sig_y0": 374.64,
+    "sig_h": 155.97
   },
   {
     "id": "plan_24",
@@ -1108,8 +1172,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍ (ត)",
     "topic": "ភាពជាប់នៃអនុគមន៍បណ្ដាក់ (Continuity of Composite Functions)",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-11",
+    "date_khmer": "ថ្ងៃទី ១១ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1140,7 +1204,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 40,
     "box_y0": 129.9,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 43,
+    "sig_y0": 277.72,
+    "sig_h": 155.99
   },
   {
     "id": "plan_25",
@@ -1153,8 +1220,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍ (ត)",
     "topic": "អនុគមន៍បន្ថាយតាមភាពជាប់ (Continuous Extension of a Function)",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-13",
+    "date_khmer": "ថ្ងៃទី ១៣ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1185,7 +1252,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 45,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 47,
+    "sig_y0": 321.41,
+    "sig_h": 156.0
   },
   {
     "id": "plan_26",
@@ -1198,8 +1268,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "លីមីត និងភាពជាប់នៃអនុគមន៍ (ត)",
     "topic": "ទ្រឹស្តីបទតម្លៃកណ្តាល (Intermediate Value Theorem - IVT)",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-16",
+    "date_khmer": "ថ្ងៃទី ១៦ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1230,7 +1300,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 49,
     "box_y0": 161.8,
-    "class_y0": 77.9
+    "class_y0": 77.9,
+    "sig_page_index": 51,
+    "sig_y0": 388.64,
+    "sig_h": 155.97
   },
   {
     "id": "plan_27",
@@ -1279,7 +1352,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 0,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 4,
+    "sig_y0": 179.31,
+    "sig_h": 145.77
   },
   {
     "id": "plan_28",
@@ -1292,8 +1368,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "វ៉ិចទ័រក្នុងលំហ",
     "topic": "- មេរៀនទី១ ៖ វ៉ិចទ័រក្នុងលំហ · ២.ប្រមាណវិធីនៃ វ៉ិចទ័រក្នុងលំហ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-21",
+    "date_khmer": "ថ្ងៃទី ២១ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1325,7 +1401,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 6,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 14,
+    "sig_y0": 248.81,
+    "sig_h": 145.8
   },
   {
     "id": "plan_29",
@@ -1338,8 +1417,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "វ៉ិចទ័រក្នុងលំហ",
     "topic": "- មេរៀនទី១ ៖ វ៉ិចទ័រក្នុងលំហ · ៤. ផលគុណស្កាលែនៃវ៉ិចទ័រក្នុងលំហ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-23",
+    "date_khmer": "ថ្ងៃទី ២៣ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1371,7 +1450,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 16,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 22,
+    "sig_y0": 179.31,
+    "sig_h": 145.77
   },
   {
     "id": "plan_30",
@@ -1384,8 +1466,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ផលគុណនៃពីរវ៉ិចទ័រក្នុងលំហ",
     "topic": "​  \t    - មេរៀនទី២​   ៖ ផលគុណនៃពីរវ៉ិចទ័រក្នុងលំហ · ១. និយមន័យផលគុណនៃពីរវ៉ិចទ័រ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-26",
+    "date_khmer": "ថ្ងៃទី ២៦ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1417,7 +1499,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 23,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 27,
+    "sig_y0": 407.64,
+    "sig_h": 145.87
   },
   {
     "id": "plan_31",
@@ -1430,8 +1515,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ផលគុណនៃពីរវ៉ិចទ័រក្នុងលំហ",
     "topic": "២. លក្ខណៈផលគុណនៃពីរវ៉ិចទ័រ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-28",
+    "date_khmer": "ថ្ងៃទី ២៨ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1461,7 +1546,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 29,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 31,
+    "sig_y0": 600.96,
+    "sig_h": 145.77
   },
   {
     "id": "plan_32",
@@ -1474,8 +1562,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ផលគុណនៃពីរវ៉ិចទ័រក្នុងលំហ",
     "topic": "៣. បំណកស្រាយផលគុណនៃពីរវ៉ិចទ័រតាមបែបធរណីមាត្រ · ក. អរតូកូណាល់ទៅនឹង ផងនិង ផង",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-10-30",
+    "date_khmer": "ថ្ងៃទី ៣០ ខែ តុលា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1507,7 +1595,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 33,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 37,
+    "sig_y0": 401.94,
+    "sig_h": 145.77
   },
   {
     "id": "plan_33",
@@ -1520,8 +1611,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "ផលគុណនៃពីរវ៉ិចទ័រក្នុងលំហ",
     "topic": "៤. អនុវត្តផលគុណនៃពីរវ៉ិចទ័រ · ៥. ផលគុណចម្រុះនៃបីវ៉ិចទ័រក្នុងលំហ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-02",
+    "date_khmer": "ថ្ងៃទី ២ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1555,7 +1646,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 39,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 42,
+    "sig_y0": 615.16,
+    "sig_h": 145.78
   },
   {
     "id": "plan_34",
@@ -1568,8 +1662,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "អនុវត្តន៍នៃផលគុណវ៉ិចទ័រ",
     "topic": "1.  បន្ទាត់និងប្លង់ក្នុងលំហ · 1.1.បន្ទាត់ក្នុងលំហ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-04",
+    "date_khmer": "ថ្ងៃទី ៤ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1601,7 +1695,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 44,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 49,
+    "sig_y0": 195.61,
+    "sig_h": 145.77
   },
   {
     "id": "plan_35",
@@ -1614,8 +1711,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "អនុវត្តន៍នៃផលគុណវ៉ិចទ័រ",
     "topic": "1.3 មុំផ្គុំរវាងប្លង់ពីរ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-06",
+    "date_khmer": "ថ្ងៃទី ៦ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1645,7 +1742,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 51,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 53,
+    "sig_y0": 443.44,
+    "sig_h": 145.77
   },
   {
     "id": "plan_36",
@@ -1658,8 +1758,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "អនុវត្តន៍នៃផលគុណវ៉ិចទ័រ",
     "topic": "2.សមីការស្វ៊ែរ · 2.1.និយ័មន័យ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-09",
+    "date_khmer": "ថ្ងៃទី ៩ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1692,7 +1792,10 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 55,
     "box_y0": 177.6,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 58,
+    "sig_y0": 327.41,
+    "sig_h": 145.8
   },
   {
     "id": "plan_37",
@@ -1705,8 +1808,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "lesson_title": "អនុវត្តន៍នៃផលគុណវ៉ិចទ័រ",
     "topic": "3. ចម្ងាយពីរចំណុចមួយទៅប្លង់មួយ និងចម្ងាយពីចំណុចមួយទៅបន្ទាត់មួយ · 3.1 ចម្ងាយពីរចំណុចមួយទៅប្លង់មួយក្នុងលំហ",
     "duration": "៩០ នាទី",
-    "date": "2026-10-19",
-    "date_khmer": "ថ្ងៃទី ១៩ ខែ តុលា ឆ្នាំ ២០២៦",
+    "date": "2026-11-11",
+    "date_khmer": "ថ្ងៃទី ១១ ខែ វិច្ឆិកា ឆ្នាំ ២០២៦",
     "teacher": "នួន បូណង",
     "school": "វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)",
     "score": 50,
@@ -1738,6 +1841,9 @@ window.NGS_LESSON_PLANS_DATA = [
     },
     "cover_page_index": 60,
     "box_y0": 159.4,
-    "class_y0": 86.4
+    "class_y0": 86.4,
+    "sig_page_index": 63,
+    "sig_y0": 371.44,
+    "sig_h": 145.77
   }
 ];
