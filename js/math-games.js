@@ -68,73 +68,301 @@ class MathGamesEngine {
     this.defenderPaused = false;
     this.currentDefenderQ = null;
 
-    // Comprehensive Grade & Topic-Specific Formula Packs (100% Unique Left & Right, Strictly No Euler)
+    // Comprehensive Grade & Topic-Specific Formula Packs (100% Unique Left & Right, Strictly MoEYS Curriculum)
     this.formulaPacks = {
-      // ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (ថ្នាក់ទី ១២)
-      // មេរៀនទី ១ ៖ ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form - Strictly No Trig, No Euler)
-      complex_algebraic: [
-        { id: 'ca_1', left: "i^2", right: "-1" },
-        { id: 'ca_2', left: "i^3", right: "-i" },
-        { id: 'ca_3', left: "i^4", right: "1" },
-        { id: 'ca_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
-        { id: 'ca_5', left: "\\overline{a + bi}", right: "a - bi" },
-        { id: 'ca_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
-        { id: 'ca_7', left: "|3 - 4i|", right: "5" },
-        { id: 'ca_8', left: "|1 + i|", right: "\\sqrt{2}" },
-        { id: 'ca_9', left: "(2+i)(3-2i)", right: "8 - i" },
-        { id: 'ca_10', left: "\\sqrt{-4}", right: "2i" },
-        { id: 'ca_11', left: "\\sqrt{-9}", right: "3i" },
-        { id: 'ca_12', left: "\\sqrt{-16}", right: "4i" },
-        { id: 'ca_13', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
-        { id: 'ca_14', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
-        { id: 'ca_15', left: "\\frac{1}{i^3}", right: "i" },
-        { id: 'ca_16', left: "(1+2i)^2", right: "-3 + 4i" },
-        { id: 'ca_17', left: "(1-i)^2", right: "-2i" },
-        { id: 'ca_18', left: "\\overline{z \\cdot z'}", right: "\\bar{z} \\cdot \\bar{z}'" }
+      // ================== GRADE 7 FORMULA PACKS ==================
+      // Lesson 1: ចំនួនគត់ (Integers - properties, order of operations, powers)
+      g7_integers: [
+        { id: 'g7_int_1', left: "a + b", right: "b + a\\text{ (លក្ខណៈត្រឡប់)}" },
+        { id: 'g7_int_2', left: "(a + b) + c", right: "a + (b + c)\\text{ (លក្ខណៈផ្តុំ)}" },
+        { id: 'g7_int_3', left: "a \\cdot b", right: "b \\cdot a\\text{ (លក្ខណៈត្រឡប់)}" },
+        { id: 'g7_int_4', left: "(a \\cdot b) \\cdot c", right: "a \\cdot (b \\cdot c)\\text{ (លក្ខណៈផ្តុំ)}" },
+        { id: 'g7_int_5', left: "a(b + c)", right: "ab + ac\\text{ (លក្ខណៈបំបែក)}" },
+        { id: 'g7_int_6', left: "a(b - c)", right: "ab - ac\\text{ (លក្ខណៈបំបែក)}" },
+        { id: 'g7_int_7', left: "a + 0", right: "a\\text{ (ធាតុណឺតផលបូក)}" },
+        { id: 'g7_int_8', left: "a \\cdot 1", right: "a\\text{ (ធាតុណឺតផលគុណ)}" },
+        { id: 'g7_int_9', left: "a \\cdot 0", right: "0\\text{ (ប្រមាណវិធីលើសូន្យ)}" },
+        { id: 'g7_int_10', left: "a^2", right: "a \\times a\\text{ (ការេនៃចំនួនគត់)}" },
+        { id: 'g7_int_11', left: "a^3", right: "a \\times a \\times a\\text{ (គូបនៃចំនួនគត់)}" },
+        { id: 'g7_int_12', left: "2^3", right: "8" },
+        { id: 'g7_int_13', left: "3^2", right: "9" },
+        { id: 'g7_int_14', left: "4^2", right: "16" },
+        { id: 'g7_int_15', left: "5^2", right: "25" },
+        { id: 'g7_int_16', left: "15 + 25 \\times 2", right: "65" },
+        { id: 'g7_int_17', left: "2^3 + 3^2", right: "17" },
+        { id: 'g7_int_18', left: "|{-5}|", right: "5\\text{ (តម្លៃដាច់ខាត)}" },
+        { id: 'g7_int_19', left: "24 - 4 \\times 5 + 6", right: "10" },
+        { id: 'g7_int_20', left: "10^2", right: "100" }
       ],
 
-      // មេរៀនទី ២ ៖ ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form & De Moivre - Strictly No Euler)
-      complex_trigonometric: [
-        { id: 'ct_1', left: "z\\text{ (ទម្រង់ត្រីកោណមាត្រ)}", right: "r(\\cos\\theta + i\\sin\\theta)" },
-        { id: 'ct_2', left: "r\\text{ (ម៉ូឌុលនៃ }z)", right: "\\sqrt{a^2 + b^2}" },
-        { id: 'ct_3', left: "\\cos\\theta", right: "\\frac{a}{r}" },
-        { id: 'ct_4', left: "\\sin\\theta", right: "\\frac{b}{r}" },
-        { id: 'ct_5', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
-        { id: 'ct_6', left: "[r(\\cos\\theta + i\\sin\\theta)]^n", right: "r^n[\\cos(n\\theta) + i\\sin(n\\theta)]" },
-        { id: 'ct_7', left: "z \\cdot z'", right: "rr'[\\cos(\\theta+\\theta') + i\\sin(\\theta+\\theta')]" },
-        { id: 'ct_8', left: "\\frac{z}{z'}", right: "\\frac{r}{r'}[\\cos(\\theta-\\theta') + i\\sin(\\theta-\\theta')]" },
-        { id: 'ct_9', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" },
-        { id: 'ct_10', left: "\\arg(\\frac{z}{z'})", right: "\\arg(z) - \\arg(z')" },
-        { id: 'ct_11', left: "\\arg(z^n)", right: "n\\arg(z)" },
-        { id: 'ct_12', left: "1+i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}(\\cos\\frac{\\pi}{4} + i\\sin\\frac{\\pi}{4})" },
-        { id: 'ct_13', left: "i\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}" },
-        { id: 'ct_14', left: "-1\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\pi + i\\sin\\pi" },
-        { id: 'ct_15', left: "1-i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}[\\cos(-\\frac{\\pi}{4}) + i\\sin(-\\frac{\\pi}{4})]" },
-        { id: 'ct_16', left: "\\arg(\\bar{z})", right: "-\\arg(z)" }
+      // Lesson 2: តួចែកនិងពហុគុណ (Factors and Multiples, GCD/LCM)
+      g7_factors_multiples: [
+        { id: 'g7_fm_1', left: "\\text{PGCD}(12, 18)", right: "6" },
+        { id: 'g7_fm_2', left: "\\text{PPCM}(4, 6)", right: "12" },
+        { id: 'g7_fm_3', left: "\\text{PGCD}(8, 12)", right: "4" },
+        { id: 'g7_fm_4', left: "\\text{PPCM}(3, 5)", right: "15" },
+        { id: 'g7_fm_5', left: "\\text{ចំនួនបឋមតូចជាងគេ}", right: "2" },
+        { id: 'g7_fm_6', left: "\\text{ចំនួនគត់សេសបឋមដំបូង}", right: "3" },
+        { id: 'g7_fm_7', left: "12\\text{ (កត្តាបឋម)}", right: "2^2 \\times 3" },
+        { id: 'g7_fm_8', left: "18\\text{ (កត្តាបឋម)}", right: "2 \\times 3^2" },
+        { id: 'g7_fm_9', left: "20\\text{ (កត្តាបឋម)}", right: "2^2 \\times 5" },
+        { id: 'g7_fm_10', left: "24\\text{ (កត្តាបឋម)}", right: "2^3 \\times 3" },
+        { id: 'g7_fm_11', left: "a \\times b", right: "\\text{PGCD}(a,b) \\times \\text{PPCM}(a,b)" },
+        { id: 'g7_fm_12', left: "\\text{តួចែកនៃ } 6", right: "\\{1, 2, 3, 6\\}" },
+        { id: 'g7_fm_13', left: "\\text{តួចែកនៃ } 8", right: "\\{1, 2, 4, 8\\}" },
+        { id: 'g7_fm_14', left: "\\text{PGCD}(15, 20)", right: "5" },
+        { id: 'g7_fm_15', left: "\\text{PPCM}(6, 8)", right: "24" },
+        { id: 'g7_fm_16', left: "30\\text{ (កត្តាបឋម)}", right: "2 \\times 3 \\times 5" },
+        { id: 'g7_fm_17', left: "\\text{PGCD}(14, 21)", right: "7" },
+        { id: 'g7_fm_18', left: "\\text{PPCM}(10, 15)", right: "30" }
       ],
 
-      // ជំពូកកុំផ្លិចទាំងមូល (Chapter Fallback)
-      complex_numbers: [
-        { id: 'c_1', left: "i^2", right: "-1" },
-        { id: 'c_2', left: "i^3", right: "-i" },
-        { id: 'c_3', left: "i^4", right: "1" },
-        { id: 'c_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
-        { id: 'c_5', left: "\\overline{a + bi}", right: "a - bi" },
-        { id: 'c_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
-        { id: 'c_7', left: "|3 - 4i|", right: "5" },
-        { id: 'c_8', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
-        { id: 'c_9', left: "(2+i)(3-2i)", right: "8 - i" },
-        { id: 'c_10', left: "\\sqrt{-4}", right: "2i" },
-        { id: 'c_11', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
-        { id: 'c_12', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
-        { id: 'c_13', left: "\\frac{1}{i^3}", right: "i" },
-        { id: 'c_14', left: "\\sqrt{-9}", right: "3i" },
-        { id: 'c_15', left: "(1-i)^2", right: "-2i" },
-        { id: 'c_16', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" }
+      // Lesson 3: ចំនួនគត់រ៉ឺឡាទីប (Relative Integers)
+      g7_relative_integers: [
+        { id: 'g7_ri_1', left: "(-a) + (-b)", right: "-(a + b)" },
+        { id: 'g7_ri_2', left: "(+a) \\times (+b)", right: "+ab" },
+        { id: 'g7_ri_3', left: "(-a) \\times (-b)", right: "+ab\\text{ (ដកគុណដក)}" },
+        { id: 'g7_ri_4', left: "(+a) \\times (-b)", right: "-ab" },
+        { id: 'g7_ri_5', left: "(-3) + (-5)", right: "-8" },
+        { id: 'g7_ri_6', left: "(-4) \\times (-3)", right: "+12" },
+        { id: 'g7_ri_7', left: "(-10) \\div 2", right: "-5" },
+        { id: 'g7_ri_8', left: "(-2)^3", right: "-8\\text{ (ស្វ័យគុណសេស)}" },
+        { id: 'g7_ri_9', left: "(-3)^2", right: "+9\\text{ (ស្វ័យគុណគូ)}" },
+        { id: 'g7_ri_10', left: "5 - (-3)", right: "8" },
+        { id: 'g7_ri_11', left: "(-7) + 10", right: "+3" },
+        { id: 'g7_ri_12', left: "(-6) \\times 4", right: "-24" },
+        { id: 'g7_ri_13', left: "(-15) \\div (-3)", right: "+5" },
+        { id: 'g7_ri_14', left: "0 - 7", right: "-7" },
+        { id: 'g7_ri_15', left: "(-1)^5", right: "-1" },
+        { id: 'g7_ri_16', left: "(-1)^6", right: "1" }
       ],
 
-      // ជំពូកទី ១ ៖ ស្វ៊ីត (ថ្នាក់ទី ១១)
-      // មេរៀនទី ១ ៖ ស្វ៊ីតចំនួនពិត (Real Sequences - Strictly No Arithmetic, No Geometric)
+      // Lesson 4: ប្រភាគ (Fractions)
+      g7_fractions: [
+        { id: 'g7_fr_1', left: "\\frac{a}{m} + \\frac{b}{m}", right: "\\frac{a + b}{m}" },
+        { id: 'g7_fr_2', left: "\\frac{a}{m} - \\frac{b}{m}", right: "\\frac{a - b}{m}" },
+        { id: 'g7_fr_3', left: "\\frac{a}{b} \\times \\frac{c}{d}", right: "\\frac{ac}{bd}" },
+        { id: 'g7_fr_4', left: "\\frac{a}{b} \\div \\frac{c}{d}", right: "\\frac{a}{b} \\times \\frac{d}{c}" },
+        { id: 'g7_fr_5', left: "\\frac{1}{2} + \\frac{1}{4}", right: "\\frac{3}{4}" },
+        { id: 'g7_fr_6', left: "\\frac{2}{3} \\times \\frac{3}{4}", right: "\\frac{1}{2}" },
+        { id: 'g7_fr_7', left: "\\frac{3}{5} \\div \\frac{2}{5}", right: "\\frac{3}{2}" },
+        { id: 'g7_fr_8', left: "1 - \\frac{1}{3}", right: "\\frac{2}{3}" },
+        { id: 'g7_fr_9', left: "\\frac{1}{3} + \\frac{1}{6}", right: "\\frac{1}{2}\\text{ (សម្រួលរួច)}" },
+        { id: 'g7_fr_10', left: "\\frac{4}{8}", right: "\\frac{1}{2}\\text{ (ប្រភាគងាយ)}" },
+        { id: 'g7_fr_11', left: "\\frac{6}{9}", right: "\\frac{2}{3}\\text{ (ប្រភាគងាយ)}" },
+        { id: 'g7_fr_12', left: "\\frac{10}{15}", right: "\\frac{2}{3}\\text{ (ចែកនឹង ៥)}" },
+        { id: 'g7_fr_13', left: "\\frac{1}{4} + \\frac{1}{2}", right: "\\frac{3}{4}\\text{ (ភាគបែង ៤)}" },
+        { id: 'g7_fr_14', left: "\\frac{5}{6} - \\frac{1}{6}", right: "\\frac{2}{3}\\text{ (សម្រួល ៤/៦)}" },
+        { id: 'g7_fr_15', left: "\\frac{3}{4} \\times 4", right: "3" },
+        { id: 'g7_fr_16', left: "\\frac{1}{5} \\times 10", right: "2" }
+      ],
+
+      // Lesson 6: ភាគរយ (Percentages)
+      g7_percentages: [
+        { id: 'g7_pc_1', left: "50\\%", right: "\\frac{1}{2}" },
+        { id: 'g7_pc_2', left: "25\\%", right: "\\frac{1}{4}" },
+        { id: 'g7_pc_3', left: "75\\%", right: "\\frac{3}{4}" },
+        { id: 'g7_pc_4', left: "20\\%", right: "\\frac{1}{5}" },
+        { id: 'g7_pc_5', left: "10\\%", right: "\\frac{1}{10}" },
+        { id: 'g7_pc_6', left: "100\\%", right: "1" },
+        { id: 'g7_pc_7', left: "50\\%\\text{ នៃ } 200", right: "100" },
+        { id: 'g7_pc_8', left: "20\\%\\text{ នៃ } 50", right: "10" },
+        { id: 'g7_pc_9', left: "10\\%\\text{ នៃ } 350", right: "35" },
+        { id: 'g7_pc_10', left: "25\\%\\text{ នៃ } 80", right: "20" },
+        { id: 'g7_pc_11', left: "\\frac{1}{5}\\text{ ជាភាគរយ}", right: "20\\%" },
+        { id: 'g7_pc_12', left: "\\frac{2}{5}\\text{ ជាភាគរយ}", right: "40\\%" },
+        { id: 'g7_pc_13', left: "5\\%\\text{ នៃ } 100", right: "5" },
+        { id: 'g7_pc_14', left: "30\\%\\text{ នៃ } 200", right: "60" },
+        { id: 'g7_pc_15', left: "0.5\\text{ ជាភាគរយ}", right: "50\\%" },
+        { id: 'g7_pc_16', left: "0.25\\text{ ជាភាគរយ}", right: "25\\%" }
+      ],
+
+      // Geometry Grade 7
+      g7_geometry: [
+        { id: 'g7_geo_1', left: "\\text{ផលបូកមុំក្នុងត្រីកោណ}", right: "180^\\circ" },
+        { id: 'g7_geo_2', left: "\\text{ផលបូកមុំក្នុងចតុកោណ}", right: "360^\\circ" },
+        { id: 'g7_geo_3', left: "\\text{មុំកែង}", right: "90^\\circ" },
+        { id: 'g7_geo_4', left: "\\text{មុំរាប}", right: "180^\\circ\\text{ (មុំកន្លះរង្វង់)}" },
+        { id: 'g7_geo_5', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
+        { id: 'g7_geo_6', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'g7_geo_7', left: "S_{\\text{ការេ}}", right: "a^2" },
+        { id: 'g7_geo_8', left: "P_{\\text{ចតុកោណកែង}}", right: "2(a + b)" },
+        { id: 'g7_geo_9', left: "S_{\\text{ចតុកោណកែង}}", right: "a \\times b" },
+        { id: 'g7_geo_10', left: "P_\\circ", right: "2\\pi R" },
+        { id: 'g7_geo_11', left: "S_\\circ", right: "\\pi R^2" },
+        { id: 'g7_geo_12', left: "V_{\\text{គូប}}", right: "a^3" },
+        { id: 'g7_geo_13', left: "V_{\\text{ប្រលេឡូពីប៉ែត}}", right: "a \\times b \\times c" },
+        { id: 'g7_geo_14', left: "S_{\\text{ចតុកោណព្នាយ}}", right: "\\frac{(a+b)h}{2}" },
+        { id: 'g7_geo_15', left: "S_{\\text{ប្រលេឡូក្រាម}}", right: "b \\times h" },
+        { id: 'g7_geo_16', left: "d_{\\text{រង្វង់}}", right: "2R" }
+      ],
+
+      // Grade 7 Comprehensive Fallback
+      grade7_all: [
+        { id: 'g7_all_1', left: "a + b", right: "b + a" },
+        { id: 'g7_all_2', left: "a(b + c)", right: "ab + ac" },
+        { id: 'g7_all_3', left: "2^3", right: "8" },
+        { id: 'g7_all_4', left: "3^2", right: "9" },
+        { id: 'g7_all_5', left: "4^2", right: "16" },
+        { id: 'g7_all_6', left: "\\text{PGCD}(12, 18)", right: "6" },
+        { id: 'g7_all_7', left: "\\text{PPCM}(4, 6)", right: "12" },
+        { id: 'g7_all_8', left: "(-3) \\times (-4)", right: "+12" },
+        { id: 'g7_all_9', left: "(-2)^3", right: "-8" },
+        { id: 'g7_all_10', left: "\\frac{1}{2} + \\frac{1}{4}", right: "\\frac{3}{4}" },
+        { id: 'g7_all_11', left: "\\frac{2}{3} \\times \\frac{3}{4}", right: "\\frac{1}{2}" },
+        { id: 'g7_all_12', left: "50\\%", right: "\\frac{1}{2}\\text{ (ពាក់កណ្តាល)}" },
+        { id: 'g7_all_13', left: "25\\%", right: "\\frac{1}{4}\\text{ (មួយភាគបួន)}" },
+        { id: 'g7_all_14', left: "S_{\\text{ការេ}}", right: "a^2" },
+        { id: 'g7_all_15', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'g7_all_16', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
+        { id: 'g7_all_17', left: "P_\\circ", right: "2\\pi R" },
+        { id: 'g7_all_18', left: "S_\\circ", right: "\\pi R^2" }
+      ],
+
+      // ================== GRADE 8 FORMULA PACKS ==================
+      // Powers (ស្វ័យគុណ)
+      g8_powers: [
+        { id: 'g8_p_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
+        { id: 'g8_p_2', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'g8_p_3', left: "(a^m)^n", right: "a^{mn}" },
+        { id: 'g8_p_4', left: "(ab)^n", right: "a^n b^n" },
+        { id: 'g8_p_5', left: "(\\frac{a}{b})^n", right: "\\frac{a^n}{b^n}" },
+        { id: 'g8_p_6', left: "a^0\\text{ (}a \\neq 0)", right: "1" },
+        { id: 'g8_p_7', left: "a^{-n}", right: "\\frac{1}{a^n}" },
+        { id: 'g8_p_8', left: "2^4", right: "16" },
+        { id: 'g8_p_9', left: "3^3", right: "27" },
+        { id: 'g8_p_10', left: "5^3", right: "125" },
+        { id: 'g8_p_11', left: "10^3", right: "1000" },
+        { id: 'g8_p_12', left: "10^{-2}", right: "0.01" },
+        { id: 'g8_p_13', left: "2^{-1}", right: "\\frac{1}{2}" },
+        { id: 'g8_p_14', left: "2^5", right: "32" },
+        { id: 'g8_p_15', left: "4^3", right: "64" },
+        { id: 'g8_p_16', left: "10^{-3}", right: "0.001" }
+      ],
+
+      // Pythagoras (ពីតាក័រ)
+      g8_pythagoras: [
+        { id: 'g8_py_1', left: "c^2\\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'g8_py_2', left: "a^2 + b^2 = c^2 \\iff", right: "\\triangle\\text{ កែងត្រង់ }C" },
+        { id: 'g8_py_3', left: "3^2 + 4^2", right: "5^2" },
+        { id: 'g8_py_4', left: "6^2 + 8^2", right: "10^2" },
+        { id: 'g8_py_5', left: "5^2 + 12^2", right: "13^2" },
+        { id: 'g8_py_6', left: "c", right: "\\sqrt{a^2 + b^2}\\text{ (អ៊ីប៉ូតេនុស)}" },
+        { id: 'g8_py_7', left: "a^2", right: "c^2 - b^2" },
+        { id: 'g8_py_8', left: "b^2", right: "c^2 - a^2" },
+        { id: 'g8_py_9', left: "\\sqrt{3^2 + 4^2}", right: "5" },
+        { id: 'g8_py_10', left: "\\sqrt{6^2 + 8^2}", right: "10" },
+        { id: 'g8_py_11', left: "\\sqrt{5^2 + 12^2}", right: "13" },
+        { id: 'g8_py_12', left: "9^2 + 12^2", right: "15^2" },
+        { id: 'g8_py_13', left: "7^2 + 24^2", right: "25^2" },
+        { id: 'g8_py_14', left: "8^2 + 15^2", right: "17^2" },
+        { id: 'g8_py_15', left: "\\text{អ៊ីប៉ូតេនុស}", right: "\\text{ជ្រុងឈមនឹងមុំកែង}" },
+        { id: 'g8_py_16', left: "c^2 = a^2 + b^2", right: "\\text{ទ្រឹស្តីបទពីតាក័រ}" }
+      ],
+
+      // Grade 8 Fallback
+      grade8_all: [
+        { id: 'g8_all_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
+        { id: 'g8_all_2', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
+        { id: 'g8_all_3', left: "(a^m)^n", right: "a^{mn}" },
+        { id: 'g8_all_4', left: "a^0\\text{ (}a \\neq 0)", right: "1" },
+        { id: 'g8_all_5', left: "a^{-n}", right: "\\frac{1}{a^n}" },
+        { id: 'g8_all_6', left: "c^2\\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
+        { id: 'g8_all_7', left: "3^2 + 4^2", right: "5^2" },
+        { id: 'g8_all_8', left: "6^2 + 8^2", right: "10^2" },
+        { id: 'g8_all_9', left: "2^4", right: "16" },
+        { id: 'g8_all_10', left: "3^3", right: "27" },
+        { id: 'g8_all_11', left: "5^3", right: "125" },
+        { id: 'g8_all_12', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
+        { id: 'g8_all_13', left: "S_{\\text{ការេ}}", right: "a^2" },
+        { id: 'g8_all_14', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'g8_all_15', left: "P_\\circ", right: "2\\pi R" },
+        { id: 'g8_all_16', left: "S_\\circ", right: "\\pi R^2" }
+      ],
+
+      // ================== GRADE 9 FORMULA PACKS ==================
+      // Radicals (ឫសការេ និងរ៉ាឌីកាល់)
+      g9_radicals: [
+        { id: 'g9_rad_1', left: "\\sqrt{a \\cdot b}", right: "\\sqrt{a}\\sqrt{b}" },
+        { id: 'g9_rad_2', left: "\\sqrt{\\frac{a}{b}}", right: "\\frac{\\sqrt{a}}{\\sqrt{b}}" },
+        { id: 'g9_rad_3', left: "(\\sqrt{a})^2", right: "a\\text{ (}a \\ge 0)" },
+        { id: 'g9_rad_4', left: "\\sqrt{a^2}", right: "|a|" },
+        { id: 'g9_rad_5', left: "\\sqrt{16}", right: "4" },
+        { id: 'g9_rad_6', left: "\\sqrt{25}", right: "5" },
+        { id: 'g9_rad_7', left: "\\sqrt{36}", right: "6" },
+        { id: 'g9_rad_8', left: "\\sqrt{49}", right: "7" },
+        { id: 'g9_rad_9', left: "\\sqrt{64}", right: "8" },
+        { id: 'g9_rad_10', left: "\\sqrt{81}", right: "9" },
+        { id: 'g9_rad_11', left: "\\sqrt{100}", right: "10" },
+        { id: 'g9_rad_12', left: "\\sqrt{144}", right: "12" },
+        { id: 'g9_rad_13', left: "\\sqrt{169}", right: "13" },
+        { id: 'g9_rad_14', left: "\\sqrt{196}", right: "14" },
+        { id: 'g9_rad_15', left: "\\sqrt{50}", right: "5\\sqrt{2}" },
+        { id: 'g9_rad_16', left: "\\sqrt{18}", right: "3\\sqrt{2}" }
+      ],
+
+      // Quadratic Equations (សមីការដឺក្រេទីពីរ)
+      g9_quadratics: [
+        { id: 'g9_q_1', left: "\\Delta", right: "b^2 - 4ac" },
+        { id: 'g9_q_2', left: "\\Delta > 0 \\implies", right: "\\text{មានឬសពីរផ្សេងគ្នា}" },
+        { id: 'g9_q_3', left: "\\Delta = 0 \\implies", right: "\\text{មានឬសឌុប}" },
+        { id: 'g9_q_4', left: "\\Delta < 0 \\implies", right: "\\text{គ្មានឬសក្នុង }\\mathbb{R}" },
+        { id: 'g9_q_5', left: "x_{1,2}", right: "\\frac{-b \\pm \\sqrt{\\Delta}}{2a}" },
+        { id: 'g9_q_6', left: "x_0\\text{ (ឬសឌុប)}", right: "-\\frac{b}{2a}" },
+        { id: 'g9_q_7', left: "S = x_1 + x_2", right: "-\\frac{b}{a}" },
+        { id: 'g9_q_8', left: "P = x_1 \\cdot x_2", right: "\\frac{c}{a}" },
+        { id: 'g9_q_9', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'g9_q_10', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'g9_q_11', left: "a^2 - b^2", right: "(a-b)(a+b)" },
+        { id: 'g9_q_12', left: "x^2 - 4 = 0", right: "x = \\pm 2" },
+        { id: 'g9_q_13', left: "x^2 - 9 = 0", right: "x = \\pm 3" },
+        { id: 'g9_q_14', left: "x^2 - 16 = 0", right: "x = \\pm 4" },
+        { id: 'g9_q_15', left: "(x - 1)(x - 2) = 0", right: "x = 1,\\, x = 2" },
+        { id: 'g9_q_16', left: "x^2 - 25 = 0", right: "x = \\pm 5" }
+      ],
+
+      // Solids (សូលីត)
+      g9_solids: [
+        { id: 'g9_s_1', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
+        { id: 'g9_s_2', left: "S_{L\\text{ (ស៊ីឡាំង)}}", right: "2\\pi R h" },
+        { id: 'g9_s_3', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
+        { id: 'g9_s_4', left: "S_{L\\text{ (កោន)}}", right: "\\pi R l" },
+        { id: 'g9_s_5', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
+        { id: 'g9_s_6', left: "S_{\\text{ស្វ៊ែរ}}", right: "4\\pi R^2" },
+        { id: 'g9_s_7', left: "V_{\\text{គូប}}", right: "a^3" },
+        { id: 'g9_s_8', left: "S_{T\\text{ (គូប)}}", right: "6a^2" },
+        { id: 'g9_s_9', left: "V_{\\text{ប្រលេឡូពីប៉ែត}}", right: "l \\times w \\times h" },
+        { id: 'g9_s_10', left: "\\frac{S_1}{S_2}\\text{ (ដូចគ្នា)}", right: "k^2" },
+        { id: 'g9_s_11', left: "\\frac{V_1}{V_2}\\text{ (ដូចគ្នា)}", right: "k^3" },
+        { id: 'g9_s_12', left: "l^2\\text{ (កោន)}", right: "R^2 + h^2" },
+        { id: 'g9_s_13', left: "S_T\\text{ (ស៊ីឡាំង)}", right: "2\\pi R(R + h)" },
+        { id: 'g9_s_14', left: "S_T\\text{ (កោន)}", right: "\\pi R(R + l)" },
+        { id: 'g9_s_15', left: "V_{\\text{ព្រីស}}", right: "B \\times h" },
+        { id: 'g9_s_16', left: "V_{\\text{ពីរ៉ាមីត}}", right: "\\frac{1}{3} B \\times h" }
+      ],
+
+      // Grade 9 Fallback
+      grade9_all: [
+        { id: 'g9_all_1', left: "\\sqrt{a \\cdot b}", right: "\\sqrt{a}\\sqrt{b}" },
+        { id: 'g9_all_2', left: "\\Delta", right: "b^2 - 4ac" },
+        { id: 'g9_all_3', left: "x_{1,2}", right: "\\frac{-b \\pm \\sqrt{\\Delta}}{2a}" },
+        { id: 'g9_all_4', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
+        { id: 'g9_all_5', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
+        { id: 'g9_all_6', left: "a^2 - b^2", right: "(a-b)(a+b)" },
+        { id: 'g9_all_7', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
+        { id: 'g9_all_8', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
+        { id: 'g9_all_9', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
+        { id: 'g9_all_10', left: "\\sqrt{16}", right: "4" },
+        { id: 'g9_all_11', left: "\\sqrt{25}", right: "5" },
+        { id: 'g9_all_12', left: "\\sqrt{36}", right: "6" },
+        { id: 'g9_all_13', left: "\\sqrt{49}", right: "7" },
+        { id: 'g9_all_14', left: "\\sqrt{64}", right: "8" },
+        { id: 'g9_all_15', left: "S = x_1 + x_2", right: "-\\frac{b}{a}" },
+        { id: 'g9_all_16', left: "P = x_1 \\cdot x_2", right: "\\frac{c}{a}" }
+      ],
+
+      // ================== GRADE 11 FORMULA PACKS ==================
+      // Lesson 1: ស្វ៊ីតចំនួនពិត (Real Sequences ONLY - strictly no arithmetic, no geometric)
       sequences_real: [
         { id: 'sr_1', left: "u_{n+1} - u_n > 0", right: "\\text{ស្វ៊ីតកើនដាច់ខាត}" },
         { id: 'sr_2', left: "u_{n+1} - u_n < 0", right: "\\text{ស្វ៊ីតចុះដាច់ខាត}" },
@@ -156,7 +384,7 @@ class MathGamesEngine {
         { id: 'sr_18', left: "u_n = n^2 + 1 \\implies u_3", right: "10" }
       ],
 
-      // មេរៀនទី ២ ៖ ស្វ៊ីតនព្វន្ត (Arithmetic Sequences - Strictly No Geometric)
+      // Lesson 2: ស្វ៊ីតនព្វន្ត (Arithmetic Sequences ONLY - strictly no geometric)
       sequences_arithmetic: [
         { id: 'sa_1', left: "d\\text{ (ផលសងរួម)}", right: "u_n - u_{n-1}" },
         { id: 'sa_2', left: "u_n\\text{ (តួទី }n\\text{ នព្វន្ត)}", right: "u_1 + (n-1)d" },
@@ -176,7 +404,7 @@ class MathGamesEngine {
         { id: 'sa_16', left: "u_1 = 3,\\, u_3 = 7 \\implies d", right: "2" }
       ],
 
-      // មេរៀនទី ៣ ៖ ស្វ៊ីតធរណីមាត្រ (Geometric Sequences)
+      // Lesson 3: ស្វ៊ីតធរណីមាត្រ (Geometric Sequences ONLY - strictly no arithmetic)
       sequences_geometric: [
         { id: 'sg_1', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
         { id: 'sg_2', left: "u_n\\text{ (តួទី }n\\text{ ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
@@ -196,7 +424,7 @@ class MathGamesEngine {
         { id: 'sg_16', left: "u_2 = 6,\\, u_1 = 2 \\implies q", right: "3" }
       ],
 
-      // ជំពូកស្វ៊ីតទាំងមូល (Chapter Fallback)
+      // Sequences Chapter Fallback
       sequences: [
         { id: 'seq_1', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
         { id: 'seq_2', left: "S_n\\text{ (នព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
@@ -215,7 +443,106 @@ class MathGamesEngine {
         { id: 'seq_15', left: "1 + \\frac{1}{2} + \\frac{1}{4} + \\dots", right: "2" }
       ],
 
-      // ជំពូកទី ២ ៖ លីមីតនៃអនុគមន៍
+      // Grade 11 Fallback
+      // Grade 10 Fallback
+      grade10_all: [
+        { id: 'g10_all_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
+        { id: 'g10_all_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
+        { id: 'g10_all_3', left: "1 + \\tan^2(x)", right: "\\frac{1}{\\cos^2(x)}" },
+        { id: 'g10_all_4', left: "\\sin(2x)", right: "2\\sin(x)\\cos(x)" },
+        { id: 'g10_all_5', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
+        { id: 'g10_all_6', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy'" },
+        { id: 'g10_all_7', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2}" },
+        { id: 'g10_all_8', left: "A \\cap B", right: "\\{x \\mid x \\in A \\text{ និង } x \\in B\\}" },
+        { id: 'g10_all_9', left: "A \\cup B", right: "\\{x \\mid x \\in A \\text{ ឬ } x \\in B\\}" },
+        { id: 'g10_all_10', left: "\\Delta", right: "b^2 - 4ac" },
+        { id: 'g10_all_11', left: "\\sin(\\frac{\\pi}{6})", right: "\\frac{1}{2}" },
+        { id: 'g10_all_12', left: "\\cos(\\frac{\\pi}{6})", right: "\\frac{\\sqrt{3}}{2}" },
+        { id: 'g10_all_13', left: "\\sin(\\frac{\\pi}{4})", right: "\\frac{\\sqrt{2}}{2}" },
+        { id: 'g10_all_14', left: "\\tan(\\frac{\\pi}{3})", right: "\\sqrt{3}" }
+      ],
+
+      grade11_all: [
+        { id: 'g11_all_1', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'g11_all_2', left: "S_n\\text{ (នព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
+        { id: 'g11_all_3', left: "u_n\\text{ (ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
+        { id: 'g11_all_4', left: "S_n\\text{ (ធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'g11_all_5', left: "\\det\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}", right: "ad - bc" },
+        { id: 'g11_all_6', left: "A \\cdot I", right: "A" },
+        { id: 'g11_all_7', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" },
+        { id: 'g11_all_8', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2 + z^2}" },
+        { id: 'g11_all_9', left: "\\vec{u} \\perp \\vec{v} \\iff", right: "\\vec{u} \\cdot \\vec{v} = 0" },
+        { id: 'g11_all_10', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
+        { id: 'g11_all_11', left: "P(\\bar{A})", right: "1 - P(A)" },
+        { id: 'g11_all_12', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
+        { id: 'g11_all_13', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'g11_all_14', left: "S_\\infty\\text{ (|q|<1)}", right: "\\frac{u_1}{1 - q}" }
+      ],
+
+      // ================== GRADE 12 FORMULA PACKS ==================
+      // Lesson 1: ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form - Strictly MoEYS Authentic)
+      complex_algebraic: [
+        { id: 'ca_1', left: "i^2", right: "-1" },
+        { id: 'ca_2', left: "i^3", right: "-i" },
+        { id: 'ca_3', left: "i^4", right: "1" },
+        { id: 'ca_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'ca_5', left: "\\overline{a + bi}", right: "a - bi" },
+        { id: 'ca_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
+        { id: 'ca_7', left: "|3 - 4i|", right: "5" },
+        { id: 'ca_8', left: "|1 + i|", right: "\\sqrt{2}" },
+        { id: 'ca_9', left: "(2+i)(3-2i)", right: "8 - i" },
+        { id: 'ca_10', left: "\\sqrt{-4}", right: "2i" },
+        { id: 'ca_11', left: "\\sqrt{-9}", right: "3i" },
+        { id: 'ca_12', left: "\\sqrt{-16}", right: "4i" },
+        { id: 'ca_13', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
+        { id: 'ca_14', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
+        { id: 'ca_15', left: "\\frac{1}{i^3}", right: "i" },
+        { id: 'ca_16', left: "(1+2i)^2", right: "-3 + 4i" },
+        { id: 'ca_17', left: "(1-i)^2", right: "-2i" },
+        { id: 'ca_18', left: "\\overline{z \\cdot z'}", right: "\\bar{z} \\cdot \\bar{z}'" }
+      ],
+
+      // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form - Strictly MoEYS Curriculum)
+      complex_trigonometric: [
+        { id: 'ct_1', left: "z\\text{ (ទម្រង់ត្រីកោណមាត្រ)}", right: "r(\\cos\\theta + i\\sin\\theta)" },
+        { id: 'ct_2', left: "r\\text{ (ម៉ូឌុលនៃ }z)", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'ct_3', left: "\\cos\\theta", right: "\\frac{a}{r}" },
+        { id: 'ct_4', left: "\\sin\\theta", right: "\\frac{b}{r}" },
+        { id: 'ct_5', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
+        { id: 'ct_6', left: "[r(\\cos\\theta + i\\sin\\theta)]^n", right: "r^n[\\cos(n\\theta) + i\\sin(n\\theta)]" },
+        { id: 'ct_7', left: "z \\cdot z'", right: "rr'[\\cos(\\theta+\\theta') + i\\sin(\\theta+\\theta')]" },
+        { id: 'ct_8', left: "\\frac{z}{z'}", right: "\\frac{r}{r'}[\\cos(\\theta-\\theta') + i\\sin(\\theta-\\theta')]" },
+        { id: 'ct_9', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" },
+        { id: 'ct_10', left: "\\arg(\\frac{z}{z'})", right: "\\arg(z) - \\arg(z')" },
+        { id: 'ct_11', left: "\\arg(z^n)", right: "n\\arg(z)" },
+        { id: 'ct_12', left: "1+i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}(\\cos\\frac{\\pi}{4} + i\\sin\\frac{\\pi}{4})" },
+        { id: 'ct_13', left: "i\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}" },
+        { id: 'ct_14', left: "-1\\text{ (ត្រីកោណមាត្រ)}", right: "\\cos\\pi + i\\sin\\pi" },
+        { id: 'ct_15', left: "1-i\\text{ (ត្រីកោណមាត្រ)}", right: "\\sqrt{2}[\\cos(-\\frac{\\pi}{4}) + i\\sin(-\\frac{\\pi}{4})]" },
+        { id: 'ct_16', left: "\\arg(\\bar{z})", right: "-\\arg(z)" }
+      ],
+
+      // Complex Numbers Chapter Fallback
+      complex_numbers: [
+        { id: 'c_1', left: "i^2", right: "-1" },
+        { id: 'c_2', left: "i^3", right: "-i" },
+        { id: 'c_3', left: "i^4", right: "1" },
+        { id: 'c_4', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'c_5', left: "\\overline{a + bi}", right: "a - bi" },
+        { id: 'c_6', left: "z \\cdot \\bar{z}", right: "|z|^2" },
+        { id: 'c_7', left: "|3 - 4i|", right: "5" },
+        { id: 'c_8', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
+        { id: 'c_9', left: "(2+i)(3-2i)", right: "8 - i" },
+        { id: 'c_10', left: "\\sqrt{-4}", right: "2i" },
+        { id: 'c_11', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
+        { id: 'c_12', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
+        { id: 'c_13', left: "\\frac{1}{i^3}", right: "i" },
+        { id: 'c_14', left: "\\sqrt{-9}", right: "3i" },
+        { id: 'c_15', left: "(1-i)^2", right: "-2i" },
+        { id: 'c_16', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" }
+      ],
+
+      // Limits (លីមីត)
       limits: [
         { id: 'lim_1', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
         { id: 'lim_2', left: "\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}", right: "\\frac{1}{2}" },
@@ -233,7 +560,7 @@ class MathGamesEngine {
         { id: 'lim_14', left: "\\lim_{x \\to 64} \\sqrt{x}", right: "8" }
       ],
 
-      // ជំពូកទី ៣ ៖ ដេរីវេនៃអនុគមន៍
+      // Derivatives (ដេរីវេ)
       derivatives: [
         { id: 'der_1', left: "(x^n)'", right: "n x^{n-1}" },
         { id: 'der_2', left: "(\\ln x)'", right: "\\frac{1}{x}" },
@@ -252,7 +579,7 @@ class MathGamesEngine {
         { id: 'der_15', left: "(\\frac{1}{x})'", right: "-\\frac{1}{x^2}" }
       ],
 
-      // ជំពូកទី ៦ ៖ អាំងតេក្រាល
+      // Integrals (អាំងតេក្រាល)
       integrals: [
         { id: 'int_1', left: "\\int x^n\\,dx", right: "\\frac{x^{n+1}}{n+1} + C" },
         { id: 'int_2', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
@@ -270,7 +597,7 @@ class MathGamesEngine {
         { id: 'int_14', left: "\\int \\frac{u'}{u}\\,dx", right: "\\ln|u| + C" }
       ],
 
-      // ម៉ាទ្រីស និងដេទែរមីណង់ (ថ្នាក់ទី ១១)
+      // Matrices (ម៉ាទ្រីស)
       matrices: [
         { id: 'mat_1', left: "\\det\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}", right: "ad - bc" },
         { id: 'mat_2', left: "A \\cdot I", right: "A" },
@@ -288,7 +615,7 @@ class MathGamesEngine {
         { id: 'mat_14', left: "(A^T)^{-1}", right: "(A^{-1})^T" }
       ],
 
-      // វ៉ិចទ័រក្នុងលំហ និងប្លង់
+      // Vectors (វ៉ិចទ័រ)
       vectors: [
         { id: 'vec_1', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" },
         { id: 'vec_2', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2 + z^2}" },
@@ -304,7 +631,7 @@ class MathGamesEngine {
         { id: 'vec_12', left: "\\vec{u} \\cdot \\vec{0}", right: "0" }
       ],
 
-      // កោនិក (ប៉ារ៉ាបូល អេលីប អ៊ីពែបូល)
+      // Conics (កោនិក)
       conics: [
         { id: 'con_1', left: "y^2 = 4px\\text{ (ប៉ារ៉ាបូល)}", right: "F(p, 0)" },
         { id: 'con_2', left: "x^2 = 4py\\text{ (ប៉ារ៉ាបូល)}", right: "F(0, p)" },
@@ -322,7 +649,7 @@ class MathGamesEngine {
         { id: 'con_14', left: "\\text{ប្រវែងចម្ងាយប្រសព្វកំបោល}", right: "2c" }
       ],
 
-      // ប្រូបាប និងបន្សំ
+      // Probability (ប្រូបាប)
       probability: [
         { id: 'pr_1', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
         { id: 'pr_2', left: "P(\\bar{A})", right: "1 - P(A)" },
@@ -340,7 +667,7 @@ class MathGamesEngine {
         { id: 'pr_14', left: "E(X)\\text{ (ទ្វេធា }B(n,p))", right: "np" }
       ],
 
-      // ស្ថិតិ
+      // Statistics (ស្ថិតិ)
       statistics: [
         { id: 'st_1', left: "\\bar{x}\\text{ (មធ្យមនព្វន្ត)}", right: "\\frac{\\sum f_i x_i}{N}" },
         { id: 'st_2', left: "M_o", right: "\\text{តម្លៃដែលមានប្រេកង់ច្រើនបំផុត}" },
@@ -356,7 +683,7 @@ class MathGamesEngine {
         { id: 'st_12', left: "IQR", right: "Q_3 - Q_1" }
       ],
 
-      // ត្រីកោណមាត្រ
+      // Trigonometry (ត្រីកោណមាត្រ)
       trigonometry: [
         { id: 'tr_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
         { id: 'tr_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
@@ -376,80 +703,22 @@ class MathGamesEngine {
         { id: 'tr_16', left: "\\tan(0)", right: "0" }
       ],
 
-      // ធរណីមាត្រគ្រឹះ
-      geometry_basic: [
-        { id: 'geo_1', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'geo_2', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'geo_3', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'geo_4', left: "S_{\\text{ចតុកោណកែង}}", right: "a \\times b" },
-        { id: 'geo_5', left: "P_{\\text{ចតុកោណកែង}}", right: "2(a + b)" },
-        { id: 'geo_6', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'geo_7', left: "P_{\\text{ការេ}}", right: "4a" },
-        { id: 'geo_8', left: "V_{\\text{គូប}}", right: "a^3" },
-        { id: 'geo_9', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
-        { id: 'geo_10', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
-        { id: 'geo_11', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
-        { id: 'geo_12', left: "S_{\\text{ស្វ៊ែរ}}", right: "4\\pi R^2" },
-        { id: 'geo_13', left: "c^2\\text{ (ពីតាក័រ)}", right: "a^2 + b^2" },
-        { id: 'geo_14', left: "S_{\\text{ចតុកោណព្នាយ}}", right: "\\frac{(a+b)h}{2}" }
-      ],
-
-      // ពីជគណិតគ្រឹះ
-      algebra_basic: [
-        { id: 'alg_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'alg_2', left: "(a^m)^n", right: "a^{m \\cdot n}" },
-        { id: 'alg_3', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'alg_4', left: "a^0\\text{ (}a \\ne 0)", right: "1" },
-        { id: 'alg_5', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'alg_6', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
-        { id: 'alg_7', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
-        { id: 'alg_8', left: "a^2 - b^2", right: "(a-b)(a+b)" },
-        { id: 'alg_9', left: "(a+b)^3", right: "a^3 + 3a^2b + 3ab^2 + b^3" },
-        { id: 'alg_10', left: "a^3 - b^3", right: "(a-b)(a^2 + ab + b^2)" },
-        { id: 'alg_11', left: "\\Delta", right: "b^2 - 4ac" },
-        { id: 'alg_12', left: "x_{1,2}\\text{ (}ax^2+bx+c=0)", right: "\\frac{-b \\pm \\sqrt{\\Delta}}{2a}" },
-        { id: 'alg_13', left: "S = x_1 + x_2", right: "-\\frac{b}{a}" },
-        { id: 'alg_14', left: "P = x_1 \\cdot x_2", right: "\\frac{c}{a}" }
-      ],
-
-      // កម្រិតអនុវិទ្យាល័យ (ថ្នាក់ទី ៧, ៨, ៩)
-      lowerSecondary: [
-        { id: 'm_1', left: "a^m \\cdot a^n", right: "a^{m+n}" },
-        { id: 'm_2', left: "(a^m)^n", right: "a^{m \\cdot n}" },
-        { id: 'm_3', left: "\\frac{a^m}{a^n}", right: "a^{m-n}" },
-        { id: 'm_4', left: "a^0\\text{ (ចំពោះ }a \\ne 0)", right: "1" },
-        { id: 'm_5', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
-        { id: 'm_6', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
-        { id: 'm_7', left: "a^2 - b^2", right: "(a-b)(a+b)" },
-        { id: 'm_8', left: "a^{-n}", right: "\\frac{1}{a^n}" },
-        { id: 'm_9', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'm_10', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'm_11', left: "P_\\circ", right: "2\\pi R" },
-        { id: 'm_12', left: "\\Delta", right: "b^2 - 4ac" },
-        { id: 'm_13', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'm_14', left: "P_{\\text{ការេ}}", right: "4a" },
-        { id: 'm_15', left: "V_{\\text{គូប}}", right: "a^3" },
-        { id: 'm_16', left: "\\sqrt{a \\cdot b}", right: "\\sqrt{a}\\sqrt{b}" }
-      ],
-
-      // កម្រិតវិទ្យាល័យ (ថ្នាក់ទី ១០, ១១, ១២)
-      upperSecondary: [
-        { id: 'u_1', left: "\\sin^2(x) + \\cos^2(x)", right: "1" },
-        { id: 'u_2', left: "\\tan(x)", right: "\\frac{\\sin(x)}{\\cos(x)}" },
-        { id: 'u_3', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
-        { id: 'u_4', left: "(x^n)'", right: "n \\cdot x^{n-1}" },
-        { id: 'u_5', left: "(\\sin x)'", right: "\\cos(x)" },
-        { id: 'u_6', left: "(\\cos x)'", right: "-\\sin(x)" },
-        { id: 'u_7', left: "(e^x)'", right: "e^x" },
-        { id: 'u_8', left: "(\\ln x)'", right: "\\frac{1}{x}" },
-        { id: 'u_9', left: "i^2", right: "-1" },
-        { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
-        { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
-        { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\tan(2x)}{x}", right: "2" },
-        { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
-        { id: 'u_15', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
-        { id: 'u_16', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" }
+      // Grade 12 Fallback
+      grade12_all: [
+        { id: 'g12_all_1', left: "i^2", right: "-1" },
+        { id: 'g12_all_2', left: "|a + bi|", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'g12_all_3', left: "z \\cdot \\bar{z}", right: "|z|^2" },
+        { id: 'g12_all_4', left: "(x^n)'", right: "n x^{n-1}" },
+        { id: 'g12_all_5', left: "(\\ln x)'", right: "\\frac{1}{x}" },
+        { id: 'g12_all_6', left: "(e^x)'", right: "e^x" },
+        { id: 'g12_all_7', left: "\\int x^n\\,dx", right: "\\frac{x^{n+1}}{n+1} + C" },
+        { id: 'g12_all_8', left: "\\int e^x\\,dx", right: "e^x + C" },
+        { id: 'g12_all_9', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
+        { id: 'g12_all_10', left: "\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}", right: "\\frac{1}{2}" },
+        { id: 'g12_all_11', left: "y^2 = 4px", right: "F(p, 0)" },
+        { id: 'g12_all_12', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
+        { id: 'g12_all_13', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
+        { id: 'g12_all_14', left: "\\int 2x\\,dx", right: "x^2 + C" }
       ]
     };
 
@@ -550,6 +819,51 @@ class MathGamesEngine {
     return lesVal;
   }
 
+  onFilterChanged() {
+    this.updateActiveTopicLabels();
+    this.updateQuestionCountBadge();
+
+    // 1. If currently in Formula Match
+    if (this.activeMode === 'match') {
+      const gameView = document.getElementById('matchGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.startMatchGame();
+      }
+    }
+
+    // 2. If currently in Planet Defender
+    if (this.activeMode === 'defender') {
+      const gameView = document.getElementById('defenderGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.nextDefenderWave();
+      }
+    }
+
+    // 3. If currently in Speed Blitz
+    if (this.activeMode === 'blitz') {
+      const gameView = document.getElementById('blitzGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.nextBlitzQuestion();
+      }
+    }
+
+    // 4. If currently in Math Battle
+    if (this.activeMode === 'battle') {
+      const gameView = document.getElementById('battleGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.nextBattleQuestion();
+      }
+    }
+
+    // 5. If currently in Millionaire
+    if (this.activeMode === 'millionaire') {
+      const gameView = document.getElementById('millionaireGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.loadMillionaireQuestion();
+      }
+    }
+  }
+
   updateLessonDropdown() {
     const lessonSelect = document.getElementById('filterGameLesson');
     if (!lessonSelect) return;
@@ -638,31 +952,32 @@ class MathGamesEngine {
     f = f.replace(/\x0crac/g, '\\frac');
     f = f.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
 
-    // 2. Eliminate red KaTeX \t errors and repair double escapes
+    // 2. Eliminate stray \t and handle \theta, \times, \text
     f = f.replace(/\\t\\text\{/g, '\\text{');
     f = f.replace(/\\t\\theta/g, '\\theta');
     f = f.replace(/\\t\\times/g, '\\times');
     f = f.replace(/\\t\\tan/g, '\\tan');
     f = f.replace(/\\t\\to/g, '\\to');
-    f = f.replace(/\\t(?![a-zA-Z])/g, '');
+    f = f.replace(/\\t(?![a-zA-Z])/g, ' ');
 
     // 3. Repair missing backslashes on standard LaTeX math macros
     const macros = [
       'dots', 'text', 'begin', 'end', 'pmatrix', 'cdot', 'sqrt', 'overline',
       'theta', 'cos', 'sin', 'tan', 'cot', 'lim', 'frac', 'dfrac', 'int',
-      'sum', 'infty', 'vec', 'times', 'pm', 'Delta', 'det', 'arg'
+      'sum', 'infty', 'vec', 'times', 'pm', 'Delta', 'det', 'arg', 'pi'
     ];
     macros.forEach(m => {
       const reg = new RegExp('(^|[^\\\\])\\b' + m + '\\b', 'g');
       f = f.replace(reg, '$1\\' + m);
     });
 
-    f = f.replace(/(^|[^\\])\bbar([\{a-zA-Z])/g, '$1\\bar$2');
-    f = f.replace(/(^|[^\\])\bpi\b/g, '$1\\pi');
+    f = f.replace(/(^|[^\\\\])\bbar([\{a-zA-Z])/g, '$1\\bar$2');
 
-    // 4. Strictly exclude/convert any Euler formula ($e^{i\theta}$) mentions
+    // 4. Strictly convert any stray Euler expressions into standard MoEYS trigonometric form
     f = f.replace(/r\s*e\^\{i\s*\\?theta\}/g, 'r(\\cos\\theta + i\\sin\\theta)');
     f = f.replace(/e\^\{i\s*\\?theta\}/g, '\\cos\\theta + i\\sin\\theta');
+    f = f.replace(/r\s*e\^\{iheta\}/g, 'r(\\cos\\theta + i\\sin\\theta)');
+    f = f.replace(/e\^\{iheta\}/g, '\\cos\\theta + i\\sin\\theta');
 
     return f;
   }
@@ -697,18 +1012,53 @@ class MathGamesEngine {
 
   renderLatex(formula, displayMode = false) {
     if (!formula) return '';
-    const trimmed = formula.trim();
+    let trimmed = formula.trim();
 
-    // If formula is pure Khmer text without math operators, render directly in Kantumruy Pro font
-    const pureTextMatch = trimmed.match(/^\\text\{([^\}]+)\}$/);
-    if (pureTextMatch && !/[\\\$_\^=+\-*\/]/.test(pureTextMatch[1])) {
-      return `<span class="khmer-card-text font-battambang font-bold">${pureTextMatch[1]}</span>`;
+    // 1. If formula contains \text{Khmer ...} or (Khmer label ...)
+    const textLabelMatch = trimmed.match(/^(.*?)(?:\\text\{([^\}]+)\}|\(([^)]*[\u1780-\u17FF][^)]*)\))(.*?)$/);
+    if (textLabelMatch) {
+      const mathPart1 = (textLabelMatch[1] || '').trim();
+      const khmerLabel = (textLabelMatch[2] || textLabelMatch[3] || '').trim();
+      const mathPart2 = (textLabelMatch[4] || '').trim();
+      
+      const mathCombined = (mathPart1 + ' ' + mathPart2).trim();
+      let renderedMath = '';
+      if (mathCombined && typeof katex !== 'undefined') {
+        try {
+          renderedMath = katex.renderToString(this.cleanLatexFormula(mathCombined), { throwOnError: false, displayMode: false });
+          if (renderedMath.includes('class="katex-error"') || renderedMath.includes('color:#cc0000')) {
+            renderedMath = `<span class="font-mono font-bold">${mathCombined.replace(/[\$\\]/g, '')}</span>`;
+          }
+        } catch (e) {
+          renderedMath = mathCombined;
+        }
+      } else if (mathCombined) {
+        renderedMath = mathCombined;
+      }
+
+      if (renderedMath && khmerLabel) {
+        return `<div class="flex flex-col items-center justify-center gap-1 leading-snug">
+                  <span class="text-base md:text-lg font-bold">${renderedMath}</span>
+                  <span class="text-[11px] md:text-xs text-purple-700 dark:text-purple-300 font-battambang font-medium">${khmerLabel}</span>
+                </div>`;
+      } else if (khmerLabel) {
+        return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base">${khmerLabel}</span>`;
+      }
+    }
+
+    // 2. If formula is pure Khmer text without math operators
+    if (/^[\u1780-\u17FF\s0-9\(\)\,\.\+\-\=\:\/\%]+$/.test(trimmed) && !/[\\\$_\\^]/.test(trimmed)) {
+      return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base leading-snug">${trimmed}</span>`;
     }
 
     if (typeof katex === 'undefined') return formula;
     const cleanFormula = this.cleanLatexFormula(formula);
     try {
-      return katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
+      const res = katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
+      if (res.includes('class="katex-error"') || res.includes('color:#cc0000')) {
+        return `<span class="font-mono text-sm md:text-base font-bold text-purple-900 dark:text-purple-100">${formula.replace(/[\$\\]/g, '')}</span>`;
+      }
+      return res;
     } catch (e) {
       return formula;
     }
@@ -1065,12 +1415,51 @@ class MathGamesEngine {
     if (les && les !== 'all') {
       const lesName = this.getLessonDisplayName(les);
 
-      // Sequences (Grade 11 Chapter 1):
-      // Lesson 1: ស្វ៊ីតចំនួនពិត (Real Sequences ONLY - no arithmetic, no geometric)
+      // Grade 7 Lessons:
+      if (les === 'les-g7-01' || (lesName.includes('ចំនួនគត់') && !lesName.includes('រ៉ឺឡាទីប'))) {
+        return [...this.formulaPacks.g7_integers];
+      }
+      if (les === 'les-g7-02' || lesName.includes('តួចែក') || lesName.includes('ពហុគុណ') || lesName.includes('PGCD')) {
+        return [...this.formulaPacks.g7_factors_multiples];
+      }
+      if (les === 'les-g7-03' || lesName.includes('រ៉ឺឡាទីប')) {
+        return [...this.formulaPacks.g7_relative_integers];
+      }
+      if (les === 'les-g7-04' || lesName.includes('ប្រភាគ')) {
+        return [...this.formulaPacks.g7_fractions];
+      }
+      if (les === 'les-g7-06' || lesName.includes('ភាគរយ')) {
+        return [...this.formulaPacks.g7_percentages];
+      }
+      if (lesName.includes('មុំ') || lesName.includes('បន្ទាត់') || lesName.includes('បរិមាត្រ') || lesName.includes('រង្វង់') || lesName.includes('ផ្ទៃក្រឡា')) {
+        return [...this.formulaPacks.g7_geometry];
+      }
+
+      // Grade 8 Lessons:
+      if (lesName.includes('ស្វ័យគុណ')) {
+        return [...this.formulaPacks.g8_powers];
+      }
+      if (lesName.includes('ពីតាក័រ')) {
+        return [...this.formulaPacks.g8_pythagoras];
+      }
+
+      // Grade 9 Lessons:
+      if (lesName.includes('ឫស') || lesName.includes('រ៉ាឌីកាល់')) {
+        return [...this.formulaPacks.g9_radicals];
+      }
+      if (lesName.includes('សមីការដឺក្រេទីពីរ')) {
+        return [...this.formulaPacks.g9_quadratics];
+      }
+      if (lesName.includes('សូលីត')) {
+        return [...this.formulaPacks.g9_solids];
+      }
+
+      // Grade 11 Lessons (Strict Sequence Order):
+      // Lesson 1: ស្វ៊ីតចំនួនពិត (Real Sequences ONLY - strictly no arithmetic, no geometric)
       if (les === 'les-g11b-1-1' || (lesName.includes('ស្វ៊ីត') && (lesName.includes('ពិត') || lesName.includes('មេរៀនទី ១')))) {
         return [...this.formulaPacks.sequences_real];
       }
-      // Lesson 2: ស្វ៊ីតនព្វន្ត (Arithmetic Sequences ONLY - no geometric)
+      // Lesson 2: ស្វ៊ីតនព្វន្ត (Arithmetic Sequences ONLY - strictly no geometric)
       if (les === 'les-g11b-1-2' || (lesName.includes('ស្វ៊ីត') && lesName.includes('នព្វន្ត'))) {
         return [...this.formulaPacks.sequences_arithmetic];
       }
@@ -1079,12 +1468,12 @@ class MathGamesEngine {
         return [...this.formulaPacks.sequences_geometric];
       }
 
-      // Complex Numbers (Grade 12 Chapter 1):
-      // Lesson 1: ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form ONLY - strictly no trig, no Euler)
+      // Grade 12 Lessons:
+      // Lesson 1: ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form ONLY - strictly algebraic MoEYS curriculum)
       if (les === 'les-g12a-1-1' || (lesName.includes('កុំផ្លិច') && lesName.includes('ពីជគណិត'))) {
         return [...this.formulaPacks.complex_algebraic];
       }
-      // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form ONLY - strictly no Euler)
+      // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form ONLY - strictly MoEYS curriculum)
       if (les === 'les-g12a-1-2' || (lesName.includes('កុំផ្លិច') && lesName.includes('ត្រីកោណមាត្រ'))) {
         return [...this.formulaPacks.complex_trigonometric];
       }
@@ -1118,15 +1507,15 @@ class MathGamesEngine {
         return [...this.formulaPacks.trigonometry];
       }
 
-      // Dynamic pair extraction from the questions of this exact lesson
+      // Dynamic extraction strictly from this exact lesson's questions
       const filteredQ = this.getFilteredQuestions();
       if (filteredQ && filteredQ.length >= 6) {
         const dynPairs = [];
         const usedL = new Set();
         const usedR = new Set();
         for (const q of filteredQ) {
-          let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\\s*/g, '')
-                                .replace(/(\\s*ស្មើនឹង៖?|\\s*គឺ\\s*៖?|\\s*៖?)$/g, '').trim();
+          let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\s*/g, '')
+                                .replace(/(\s*ស្មើនឹង៖?|\s*គឺ\s*៖?|\s*៖?)$/g, '').trim();
           const right = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
           // Strictly exclude any Euler formula references
           if (left.includes('e^{i') || right.includes('e^{i') || left.includes('Euler') || right.includes('Euler') || left.includes('អយល័រ')) continue;
@@ -1134,7 +1523,7 @@ class MathGamesEngine {
             dynPairs.push({ id: `dyn_${dynPairs.length + 1}`, left, right });
             usedL.add(left);
             usedR.add(right);
-            if (dynPairs.length >= 14) break;
+            if (dynPairs.length >= 16) break;
           }
         }
         if (dynPairs.length >= 6) {
@@ -1143,7 +1532,7 @@ class MathGamesEngine {
       }
     }
 
-    // 2. Identify Topic by selected Chapter / Grade when no single lesson is active
+    // 2. Identify Topic by selected Chapter when chapter: is selected
     let topicText = '';
     if (les && les.startsWith('chapter:')) {
       topicText = this.getLessonDisplayName(les);
@@ -1159,34 +1548,36 @@ class MathGamesEngine {
       return [...this.formulaPacks.integrals];
     } else if (topicText.includes('វ៉ិចទ័រ')) {
       return [...this.formulaPacks.vectors];
-    } else if (topicText.includes('កោនិក') || topicText.includes('ប៉ារ៉ាបូល') || topicText.includes('អេលីប') || topicText.includes('អ៊ីពែបូល')) {
+    } else if (topicText.includes('កោនិក')) {
       return [...this.formulaPacks.conics];
     } else if (topicText.includes('ស្វ៊ីត')) {
       return [...this.formulaPacks.sequences];
-    } else if (topicText.includes('ម៉ាទ្រីស') || topicText.includes('ដេទែរមីណង់')) {
+    } else if (topicText.includes('ម៉ាទ្រីស')) {
       return [...this.formulaPacks.matrices];
-    } else if (topicText.includes('ប្រូបាប') || topicText.includes('បន្សំ') || topicText.includes('ចម្រាស') || topicText.includes('បាយែស')) {
+    } else if (topicText.includes('ប្រូបាប')) {
       return [...this.formulaPacks.probability];
     } else if (topicText.includes('ស្ថិតិ')) {
       return [...this.formulaPacks.statistics];
     } else if (topicText.includes('ត្រីកោណមាត្រ')) {
       return [...this.formulaPacks.trigonometry];
-    } else if (topicText.includes('ធរណីមាត្រ') || topicText.includes('ផ្ទៃក្រឡា') || topicText.includes('មាឌ')) {
-      return [...this.formulaPacks.geometry_basic];
-    } else if (topicText.includes('ពីជគណិត') || topicText.includes('ស្វ័យគុណ') || topicText.includes('កន្សោម')) {
-      return [...this.formulaPacks.algebra_basic];
     }
 
-    // 3. Fallback strictly based on Grade level (no lesson cross-contamination)
-    if (grade === 'ថ្នាក់ទី ១២') {
-      return [...this.formulaPacks.complex_algebraic];
-    } else if (grade === 'ថ្នាក់ទី ១១') {
-      return [...this.formulaPacks.sequences_real];
+    // 3. Fallback STRICTLY matching selected Grade (NEVER cross-grade)
+    if (grade === 'ថ្នាក់ទី ៧') {
+      return [...this.formulaPacks.grade7_all];
+    } else if (grade === 'ថ្នាក់ទី ៨') {
+      return [...this.formulaPacks.grade8_all];
+    } else if (grade === 'ថ្នាក់ទី ៩') {
+      return [...this.formulaPacks.grade9_all];
     } else if (grade === 'ថ្នាក់ទី ១០') {
-      return [...this.formulaPacks.trigonometry];
+      return [...this.formulaPacks.grade10_all];
+    } else if (grade === 'ថ្នាក់ទី ១១') {
+      return [...this.formulaPacks.grade11_all];
+    } else if (grade === 'ថ្នាក់ទី ១២') {
+      return [...this.formulaPacks.grade12_all];
     }
-    const isLower = ['ថ្នាក់ទី ៧', 'ថ្នាក់ទី ៨', 'ថ្នាក់ទី ៩'].includes(grade);
-    return isLower ? [...this.formulaPacks.lowerSecondary] : [...this.formulaPacks.upperSecondary];
+
+    return [...this.formulaPacks.grade7_all];
   }
 
   showMatchPraise(customMsg = null) {
@@ -1342,6 +1733,7 @@ class MathGamesEngine {
     const container = document.getElementById('formulaMatchGrid');
     if (!container) return;
 
+    const targetPairs = this.matchPairsCount || 8;
     const pack = this.getFormulaPackForCurrentGrade();
     pack.sort(() => Math.random() - 0.5);
 
@@ -1355,11 +1747,34 @@ class MathGamesEngine {
         selected.push(p);
         usedLefts.add(p.left);
         usedRights.add(p.right);
-        if (selected.length === this.matchPairsCount) break;
+        if (selected.length === targetPairs) break;
       }
     }
 
-    // Ensure matchPairsCount is synchronized with actual selected pairs
+    // Guarantee: If primary pack had fewer pairs, supplement from fallback pack so card count is NEVER short
+    if (selected.length < targetPairs) {
+      const fallbackPacks = [
+        this.formulaPacks.grade7_all,
+        this.formulaPacks.grade8_all,
+        this.formulaPacks.grade9_all,
+        this.formulaPacks.grade10_all,
+        this.formulaPacks.grade11_all,
+        this.formulaPacks.grade12_all
+      ];
+      for (const fPack of fallbackPacks) {
+        if (!fPack) continue;
+        for (const p of fPack) {
+          if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
+            selected.push({ id: `supp_${p.id}`, left: p.left, right: p.right });
+            usedLefts.add(p.left);
+            usedRights.add(p.right);
+            if (selected.length === targetPairs) break;
+          }
+        }
+        if (selected.length === targetPairs) break;
+      }
+    }
+
     this.matchPairsCount = selected.length;
     this.updateMatchStatsUI();
 
@@ -2462,6 +2877,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.mathGames.selectedGrade = e.target.value;
       window.mathGames.updateLessonDropdown();
       window.mathGames.updateQuestionCountBadge();
+      window.mathGames.onFilterChanged();
     });
   }
 
@@ -2470,6 +2886,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.mathGames.selectedLesson = e.target.value;
       window.mathGames.updateQuestionCountBadge();
       window.mathGames.updateActiveTopicLabels();
+      window.mathGames.onFilterChanged();
     });
   }
 
