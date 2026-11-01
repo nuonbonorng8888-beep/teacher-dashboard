@@ -814,6 +814,12 @@
                   class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-eye"></i> មើលកិច្ចតែងការ
                 </button>
+                ${this.hasMatchingSlide(p) ? `
+                <button onclick="window.lessonPlansManager.openSlideForPlan('${p.id}')"
+                  class="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition" title="ចាក់ស្លាយបង្រៀនសម្រាប់មេរៀននេះ">
+                  <i class="fa-solid fa-person-chalkboard"></i> <span class="hidden sm:inline">ស្លាយ</span>
+                </button>
+                ` : ''}
                 <button onclick="window.lessonPlansManager.downloadCustomPdf('${p.id}')"
                   class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm" title="ទាញយក PDF ជាមួយកាលបរិច្ឆេទ & ថ្នាក់ថ្មី">
                   <i class="fa-solid fa-file-arrow-down"></i> <span class="hidden sm:inline">ទាញយក PDF</span>
@@ -863,6 +869,28 @@
           </div>
         `;
       }).join('');
+    }
+
+    hasMatchingSlide(plan) {
+      if (!window.NGS_TEACHING_SLIDES_DATA) return false;
+      return (plan && (plan.chapter === 1 || plan.chapter === 2));
+    }
+
+    openSlideForPlan(planId) {
+      const plan = this.plans.find(p => p.id === planId);
+      if (!plan) return;
+      let targetSlideId = 'ch1_l1';
+      if (plan.chapter === 1) {
+        if (plan.lesson_num <= 4) targetSlideId = 'ch1_l1';
+        else if (plan.lesson_num <= 8) targetSlideId = 'ch1_l2';
+        else targetSlideId = 'ch1_l3';
+      } else if (plan.chapter === 2) {
+        if (plan.lesson_num <= 6) targetSlideId = 'ch2_l1';
+        else targetSlideId = 'ch2_l2';
+      }
+      if (window.teachingSlidesManager) {
+        window.teachingSlidesManager.openPresenter(targetSlideId);
+      }
     }
 
     openModal(planId) {

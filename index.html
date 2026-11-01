@@ -91,6 +91,13 @@
             <i class="fa-solid fa-book-bookmark w-4 text-center text-purple-600"></i>
             <span>កិច្ចតែងការ</span>
           </button>
+          <button data-tab="slides" class="nav-link w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition group">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-person-chalkboard w-4 text-center text-purple-600"></i>
+              <span>ស្លាយបង្រៀន</span>
+            </div>
+            <span class="px-2 py-0.5 text-[10px] font-black rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">PPTX</span>
+          </button>
           <button data-tab="questionbank" class="nav-link w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition group">
             <div class="flex items-center gap-3">
               <i class="fa-solid fa-book-open-reader w-4 text-center text-purple-600"></i>
@@ -702,6 +709,13 @@
 
         <div id="lessonPlansList">
           <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB: TEACHING SLIDES (ស្លាយបង្រៀន) ==================== -->
+      <section id="tab-slides" class="tab-content hidden space-y-6">
+        <div id="teachingSlidesRoot">
+          <!-- Dynamically populated by js/teaching-slides.js -->
         </div>
       </section>
 
@@ -1770,6 +1784,8 @@
   <script src="js/pdf-lib.min.js"></script>
   <script src="js/lesson-plans-data.js?v=5.2"></script>
   <script src="js/lesson-plans.js?v=5.2"></script>
+  <script src="js/teaching-slides-data.js?v=5.2"></script>
+  <script src="js/teaching-slides.js?v=5.2"></script>
   <script src="js/app.js?v=5.2"></script>
 </body>
 </html>

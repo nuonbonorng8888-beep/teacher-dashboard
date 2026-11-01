@@ -121,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
       renderScheduleTable();
     } else if (tabId === 'lessonplans') {
       renderLessonPlans();
+    } else if (tabId === 'slides') {
+      if (window.teachingSlidesManager) {
+        window.teachingSlidesManager.render();
+      }
     } else if (tabId === 'portfolio') {
       renderPortfolios();
     } else if (tabId === 'tools') {
