@@ -87,8 +87,8 @@ class MathGamesEngine {
         { id: 'ca_12', left: "\\sqrt{-16}", right: "4i" },
         { id: 'ca_13', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
         { id: 'ca_14', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
-        { id: 'ca_15', left: "\\frac{1}{i}", right: "-i" },
-        { id: 'ca_16', left: "(1+i)^2", right: "2i" },
+        { id: 'ca_15', left: "\\frac{1}{i^3}", right: "i" },
+        { id: 'ca_16', left: "(1+2i)^2", right: "-3 + 4i" },
         { id: 'ca_17', left: "(1-i)^2", right: "-2i" },
         { id: 'ca_18', left: "\\overline{z \\cdot z'}", right: "\\bar{z} \\cdot \\bar{z}'" }
       ],
@@ -127,7 +127,7 @@ class MathGamesEngine {
         { id: 'c_10', left: "\\sqrt{-4}", right: "2i" },
         { id: 'c_11', left: "|z \\cdot z'|", right: "|z| \\cdot |z'|" },
         { id: 'c_12', left: "\\overline{z + z'}", right: "\\bar{z} + \\bar{z}'" },
-        { id: 'c_13', left: "\\frac{1}{i}", right: "-i" },
+        { id: 'c_13', left: "\\frac{1}{i^3}", right: "i" },
         { id: 'c_14', left: "\\sqrt{-9}", right: "3i" },
         { id: 'c_15', left: "(1-i)^2", right: "-2i" },
         { id: 'c_16', left: "\\arg(z \\cdot z')", right: "\\arg(z) + \\arg(z')" }
@@ -139,21 +139,21 @@ class MathGamesEngine {
         { id: 'sr_1', left: "u_{n+1} - u_n > 0", right: "\\text{ស្វ៊ីតកើនដាច់ខាត}" },
         { id: 'sr_2', left: "u_{n+1} - u_n < 0", right: "\\text{ស្វ៊ីតចុះដាច់ខាត}" },
         { id: 'sr_3', left: "u_{n+1} = u_n", right: "\\text{ស្វ៊ីតថេរ}" },
-        { id: 'sr_4', left: "u_n \\le M", right: "\\text{ស្វ៊ីតទល់លើដោយ }M" },
-        { id: 'sr_5', left: "u_n \\ge m", right: "\\text{ស្វ៊ីតទល់ក្រោមដោយ }m" },
+        { id: 'sr_4', left: "u_n \\le M", right: "\\text{ស្វ៊ីតទល់លើ}" },
+        { id: 'sr_5', left: "u_n \\ge m", right: "\\text{ស្វ៊ីតទល់ក្រោម}" },
         { id: 'sr_6', left: "m \\le u_n \\le M", right: "\\text{ស្វ៊ីតទល់}" },
         { id: 'sr_7', left: "u_n = 2n + 1 \\implies u_1", right: "3" },
         { id: 'sr_8', left: "u_n = 2n + 1 \\implies u_2", right: "5" },
         { id: 'sr_9', left: "u_n = n^2 - 1 \\implies u_3", right: "8" },
         { id: 'sr_10', left: "u_n = \\frac{1}{n} \\implies u_4", right: "\\frac{1}{4}" },
         { id: 'sr_11', left: "u_n = 3n - 1 \\implies u_1", right: "2" },
-        { id: 'sr_12', left: "u_n = (-1)^n", right: "\\text{ស្វ៊ីតឆ្លាស់}" },
-        { id: 'sr_13', left: "u_n = 2^n \\implies u_3", right: "8" },
+        { id: 'sr_12', left: "u_n = 5 - 2n \\implies u_2", right: "1" },
+        { id: 'sr_13', left: "u_n = 2^n \\implies u_4", right: "16" },
         { id: 'sr_14', left: "u_{n+1} = u_n + 3,\\, u_1 = 1 \\implies u_2", right: "4" },
         { id: 'sr_15', left: "u_{n+1} = 2u_n,\\, u_1 = 3 \\implies u_2", right: "6" },
         { id: 'sr_16', left: "u_n = \\frac{n}{n+1} \\implies u_1", right: "\\frac{1}{2}" },
         { id: 'sr_17', left: "u_n = \\frac{n}{n+1} \\implies u_2", right: "\\frac{2}{3}" },
-        { id: 'sr_18', left: "u_n = n^2 + 1 \\implies u_1", right: "2" }
+        { id: 'sr_18', left: "u_n = n^2 + 1 \\implies u_3", right: "10" }
       ],
 
       // មេរៀនទី ២ ៖ ស្វ៊ីតនព្វន្ត (Arithmetic Sequences - Strictly No Geometric)
@@ -187,7 +187,7 @@ class MathGamesEngine {
         { id: 'sg_7', left: "\\frac{u_n}{u_p}", right: "q^{n-p}" },
         { id: 'sg_8', left: "u_1 = 2,\\, q = 3 \\implies u_2", right: "6" },
         { id: 'sg_9', left: "u_1 = 1,\\, q = 2 \\implies u_3", right: "4" },
-        { id: 'sg_10', left: "u_1 = 3,\\, q = 2 \\implies u_2", right: "6" },
+        { id: 'sg_10', left: "u_1 = 3,\\, q = 3 \\implies u_2", right: "9" },
         { id: 'sg_11', left: "1 + q + q^2 + \\dots + q^{n-1}", right: "\\frac{1 - q^n}{1 - q}" },
         { id: 'sg_12', left: "1 + \\frac{1}{2} + \\frac{1}{4} + \\dots", right: "2" },
         { id: 'sg_13', left: "u_1 = 4,\\, q = \\frac{1}{2} \\implies S_\\infty", right: "8" },
@@ -228,9 +228,9 @@ class MathGamesEngine {
         { id: 'lim_9', left: "\\lim_{x \\to +\\infty} \\frac{1}{x}", right: "0" },
         { id: 'lim_10', left: "\\lim_{x \\to 0^+} \\frac{1}{x}", right: "+\\infty" },
         { id: 'lim_11', left: "\\lim_{x \\to 0^-} \\frac{1}{x}", right: "-\\infty" },
-        { id: 'lim_12', left: "\\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}", right: "3" },
+        { id: 'lim_12', left: "\\lim_{x \\to 2} \\frac{x^3 - 8}{x - 2}", right: "12" },
         { id: 'lim_13', left: "\\lim_{x \\to 2} (3x + 1)", right: "7" },
-        { id: 'lim_14', left: "\\lim_{x \\to 4} \\sqrt{x}", right: "2" }
+        { id: 'lim_14', left: "\\lim_{x \\to 64} \\sqrt{x}", right: "8" }
       ],
 
       // ជំពូកទី ៣ ៖ ដេរីវេនៃអនុគមន៍
@@ -274,8 +274,8 @@ class MathGamesEngine {
       matrices: [
         { id: 'mat_1', left: "\\det\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}", right: "ad - bc" },
         { id: 'mat_2', left: "A \\cdot I", right: "A" },
-        { id: 'mat_3', left: "A + 0", right: "A" },
-        { id: 'mat_4', left: "(A^T)^T", right: "A" },
+        { id: 'mat_3', left: "A - A", right: "0" },
+        { id: 'mat_4', left: "(kA)^T", right: "k A^T" },
         { id: 'mat_5', left: "(AB)^T", right: "B^T A^T" },
         { id: 'mat_6', left: "\\det(AB)", right: "\\det(A) \\cdot \\det(B)" },
         { id: 'mat_7', left: "A \\cdot A^{-1}", right: "I" },
@@ -283,7 +283,9 @@ class MathGamesEngine {
         { id: 'mat_9', left: "\\det(kA)", right: "k^n \\det(A)" },
         { id: 'mat_10', left: "A(B+C)", right: "AB + AC" },
         { id: 'mat_11', left: "\\det(I_n)", right: "1" },
-        { id: 'mat_12', left: "(A+B)^T", right: "A^T + B^T" }
+        { id: 'mat_12', left: "(A+B)^T", right: "A^T + B^T" },
+        { id: 'mat_13', left: "\\det(A^T)", right: "\\det(A)" },
+        { id: 'mat_14', left: "(A^T)^{-1}", right: "(A^{-1})^T" }
       ],
 
       // វ៉ិចទ័រក្នុងលំហ និងប្លង់
@@ -307,13 +309,17 @@ class MathGamesEngine {
         { id: 'con_1', left: "y^2 = 4px\\text{ (ប៉ារ៉ាបូល)}", right: "F(p, 0)" },
         { id: 'con_2', left: "x^2 = 4py\\text{ (ប៉ារ៉ាបូល)}", right: "F(0, p)" },
         { id: 'con_3', left: "D\\text{ (បន្ទាត់ប្រាប់ទិស }y^2=4px)", right: "x = -p" },
-        { id: 'con_4', left: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
-        { id: 'con_5', left: "e\\text{ (អេឡិចត្រីស៊ីតេអេលីប)}", right: "\\frac{c}{a} < 1" },
-        { id: 'con_6', left: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
-        { id: 'con_7', left: "y = \\pm \\frac{b}{a}x", right: "\\text{អាស៊ីមតូតអ៊ីពែបូល}" },
-        { id: 'con_8', left: "e\\text{ (អ៊ីពែបូល)}", right: "\\frac{c}{a} > 1" },
-        { id: 'con_9', left: "e\\text{ (ប៉ារ៉ាបូល)}", right: "1" },
-        { id: 'con_10', left: "(x-h)^2 + (y-k)^2", right: "R^2" }
+        { id: 'con_4', left: "D'\\text{ (បន្ទាត់ប្រាប់ទិស }x^2=4py)", right: "y = -p" },
+        { id: 'con_5', left: "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 - b^2" },
+        { id: 'con_6', left: "e\\text{ (អេឡិចត្រីស៊ីតេអេលីប)}", right: "\\frac{c}{a} < 1" },
+        { id: 'con_7', left: "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1", right: "c^2 = a^2 + b^2" },
+        { id: 'con_8', left: "y = \\pm \\frac{b}{a}x", right: "\\text{អាស៊ីមតូតអ៊ីពែបូល}" },
+        { id: 'con_9', left: "e\\text{ (អ៊ីពែបូល)}", right: "\\frac{c}{a} > 1" },
+        { id: 'con_10', left: "e\\text{ (ប៉ារ៉ាបូល)}", right: "1" },
+        { id: 'con_11', left: "(x-h)^2 + (y-k)^2", right: "R^2" },
+        { id: 'con_12', left: "\\text{ប្រវែងអ័ក្សធំអេលីប}", right: "2a" },
+        { id: 'con_13', left: "\\text{ប្រវែងអ័ក្សតូចអេលីប}", right: "2b" },
+        { id: 'con_14', left: "\\text{ប្រវែងចម្ងាយប្រសព្វកំបោល}", right: "2c" }
       ],
 
       // ប្រូបាប និងបន្សំ
@@ -326,9 +332,9 @@ class MathGamesEngine {
         { id: 'pr_6', left: "P(n, k)", right: "\\frac{n!}{(n-k)!}" },
         { id: 'pr_7', left: "n!", right: "n(n-1)\\cdots 1" },
         { id: 'pr_8', left: "0!", right: "1" },
-        { id: 'pr_9', left: "C(n, 0)", right: "1" },
+        { id: 'pr_9', left: "C(n, 2)", right: "\\frac{n(n-1)}{2}" },
         { id: 'pr_10', left: "C(n, 1)", right: "n" },
-        { id: 'pr_11', left: "C(n, n)", right: "1" },
+        { id: 'pr_11', left: "P(\\emptyset)", right: "0" },
         { id: 'pr_12', left: "E(X)\\text{ (គណិតសង្ឃឹម)}", right: "\\sum x_i P(X = x_i)" },
         { id: 'pr_13', left: "P(B_k \\mid A)\\text{ (បាយែស)}", right: "\\frac{P(B_k)P(A|B_k)}{\\sum P(B_i)P(A|B_i)}" },
         { id: 'pr_14', left: "E(X)\\text{ (ទ្វេធា }B(n,p))", right: "np" }
@@ -364,10 +370,10 @@ class MathGamesEngine {
         { id: 'tr_10', left: "\\cos(a+b)", right: "\\cos a\\cos b - \\sin a\\sin b" },
         { id: 'tr_11', left: "\\sin(a-b)", right: "\\sin a\\cos b - \\cos a\\sin b" },
         { id: 'tr_12', left: "\\cos(a-b)", right: "\\cos a\\cos b + \\sin a\\sin b" },
-        { id: 'tr_13', left: "\\sin(0)", right: "0" },
-        { id: 'tr_14', left: "\\cos(0)", right: "1" },
-        { id: 'tr_15', left: "\\sin(\\frac{\\pi}{2})", right: "1" },
-        { id: 'tr_16', left: "\\cos(\\frac{\\pi}{2})", right: "0" }
+        { id: 'tr_13', left: "\\sin(\\frac{\\pi}{6})", right: "\\frac{1}{2}" },
+        { id: 'tr_14', left: "\\cos(\\frac{\\pi}{4})", right: "\\frac{\\sqrt{2}}{2}" },
+        { id: 'tr_15', left: "\\sin(\\frac{\\pi}{3})", right: "\\frac{\\sqrt{3}}{2}" },
+        { id: 'tr_16', left: "\\tan(0)", right: "0" }
       ],
 
       // ធរណីមាត្រគ្រឹះ
@@ -440,7 +446,7 @@ class MathGamesEngine {
         { id: 'u_10', left: "\\int 2x\\,dx", right: "x^2 + C" },
         { id: 'u_11', left: "\\int e^x\\,dx", right: "e^x + C" },
         { id: 'u_12', left: "\\int \\frac{1}{x}\\,dx", right: "\\ln|x| + C" },
-        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\sin x}{x}", right: "1" },
+        { id: 'u_13', left: "\\lim_{x \\to 0} \\frac{\\tan(2x)}{x}", right: "2" },
         { id: 'u_14', left: "\\ln(a \\cdot b)", right: "\\ln(a) + \\ln(b)" },
         { id: 'u_15', left: "u_n\\text{ (នព្វន្ត)}", right: "u_1 + (n-1)d" },
         { id: 'u_16', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy' + zz'" }
@@ -630,6 +636,7 @@ class MathGamesEngine {
     f = f.replace(/[\t\x09]o([\s\$]|$)/g, '\\to$1');
     f = f.replace(/[\t\x09]riangle/g, '\\triangle');
     f = f.replace(/\x0crac/g, '\\frac');
+    f = f.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
 
     // 2. Eliminate red KaTeX \t errors and repair double escapes
     f = f.replace(/\\t\\text\{/g, '\\text{');
