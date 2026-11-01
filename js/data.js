@@ -14,7 +14,7 @@ const defaultData = {
     academicYear: '២០២៦-២០២៧',
     phone: '012 345 678',
     email: 'bonorng@ngs.edu.kh',
-    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11',
+    avatar: 'teacher-profile.jpg',
     streak: 12
   },
 
@@ -215,6 +215,9 @@ class DashboardStore {
           parsed.profile.schoolName = 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី';
           if (!parsed.profile.role || parsed.profile.role === 'គ្រូបង្រៀន') {
             parsed.profile.role = 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
+          }
+          if (!parsed.profile.avatar || parsed.profile.avatar.includes('dicebear')) {
+            parsed.profile.avatar = 'teacher-profile.jpg';
           }
           this.save(parsed);
           return parsed;

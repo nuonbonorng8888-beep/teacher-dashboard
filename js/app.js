@@ -44,6 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const streakCount = document.getElementById('streakCount');
     if (streakCount) streakCount.textContent = p.streak || 0;
+
+    const avatarUrl = p.avatar || 'teacher-profile.jpg';
+    if (userAvatarEl) userAvatarEl.src = avatarUrl;
+    const headerAvatarEl = document.getElementById('headerAvatar');
+    if (headerAvatarEl) headerAvatarEl.src = avatarUrl;
+    const bannerAvatarEl = document.getElementById('bannerAvatar');
+    if (bannerAvatarEl) bannerAvatarEl.src = avatarUrl;
+    const settingAvatarEl = document.getElementById('settingAvatarPreview');
+    if (settingAvatarEl) settingAvatarEl.src = avatarUrl;
   }
 
   // Live Clock & Dynamic Greeting
@@ -736,6 +745,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('settingSubject').value = p.subject || '';
     document.getElementById('settingSchool').value = p.schoolName || '';
     document.getElementById('settingYear').value = p.academicYear || '';
+    const settingAvatarEl = document.getElementById('settingAvatarPreview');
+    if (settingAvatarEl) settingAvatarEl.src = p.avatar || 'teacher-profile.jpg';
+  }
+
+  // Upload/Change Avatar from Settings
+  const settingAvatarInput = document.getElementById('settingAvatarInput');
+  if (settingAvatarInput) {
+    settingAvatarInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const p = window.appStore.data.profile;
+          p.avatar = event.target.result;
+          window.appStore.save();
+          renderProfile();
+          showNotification('បានផ្លាស់ប្ដូររូបថត', 'រូបថតប្រវត្តិរូបត្រូវបានផ្លាស់ប្ដូរដោយជោគជ័យ!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   }
 
   const btnSaveSettings = document.getElementById('btnSaveSettings');

@@ -59,7 +59,7 @@
     <div class="p-4 border-b border-slate-100 dark:border-slate-700/60">
       <div class="flex items-center gap-3 p-2 bg-purple-50 dark:bg-purple-900/30 rounded-2xl border border-purple-100 dark:border-purple-800/40">
         <div class="relative">
-          <img id="userAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" alt="Avatar" class="w-11 h-11 rounded-xl bg-purple-200 dark:bg-purple-700 border-2 border-white dark:border-slate-700 shadow-sm object-cover">
+          <img id="userAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-12 h-12 rounded-2xl bg-purple-200 dark:bg-purple-700 border-2 border-purple-400 dark:border-purple-600 shadow-md object-cover">
           <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
         </div>
         <div class="overflow-hidden">
@@ -195,7 +195,7 @@
 
         <!-- Profile Chip -->
         <div class="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-700">
-          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" class="w-8 h-8 rounded-full border border-purple-300">
+          <img id="headerAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-purple-300 shadow-sm object-cover">
           <span class="text-xs font-bold text-purple-700 dark:text-purple-300 hidden lg:inline">Bonorng11</span>
         </div>
       </div>
@@ -212,7 +212,7 @@
           <div class="flex items-center gap-5 z-10">
             <div class="relative shrink-0">
               <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md p-1.5 shadow-lg border border-white/30 flex items-center justify-center">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Bonorng11" class="w-full h-full object-cover rounded-xl">
+                <img id="bannerAvatar" src="teacher-profile.jpg?v=1.0" alt="Teacher Bonorng" class="w-full h-full object-cover rounded-xl shadow-inner">
               </div>
               <span class="absolute -bottom-1 -right-1 text-2xl">👨‍🏫</span>
             </div>
@@ -1534,6 +1534,24 @@
             <h3 class="font-bold text-sm text-purple-700 dark:text-purple-400 flex items-center gap-2">
               <i class="fa-solid fa-user-pen"></i> កែប្រែព័ត៌មានផ្ទាល់ខ្លួន
             </h3>
+
+            <!-- Profile Avatar Preview & Upload -->
+            <div class="flex items-center gap-4 p-3 bg-purple-50 dark:bg-purple-950/40 rounded-2xl border border-purple-200/70 dark:border-purple-800/50">
+              <div class="relative shrink-0">
+                <img id="settingAvatarPreview" src="teacher-profile.jpg?v=1.0" alt="Teacher Profile" class="w-16 h-16 rounded-2xl object-cover border-2 border-purple-400 shadow-md">
+                <button type="button" onclick="document.getElementById('settingAvatarInput').click()" title="ប្ដូររូបថត Profile" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs shadow hover:bg-purple-700 transition">
+                  <i class="fa-solid fa-camera"></i>
+                </button>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-sm font-bold text-purple-900 dark:text-purple-200">រូបថតប្រវត្តិរូប (Profile Photo)</h4>
+                <p class="text-xs text-purple-600 dark:text-purple-400">លោកគ្រូ នួន បូណង · វិទ្យាល័យព្រះយុគន្ធរ NGS</p>
+                <input type="file" id="settingAvatarInput" accept="image/*" class="hidden">
+                <button type="button" onclick="document.getElementById('settingAvatarInput').click()" class="mt-2 text-[11px] font-bold text-purple-700 dark:text-purple-300 hover:underline flex items-center gap-1">
+                  <i class="fa-solid fa-upload"></i> ជ្រើសរើសរូបថតថ្មី (Upload New Photo)
+                </button>
+              </div>
+            </div>
             <div>
               <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">គោត្តនាម-នាម</label>
               <input id="settingTeacherName" type="text" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
@@ -1743,13 +1761,13 @@
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm"></div>
 
   <!-- Scripts -->
-  <script src="js/data.js?v=4.1"></script>
-  <script src="js/tools.js?v=4.1"></script>
-  <script src="js/grades.js?v=4.1"></script>
-  <script src="js/curriculum-questions.js?v=4.1"></script>
-  <script src="js/math-games.js?v=4.1"></script>
-  <script src="js/question-bank.js?v=4.1"></script>
-  <script src="js/app.js?v=4.1"></script>
+  <script src="js/data.js?v=4.2"></script>
+  <script src="js/tools.js?v=4.2"></script>
+  <script src="js/grades.js?v=4.2"></script>
+  <script src="js/curriculum-questions.js?v=4.2"></script>
+  <script src="js/math-games.js?v=4.2"></script>
+  <script src="js/question-bank.js?v=4.2"></script>
+  <script src="js/app.js?v=4.2"></script>
 </body>
 </html>
 
