@@ -3,9 +3,18 @@
 NGS Lesson Plans PDF Generator & Synchronizer
 Teacher: Nuon Bonorng (នួន បូណង)
 School: Preah Yukunthor High School - New Generation School (NGS)
+
+Key Features:
+1. Every Lesson Plan starts on an ODD page (1, 3, 5, 7, 9...). If a plan ends on an odd page,
+   a blank page is automatically inserted so the next plan begins on an odd page (Duplex printing standard).
+2. Cover Date & Teacher block:
+   - Labels ('កាលបរិច្ឆេទ', 'បង្រៀនដោយ') use 'Khmer OS Muol Light' matching 'រយៈពេល : ៤៥ នាទី' in font, weight, and size.
+   - Colons (:) align at the exact horizontal position (x = 226.83 pt) with lines above.
+   - Values use 'Khmer OS Siemreap' (10pt equivalent).
+3. Signature block: Clean date without dots, closed bottom table border, and 3 clean columns.
 """
 
-import fitz, os, sys, subprocess
+import fitz, os, sys, subprocess, json, re
 from datetime import datetime, timedelta
 from PIL import Image
 
@@ -28,8 +37,7 @@ def format_khmer_date_clean(dt):
 
 def generate_schedule(start_date_str, count, step_days=2):
     dt = datetime.strptime(start_date_str, '%Y-%m-%d')
-    # If starting on Sunday, shift to Monday
-    if dt.weekday() == 6:
+    if dt.weekday() == 6: # Shift Sunday to Monday
         dt += timedelta(days=1)
     dates = []
     for _ in range(count):
@@ -41,8 +49,10 @@ def generate_schedule(start_date_str, count, step_days=2):
 
 def render_all_banners_html(dates_list, out_png):
     """
-    Render high-res banners using authentic Khmer OS Muol Light font
-    matching the original template's 'រយៈពេល : ៤៥ នាទី' font family and weight.
+    Render high-res banners matching Image 2 exactly:
+    - Labels: 'Khmer OS Muol Light' (size 31.5px / 10pt)
+    - Colons (:): Perfectly aligned at 303px (x = 226.83 pt in PDF)
+    - Values: 'Khmer OS Siemreap' (size 31.5px / 10pt)
     """
     html = '''<!DOCTYPE html>
 <html>
@@ -53,6 +63,10 @@ def render_all_banners_html(dates_list, out_png):
   font-family: 'Khmer OS Muol Light';
   src: local('Khmer OS Muol Light'), local('KhmerOSmuollight');
 }
+@font-face {
+  font-family: 'Khmer OS Siemreap';
+  src: local('Khmer OS Siemreap'), local('KhmerOSsiemreap');
+}
 body {
   margin: 0;
   padding: 0;
@@ -60,32 +74,42 @@ body {
 }
 .banner {
   width: 900px;
-  height: 110px;
+  height: 114px;
   box-sizing: border-box;
-  padding: 0px 0px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  font-family: 'Khmer OS Muol Light', 'Khmer OS Muol', 'Khmer OS', sans-serif;
+  justify-content: space-between;
 }
-.cover-line {
-  font-size: 24.5px;
-  font-weight: normal;
+.row {
+  height: 57px;
   display: flex;
   align-items: center;
-  color: #000000;
+  box-sizing: border-box;
 }
 .lbl {
-  width: 180px;
+  width: 303px;
   flex-shrink: 0;
+  font-family: 'Khmer OS Muol Light', 'Khmer OS Muol', sans-serif;
+  font-size: 31.5px;
+  font-weight: normal;
+  color: #000;
+  line-height: 57px;
 }
-.sep {
+.colon {
   width: 36px;
   flex-shrink: 0;
-  text-align: left;
+  font-family: 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
+  font-size: 31.5px;
+  color: #000;
+  line-height: 57px;
 }
 .val {
   flex-grow: 1;
+  font-family: 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif;
+  font-size: 31.5px;
+  color: #000;
+  line-height: 57px;
 }
 .sig-banner {
   width: 900px;
@@ -110,8 +134,16 @@ body {
         kd = format_khmer_date_clean(dt)
         html += f'''
         <div id='cover_{i}' class='banner'>
-            <div class='cover-line'><span class='lbl'>កាលបរិច្ឆេទ</span><span class='sep'>:</span><span class='val'>{kd}</span></div>
-            <div class='cover-line'><span class='lbl'>បង្រៀនដោយ</span><span class='sep'>:</span><span class='val'>នួន បូណង</span></div>
+            <div class='row'>
+                <span class='lbl'>កាលបរិច្ឆេទ</span>
+                <span class='colon'>:</span>
+                <span class='val'>{kd}</span>
+            </div>
+            <div class='row'>
+                <span class='lbl'>បង្រៀនដោយ</span>
+                <span class='colon'>:</span>
+                <span class='val'>នួន បូណង</span>
+            </div>
         </div>
         <div id='sig_{i}' class='sig-banner'>
             <div class='sig-date'>រាជធានីភ្នំពេញ {kd}</div>
@@ -126,7 +158,7 @@ body {
     edge_path = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
     abs_out = os.path.abspath(out_png)
     abs_html = 'file:///' + os.path.abspath(tmp_html).replace('\\', '/')
-    total_h = len(dates_list) * 170 + 100
+    total_h = len(dates_list) * 174 + 100
     cmd = [
         edge_path, '--headless', '--disable-gpu',
         f'--screenshot={abs_out}',
@@ -153,14 +185,16 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
     banners_im = Image.open(banners_png)
 
     def get_banners_for_index(idx):
-        y_top = idx * 170
-        cover_crop = banners_im.crop((0, y_top, 900, y_top + 110))
-        sig_crop = banners_im.crop((0, y_top + 110, 900, y_top + 170))
+        y_top = idx * 174
+        cover_crop = banners_im.crop((0, y_top, 900, y_top + 114))
+        sig_crop = banners_im.crop((0, y_top + 114, 900, y_top + 174))
         c_path = f'scratch/c_banner_clean_{idx}.png'
         s_path = f'scratch/s_banner_clean_{idx}.png'
         cover_crop.save(c_path)
         sig_crop.save(s_path)
         return c_path, s_path
+
+    new_indices_map = {}
 
     # ==========================
     # CHAPTER 1: COMPLEX NUMBERS (13 PLANS)
@@ -169,16 +203,15 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
     cover_pages_c = [0, 4, 10, 16, 22, 28, 35, 41, 45, 51, 57, 65, 69]
     sig_pages_c = [2, 7, 13, 19, 25, 32, 38, 43, 48, 54, 61, 67, 71]
 
+    # First modify in-memory source pages
     for i, pno in enumerate(cover_pages_c):
         p = doc_c[pno]
         b_date = [b for b in p.get_text('blocks') if 'កាលបរិ' in b[4] or 'Ƴលបរិ' in b[4]]
-        b_teach = [b for b in p.get_text('blocks') if 'បង្រៀន' in b[4] or 'បេƙ' in b[4]]
         c_path, _ = get_banners_for_index(i)
         y0_d = b_date[0][1] if b_date else 172.0
-        y0_t = b_teach[0][3] if b_teach else (y0_d + 36.0)
-        p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, max(y0_t, y0_d + 36.0) + 1), fill=(1, 1, 1))
+        p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_d + 37.0), fill=(1, 1, 1))
         p.apply_redactions()
-        p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + 285.0, y0_d + 36.0), filename=c_path)
+        p.insert_image(fitz.Rect(130.93, y0_d, 130.93 + 285.0, y0_d + 36.14), filename=c_path)
 
     for i, pno in enumerate(sig_pages_c):
         p = doc_c[pno]
@@ -192,38 +225,57 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
             p.insert_image(fitz.Rect(300, min_y + 5, 555, min_y + 5 + 20), filename=s_path)
             p.insert_image(fitz.Rect(65, min_y + 27, 565, min_y + 27 + 110.5), filename=sig_columns_img)
 
-    doc_c.save('ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.pdf')
+    # Assemble into doc_out enforcing ODD PAGE START
+    doc_c_out = fitz.open()
+    ch1_new_covers = []
+    ch1_new_sigs = []
+    p_w, p_h = doc_c[0].rect.width, doc_c[0].rect.height
+
+    for i in range(len(cover_pages_c)):
+        start = cover_pages_c[i]
+        end = cover_pages_c[i+1] - 1 if i+1 < len(cover_pages_c) else len(doc_c) - 1
+        sig_offset = sig_pages_c[i] - start
+
+        # If current page count in doc_out is ODD, next page is EVEN -> Insert Blank Page!
+        if len(doc_c_out) % 2 == 1:
+            doc_c_out.new_page(width=p_w, height=p_h)
+
+        new_cover = len(doc_c_out)
+        new_sig = new_cover + sig_offset
+        ch1_new_covers.append(new_cover)
+        ch1_new_sigs.append(new_sig)
+        new_indices_map[f"plan_{i+1}"] = {"cover": new_cover, "sig": new_sig}
+
+        for pno in range(start, end + 1):
+            doc_c_out.insert_pdf(doc_c, from_page=pno, to_page=pno)
+
+    doc_c_out.save('ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.pdf')
+    doc_c_out.close()
     doc_c.close()
-    print("✓ Chapter 1 PDF Updated successfully (Khmer OS Muol Light, clean date starting 2026-11-05).")
+    print(f"✓ Chapter 1 PDF Updated successfully (All {len(cover_pages_c)} plans start on ODD pages).")
 
     # ==========================
     # CHAPTER 2: LIMITS (13 PLANS)
     # ==========================
     doc_l = fitz.open('ជំពូកទី 2 លីមីត (2).pdf')
-    
-    # Redact headers and stamp Yukunthor NGS
     for p in doc_l:
         p.add_redact_annot(fitz.Rect(70, 9, 550, 46.5), fill=(1, 1, 1))
         p.apply_redactions()
         p.insert_image(fitz.Rect(70.9, 11.2, 104.9, 45.2), filename=logo_img)
         p.insert_image(fitz.Rect(112.0, 22.0, 112.0 + 237.8, 22.0 + 20.3), filename=text_img)
 
-    cover_pages_l = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 45, 49]
+    cover_pages_l = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 39, 45, 49]
+    sig_pages_l = [3, 7, 11, 15, 19, 22, 26, 30, 34, 38, 43, 47, 51]
+
     for i, pno in enumerate(cover_pages_l):
         p = doc_l[pno]
         b_date = [b for b in p.get_text('blocks') if 'កាលបរិ' in b[4]]
-        b_obj = [b for b in p.get_text('blocks') if '១. វ' in b[4] or '១.' in b[4]]
         c_path, _ = get_banners_for_index(13 + i)
-        if b_date and b_obj:
-            y0_d = b_date[0][1]
-            y0_o = b_obj[0][1]
-            p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
-            p.apply_redactions()
-            img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * (900.0 / 110.0)
-            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
+        y0_d = b_date[0][1] if b_date else 161.81
+        p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_d + 37.0), fill=(1, 1, 1))
+        p.apply_redactions()
+        p.insert_image(fitz.Rect(130.93, y0_d, 130.93 + 285.0, y0_d + 36.14), filename=c_path)
 
-    sig_pages_l = [3, 7, 11, 15, 19, 22, 26, 30, 34, 38, 43, 47, 51]
     for i, pno in enumerate(sig_pages_l):
         p = doc_l[pno]
         blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ', 'គណិែ', 'បូណង'])]
@@ -237,9 +289,29 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
             p.insert_image(fitz.Rect(300, min_y + 5, 555, min_y + 5 + 20), filename=s_path)
             p.insert_image(fitz.Rect(65, min_y + 27, 565, min_y + 27 + 110.5), filename=sig_columns_img)
 
-    doc_l.save('ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf')
+    # Assemble Chapter 2 enforcing ODD PAGE START
+    doc_l_out = fitz.open()
+    p_w, p_h = doc_l[0].rect.width, doc_l[0].rect.height
+
+    for i in range(len(cover_pages_l)):
+        start = cover_pages_l[i]
+        end = cover_pages_l[i+1] - 1 if i+1 < len(cover_pages_l) else len(doc_l) - 1
+        sig_offset = sig_pages_l[i] - start
+
+        if len(doc_l_out) % 2 == 1:
+            doc_l_out.new_page(width=p_w, height=p_h)
+
+        new_cover = len(doc_l_out)
+        new_sig = new_cover + sig_offset
+        new_indices_map[f"plan_{14 + i}"] = {"cover": new_cover, "sig": new_sig}
+
+        for pno in range(start, end + 1):
+            doc_l_out.insert_pdf(doc_l, from_page=pno, to_page=pno)
+
+    doc_l_out.save('ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf')
+    doc_l_out.close()
     doc_l.close()
-    print("✓ Chapter 2 PDF Updated successfully (Khmer OS Muol Light, clean date starting 2026-11-05).")
+    print(f"✓ Chapter 2 PDF Updated successfully (All {len(cover_pages_l)} plans start on ODD pages).")
 
     # ==========================
     # CHAPTER 5: VECTORS (11 PLANS)
@@ -252,21 +324,17 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
         p.insert_image(fitz.Rect(112.0, 36.0, 112.0 + 237.8, 36.0 + 20.3), filename=text_img)
 
     cover_pages_v = [0, 6, 16, 23, 29, 33, 39, 44, 51, 55, 60]
+    sig_pages_v = [4, 14, 22, 27, 31, 37, 42, 49, 53, 58, 63]
+
     for i, pno in enumerate(cover_pages_v):
         p = doc_v[pno]
         b_date = [b for b in p.get_text('blocks') if 'កាលបរិ' in b[4]]
-        b_obj = [b for b in p.get_text('blocks') if '១. វ' in b[4] or '១.' in b[4]]
         c_path, _ = get_banners_for_index(26 + i)
-        if b_date and b_obj:
-            y0_d = b_date[0][1]
-            y0_o = b_obj[0][1]
-            p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
-            p.apply_redactions()
-            img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * (900.0 / 110.0)
-            p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
+        y0_d = b_date[0][1] if b_date else 161.81
+        p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_d + 37.0), fill=(1, 1, 1))
+        p.apply_redactions()
+        p.insert_image(fitz.Rect(130.93, y0_d, 130.93 + 285.0, y0_d + 36.14), filename=c_path)
 
-    sig_pages_v = [4, 14, 22, 27, 31, 37, 42, 49, 53, 58, 63]
     for i, pno in enumerate(sig_pages_v):
         p = doc_v[pno]
         blocks = [b for b in p.get_text('blocks') if any(w in b[4] for w in ['រាជធ្នៃី', 'រាជធានី', 'ព.ស.', '្បធាន្កុេ', 'ប្រធានក្រុម', 'នាយករងទទួល', 'ជំនួយការ', 'គណិែ', 'បូណង'])]
@@ -280,9 +348,47 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
             p.insert_image(fitz.Rect(300, min_y + 5, 555, min_y + 5 + 20), filename=s_path)
             p.insert_image(fitz.Rect(65, min_y + 27, 565, min_y + 27 + 110.5), filename=sig_columns_img)
 
-    doc_v.save('ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf')
+    # Assemble Chapter 5 enforcing ODD PAGE START
+    doc_v_out = fitz.open()
+    p_w, p_h = doc_v[0].rect.width, doc_v[0].rect.height
+
+    for i in range(len(cover_pages_v)):
+        start = cover_pages_v[i]
+        end = cover_pages_v[i+1] - 1 if i+1 < len(cover_pages_v) else len(doc_v) - 1
+        sig_offset = sig_pages_v[i] - start
+
+        if len(doc_v_out) % 2 == 1:
+            doc_v_out.new_page(width=p_w, height=p_h)
+
+        new_cover = len(doc_v_out)
+        new_sig = new_cover + sig_offset
+        new_indices_map[f"plan_{27 + i}"] = {"cover": new_cover, "sig": new_sig}
+
+        for pno in range(start, end + 1):
+            doc_v_out.insert_pdf(doc_v, from_page=pno, to_page=pno)
+
+    doc_v_out.save('ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf')
+    doc_v_out.close()
     doc_v.close()
-    print("✓ Chapter 5 PDF Updated successfully (Khmer OS Muol Light, clean date starting 2026-11-05).")
+    print(f"✓ Chapter 5 PDF Updated successfully (All {len(cover_pages_v)} plans start on ODD pages).")
+
+    # Update js/lesson-plans-data.js with new page indices
+    with open('js/lesson-plans-data.js', 'r', encoding='utf-8') as f:
+        data_text = f.read()
+
+    match = re.search(r'window\.NGS_LESSON_PLANS_DATA\s*=\s*(\[[\s\S]*\]);?', data_text)
+    if match:
+        plans_data = json.loads(match.group(1))
+        for p in plans_data:
+            pid = p.get('id')
+            if pid in new_indices_map:
+                p['cover_page_index'] = new_indices_map[pid]['cover']
+                p['sig_page_index'] = new_indices_map[pid]['sig']
+        
+        new_js = 'window.NGS_LESSON_PLANS_DATA = ' + json.dumps(plans_data, ensure_ascii=False, indent=2) + ';\n'
+        with open('js/lesson-plans-data.js', 'w', encoding='utf-8') as f:
+            f.write(new_js)
+        print("✓ Synchronized js/lesson-plans-data.js with new cover & signature page indices!")
 
 if __name__ == '__main__':
     update_all_pdfs()

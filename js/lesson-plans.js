@@ -293,19 +293,30 @@
         const existingPdfBytes = await fetch(plan.pdf_file).then(res => res.arrayBuffer());
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
 
-        // Create high-res canvas for Date and Teacher (Clean typography without dots, bigger font)
+        // Create high-res canvas for Date and Teacher matching Image 2 exactly
         const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 150;
+        canvas.width = 900;
+        canvas.height = 114;
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#000000';
-        ctx.font = 'bold 34px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS", sans-serif';
 
         const khmerDateClean = formatKhmerDate(plan.date, false);
-        ctx.fillText('កាលបរិច្ឆេទ   :   ' + khmerDateClean, 10, 52);
-        ctx.fillText('បង្រៀនដោយ   :   ' + plan.teacher, 10, 112);
+
+        // Row 1: កាលបរិច្ឆេទ
+        ctx.font = 'normal 31.5px "Khmer OS Muol Light", "Khmer OS Muol", sans-serif';
+        ctx.fillText('កាលបរិច្ឆេទ', 0, 42);
+        ctx.font = 'normal 31.5px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+        ctx.fillText(':', 303, 42);
+        ctx.fillText(khmerDateClean, 340, 42);
+
+        // Row 2: បង្រៀនដោយ
+        ctx.font = 'normal 31.5px "Khmer OS Muol Light", "Khmer OS Muol", sans-serif';
+        ctx.fillText('បង្រៀនដោយ', 0, 99);
+        ctx.font = 'normal 31.5px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+        ctx.fillText(':', 303, 99);
+        ctx.fillText(plan.teacher, 340, 99);
 
         const datePngUrl = canvas.toDataURL('image/png');
         const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
