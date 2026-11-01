@@ -45,8 +45,8 @@
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v2';
-      this.savedStartDate = '';
+      this.storageKey = 'ngs_custom_lesson_plans_v3';
+      this.savedStartDate = '2026-11-05';
       this.savedClass = '១២A';
       this.savedCadence = '2';
     }
@@ -58,7 +58,7 @@
 
       // Load saved settings & customizations from localStorage
       try {
-        this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '';
+        this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '2026-11-05';
         this.savedClass = localStorage.getItem('ngs_custom_class') || '១២A';
         this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2';
 
@@ -133,7 +133,7 @@
         localStorage.removeItem('ngs_custom_start_date');
         localStorage.removeItem('ngs_custom_class');
         localStorage.removeItem('ngs_custom_cadence');
-        this.savedStartDate = '';
+        this.savedStartDate = '2026-11-05';
         this.savedClass = '១២A';
         this.savedCadence = '2';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
@@ -301,11 +301,11 @@
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#000000';
-        ctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+        ctx.font = 'bold 34px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS", sans-serif';
 
         const khmerDateClean = formatKhmerDate(plan.date, false);
-        ctx.fillText('កាលបរិច្ឆេទ\t:   ' + khmerDateClean, 10, 52);
-        ctx.fillText('បង្រៀនដោយ\t:   ' + plan.teacher, 10, 112);
+        ctx.fillText('កាលបរិច្ឆេទ   :   ' + khmerDateClean, 10, 52);
+        ctx.fillText('បង្រៀនដោយ   :   ' + plan.teacher, 10, 112);
 
         const datePngUrl = canvas.toDataURL('image/png');
         const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
