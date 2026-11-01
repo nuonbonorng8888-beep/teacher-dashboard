@@ -37,7 +37,7 @@
     if (includeDayName) {
       return `ថ្ងៃ${dayName} ទី${khDay} ខែ${khMonth} ឆ្នាំ${khYear}`;
     }
-    return `ថ្ងៃទី...${khDay}.....ខែ ...${khMonth}.....ឆ្នាំ...${khYear}.....`;
+    return `ថ្ងៃទី ${khDay} ខែ ${khMonth} ឆ្នាំ ${khYear}`;
   }
 
   class LessonPlansManager {
@@ -46,6 +46,9 @@
       this.searchQuery = '';
       this.plans = [];
       this.storageKey = 'ngs_custom_lesson_plans_v2';
+      this.savedStartDate = '';
+      this.savedClass = '១២A';
+      this.savedCadence = '2';
     }
 
     init() {
@@ -53,8 +56,12 @@
       // Deep clone default data
       this.plans = JSON.parse(JSON.stringify(defaultData));
 
-      // Load saved customizations from localStorage
+      // Load saved settings & customizations from localStorage
       try {
+        this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '';
+        this.savedClass = localStorage.getItem('ngs_custom_class') || '១២A';
+        this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2';
+
         const saved = localStorage.getItem(this.storageKey);
         if (saved) {
           const customMap = JSON.parse(saved);
@@ -62,7 +69,7 @@
             if (customMap[p.id]) {
               if (customMap[p.id].date) {
                 p.date = customMap[p.id].date;
-                p.date_khmer = formatKhmerDate(p.date);
+                p.date_khmer = formatKhmerDate(p.date, true);
               }
               if (customMap[p.id].class_name) {
                 p.class_name = customMap[p.id].class_name;
@@ -101,6 +108,15 @@
       });
       try {
         localStorage.setItem(this.storageKey, JSON.stringify(customMap));
+        if (this.savedStartDate) {
+          localStorage.setItem('ngs_custom_start_date', this.savedStartDate);
+        }
+        if (this.savedClass) {
+          localStorage.setItem('ngs_custom_class', this.savedClass);
+        }
+        if (this.savedCadence) {
+          localStorage.setItem('ngs_custom_cadence', this.savedCadence);
+        }
         if (window.showToast) {
           window.showToast('បានរក្សាទុកកាលបរិច្ឆេទ និងថ្នាក់ដោយជោគជ័យ! 🎉', 'success');
         } else {
@@ -114,6 +130,12 @@
     resetCustomizations() {
       if (confirm('តើអ្នកពិតជាចង់កំណត់កាលបរិច្ឆេទ និងថ្នាក់ឡើងវិញទៅកាន់ទិន្នន័យដើមមែនទេ?')) {
         localStorage.removeItem(this.storageKey);
+        localStorage.removeItem('ngs_custom_start_date');
+        localStorage.removeItem('ngs_custom_class');
+        localStorage.removeItem('ngs_custom_cadence');
+        this.savedStartDate = '';
+        this.savedClass = '១២A';
+        this.savedCadence = '2';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
         this.render();
         if (window.showToast) {
@@ -136,7 +158,7 @@
       const p = this.plans.find(item => item.id === id);
       if (p) {
         p.date = newDate;
-        p.date_khmer = formatKhmerDate(newDate);
+        p.date_khmer = formatKhmerDate(newDate, true);
         const khSpan = document.getElementById(`khDate-${id}`);
         if (khSpan) {
           khSpan.innerText = p.date_khmer;
@@ -159,9 +181,9 @@
       const dateInput = document.getElementById('batchStartDate');
       const stepInput = document.getElementById('batchStepDays');
 
-      const selectedClass = classInput ? classInput.value : '១២A';
-      const startDateStr = dateInput ? dateInput.value : '2026-10-19';
-      const stepDays = stepInput ? parseInt(stepInput.value, 10) : 2;
+      const selectedClass = classInput ? classInput.value : (this.savedClass || '១២A');
+      const startDateStr = dateInput ? dateInput.value : (this.savedStartDate || '2026-11-05');
+      const cadenceMode = stepInput ? stepInput.value : (this.savedCadence || '2');
 
       if (!startDateStr) {
         alert('សូមជ្រើសរើសថ្ងៃចាប់ផ្តើម!');
@@ -174,7 +196,23 @@
         return;
       }
 
-      let curDate = new Date(startDateStr);
+      // Save custom start date, class, and cadence into memory & localStorage
+      this.savedStartDate = startDateStr;
+      this.savedClass = selectedClass;
+      this.savedCadence = cadenceMode;
+      try {
+        localStorage.setItem('ngs_custom_start_date', startDateStr);
+        localStorage.setItem('ngs_custom_class', selectedClass);
+        localStorage.setItem('ngs_custom_cadence', cadenceMode);
+      } catch (e) {}
+
+      const parts = startDateStr.split('-');
+      let curDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+
+      // If start date is Sunday (0), shift to Monday (1)
+      if (curDate.getDay() === 0) {
+        curDate.setDate(curDate.getDate() + 1);
+      }
 
       visiblePlans.forEach((p) => {
         p.class_name = selectedClass;
@@ -182,20 +220,45 @@
         const m = String(curDate.getMonth() + 1).padStart(2, '0');
         const d = String(curDate.getDate()).padStart(2, '0');
         p.date = `${y}-${m}-${d}`;
-        p.date_khmer = formatKhmerDate(p.date);
+        p.date_khmer = formatKhmerDate(p.date, true);
 
-        // Advance date
-        curDate.setDate(curDate.getDate() + stepDays);
-        // Skip Sundays
-        if (curDate.getDay() === 0) {
+        // Advance date with Sunday exclusion
+        if (cadenceMode === 'mon_wed_fri') {
+          // Target days: Monday(1), Wednesday(3), Friday(5)
+          do {
+            curDate.setDate(curDate.getDate() + 1);
+          } while (![1, 3, 5].includes(curDate.getDay()));
+        } else if (cadenceMode === 'tue_thu_sat') {
+          // Target days: Tuesday(2), Thursday(4), Saturday(6)
+          do {
+            curDate.setDate(curDate.getDate() + 1);
+          } while (![2, 4, 6].includes(curDate.getDay()));
+        } else if (cadenceMode === 'daily') {
+          // Daily (Mon to Sat, skip Sunday)
           curDate.setDate(curDate.getDate() + 1);
+          if (curDate.getDay() === 0) {
+            curDate.setDate(curDate.getDate() + 1);
+          }
+        } else if (cadenceMode === '7') {
+          // Weekly
+          curDate.setDate(curDate.getDate() + 7);
+          if (curDate.getDay() === 0) {
+            curDate.setDate(curDate.getDate() + 1);
+          }
+        } else {
+          // 2 days interval: skip Sunday
+          const step = parseInt(cadenceMode, 10) || 2;
+          curDate.setDate(curDate.getDate() + step);
+          if (curDate.getDay() === 0) {
+            curDate.setDate(curDate.getDate() + 1);
+          }
         }
       });
 
       this.saveCustomizations();
       this.render();
       if (window.showToast) {
-        window.showToast(`បានកំណត់កាលបរិច្ឆេទ & ថ្នាក់ ${selectedClass} ជូន ${visiblePlans.length} មេរៀនរួចរាល់! 🚀`, 'success');
+        window.showToast(`✓ បានកំណត់កាលវិភាគចាប់ផ្តើមពីថ្ងៃ ${formatKhmerDate(startDateStr)} (លើកលែងថ្ងៃអាទិត្យ) ជូន ${visiblePlans.length} មេរៀន និងរក្សាទុកក្នុងប្រព័ន្ធដោយជោគជ័យ! 🎉`, 'success');
       }
     }
 
@@ -230,7 +293,7 @@
         const existingPdfBytes = await fetch(plan.pdf_file).then(res => res.arrayBuffer());
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
 
-        // Create high-res canvas for Date and Teacher
+        // Create high-res canvas for Date and Teacher (Clean typography without dots, bigger font)
         const canvas = document.createElement('canvas');
         canvas.width = 1200;
         canvas.height = 150;
@@ -238,11 +301,11 @@
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#000000';
-        ctx.font = 'bold 32px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+        ctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
 
-        const khmerDateDots = formatKhmerDate(plan.date, false);
-        ctx.fillText('កាលបរិច្ឆេទ\t:   ' + khmerDateDots, 10, 55);
-        ctx.fillText('បង្រៀនដោយ\t:   ....' + plan.teacher + '......', 10, 115);
+        const khmerDateClean = formatKhmerDate(plan.date, false);
+        ctx.fillText('កាលបរិច្ឆេទ\t:   ' + khmerDateClean, 10, 52);
+        ctx.fillText('បង្រៀនដោយ\t:   ' + plan.teacher, 10, 112);
 
         const datePngUrl = canvas.toDataURL('image/png');
         const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
@@ -309,7 +372,7 @@
             });
           }
 
-          // Also update Signature Page if available (Wipes old text & inserts customized date + clean columns)
+          // Also update Signature Page if available (Wipes old text, closes box, inserts date without dots + clean columns)
           const sIdx = plan.sig_page_index !== undefined ? plan.sig_page_index : null;
           if (sIdx !== null && sIdx < pdfDoc.getPageCount()) {
             const sigPage = pdfDoc.getPage(sIdx);
@@ -328,35 +391,44 @@
               color: PDFLib.rgb(1, 1, 1),
             });
 
-            // 2. Render dynamic signature date via canvas
+            // 2. CLOSE THE TABLE BOX AT THE TOP with crisp horizontal line!
+            const tableXEnd = plan.chapter_code === 'ch5' ? 565.4 : 538.5;
+            sigPage.drawLine({
+              start: { x: 71.0, y: sigPageH - sig_y_top },
+              end: { x: tableXEnd, y: sigPageH - sig_y_top },
+              thickness: 0.6,
+              color: PDFLib.rgb(0, 0, 0),
+            });
+
+            // 3. Render dynamic signature date via canvas (Clean without dots, bigger font)
             const sigDateCanvas = document.createElement('canvas');
-            sigDateCanvas.width = 900;
+            sigDateCanvas.width = 1000;
             sigDateCanvas.height = 70;
             const sctx = sigDateCanvas.getContext('2d');
             sctx.fillStyle = '#ffffff';
             sctx.fillRect(0, 0, sigDateCanvas.width, sigDateCanvas.height);
             sctx.fillStyle = '#000000';
-            sctx.font = 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+            sctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
             sctx.textAlign = 'right';
-            sctx.fillText('រាជធានីភ្នំពេញ ' + khmerDateDots, 880, 48);
+            sctx.fillText('រាជធានីភ្នំពេញ ' + khmerDateClean, 980, 48);
 
             const sigDatePngUrl = sigDateCanvas.toDataURL('image/png');
             const sigDatePngBytes = await fetch(sigDatePngUrl).then(res => res.arrayBuffer());
             const sigDateImg = await pdfDoc.embedPng(sigDatePngBytes);
 
-            const sigDateYBottom = sigPageH - sig_y_top - 22.0;
+            const sigDateYBottom = sigPageH - sig_y_top - 24.0;
             sigPage.drawImage(sigDateImg, {
-              x: 310,
+              x: 300,
               y: sigDateYBottom,
-              width: 245.0,
-              height: 18.0,
+              width: 255.0,
+              height: 20.0,
             });
 
-            // 3. Render clean 3 columns (Teacher Bonorng, Tech Head, NGS Assistant)
+            // 4. Render clean 3 columns (Teacher Bonorng, Tech Head, NGS Assistant)
             try {
               const colsBytes = await fetch('images/sample_sig_columns_clean.png').then(res => res.arrayBuffer());
               const colsImg = await pdfDoc.embedPng(colsBytes);
-              const colsYBottom = sigPageH - sig_y_top - 26.0 - 110.5;
+              const colsYBottom = sigPageH - sig_y_top - 27.0 - 110.5;
               sigPage.drawImage(colsImg, {
                 x: 65,
                 y: colsYBottom,
@@ -527,12 +599,12 @@
                 🎓 ថ្នាក់បង្រៀន (Grade / Class):
               </label>
               <select id="batchClassSelect" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-                <option value="១២A">ថ្នាក់ទី ១២A (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="១២B">ថ្នាក់ទី ១២B</option>
-                <option value="១២C">ថ្នាក់ទី ១២C</option>
-                <option value="១២D">ថ្នាក់ទី ១២D</option>
-                <option value="១២E">ថ្នាក់ទី ១២E</option>
-                <option value="១២F">ថ្នាក់ទី ១២F</option>
+                <option value="១២A" ${this.savedClass === '១២A' ? 'selected' : ''}>ថ្នាក់ទី ១២A (វិទ្យាសាស្ត្រពិត)</option>
+                <option value="១២B" ${this.savedClass === '១២B' ? 'selected' : ''}>ថ្នាក់ទី ១២B</option>
+                <option value="១២C" ${this.savedClass === '១២C' ? 'selected' : ''}>ថ្នាក់ទី ១២C</option>
+                <option value="១២D" ${this.savedClass === '១២D' ? 'selected' : ''}>ថ្នាក់ទី ១២D</option>
+                <option value="១២E" ${this.savedClass === '១២E' ? 'selected' : ''}>ថ្នាក់ទី ១២E</option>
+                <option value="១២F" ${this.savedClass === '១២F' ? 'selected' : ''}>ថ្នាក់ទី ១២F</option>
               </select>
             </div>
 
@@ -541,7 +613,7 @@
               <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
                 📅 ថ្ងៃចាប់ផ្តើមបង្រៀនដំបូង:
               </label>
-              <input type="date" id="batchStartDate" value="2026-10-19" class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+              <input type="date" id="batchStartDate" value="${this.savedStartDate || '2026-11-05'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
             </div>
 
             <!-- Cadence Step -->
@@ -550,10 +622,11 @@
                 ⏱️ គម្លាតថ្ងៃ (Cadence):
               </label>
               <select id="batchStepDays" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-                <option value="2">រៀងរាល់ ២ ថ្ងៃម្តង (+២ ថ្ងៃ)</option>
-                <option value="3">រៀងរាល់ ៣ ថ្ងៃម្តង (+៣ ថ្ងៃ)</option>
-                <option value="7">រៀងរាល់ ១ សប្តាហ៍ម្តង (+៧ ថ្ងៃ)</option>
-                <option value="1">រៀងរាល់ថ្ងៃ (+១ ថ្ងៃ)</option>
+                <option value="2" ${this.savedCadence === '2' ? 'selected' : ''}>រៀងរាល់ ២ ថ្ងៃម្តង (លើកលែងថ្ងៃអាទិត្យ)</option>
+                <option value="mon_wed_fri" ${this.savedCadence === 'mon_wed_fri' ? 'selected' : ''}>ចន្ទ - ពុធ - សុក្រ (៣ ថ្ងៃ/សប្តាហ៍)</option>
+                <option value="tue_thu_sat" ${this.savedCadence === 'tue_thu_sat' ? 'selected' : ''}>អង្គារ - ព្រហស្បតិ៍ - សៅរ៍ (៣ ថ្ងៃ/សប្តាហ៍)</option>
+                <option value="daily" ${this.savedCadence === 'daily' ? 'selected' : ''}>រាល់ថ្ងៃសិក្សា (ចន្ទ ដល់ សៅរ៍ - គ្មានថ្ងៃអាទិត្យ)</option>
+                <option value="7" ${this.savedCadence === '7' ? 'selected' : ''}>រៀងរាល់ ១ សប្តាហ៍ម្តង (+៧ ថ្ងៃ)</option>
               </select>
             </div>
 
@@ -563,6 +636,12 @@
                 <i class="fa-solid fa-wand-magic-sparkles"></i> បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ
               </button>
             </div>
+          </div>
+
+          <!-- Helpful Instructions & Current Active Schedule Indicator -->
+          <div class="mt-3 pt-2.5 border-t border-purple-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 gap-2">
+            <span>💡 <strong>របៀបកំណត់៖</strong> ជ្រើសរើសថ្ងៃចាប់ផ្តើម រួចចុច <strong>«បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ»</strong> ដើម្បីកំណត់គ្រប់មេរៀន និងចងចាំកាលវិភាគជានិច្ច (មិនត្រឡប់ទៅ ១៩ តុលា វិញឡើយ)។</span>
+            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 កាលវិភាគបច្ចុប្បន្នចាប់ផ្តើមពី៖ ${formatKhmerDate(this.savedStartDate)}</span>` : ''}
           </div>
         </div>
 

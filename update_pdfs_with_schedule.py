@@ -20,14 +20,17 @@ KHMER_MONTHS = [
 def to_khmer_num(num):
     return ''.join(KHMER_DIGITS[int(d)] if d.isdigit() else d for d in str(num))
 
-def format_khmer_date_dots(dt):
+def format_khmer_date_clean(dt):
     d = to_khmer_num(dt.day)
     m = KHMER_MONTHS[dt.month - 1]
     y = to_khmer_num(dt.year)
-    return f"ថ្ងៃទី...{d}.....ខែ ...{m}.....ឆ្នាំ...{y}....."
+    return f"ថ្ងៃទី {d} ខែ {m} ឆ្នាំ {y}"
 
 def generate_schedule(start_date_str, count, step_days=2):
     dt = datetime.strptime(start_date_str, '%Y-%m-%d')
+    # If starting on Sunday, shift to Monday
+    if dt.weekday() == 6:
+        dt += timedelta(days=1)
     dates = []
     for _ in range(count):
         dates.append(dt)
@@ -37,27 +40,27 @@ def generate_schedule(start_date_str, count, step_days=2):
     return dates
 
 def render_all_banners_html(dates_list, out_png):
-    """Render high-res banners using headless Edge"""
+    """Render high-res banners without dots and with larger fonts using headless Edge"""
     html = '''<!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>
 <style>
 body { margin: 0; padding: 0; background: white; font-family: 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif; }
-.banner { width: 900px; height: 100px; box-sizing: border-box; padding: 6px 12px; display: flex; flex-direction: column; justify-content: center; }
-.cover-date { font-size: 26px; font-weight: bold; line-height: 42px; color: #000; }
+.banner { width: 900px; height: 110px; box-sizing: border-box; padding: 6px 12px; display: flex; flex-direction: column; justify-content: center; }
+.cover-date { font-size: 30px; font-weight: bold; line-height: 48px; color: #000; }
 .sig-banner { width: 900px; height: 60px; box-sizing: border-box; display: flex; align-items: center; justify-content: flex-end; padding-right: 20px; }
-.sig-date { font-size: 24px; font-weight: bold; color: #000; }
+.sig-date { font-size: 28px; font-weight: bold; color: #000; }
 </style>
 </head>
 <body>
 '''
     for i, dt in enumerate(dates_list):
-        kd = format_khmer_date_dots(dt)
+        kd = format_khmer_date_clean(dt)
         html += f'''
         <div id='cover_{i}' class='banner'>
             <div class='cover-date'>កាលបរិច្ឆេទ\t:   {kd}</div>
-            <div class='cover-date'>បង្រៀនដោយ\t:   ....នួន បូណង......</div>
+            <div class='cover-date'>បង្រៀនដោយ\t:   នួន បូណង</div>
         </div>
         <div id='sig_{i}' class='sig-banner'>
             <div class='sig-date'>រាជធានីភ្នំពេញ {kd}</div>
@@ -72,7 +75,7 @@ body { margin: 0; padding: 0; background: white; font-family: 'Khmer OS Siemreap
     edge_path = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
     abs_out = os.path.abspath(out_png)
     abs_html = 'file:///' + os.path.abspath(tmp_html).replace('\\', '/')
-    total_h = len(dates_list) * 160 + 100
+    total_h = len(dates_list) * 170 + 100
     cmd = [
         edge_path, '--headless', '--disable-gpu',
         f'--screenshot={abs_out}',
@@ -93,16 +96,16 @@ def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days
     dates_ch5 = generate_schedule(start_date_str, 11, step_days)
 
     all_dates = dates_ch2 + dates_ch5
-    banners_png = 'scratch/all_generated_banners.png'
+    banners_png = 'scratch/all_generated_banners_clean.png'
     render_all_banners_html(all_dates, banners_png)
     banners_im = Image.open(banners_png)
 
     def get_banners_for_index(idx):
-        y_top = idx * 160
-        cover_crop = banners_im.crop((0, y_top, 900, y_top + 100))
-        sig_crop = banners_im.crop((0, y_top + 100, 900, y_top + 160))
-        c_path = f'scratch/c_banner_{idx}.png'
-        s_path = f'scratch/s_banner_{idx}.png'
+        y_top = idx * 170
+        cover_crop = banners_im.crop((0, y_top, 900, y_top + 110))
+        sig_crop = banners_im.crop((0, y_top + 110, 900, y_top + 170))
+        c_path = f'scratch/c_banner_clean_{idx}.png'
+        s_path = f'scratch/s_banner_clean_{idx}.png'
         cover_crop.save(c_path)
         sig_crop.save(s_path)
         return c_path, s_path
@@ -131,7 +134,7 @@ def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days
             p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
             p.apply_redactions()
             img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * (900.0 / 100.0)
+            img_w = img_h * (900.0 / 110.0)
             p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
 
     sig_pages_l = [3, 7, 11, 15, 19, 22, 26, 30, 34, 38, 43, 47, 51]
@@ -142,17 +145,19 @@ def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days
         if blocks:
             min_y = min(b[1] for b in blocks)
             max_y = max(b[3] for b in blocks)
-            # Physical redaction of old text - 100% permanently deleted from PDF stream
-            p.add_redact_annot(fitz.Rect(65, min_y - 2, 565, max_y + 8), fill=(1, 1, 1))
+            # 1. Physical redaction of old text starting from min_y
+            p.add_redact_annot(fitz.Rect(65, min_y, 565, max_y + 8), fill=(1, 1, 1))
             p.apply_redactions()
-            # Insert dynamic date for this lesson
-            p.insert_image(fitz.Rect(310, min_y + 4, 555, min_y + 4 + 18), filename=s_path)
-            # Insert clean 3 columns
-            p.insert_image(fitz.Rect(65, min_y + 26, 565, min_y + 26 + 110.5), filename=sig_columns_img)
+            # 2. Close the table box with a crisp black bottom border line
+            p.draw_line(fitz.Point(71.1, min_y - 0.7), fitz.Point(538.5, min_y - 0.7), color=(0, 0, 0), width=0.6)
+            # 3. Insert dynamic date for this lesson (larger font, no dots)
+            p.insert_image(fitz.Rect(300, min_y + 5, 555, min_y + 5 + 20), filename=s_path)
+            # 4. Insert clean 3 columns
+            p.insert_image(fitz.Rect(65, min_y + 27, 565, min_y + 27 + 110.5), filename=sig_columns_img)
 
     doc_l.save('ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf')
     doc_l.close()
-    print("✓ Chapter 2 PDF Updated successfully (with physical redactions & unique dates).")
+    print("✓ Chapter 2 PDF Updated successfully (with closed table box, no dots, larger font).")
 
     # ==========================
     # CHAPTER 5: VECTORS (11 PLANS)
@@ -176,7 +181,7 @@ def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days
             p.add_redact_annot(fitz.Rect(130, y0_d - 1, 450, y0_o - 1.5), fill=(1, 1, 1))
             p.apply_redactions()
             img_h = (y0_o - 1.5) - y0_d
-            img_w = img_h * (900.0 / 100.0)
+            img_w = img_h * (900.0 / 110.0)
             p.insert_image(fitz.Rect(130.92, y0_d, 130.92 + min(285.0, img_w), y0_d + img_h), filename=c_path)
 
     sig_pages_v = [4, 14, 22, 27, 31, 37, 42, 49, 53, 58, 63]
@@ -187,14 +192,16 @@ def update_all_pdfs(start_date_str='2026-10-19', class_name='១២A', step_days
         if blocks:
             min_y = min(b[1] for b in blocks)
             max_y = max(b[3] for b in blocks)
-            p.add_redact_annot(fitz.Rect(65, min_y - 2, 565, max_y + 8), fill=(1, 1, 1))
+            p.add_redact_annot(fitz.Rect(65, min_y, 565, max_y + 8), fill=(1, 1, 1))
             p.apply_redactions()
-            p.insert_image(fitz.Rect(310, min_y + 4, 555, min_y + 4 + 18), filename=s_path)
-            p.insert_image(fitz.Rect(65, min_y + 26, 565, min_y + 26 + 110.5), filename=sig_columns_img)
+            # Close the table box for Chapter 5 (width 70.9 to 565.4)
+            p.draw_line(fitz.Point(70.9, min_y - 0.7), fitz.Point(565.4, min_y - 0.7), color=(0, 0, 0), width=0.6)
+            p.insert_image(fitz.Rect(300, min_y + 5, 555, min_y + 5 + 20), filename=s_path)
+            p.insert_image(fitz.Rect(65, min_y + 27, 565, min_y + 27 + 110.5), filename=sig_columns_img)
 
     doc_v.save('ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf')
     doc_v.close()
-    print("✓ Chapter 5 PDF Updated successfully (with physical redactions & unique dates).")
+    print("✓ Chapter 5 PDF Updated successfully (with closed table box, no dots, larger font).")
 
 if __name__ == '__main__':
     update_all_pdfs()
