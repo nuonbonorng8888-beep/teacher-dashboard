@@ -37,7 +37,7 @@
     if (includeDayName) {
       return `ថ្ងៃ${dayName} ទី${khDay} ខែ${khMonth} ឆ្នាំ${khYear}`;
     }
-    return `ថ្ងៃទី ${khDay} ខែ ${khMonth} ឆ្នាំ ${khYear}`;
+    return `ថ្ងៃទី...${khDay}.....ខែ ...${khMonth}.....ឆ្នាំ...${khYear}.....`;
   }
 
   class LessonPlansManager {
@@ -45,7 +45,7 @@
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v1';
+      this.storageKey = 'ngs_custom_lesson_plans_v2';
     }
 
     init() {
@@ -82,7 +82,6 @@
     }
 
     bindEvents() {
-      // Listen to tab activation if needed
       document.addEventListener('click', (e) => {
         const tabBtn = e.target.closest('[data-tab="lessonplans"]');
         if (tabBtn) {
@@ -177,9 +176,8 @@
 
       let curDate = new Date(startDateStr);
 
-      visiblePlans.forEach((p, idx) => {
+      visiblePlans.forEach((p) => {
         p.class_name = selectedClass;
-        // Format ISO date YYYY-MM-DD
         const y = curDate.getFullYear();
         const m = String(curDate.getMonth() + 1).padStart(2, '0');
         const d = String(curDate.getDate()).padStart(2, '0');
@@ -188,7 +186,7 @@
 
         // Advance date
         curDate.setDate(curDate.getDate() + stepDays);
-        // Skip Sundays (0) if hits Sunday, add 1 day
+        // Skip Sundays
         if (curDate.getDay() === 0) {
           curDate.setDate(curDate.getDate() + 1);
         }
@@ -213,6 +211,123 @@
       });
     }
 
+    // Dynamic Client-side PDF Generation with custom Date and Class
+    async downloadCustomPdf(planId) {
+      const plan = this.plans.find(item => item.id === planId);
+      if (!plan) return;
+
+      if (window.showToast) {
+        window.showToast(`កំពុងរៀបចំ PDF សម្រាប់ ${plan.lesson_title} ជាមួយកាលបរិច្ឆេទ & ថ្នាក់ថ្មី...`, 'info');
+      }
+
+      try {
+        if (typeof PDFLib === 'undefined') {
+          console.warn('PDFLib not loaded, falling back to direct download');
+          window.open(plan.pdf_file, '_blank');
+          return;
+        }
+
+        const existingPdfBytes = await fetch(plan.pdf_file).then(res => res.arrayBuffer());
+        const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+
+        // Create high-res canvas for Date and Teacher
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 150;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 32px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+
+        const khmerDateDots = formatKhmerDate(plan.date, false);
+        ctx.fillText('កាលបរិច្ឆេទ\t:   ' + khmerDateDots, 10, 55);
+        ctx.fillText('បង្រៀនដោយ\t:   ....' + plan.teacher + '......', 10, 115);
+
+        const datePngUrl = canvas.toDataURL('image/png');
+        const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
+        const dateImg = await pdfDoc.embedPng(datePngBytes);
+
+        // Target cover page
+        const pIdx = plan.cover_page_index !== undefined ? plan.cover_page_index : 0;
+        if (pIdx < pdfDoc.getPageCount()) {
+          const page = pdfDoc.getPage(pIdx);
+          const pageH = page.getHeight();
+          const y_top = plan.box_y0 || 161.8;
+          const box_h = 36.0;
+          // In pdf-lib y=0 is at bottom
+          const y_bottom = pageH - y_top - box_h;
+
+          // Mask old date and teacher
+          page.drawRectangle({
+            x: 130,
+            y: y_bottom,
+            width: 320,
+            height: box_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+
+          // Draw customized date & teacher
+          page.drawImage(dateImg, {
+            x: 130.92,
+            y: y_bottom,
+            width: 286.0,
+            height: box_h,
+          });
+
+          // Also update Class if customized
+          if (plan.class_name) {
+            const classCanvas = document.createElement('canvas');
+            classCanvas.width = 300;
+            classCanvas.height = 80;
+            const cctx = classCanvas.getContext('2d');
+            cctx.fillStyle = '#ffffff';
+            cctx.fillRect(0, 0, classCanvas.width, classCanvas.height);
+            cctx.fillStyle = '#000000';
+            cctx.font = 'bold 36px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+            cctx.fillText(':   ' + plan.class_name, 10, 55);
+
+            const classPngUrl = classCanvas.toDataURL('image/png');
+            const classPngBytes = await fetch(classPngUrl).then(res => res.arrayBuffer());
+            const classImg = await pdfDoc.embedPng(classPngBytes);
+
+            const class_y_top = plan.class_y0 || 77.9;
+            const class_y_bottom = pageH - class_y_top - 18.0;
+
+            page.drawRectangle({
+              x: 226,
+              y: class_y_bottom,
+              width: 80,
+              height: 18.0,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+            page.drawImage(classImg, {
+              x: 226,
+              y: class_y_bottom,
+              width: 65.0,
+              height: 18.0,
+            });
+          }
+        }
+
+        const modifiedBytes = await pdfDoc.save();
+        const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `កិច្ចតែងការ_${plan.lesson_title}_ថ្នាក់_${plan.class_name}_${plan.date}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        if (window.showToast) {
+          window.showToast(`ទាញយក PDF ជោគជ័យ៖ ថ្នាក់ ${plan.class_name} · ${plan.date_khmer}! 🎉`, 'success');
+        }
+      } catch (err) {
+        console.error('PDF modification error:', err);
+        window.open(plan.pdf_file, '_blank');
+      }
+    }
+
     render() {
       const container = document.getElementById('tab-lessonplans');
       if (!container) return;
@@ -227,20 +342,26 @@
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-800 via-indigo-800 to-sky-800 p-6 md:p-8 text-white shadow-xl">
           <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
           <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div class="space-y-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-bold text-amber-300">
-                <i class="fa-solid fa-school"></i> វិទ្យាល័យព្រះយុគន្ធរ · សាលារៀនជំនាន់ថ្មី (NGS)
+            <div class="flex items-start gap-4">
+              <!-- Official School Logo in Banner Header -->
+              <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white p-1.5 shadow-lg border-2 border-amber-300 shrink-0 flex items-center justify-center">
+                <img src="images/yukunthor-logo.jpg" alt="Preah Yukunthor NGS Logo" class="w-full h-full object-contain rounded-xl">
               </div>
-              <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-                កិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី ១២
-              </h1>
-              <p class="text-xs md:text-sm text-purple-100 max-w-2xl leading-relaxed">
-                រៀបចំនិងបង្រៀនដោយ <strong>លោកគ្រូ នួន បូណង</strong> តាមស្តង់ដារគុណវុឌ្ឍិ ៥ ជំហានបង្រៀន NGS
-                (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ៣ ជំពូកធំៗ ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
-              </p>
+              <div class="space-y-1.5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-bold text-amber-300">
+                  <i class="fa-solid fa-school"></i> វិទ្យាល័យព្រះយុគន្ធរ · សាលារៀនជំនាន់ថ្មី (NGS)
+                </div>
+                <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+                  កិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី ១២
+                </h1>
+                <p class="text-xs md:text-sm text-purple-100 max-w-2xl leading-relaxed">
+                  រៀបចំនិងបង្រៀនដោយ <strong>លោកគ្រូ នួន បូណង</strong> តាមស្តង់ដារគុណវុឌ្ឍិ ៥ ជំហានបង្រៀន NGS
+                  (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ៣ ជំពូកធំៗ ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
+                </p>
+              </div>
             </div>
-            <!-- Quick Chapter Direct Download Links -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+            <!-- Statistics Badges -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 self-end md:self-center">
               <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center">
                 <span class="block text-2xl font-black text-amber-300">${totalPlans}</span>
                 <span class="text-[11px] text-purple-200 uppercase tracking-wider">កិច្ចតែងការ</span>
@@ -284,10 +405,10 @@
 
           <!-- Official Chapter Files Download Pills -->
           <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400 font-bold hidden sm:inline">ឯកសារផ្លូវការ NGS:</span>
+            <span class="text-xs text-slate-400 font-bold hidden sm:inline">ឯកសារដើម NGS:</span>
             <div class="dropdown relative group">
               <button class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 hover:bg-purple-100 border border-purple-200 dark:border-slate-700 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-file-pdf text-red-500"></i> ទាញយក PDF ជំពូក <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                <i class="fa-solid fa-file-pdf text-red-500"></i> PDF ជំពូកទាំងមូល <i class="fa-solid fa-chevron-down text-[10px]"></i>
               </button>
               <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[240px]">
                 <a href="ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
@@ -304,7 +425,7 @@
 
             <div class="dropdown relative group">
               <button class="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-file-word text-blue-500"></i> ទាញយក Word (.docx) <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                <i class="fa-solid fa-file-word text-blue-500"></i> Word (.docx) <i class="fa-solid fa-chevron-down text-[10px]"></i>
               </button>
               <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[240px]">
                 <a href="ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.docx" download class="block px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
@@ -406,8 +527,8 @@
             <!-- Modal Header -->
             <div class="p-4 md:p-5 bg-gradient-to-r from-purple-800 via-indigo-800 to-sky-800 text-white flex items-center justify-between shrink-0">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-lg">
-                  📖
+                <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow">
+                  <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-lg">
                 </div>
                 <div>
                   <h3 id="modalPlanTitle" class="font-extrabold text-sm md:text-base leading-tight">កិច្ចតែងការបង្រៀន</h3>
@@ -415,6 +536,9 @@
                 </div>
               </div>
               <div class="flex items-center gap-2">
+                <button id="modalBtnCustomPdf" onclick="window.lessonPlansManager.downloadCurrentModalPdf()" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs transition flex items-center gap-1.5 shadow">
+                  <i class="fa-solid fa-file-arrow-down"></i> ទាញយក PDF ថ្មី
+                </button>
                 <button id="modalBtnPrint" onclick="window.lessonPlansManager.printCurrentPlan()" class="px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition flex items-center gap-1.5">
                   <i class="fa-solid fa-print"></i> បោះពុម្ព
                 </button>
@@ -425,7 +549,7 @@
             </div>
 
             <!-- Modal Body (Printable Lesson Plan Layout) -->
-            <div id="modalPlanBody" class="p-6 overflow-y-auto space-y-6 text-slate-800 dark:text-slate-200">
+            <div id="modalPlanBody" class="p-6 pb-12 overflow-y-auto space-y-6 text-slate-800 dark:text-slate-200">
               <!-- Dynamically populated -->
             </div>
           </div>
@@ -489,10 +613,10 @@
                   class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition">
                   <i class="fa-solid fa-eye"></i> មើលកិច្ចតែងការ
                 </button>
-                <a href="${p.pdf_file}" target="_blank" download
-                  class="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold transition flex items-center gap-1" title="ទាញយក PDF ជំពូក">
-                  <i class="fa-solid fa-file-pdf"></i>
-                </a>
+                <button onclick="window.lessonPlansManager.downloadCustomPdf('${p.id}')"
+                  class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm" title="ទាញយក PDF ជាមួយកាលបរិច្ឆេទ & ថ្នាក់ថ្មី">
+                  <i class="fa-solid fa-file-arrow-down"></i> <span class="hidden sm:inline">ទាញយក PDF</span>
+                </button>
                 <a href="${p.docx_file}" download
                   class="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold transition flex items-center gap-1" title="ទាញយក Word ជំពូក">
                   <i class="fa-solid fa-file-word"></i>
@@ -559,16 +683,30 @@
       bodyEl.innerHTML = `
         <!-- Official Document Header Box -->
         <div class="border-2 border-purple-300 dark:border-purple-700 rounded-2xl p-5 bg-purple-50/40 dark:bg-slate-800/80 space-y-3">
-          <div class="text-center space-y-1 pb-3 border-b border-purple-200 dark:border-slate-700">
-            <p class="font-bold text-xs uppercase tracking-wider text-slate-500">ព្រះរាជាណាចក្រកម្ពុជា · ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-            <p class="font-bold text-xs text-purple-800 dark:text-purple-300">ក្រសួងអប់រំ យុវជន និងកីឡា · វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)</p>
-            <h2 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white pt-1">
-              កិច្ចតែងការបង្រៀនគណិតវិទ្យា (ស្តង់ដារ ៥ ជំហាន NGS)
-            </h2>
+          <div class="flex items-center justify-between pb-3 border-b border-purple-200 dark:border-slate-700">
+            <!-- Left School Logo -->
+            <div class="w-16 h-16 rounded-xl bg-white p-1 border border-purple-200 shadow-sm shrink-0 flex items-center justify-center">
+              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-full h-full object-contain">
+            </div>
+
+            <!-- Kingdom & Ministry Title -->
+            <div class="text-center flex-1 px-2 space-y-1">
+              <p class="font-bold text-xs uppercase tracking-wider text-slate-500">ព្រះរាជាណាចក្រកម្ពុជា · ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+              <p class="font-bold text-xs text-purple-800 dark:text-purple-300">ក្រសួងអប់រំ យុវជន និងកីឡា · វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)</p>
+              <h2 class="text-base md:text-lg font-extrabold text-slate-900 dark:text-white pt-1">
+                កិច្ចតែងការបង្រៀនគណិតវិទ្យា (ស្តង់ដារ ៥ ជំហាន NGS)
+              </h2>
+            </div>
+
+            <!-- Right Spacer / Badge -->
+            <div class="w-16 h-16 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 flex flex-col items-center justify-center text-xs font-black shrink-0 border border-purple-200">
+              <span class="text-[10px]">ពិន្ទុ</span>
+              <span class="text-sm">៥០/៥០</span>
+            </div>
           </div>
 
           <!-- Document Info Matrix -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-1">
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600">
               <span class="block text-slate-400 font-bold">ថ្នាក់បង្រៀន៖</span>
               <strong class="text-purple-700 dark:text-purple-300 text-sm">ថ្នាក់ទី ${p.class_name}</strong>
@@ -686,15 +824,15 @@
           </div>
         </div>
 
-        <!-- Official Signatures Block -->
-        <div class="border-t-2 border-dashed border-slate-300 dark:border-slate-600 pt-5 space-y-4">
+        <!-- Official Signatures Block with safe bottom margin -->
+        <div class="border-t-2 border-dashed border-slate-300 dark:border-slate-600 pt-5 pb-4 space-y-4">
           <div class="flex justify-end text-xs font-bold text-slate-700 dark:text-slate-300">
             <span>រាជធានីភ្នំពេញ, ${p.date_khmer}</span>
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-center text-xs pt-2">
             <!-- Left: Technical Head -->
-            <div class="space-y-12">
+            <div class="space-y-10">
               <div>
                 <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងពិនិត្យ</p>
                 <p class="text-slate-500 font-bold">ប្រធានក្រុមបច្ចេកទេស</p>
@@ -703,7 +841,7 @@
             </div>
 
             <!-- Middle: Management Assistant -->
-            <div class="space-y-12">
+            <div class="space-y-10">
               <div>
                 <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងឯកភាព</p>
                 <p class="text-slate-500 font-bold">នាយករងទទួលបន្ទុក NGS / ជំនួយការគ្រប់គ្រង</p>
@@ -712,7 +850,7 @@
             </div>
 
             <!-- Right: Teacher Bonorng -->
-            <div class="space-y-12 col-span-2 md:col-span-1">
+            <div class="space-y-10 col-span-2 md:col-span-1">
               <div>
                 <p class="font-extrabold text-slate-800 dark:text-white">គ្រូបង្រៀនគណិតវិទ្យា</p>
                 <p class="text-purple-600 font-bold">វិទ្យាល័យព្រះយុគន្ធរ NGS</p>
@@ -739,6 +877,12 @@
       `;
 
       modal.classList.remove('hidden');
+    }
+
+    downloadCurrentModalPdf() {
+      if (this.currentModalPlan) {
+        this.downloadCustomPdf(this.currentModalPlan.id);
+      }
     }
 
     printCurrentPlan() {
