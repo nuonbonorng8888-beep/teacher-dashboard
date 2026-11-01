@@ -952,26 +952,26 @@ class MathGamesEngine {
     f = f.replace(/\x0crac/g, '\\frac');
     f = f.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
 
-    // 2. Eliminate stray \t and handle \theta, \times, \text
-    f = f.replace(/\\t\\text\{/g, '\\text{');
-    f = f.replace(/\\t\\theta/g, '\\theta');
-    f = f.replace(/\\t\\times/g, '\\times');
-    f = f.replace(/\\t\\tan/g, '\\tan');
-    f = f.replace(/\\t\\to/g, '\\to');
+    // 2. Eliminate stray control codes and fix malformed text macros
+    f = f.replace(/\\t\\text/g, '\\text');
+    f = f.replace(/\\t(?=ext)/g, '\\');
+    f = f.replace(/\\text\s*\(([^)]+)\)/g, '\\text{($1)}');
+    f = f.replace(/(^|[^\\])ext\{/g, '$1\\text{');
+    f = f.replace(/(^|[^\\])ext\(/g, '$1\\text{(');
     f = f.replace(/\\t(?![a-zA-Z])/g, ' ');
 
     // 3. Repair missing backslashes on standard LaTeX math macros
     const macros = [
-      'dots', 'text', 'begin', 'end', 'pmatrix', 'cdot', 'sqrt', 'overline',
+      'dots', 'cdots', 'text', 'begin', 'end', 'pmatrix', 'cdot', 'sqrt', 'overline',
       'theta', 'cos', 'sin', 'tan', 'cot', 'lim', 'frac', 'dfrac', 'int',
       'sum', 'infty', 'vec', 'times', 'pm', 'Delta', 'det', 'arg', 'pi'
     ];
     macros.forEach(m => {
-      const reg = new RegExp('(^|[^\\\\])\\b' + m + '\\b', 'g');
+      const reg = new RegExp('(^|[^\\\\a-zA-Z])' + m + '(?![a-zA-Z])', 'g');
       f = f.replace(reg, '$1\\' + m);
     });
 
-    f = f.replace(/(^|[^\\\\])\bbar([\{a-zA-Z])/g, '$1\\bar$2');
+    f = f.replace(/(^|[^\\])\bbar([\{a-zA-Z])/g, '$1\\bar$2');
 
     // 4. Strictly convert any stray Euler expressions into standard MoEYS trigonometric form
     f = f.replace(/r\s*e\^\{i\s*\\?theta\}/g, 'r(\\cos\\theta + i\\sin\\theta)');
@@ -1014,26 +1014,27 @@ class MathGamesEngine {
     if (!formula) return '';
     let trimmed = formula.trim();
 
-    // 1. If formula contains \text{Khmer ...} or (Khmer label ...)
-    const textLabelMatch = trimmed.match(/^(.*?)(?:\\text\{([^\}]+)\}|\(([^)]*[\u1780-\u17FF][^)]*)\))(.*?)$/);
+    // 1. Pure Khmer text without LaTeX math symbols
+    if (/^[\u1780-\u17FF\s0-9\(\)\,\.\+\-\=\:\/\%\–\—\?]+$/.test(trimmed) && !/[\\\$_\^\{\}]/.test(trimmed)) {
+      return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base leading-snug">${trimmed}</span>`;
+    }
+
+    // 2. If formula contains \text{Khmer label}
+    const textLabelMatch = trimmed.match(/^(.*?)\\text\{([^\}]+)\}(.*?)$/);
     if (textLabelMatch) {
-      const mathPart1 = (textLabelMatch[1] || '').trim();
-      const khmerLabel = (textLabelMatch[2] || textLabelMatch[3] || '').trim();
-      const mathPart2 = (textLabelMatch[4] || '').trim();
-      
-      const mathCombined = (mathPart1 + ' ' + mathPart2).trim();
+      const mathPrefix = (textLabelMatch[1] || '').trim();
+      const khmerLabel = (textLabelMatch[2] || '').trim();
+      const mathSuffix = (textLabelMatch[3] || '').trim();
+      const mathCombined = (mathPrefix + ' ' + mathSuffix).trim();
+
       let renderedMath = '';
       if (mathCombined && typeof katex !== 'undefined') {
         try {
-          renderedMath = katex.renderToString(this.cleanLatexFormula(mathCombined), { throwOnError: false, displayMode: false });
-          if (renderedMath.includes('class="katex-error"') || renderedMath.includes('color:#cc0000')) {
-            renderedMath = `<span class="font-mono font-bold">${mathCombined.replace(/[\$\\]/g, '')}</span>`;
-          }
+          const clean = this.cleanLatexFormula(mathCombined);
+          renderedMath = katex.renderToString(clean, { throwOnError: false, displayMode: false });
         } catch (e) {
           renderedMath = mathCombined;
         }
-      } else if (mathCombined) {
-        renderedMath = mathCombined;
       }
 
       if (renderedMath && khmerLabel) {
@@ -1046,21 +1047,13 @@ class MathGamesEngine {
       }
     }
 
-    // 2. If formula is pure Khmer text without math operators
-    if (/^[\u1780-\u17FF\s0-9\(\)\,\.\+\-\=\:\/\%]+$/.test(trimmed) && !/[\\\$_\\^]/.test(trimmed)) {
-      return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base leading-snug">${trimmed}</span>`;
-    }
-
+    // 3. Render pure LaTeX math with KaTeX
     if (typeof katex === 'undefined') return formula;
     const cleanFormula = this.cleanLatexFormula(formula);
     try {
-      const res = katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
-      if (res.includes('class="katex-error"') || res.includes('color:#cc0000')) {
-        return `<span class="font-mono text-sm md:text-base font-bold text-purple-900 dark:text-purple-100">${formula.replace(/[\$\\]/g, '')}</span>`;
-      }
-      return res;
+      return katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
     } catch (e) {
-      return formula;
+      return cleanFormula;
     }
   }
 
@@ -1751,30 +1744,8 @@ class MathGamesEngine {
       }
     }
 
-    // Guarantee: If primary pack had fewer pairs, supplement from fallback pack so card count is NEVER short
-    if (selected.length < targetPairs) {
-      const fallbackPacks = [
-        this.formulaPacks.grade7_all,
-        this.formulaPacks.grade8_all,
-        this.formulaPacks.grade9_all,
-        this.formulaPacks.grade10_all,
-        this.formulaPacks.grade11_all,
-        this.formulaPacks.grade12_all
-      ];
-      for (const fPack of fallbackPacks) {
-        if (!fPack) continue;
-        for (const p of fPack) {
-          if (!usedLefts.has(p.left) && !usedRights.has(p.right)) {
-            selected.push({ id: `supp_${p.id}`, left: p.left, right: p.right });
-            usedLefts.add(p.left);
-            usedRights.add(p.right);
-            if (selected.length === targetPairs) break;
-          }
-        }
-        if (selected.length === targetPairs) break;
-      }
-    }
-
+    // Strict Pedagogical Rule: Never cross-contaminate lessons or grades!
+    // If pack has fewer pairs than targetPairs, clamp matchPairsCount strictly to available pairs
     this.matchPairsCount = selected.length;
     this.updateMatchStatsUI();
 
