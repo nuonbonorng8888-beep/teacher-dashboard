@@ -1251,7 +1251,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 40,
     "box_y0": 129.9,
     "class_y0": 77.9,
-    "sig_page_index": 44,
+    "sig_page_index": 43,
     "sig_y0": 277.72,
     "sig_h": 155.99,
     "sig_date": "2026-10-29",

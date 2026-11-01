@@ -45,9 +45,9 @@
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v4';
+      this.storageKey = 'ngs_custom_lesson_plans_v5';
       this.savedStartDate = '2026-11-05';
-      this.savedSigDate = '2026-10-29';
+      this.savedSigDate = '2026-11-04';
       this.savedClass = '១២A';
       this.savedCadence = '2';
     }
@@ -60,7 +60,7 @@
       // Load saved settings & customizations from localStorage
       try {
         this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '2026-11-05';
-        this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-10-29';
+        this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-11-04';
         this.savedClass = localStorage.getItem('ngs_custom_class') || '១២A';
         this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2';
 
@@ -159,7 +159,7 @@
         localStorage.removeItem('ngs_custom_class');
         localStorage.removeItem('ngs_custom_cadence');
         this.savedStartDate = '2026-11-05';
-        this.savedSigDate = '2026-10-29';
+        this.savedSigDate = '2026-11-04';
         this.savedClass = '១២A';
         this.savedCadence = '2';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
@@ -212,7 +212,7 @@
       const startDateStr = dateInput ? dateInput.value : (this.savedStartDate || '2026-11-05');
       const cadenceMode = stepInput ? stepInput.value : (this.savedCadence || '2');
 
-      let selectedSigDate = sigInput ? sigInput.value : (this.savedSigDate || '2026-10-29');
+      let selectedSigDate = sigInput ? sigInput.value : (this.savedSigDate || '2026-11-04');
       if (!selectedSigDate && startDateStr) {
         const p = startDateStr.split('-');
         const sD = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10) - 7);
@@ -462,7 +462,7 @@
             sctx.fillStyle = '#000000';
             sctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
             sctx.textAlign = 'right';
-            const unifiedSigDate = formatKhmerDate(plan.sig_date || this.savedSigDate || '2026-10-29', false);
+            const unifiedSigDate = formatKhmerDate(plan.sig_date || this.savedSigDate || '2026-11-04', false);
             sctx.fillText('រាជធានីភ្នំពេញ ' + unifiedSigDate, 980, 48);
 
             const sigDatePngUrl = sigDateCanvas.toDataURL('image/png');
@@ -676,7 +676,7 @@
               <label class="block text-[11px] font-bold text-purple-700 dark:text-purple-300 mb-1">
                 ✍️ ថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម - ដូចគ្នាទាំងអស់):
               </label>
-              <input type="date" id="batchSigDate" value="${this.savedSigDate || '2026-10-29'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-300 dark:border-slate-600 bg-purple-50/50 dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500" title="កាលបរិច្ឆេទធ្វើកិច្ច ឬចុះហត្ថលេខា (១ សប្តាហ៍មុនបង្រៀន) ដូចគ្នាគ្រប់មេរៀន">
+              <input type="date" id="batchSigDate" value="${this.savedSigDate || '2026-11-04'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-300 dark:border-slate-600 bg-purple-50/50 dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500" title="កាលបរិច្ឆេទធ្វើកិច្ច ឬចុះហត្ថលេខា (១ សប្តាហ៍មុនបង្រៀន) ដូចគ្នាគ្រប់មេរៀន">
             </div>
 
             <!-- Cadence Step -->
@@ -704,7 +704,7 @@
           <!-- Helpful Instructions & Current Active Schedule Indicator -->
           <div class="mt-3 pt-2.5 border-t border-purple-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 gap-2">
             <span>💡 <strong>របៀបកំណត់៖</strong> ជ្រើសរើសថ្ងៃចាប់ផ្តើមបង្រៀន (ផ្នែកលើក្បាលកិច្ច ប្រែប្រួលតាមម៉ោងបង្រៀន) និងថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម ១ សប្តាហ៍មុនបង្រៀន ដូចគ្នាគ្រប់មេរៀន) រួចចុច <strong>«បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ»</strong>។</span>
-            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 ចាប់ផ្តើមបង្រៀន៖ ${formatKhmerDate(this.savedStartDate)} · ចុះហត្ថលេខា៖ ${formatKhmerDate(this.savedSigDate || '2026-10-29', false)}</span>` : ''}
+            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 ចាប់ផ្តើមបង្រៀន៖ ${formatKhmerDate(this.savedStartDate)} · ចុះហត្ថលេខា៖ ${formatKhmerDate(this.savedSigDate || '2026-11-04', false)}</span>` : ''}
           </div>
         </div>
 
