@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countClasses = document.getElementById('countTotalClasses');
 
     if (countObs) countObs.textContent = d.observations ? d.observations.length : 0;
-    if (countPlans) countPlans.textContent = d.lessonPlans ? d.lessonPlans.length : 0;
+    if (countPlans) countPlans.textContent = (window.NGS_LESSON_PLANS_DATA ? window.NGS_LESSON_PLANS_DATA.length : (d.lessonPlans ? d.lessonPlans.length : 37));
     if (countStudents) countStudents.textContent = d.students ? d.students.length : 36;
     if (countClasses) {
       const uniqueClasses = new Set((d.schedule || []).map(s => s.class));
@@ -641,6 +641,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ================== LESSON PLANS VIEW ================== */
   function renderLessonPlans() {
+    if (window.lessonPlansManager) {
+      window.lessonPlansManager.render();
+      return;
+    }
     const listEl = document.getElementById('lessonPlansList');
     if (!listEl) return;
     const plans = window.appStore.data.lessonPlans || [];
