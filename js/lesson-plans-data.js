@@ -44,7 +44,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 2,
     "sig_y0": 583.8,
-    "sig_h": 128.2
+    "sig_h": 128.2,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_2",
@@ -94,7 +96,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 7,
     "sig_y0": 300.7,
-    "sig_h": 198.8
+    "sig_h": 198.8,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_3",
@@ -143,7 +147,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 13,
     "sig_y0": 311.3,
-    "sig_h": 231.2
+    "sig_h": 231.2,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_4",
@@ -191,7 +197,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 19,
     "sig_y0": 366.3,
-    "sig_h": 220.0
+    "sig_h": 220.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_5",
@@ -240,7 +248,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 25,
     "sig_y0": 306.7,
-    "sig_h": 127.4
+    "sig_h": 127.4,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_6",
@@ -287,7 +297,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 32,
     "sig_y0": 303.1,
-    "sig_h": 250.0
+    "sig_h": 250.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_7",
@@ -340,7 +352,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 39,
     "sig_y0": 312.6,
-    "sig_h": 250.0
+    "sig_h": 250.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_8",
@@ -391,7 +405,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 44,
     "sig_y0": 309.9,
-    "sig_h": 250.0
+    "sig_h": 250.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_9",
@@ -444,7 +460,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 49,
     "sig_y0": 300.2,
-    "sig_h": 184.8
+    "sig_h": 184.8,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_10",
@@ -496,7 +514,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 55,
     "sig_y0": 300.5,
-    "sig_h": 181.0
+    "sig_h": 181.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_11",
@@ -549,7 +569,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 62,
     "sig_y0": 277.8,
-    "sig_h": 127.4
+    "sig_h": 127.4,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_12",
@@ -598,7 +620,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 68,
     "sig_y0": 312.3,
-    "sig_h": 127.4
+    "sig_h": 127.4,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_13",
@@ -646,7 +670,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 99.2,
     "sig_page_index": 72,
     "sig_y0": 135.3,
-    "sig_h": 90.9
+    "sig_h": 90.9,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_14",
@@ -704,7 +730,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 3,
     "sig_y0": 319.51,
-    "sig_h": 156.0
+    "sig_h": 156.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_15",
@@ -758,7 +786,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 7,
     "sig_y0": 607.27,
-    "sig_h": 155.86
+    "sig_h": 155.86,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_16",
@@ -812,7 +842,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 11,
     "sig_y0": 576.96,
-    "sig_h": 155.88
+    "sig_h": 155.88,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_17",
@@ -865,7 +897,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 15,
     "sig_y0": 628.66,
-    "sig_h": 155.88
+    "sig_h": 155.88,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_18",
@@ -917,7 +951,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 19,
     "sig_y0": 315.71,
-    "sig_h": 155.9
+    "sig_h": 155.9,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_19",
@@ -966,7 +1002,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 22,
     "sig_y0": 271.61,
-    "sig_h": 156.0
+    "sig_h": 156.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_20",
@@ -1014,7 +1052,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 26,
     "sig_y0": 334.11,
-    "sig_h": 156.0
+    "sig_h": 156.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_21",
@@ -1063,7 +1103,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 30,
     "sig_y0": 316.51,
-    "sig_h": 156.0
+    "sig_h": 156.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_22",
@@ -1111,7 +1153,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 34,
     "sig_y0": 481.14,
-    "sig_h": 155.89
+    "sig_h": 155.89,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_23",
@@ -1159,7 +1203,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 38,
     "sig_y0": 374.64,
-    "sig_h": 155.97
+    "sig_h": 155.97,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_24",
@@ -1207,7 +1253,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 44,
     "sig_y0": 277.72,
-    "sig_h": 155.99
+    "sig_h": 155.99,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_25",
@@ -1255,7 +1303,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 48,
     "sig_y0": 321.41,
-    "sig_h": 156.0
+    "sig_h": 156.0,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_26",
@@ -1303,7 +1353,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 77.9,
     "sig_page_index": 52,
     "sig_y0": 388.64,
-    "sig_h": 155.97
+    "sig_h": 155.97,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_27",
@@ -1355,7 +1407,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 4,
     "sig_y0": 179.31,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_28",
@@ -1404,7 +1458,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 14,
     "sig_y0": 248.81,
-    "sig_h": 145.8
+    "sig_h": 145.8,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_29",
@@ -1453,7 +1509,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 22,
     "sig_y0": 179.31,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_30",
@@ -1502,7 +1560,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 28,
     "sig_y0": 407.64,
-    "sig_h": 145.87
+    "sig_h": 145.87,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_31",
@@ -1549,7 +1609,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 32,
     "sig_y0": 600.96,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_32",
@@ -1598,7 +1660,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 38,
     "sig_y0": 401.94,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_33",
@@ -1649,7 +1713,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 43,
     "sig_y0": 615.16,
-    "sig_h": 145.78
+    "sig_h": 145.78,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_34",
@@ -1698,7 +1764,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 51,
     "sig_y0": 195.61,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_35",
@@ -1745,7 +1813,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 56,
     "sig_y0": 443.44,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_36",
@@ -1795,7 +1865,9 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 61,
     "sig_y0": 327.41,
-    "sig_h": 145.8
+    "sig_h": 145.8,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   },
   {
     "id": "plan_37",
@@ -1844,6 +1916,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "class_y0": 86.4,
     "sig_page_index": 67,
     "sig_y0": 371.44,
-    "sig_h": 145.77
+    "sig_h": 145.77,
+    "sig_date": "2026-10-29",
+    "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦"
   }
 ];

@@ -47,13 +47,17 @@ def generate_schedule(start_date_str, count, step_days=2):
             dt += timedelta(days=1)
     return dates
 
-def render_all_banners_html(dates_list, out_png):
+def render_all_banners_html(dates_list, out_png, sig_date_str='2026-10-29'):
     """
     Render high-res banners matching Image 2 exactly:
-    - Labels: 'Khmer OS Muol Light' (size 31.5px / 10pt)
-    - Colons (:): Perfectly aligned at 303px (x = 226.83 pt in PDF)
-    - Values: 'Khmer OS Siemreap' (size 31.5px / 10pt)
+    - Cover Labels: 'Khmer OS Muol Light' (size 31.5px / 10pt)
+    - Cover Colons (:): Perfectly aligned at 303px (x = 226.83 pt in PDF)
+    - Cover Values: 'Khmer OS Siemreap' (size 31.5px / 10pt) - sequential teaching dates
+    - Signature Date: Unified single date for all plans (1 week before start date, e.g. 29 October 2026)
     """
+    sig_dt = datetime.strptime(sig_date_str, '%Y-%m-%d')
+    sig_kd = format_khmer_date_clean(sig_dt)
+
     html = '''<!DOCTYPE html>
 <html>
 <head>
@@ -146,7 +150,7 @@ body {
             </div>
         </div>
         <div id='sig_{i}' class='sig-banner'>
-            <div class='sig-date'>រាជធានីភ្នំពេញ {kd}</div>
+            <div class='sig-date'>រាជធានីភ្នំពេញ {sig_kd}</div>
         </div>
         '''
     html += '</body></html>'
@@ -167,8 +171,8 @@ body {
     ]
     subprocess.run(cmd, capture_output=True)
 
-def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days=2):
-    print(f"=== Synchronizing NGS PDFs with Start Date: {start_date_str}, Class: {class_name} ===")
+def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days=2, sig_date_str='2026-10-29'):
+    print(f"=== Synchronizing NGS PDFs with Start Date: {start_date_str}, Sig Date: {sig_date_str}, Class: {class_name} ===")
 
     logo_img = 'scratch/yukunthor_logo.jpg'
     text_img = 'scratch/yukunthor_header_text.png'
@@ -181,7 +185,7 @@ def update_all_pdfs(start_date_str='2026-11-05', class_name='១២A', step_days
 
     all_dates = dates_ch1 + dates_ch2 + dates_ch5
     banners_png = 'scratch/all_generated_banners_clean.png'
-    render_all_banners_html(all_dates, banners_png)
+    render_all_banners_html(all_dates, banners_png, sig_date_str=sig_date_str)
     banners_im = Image.open(banners_png)
 
     def get_banners_for_index(idx):

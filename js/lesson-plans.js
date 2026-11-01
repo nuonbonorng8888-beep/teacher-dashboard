@@ -45,8 +45,9 @@
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v3';
+      this.storageKey = 'ngs_custom_lesson_plans_v4';
       this.savedStartDate = '2026-11-05';
+      this.savedSigDate = '2026-10-29';
       this.savedClass = '១២A';
       this.savedCadence = '2';
     }
@@ -59,6 +60,7 @@
       // Load saved settings & customizations from localStorage
       try {
         this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '2026-11-05';
+        this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-10-29';
         this.savedClass = localStorage.getItem('ngs_custom_class') || '១២A';
         this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2';
 
@@ -70,6 +72,10 @@
               if (customMap[p.id].date) {
                 p.date = customMap[p.id].date;
                 p.date_khmer = formatKhmerDate(p.date, true);
+              }
+              if (customMap[p.id].sig_date) {
+                p.sig_date = customMap[p.id].sig_date;
+                p.sig_date_khmer = formatKhmerDate(p.sig_date, false);
               }
               if (customMap[p.id].class_name) {
                 p.class_name = customMap[p.id].class_name;
@@ -97,11 +103,26 @@
       });
     }
 
+    onStartDateChange(val) {
+      if (!val) return;
+      this.savedStartDate = val;
+      const parts = val.split('-');
+      const dt = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10) - 7);
+      const sy = dt.getFullYear();
+      const sm = String(dt.getMonth() + 1).padStart(2, '0');
+      const sd = String(dt.getDate()).padStart(2, '0');
+      const sigInput = document.getElementById('batchSigDate');
+      if (sigInput) {
+        sigInput.value = `${sy}-${sm}-${sd}`;
+      }
+    }
+
     saveCustomizations() {
       const customMap = {};
       this.plans.forEach(p => {
         customMap[p.id] = {
           date: p.date,
+          sig_date: p.sig_date,
           class_name: p.class_name,
           teacher: p.teacher
         };
@@ -110,6 +131,9 @@
         localStorage.setItem(this.storageKey, JSON.stringify(customMap));
         if (this.savedStartDate) {
           localStorage.setItem('ngs_custom_start_date', this.savedStartDate);
+        }
+        if (this.savedSigDate) {
+          localStorage.setItem('ngs_custom_sig_date', this.savedSigDate);
         }
         if (this.savedClass) {
           localStorage.setItem('ngs_custom_class', this.savedClass);
@@ -131,9 +155,11 @@
       if (confirm('តើអ្នកពិតជាចង់កំណត់កាលបរិច្ឆេទ និងថ្នាក់ឡើងវិញទៅកាន់ទិន្នន័យដើមមែនទេ?')) {
         localStorage.removeItem(this.storageKey);
         localStorage.removeItem('ngs_custom_start_date');
+        localStorage.removeItem('ngs_custom_sig_date');
         localStorage.removeItem('ngs_custom_class');
         localStorage.removeItem('ngs_custom_cadence');
         this.savedStartDate = '2026-11-05';
+        this.savedSigDate = '2026-10-29';
         this.savedClass = '១២A';
         this.savedCadence = '2';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
@@ -179,11 +205,22 @@
     applyBatchSchedule() {
       const classInput = document.getElementById('batchClassSelect');
       const dateInput = document.getElementById('batchStartDate');
+      const sigInput = document.getElementById('batchSigDate');
       const stepInput = document.getElementById('batchStepDays');
 
       const selectedClass = classInput ? classInput.value : (this.savedClass || '១២A');
       const startDateStr = dateInput ? dateInput.value : (this.savedStartDate || '2026-11-05');
       const cadenceMode = stepInput ? stepInput.value : (this.savedCadence || '2');
+
+      let selectedSigDate = sigInput ? sigInput.value : (this.savedSigDate || '2026-10-29');
+      if (!selectedSigDate && startDateStr) {
+        const p = startDateStr.split('-');
+        const sD = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10) - 7);
+        const sy = sD.getFullYear();
+        const sm = String(sD.getMonth() + 1).padStart(2, '0');
+        const sd = String(sD.getDate()).padStart(2, '0');
+        selectedSigDate = `${sy}-${sm}-${sd}`;
+      }
 
       if (!startDateStr) {
         alert('សូមជ្រើសរើសថ្ងៃចាប់ផ្តើម!');
@@ -196,12 +233,14 @@
         return;
       }
 
-      // Save custom start date, class, and cadence into memory & localStorage
+      // Save custom start date, signature date, class, and cadence into memory & localStorage
       this.savedStartDate = startDateStr;
+      this.savedSigDate = selectedSigDate;
       this.savedClass = selectedClass;
       this.savedCadence = cadenceMode;
       try {
         localStorage.setItem('ngs_custom_start_date', startDateStr);
+        localStorage.setItem('ngs_custom_sig_date', selectedSigDate);
         localStorage.setItem('ngs_custom_class', selectedClass);
         localStorage.setItem('ngs_custom_cadence', cadenceMode);
       } catch (e) {}
@@ -221,6 +260,8 @@
         const d = String(curDate.getDate()).padStart(2, '0');
         p.date = `${y}-${m}-${d}`;
         p.date_khmer = formatKhmerDate(p.date, true);
+        p.sig_date = selectedSigDate;
+        p.sig_date_khmer = formatKhmerDate(selectedSigDate, false);
 
         // Advance date with Sunday exclusion
         if (cadenceMode === 'mon_wed_fri') {
@@ -411,7 +452,7 @@
               color: PDFLib.rgb(0, 0, 0),
             });
 
-            // 3. Render dynamic signature date via canvas (Clean without dots, bigger font)
+            // 3. Render dynamic signature date via canvas (Clean without dots, bigger font, unified submission date)
             const sigDateCanvas = document.createElement('canvas');
             sigDateCanvas.width = 1000;
             sigDateCanvas.height = 70;
@@ -421,7 +462,8 @@
             sctx.fillStyle = '#000000';
             sctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
             sctx.textAlign = 'right';
-            sctx.fillText('រាជធានីភ្នំពេញ ' + khmerDateClean, 980, 48);
+            const unifiedSigDate = formatKhmerDate(plan.sig_date || this.savedSigDate || '2026-10-29', false);
+            sctx.fillText('រាជធានីភ្នំពេញ ' + unifiedSigDate, 980, 48);
 
             const sigDatePngUrl = sigDateCanvas.toDataURL('image/png');
             const sigDatePngBytes = await fetch(sigDatePngUrl).then(res => res.arrayBuffer());
@@ -603,7 +645,7 @@
           </div>
 
           <!-- Controls Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 items-end pt-1">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end pt-1">
             <!-- Class Selector -->
             <div>
               <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
@@ -619,18 +661,28 @@
               </select>
             </div>
 
-            <!-- Start Date Picker -->
+            <!-- Start Date Picker (Cover) -->
             <div>
               <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
-                📅 ថ្ងៃចាប់ផ្តើមបង្រៀនដំបូង:
+                📅 ថ្ងៃចាប់ផ្តើមបង្រៀន (ក្បាលកិច្ច - លើ):
               </label>
-              <input type="date" id="batchStartDate" value="${this.savedStartDate || '2026-11-05'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+              <input type="date" id="batchStartDate" value="${this.savedStartDate || '2026-11-05'}"
+                onchange="window.lessonPlansManager.onStartDateChange(this.value)"
+                class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+            </div>
+
+            <!-- Signature Date Picker (Bottom - identical for all) -->
+            <div>
+              <label class="block text-[11px] font-bold text-purple-700 dark:text-purple-300 mb-1">
+                ✍️ ថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម - ដូចគ្នាទាំងអស់):
+              </label>
+              <input type="date" id="batchSigDate" value="${this.savedSigDate || '2026-10-29'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-300 dark:border-slate-600 bg-purple-50/50 dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500" title="កាលបរិច្ឆេទធ្វើកិច្ច ឬចុះហត្ថលេខា (១ សប្តាហ៍មុនបង្រៀន) ដូចគ្នាគ្រប់មេរៀន">
             </div>
 
             <!-- Cadence Step -->
             <div>
               <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
-                ⏱️ គម្លាតថ្ងៃ (Cadence):
+                ⏱️ គម្លាតថ្ងៃបង្រៀន (Cadence):
               </label>
               <select id="batchStepDays" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
                 <option value="2" ${this.savedCadence === '2' ? 'selected' : ''}>រៀងរាល់ ២ ថ្ងៃម្តង (លើកលែងថ្ងៃអាទិត្យ)</option>
@@ -651,8 +703,8 @@
 
           <!-- Helpful Instructions & Current Active Schedule Indicator -->
           <div class="mt-3 pt-2.5 border-t border-purple-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 gap-2">
-            <span>💡 <strong>របៀបកំណត់៖</strong> ជ្រើសរើសថ្ងៃចាប់ផ្តើម រួចចុច <strong>«បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ»</strong> ដើម្បីកំណត់គ្រប់មេរៀន និងចងចាំកាលវិភាគជានិច្ច (មិនត្រឡប់ទៅ ១៩ តុលា វិញឡើយ)។</span>
-            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 កាលវិភាគបច្ចុប្បន្នចាប់ផ្តើមពី៖ ${formatKhmerDate(this.savedStartDate)}</span>` : ''}
+            <span>💡 <strong>របៀបកំណត់៖</strong> ជ្រើសរើសថ្ងៃចាប់ផ្តើមបង្រៀន (ផ្នែកលើក្បាលកិច្ច ប្រែប្រួលតាមម៉ោងបង្រៀន) និងថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម ១ សប្តាហ៍មុនបង្រៀន ដូចគ្នាគ្រប់មេរៀន) រួចចុច <strong>«បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ»</strong>។</span>
+            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 ចាប់ផ្តើមបង្រៀន៖ ${formatKhmerDate(this.savedStartDate)} · ចុះហត្ថលេខា៖ ${formatKhmerDate(this.savedSigDate || '2026-10-29', false)}</span>` : ''}
           </div>
         </div>
 
