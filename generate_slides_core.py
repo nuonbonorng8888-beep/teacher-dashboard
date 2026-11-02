@@ -551,32 +551,61 @@ def create_worksheet_slide(prs, ch_title, lesson_title, ws_data):
     pbar.font.bold = True
     pbar.font.color.rgb = WHITE
     
-    # 3 Group cards
+    # Group cards (supports up to 6 groups in 2x3 grid)
     groups = ws_data.get("groups", [])
-    for i, g in enumerate(groups[:3]):
-        x = Inches(0.8 + i * 4.0)
-        card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(3.05), Inches(3.7), Inches(4.0))
+    group_colors = [BLUE_ACCENT, GREEN_EMERALD, PURPLE_CARD, AMBER_GOLD, TEAL_DEEP, RED_CRIMSON]
+    
+    is_six = len(groups) >= 6
+    for i, g in enumerate(groups[:6]):
+        if is_six:
+            row = i // 3
+            col = i % 3
+            x = Inches(0.8 + col * 4.0)
+            y = Inches(3.05 + row * 2.05)
+            w = Inches(3.7)
+            h = Inches(1.95)
+            hdr_h = Inches(0.42)
+            hdr_font = Pt(11)
+            task_y = y + Inches(0.44)
+            task_h = Inches(1.45)
+            task_font = Pt(11.5)
+            task_space = Pt(4)
+        else:
+            x = Inches(0.8 + i * 4.0)
+            y = Inches(3.05)
+            w = Inches(3.7)
+            h = Inches(4.0)
+            hdr_h = Inches(0.75)
+            hdr_font = Pt(14)
+            task_y = y + Inches(0.85)
+            task_h = Inches(3.0)
+            task_font = Pt(15)
+            task_space = Pt(14)
+            
+        color = group_colors[i % len(group_colors)]
+        
+        card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, h)
         card.fill.solid()
         card.fill.fore_color.rgb = WHITE
-        card.line.color.rgb = [BLUE_ACCENT, GREEN_EMERALD, RED_CRIMSON][i % 3]
-        card.line.width = Pt(2.5)
+        card.line.color.rgb = color
+        card.line.width = Pt(2.0)
         
         # Header banner of group card
-        g_hdr = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(3.05), Inches(3.7), Inches(0.75))
+        g_hdr = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, hdr_h)
         g_hdr.fill.solid()
-        g_hdr.fill.fore_color.rgb = [BLUE_ACCENT, GREEN_EMERALD, RED_CRIMSON][i % 3]
+        g_hdr.fill.fore_color.rgb = color
         g_hdr.line.fill.background()
         
-        tb_gh = slide.shapes.add_textbox(x, Inches(3.1), Inches(3.7), Inches(0.65))
+        tb_gh = slide.shapes.add_textbox(x, y + Inches(0.02), w, hdr_h - Inches(0.04))
         pgh = tb_gh.text_frame.paragraphs[0]
         pgh.text = g["name"]
         pgh.font.name = FONT_MUOL
-        pgh.font.size = Pt(14)
+        pgh.font.size = hdr_font
         pgh.font.color.rgb = WHITE
         pgh.alignment = PP_ALIGN.CENTER
         
-        # Task content with enlarged readable font
-        tb_gc = slide.shapes.add_textbox(x + Inches(0.2), Inches(3.9), Inches(3.3), Inches(2.3))
+        # Task content with clear readable font
+        tb_gc = slide.shapes.add_textbox(x + Inches(0.15), task_y, w - Inches(0.3), task_h)
         tf_gc = tb_gc.text_frame
         tf_gc.word_wrap = True
         
@@ -584,26 +613,10 @@ def create_worksheet_slide(prs, ch_title, lesson_title, ws_data):
             pt = tf_gc.paragraphs[0] if idx == 0 else tf_gc.add_paragraph()
             pt.text = f"{idx+1}. {task}"
             pt.font.name = FONT_BODY
-            pt.font.size = Pt(15.5)
+            pt.font.size = task_font
             pt.font.bold = True
             pt.font.color.rgb = TEXT_DARK
-            pt.space_after = Pt(14)
-            
-        # Guidance banner at card bottom filling dead whitespace
-        guide_box = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x + Inches(0.2), Inches(6.35), Inches(3.3), Inches(0.55))
-        guide_box.fill.solid()
-        guide_box.fill.fore_color.rgb = RGBColor(241, 245, 249) # Slate-100
-        guide_box.line.color.rgb = [BLUE_ACCENT, GREEN_EMERALD, RED_CRIMSON][i % 3]
-        guide_box.line.width = Pt(1.0)
-        
-        tb_guide = slide.shapes.add_textbox(x + Inches(0.2), Inches(6.38), Inches(3.3), Inches(0.48))
-        pguide = tb_guide.text_frame.paragraphs[0]
-        pguide.text = "✍️ សរសេរដំណោះស្រាយលើក្ដារខៀនក្រុម"
-        pguide.font.name = FONT_BODY
-        pguide.font.size = Pt(11.5)
-        pguide.font.bold = True
-        pguide.font.color.rgb = TEXT_MUTED
-        pguide.alignment = PP_ALIGN.CENTER
+            pt.space_after = task_space
             
     return slide
 
