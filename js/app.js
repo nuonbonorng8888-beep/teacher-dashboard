@@ -333,45 +333,273 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.showNotification = showNotification;
 
-  /* ================== LUCKY WHEEL MODAL ================== */
+  /* ================== LUCKY WHEEL & NUMBER SPINNER MODAL ================== */
   const wheelModal = document.getElementById('wheelModal');
   const btnOpenWheel = document.getElementById('btnOpenWheel');
   const btnCloseWheel = document.getElementById('btnCloseWheel');
   const btnTriggerSpin = document.getElementById('btnTriggerSpin');
   const wheelWinnerBox = document.getElementById('wheelWinnerBox');
   const wheelWinnerText = document.getElementById('wheelWinnerText');
+  const wheelWinnerNote = document.getElementById('wheelWinnerNote');
+  const wheelHistoryContainer = document.getElementById('wheelHistoryContainer');
+  const wheelHistoryList = document.getElementById('wheelHistoryList');
+  const wheelRemainingBadge = document.getElementById('wheelRemainingBadge');
+  const btnResetWheelPool = document.getElementById('btnResetWheelPool');
+  const wheelEliminationMode = document.getElementById('wheelEliminationMode');
+
+  // Tabs & Panels
+  const wheelTabNumbers = document.getElementById('wheelTabNumbers');
+  const wheelTabStudents = document.getElementById('wheelTabStudents');
+  const wheelTabCustom = document.getElementById('wheelTabCustom');
+  const wheelPanelNumbers = document.getElementById('wheelPanelNumbers');
+  const wheelPanelStudents = document.getElementById('wheelPanelStudents');
+  const wheelPanelCustom = document.getElementById('wheelPanelCustom');
+
+  // Number Controls
+  const wheelNumMin = document.getElementById('wheelNumMin');
+  const wheelNumMax = document.getElementById('wheelNumMax');
+  const wheelNumPrefix = document.getElementById('wheelNumPrefix');
+  const btnApplyNumRange = document.getElementById('btnApplyNumRange');
+
+  // Student Controls
+  const wheelGradeSelect = document.getElementById('wheelGradeSelect');
+  const wheelStudentCountBadge = document.getElementById('wheelStudentCountBadge');
+
+  // Custom Controls
+  const wheelCustomInput = document.getElementById('wheelCustomInput');
+  const btnApplyCustomList = document.getElementById('btnApplyCustomList');
+
+  let wheelMode = 'numbers'; // 'numbers' | 'students' | 'custom'
+  let wheelItems = []; // current available pool
+  let wheelOriginalPool = []; // full set for reset
+  let wheelHistory = []; // array of picked items
+
+  function getNumberList() {
+    const minVal = parseInt(wheelNumMin?.value || '1', 10);
+    const maxVal = parseInt(wheelNumMax?.value || '36', 10);
+    const prefix = wheelNumPrefix?.value || 'num';
+    const from = Math.min(minVal, maxVal);
+    const to = Math.max(minVal, maxVal);
+    const list = [];
+    for (let i = from; i <= to; i++) {
+      if (prefix === 'num') list.push(`លេខ ${i}`);
+      else if (prefix === 'student') list.push(`សិស្សលេខ ${i}`);
+      else if (prefix === 'group') list.push(`ក្រុមទី ${i}`);
+      else list.push(String(i));
+    }
+    return list;
+  }
+
+  function getStudentList() {
+    const grade = wheelGradeSelect?.value || 'all';
+    const all = window.appStore?.data?.students || [];
+    const filtered = (grade === 'all') ? all : all.filter(s => s.grade === grade);
+    if (wheelStudentCountBadge) {
+      wheelStudentCountBadge.textContent = `សិស្ស ${filtered.length} នាក់`;
+    }
+    return filtered.map(s => s.name);
+  }
+
+  function getCustomList() {
+    const raw = wheelCustomInput?.value || '';
+    return raw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+  }
+
+  function updateWheelRemaining() {
+    if (wheelRemainingBadge) {
+      wheelRemainingBadge.textContent = `នៅសល់៖ ${wheelItems.length} / ${wheelOriginalPool.length}`;
+    }
+  }
+
+  function updateWheelHistoryUI() {
+    if (!wheelHistoryContainer || !wheelHistoryList) return;
+    if (wheelHistory.length === 0) {
+      wheelHistoryContainer.classList.add('hidden');
+      wheelHistoryList.innerHTML = '';
+    } else {
+      wheelHistoryContainer.classList.remove('hidden');
+      wheelHistoryList.innerHTML = wheelHistory.map((item, idx) => `
+        <span class="inline-block px-2 py-0.5 mr-1.5 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 font-bold text-[11px]">
+          #${idx + 1}: ${item}
+        </span>
+      `).join('');
+    }
+  }
+
+  function resetWheelPool(fullReset = true) {
+    if (wheelMode === 'numbers') {
+      wheelOriginalPool = getNumberList();
+    } else if (wheelMode === 'students') {
+      wheelOriginalPool = getStudentList();
+    } else {
+      wheelOriginalPool = getCustomList();
+    }
+
+    if (fullReset) {
+      wheelItems = [...wheelOriginalPool];
+      wheelHistory = [];
+      updateWheelHistoryUI();
+    }
+
+    if (wheelWinnerBox) wheelWinnerBox.classList.add('hidden');
+    updateWheelRemaining();
+    window.classroomTools.drawWheel('wheelCanvas', wheelItems);
+  }
+
+  function setWheelMode(mode) {
+    wheelMode = mode;
+
+    // Update Tab Styles
+    const tabs = [
+      { id: 'numbers', btn: wheelTabNumbers, panel: wheelPanelNumbers },
+      { id: 'students', btn: wheelTabStudents, panel: wheelPanelStudents },
+      { id: 'custom', btn: wheelTabCustom, panel: wheelPanelCustom }
+    ];
+
+    tabs.forEach(t => {
+      if (t.id === mode) {
+        t.btn?.classList.add('bg-white', 'dark:bg-slate-800', 'text-purple-700', 'dark:text-purple-300', 'shadow-sm');
+        t.btn?.classList.remove('text-slate-600', 'dark:text-slate-400');
+        t.panel?.classList.remove('hidden');
+      } else {
+        t.btn?.classList.remove('bg-white', 'dark:bg-slate-800', 'text-purple-700', 'dark:text-purple-300', 'shadow-sm');
+        t.btn?.classList.add('text-slate-600', 'dark:text-slate-400');
+        t.panel?.classList.add('hidden');
+      }
+    });
+
+    resetWheelPool(true);
+  }
 
   function openWheelModal() {
     if (!wheelModal) return;
     wheelModal.classList.remove('hidden');
-    const names = (window.appStore.data.students || []).map(s => s.name);
-    window.classroomTools.drawWheel('wheelCanvas', names);
+    document.body.classList.add('overflow-hidden');
+
+    // Default to numbers 1 to 36
+    if (wheelItems.length === 0) {
+      resetWheelPool(true);
+    } else {
+      window.classroomTools.drawWheel('wheelCanvas', wheelItems);
+    }
     if (wheelWinnerBox) wheelWinnerBox.classList.add('hidden');
   }
 
-  if (btnOpenWheel) btnOpenWheel.addEventListener('click', openWheelModal);
-  if (btnCloseWheel) btnCloseWheel.addEventListener('click', () => wheelModal.classList.add('hidden'));
+  function closeWheelModal() {
+    if (!wheelModal) return;
+    wheelModal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
 
+  // Attach Open / Close
+  if (btnOpenWheel) btnOpenWheel.addEventListener('click', openWheelModal);
+  if (btnCloseWheel) btnCloseWheel.addEventListener('click', closeWheelModal);
+
+  // Mode Tabs
+  if (wheelTabNumbers) wheelTabNumbers.addEventListener('click', () => setWheelMode('numbers'));
+  if (wheelTabStudents) wheelTabStudents.addEventListener('click', () => setWheelMode('students'));
+  if (wheelTabCustom) wheelTabCustom.addEventListener('click', () => setWheelMode('custom'));
+
+  // Quick Preset Buttons (1-36, 1-40, 1-50, 1-99, 1-6)
+  document.querySelectorAll('.wheel-preset-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const minVal = parseInt(btn.getAttribute('data-min') || '1', 10);
+      const maxVal = parseInt(btn.getAttribute('data-max') || '36', 10);
+      if (wheelNumMin) wheelNumMin.value = minVal;
+      if (wheelNumMax) wheelNumMax.value = maxVal;
+
+      // Highlight active preset button
+      document.querySelectorAll('.wheel-preset-btn').forEach(b => {
+        b.className = "wheel-preset-btn px-2.5 py-1 rounded-xl text-xs font-bold transition bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50";
+      });
+      if (maxVal === 99) {
+        btn.className = "wheel-preset-btn px-2.5 py-1 rounded-xl text-xs font-bold transition bg-amber-500 text-white shadow-sm";
+      } else {
+        btn.className = "wheel-preset-btn px-2.5 py-1 rounded-xl text-xs font-bold transition bg-purple-600 text-white shadow-sm";
+      }
+
+      resetWheelPool(true);
+    });
+  });
+
+  // Apply range changes
+  if (btnApplyNumRange) btnApplyNumRange.addEventListener('click', () => resetWheelPool(true));
+  if (wheelNumPrefix) wheelNumPrefix.addEventListener('change', () => resetWheelPool(true));
+
+  // Student Grade dropdown
+  if (wheelGradeSelect) wheelGradeSelect.addEventListener('change', () => resetWheelPool(true));
+
+  // Custom List load
+  if (btnApplyCustomList) btnApplyCustomList.addEventListener('click', () => resetWheelPool(true));
+
+  // Reset Pool button
+  if (btnResetWheelPool) btnResetWheelPool.addEventListener('click', () => {
+    resetWheelPool(true);
+    if (typeof showToast === 'function') {
+      showToast('បានកំណត់បញ្ជីឡើងវិញពេញលេញ!', 'success');
+    }
+  });
+
+  // Trigger Spin
   if (btnTriggerSpin) {
     btnTriggerSpin.addEventListener('click', () => {
-      const names = (window.appStore.data.students || []).map(s => s.name);
-      if (names.length === 0) {
+      if (wheelItems.length === 0) {
         window.showStandardDialog({
-          title: 'មិនទាន់មានសិស្ស',
-          text: 'សូមបញ្ចូលបញ្ជីឈ្មោះសិស្សជាមុនសិន!',
-          icon: 'warning'
+          title: 'បញ្ជីទទេ!',
+          text: 'លេខ ឬឈ្មោះទាំងអស់ត្រូវបានហៅអស់ហើយ! សូមចុចប៊ូតុង Reset ដើម្បីបង្វិលឡើងវិញ។',
+          icon: 'warning',
+          confirmText: 'កំណត់ឡើងវិញ (Reset)',
+          onConfirm: () => resetWheelPool(true)
         });
         return;
       }
+
+      if (window.classroomTools.wheelSpinning) return;
+
       if (wheelWinnerBox) wheelWinnerBox.classList.add('hidden');
-      window.classroomTools.spinWheel('wheelCanvas', names, (winner) => {
+      btnTriggerSpin.disabled = true;
+      btnTriggerSpin.classList.add('opacity-75', 'cursor-not-allowed');
+
+      window.classroomTools.spinWheel('wheelCanvas', wheelItems, (winner, idx) => {
+        btnTriggerSpin.disabled = false;
+        btnTriggerSpin.classList.remove('opacity-75', 'cursor-not-allowed');
+
         if (wheelWinnerBox && wheelWinnerText) {
           wheelWinnerText.textContent = winner;
+          if (wheelWinnerNote) {
+            const isElim = wheelEliminationMode && wheelEliminationMode.checked;
+            wheelWinnerNote.textContent = isElim ? `(បានដកចេញពីកងវិល មិនហៅជាន់ទៀតឡើយ)` : `(ស្ថិតក្នុងកងវិលនៅឡើយ)`;
+          }
           wheelWinnerBox.classList.remove('hidden');
+        }
+
+        // Add to history
+        wheelHistory.push(winner);
+        updateWheelHistoryUI();
+
+        // Check Elimination mode
+        if (wheelEliminationMode && wheelEliminationMode.checked) {
+          wheelItems.splice(idx, 1);
+          updateWheelRemaining();
+          // Redraw with remaining items after short delay
+          setTimeout(() => {
+            window.classroomTools.drawWheel('wheelCanvas', wheelItems);
+          }, 1200);
         }
       });
     });
   }
+
+  // Keyboard shortcut: Esc closes wheelModal, Space triggers spin
+  window.addEventListener('keydown', (e) => {
+    if (!wheelModal || wheelModal.classList.contains('hidden')) return;
+    if (e.key === 'Escape') {
+      closeWheelModal();
+    } else if (e.key === ' ' && document.activeElement !== wheelCustomInput && document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault();
+      btnTriggerSpin?.click();
+    }
+  });
 
   /* ================== CLASSROOM TIMER MODAL ================== */
   const timerModal = document.getElementById('timerModal');

@@ -128,8 +128,8 @@ class ClassroomTools {
     });
   }
 
-  /* ================== LUCKY WHEEL ================== */
-  drawWheel(canvasId, names) {
+  /* ================== LUCKY WHEEL & NUMBER SPINNER ================== */
+  drawWheel(canvasId, items = []) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -138,15 +138,34 @@ class ClassroomTools {
     const centerX = width / 2;
     const centerY = height / 2;
     const radius = centerX - 10;
-    const count = names.length;
-    if (count === 0) return;
+    const count = items.length;
 
     ctx.clearRect(0, 0, width, height);
+
+    if (count === 0) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = '#f8fafc';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.stroke();
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = 'bold 14px "Kantumruy Pro", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('គ្មានទិន្នន័យ (Empty Pool)', centerX, centerY);
+      ctx.restore();
+      return;
+    }
 
     const colors = [
       '#7C3AED', '#EC4899', '#3B82F6', '#10B981', 
       '#F59E0B', '#8B5CF6', '#06B6D4', '#EF4444',
-      '#6366F1', '#14B8A6', '#F97316', '#84CC16'
+      '#6366F1', '#14B8A6', '#F97316', '#84CC16',
+      '#D946EF', '#0EA5E9', '#EAB308', '#22C55E'
     ];
 
     const sliceAngle = (2 * Math.PI) / count;
@@ -154,6 +173,24 @@ class ClassroomTools {
     ctx.save();
     ctx.translate(centerX, centerY);
     ctx.rotate(this.currentRotation);
+
+    // Dynamic typography & spacing based on slice density (handles 1 to 99+ numbers smoothly)
+    let fontSize = 13;
+    let textOffset = 18;
+    let strokeWidth = 2;
+    if (count > 60) {
+      fontSize = 8.5;
+      textOffset = 6;
+      strokeWidth = 0.5;
+    } else if (count > 40) {
+      fontSize = 9.5;
+      textOffset = 10;
+      strokeWidth = 0.8;
+    } else if (count > 25) {
+      fontSize = 11;
+      textOffset = 14;
+      strokeWidth = 1.2;
+    }
 
     for (let i = 0; i < count; i++) {
       const angle = i * sliceAngle;
@@ -163,26 +200,37 @@ class ClassroomTools {
       ctx.arc(0, 0, radius, angle, angle + sliceAngle);
       ctx.closePath();
       ctx.fill();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = strokeWidth;
       ctx.strokeStyle = '#ffffff';
       ctx.stroke();
 
-      // Text label
+      // Text label along radius
       ctx.save();
       ctx.rotate(angle + sliceAngle / 2);
       ctx.textAlign = 'right';
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 13px "Kantumruy Pro", sans-serif';
-      ctx.shadowColor = 'rgba(0,0,0,0.4)';
-      ctx.shadowBlur = 3;
-      const displayName = names[i].length > 14 ? names[i].substring(0, 12) + '...' : names[i];
-      ctx.fillText(displayName, radius - 18, 5);
+      ctx.font = `bold ${fontSize}px "Kantumruy Pro", "Battambang", sans-serif`;
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
+      ctx.shadowBlur = count > 50 ? 1 : 2;
+
+      const strItem = String(items[i]);
+      const maxLen = count > 50 ? 8 : (count > 25 ? 12 : 16);
+      const displayName = strItem.length > maxLen ? strItem.substring(0, maxLen - 2) + '..' : strItem;
+      ctx.fillText(displayName, radius - textOffset, fontSize / 3);
       ctx.restore();
     }
 
-    // Center hub
+    // Outer rim border
     ctx.beginPath();
-    ctx.arc(0, 0, 24, 0, 2 * Math.PI);
+    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#ffffff';
+    ctx.stroke();
+
+    // Center hub
+    const hubR = count > 50 ? 20 : 25;
+    ctx.beginPath();
+    ctx.arc(0, 0, hubR, 0, 2 * Math.PI);
     ctx.fillStyle = '#ffffff';
     ctx.fill();
     ctx.lineWidth = 4;
@@ -190,23 +238,30 @@ class ClassroomTools {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+    ctx.arc(0, 0, hubR - 8, 0, 2 * Math.PI);
     ctx.fillStyle = '#7C3AED';
     ctx.fill();
+
+    // Center text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold ${count > 50 ? 8 : 10}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('SPIN', 0, 0);
 
     ctx.restore();
   }
 
-  spinWheel(canvasId, names, onWinner) {
-    if (this.wheelSpinning || names.length === 0) return;
+  spinWheel(canvasId, items = [], onWinner) {
+    if (this.wheelSpinning || items.length === 0) return;
     this.wheelSpinning = true;
 
     // Pick random target
-    const count = names.length;
+    const count = items.length;
     const sliceAngle = (2 * Math.PI) / count;
     const winningIndex = Math.floor(Math.random() * count);
     
-    // Pointer is at the top (angle -Math.PI / 2 or 3*PI/2)
+    // Pointer is at the top (angle -Math.PI / 2 or 1.5 * Math.PI)
     // We want slice winningIndex to align with pointer at end
     const fullRotations = (5 + Math.floor(Math.random() * 4)) * 2 * Math.PI;
     const targetSliceAngle = winningIndex * sliceAngle + sliceAngle / 2;
@@ -227,7 +282,7 @@ class ClassroomTools {
       const ease = 1 - Math.pow(1 - progress, 3);
       
       this.currentRotation = startRotation + totalRotation * ease;
-      this.drawWheel(canvasId, names);
+      this.drawWheel(canvasId, items);
 
       // Play tick sound when passing each slice
       if (Math.abs(this.currentRotation - lastTickAngle) > sliceAngle) {
@@ -239,12 +294,12 @@ class ClassroomTools {
         requestAnimationFrame(animate);
       } else {
         this.wheelSpinning = false;
-        const winner = names[winningIndex];
+        const winner = items[winningIndex];
         this.playVictoryTone();
         if (typeof confetti === 'function') {
           confetti({
-            particleCount: 100,
-            spread: 70,
+            particleCount: 120,
+            spread: 80,
             origin: { y: 0.6 }
           });
         }
