@@ -64,12 +64,7 @@
         #slidePresenterModal .katex-display > .katex {
           font-size: 1em;
         }
-        /* High-definition, crisp SVG radicals for projectors and screens (prevents severed or faint vinculum) */
-        #slidePresenterModal .katex .sqrt svg path {
-          stroke: currentColor !important;
-          stroke-width: 28px !important;
-          vector-effect: non-scaling-stroke;
-        }
+
         /* Projector MCQ Math & Typography Scaling */
         #slidePresenterModal .mcq-choice-text .katex {
           font-size: 1.5em;
