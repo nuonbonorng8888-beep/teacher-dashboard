@@ -4,17 +4,20 @@
  * Preah Yukunthor High School • New Generation School (NGS)
  * Teacher: Nuon Bonorng
  * 
- * Version 5.8:
- * - Two-Tier Hierarchical Navigation (ញែកតាមកម្រិតថ្នាក់):
+ * Version 5.9 (Massive Projector Scale & Space Optimization):
+ * - Massive Typography & Formulas:
+ *   - Specially enlarged fonts and KaTeX math formulas (text-2xl to text-5xl) so students in back rows can easily read on projectors
+ *   - Auto-injected projector KaTeX style scaling fractions, roots, and display formulas
+ *   - Fully utilizes canvas space: generous padding, wide cards, balanced flex distribution, eliminating awkward empty gaps
+ * - Two-Tier Hierarchical Grade Navigation (ញែកតាមកម្រិតថ្នាក់):
  *   1. Grade Level Selector (ថ្នាក់ទី ១២, ១១, ១០, ៩, ៨, ៧, និង ស្លាយគំរូ NGS)
  *   2. Inside Grade: Chapter & Lesson Selection with full interactive cards (Grade 12) or Official MoEYS/NGS Syllabus Outlines (Grades 7 to 11)
  * - Authentic NGS Slide Template Layouts:
- *   1. authentic_split: Top dark blue banner with Yukunthor logo, problem search card, method pill badge, 2-column KaTeX derivation + vertical flowchart cards with downward operation arrows
- *   2. section_cover: Left vertical dark blue stripe, red circle section number, large title, key concept callout, stacked color bar chart diagram for S_n vs S_{n-1}
+ *   1. authentic_split: Top dark blue banner with Yukunthor logo, problem search card, method pill badge, 2-column large KaTeX derivation + vertical flowchart cards with downward operation arrows
+ *   2. section_cover: Left vertical dark blue stripe, red circle section number, large title, key concept callout, large stacked color bar chart diagram for S_n vs S_{n-1}
  *   3. practice: Classroom interactive "Your Turn" practice problems with a toggle button to reveal/hide step-by-step solutions
- * - Massive Projector Typography: text-2xl to text-5xl optimized for classroom screens and back-row students
- * - Pure KaTeX Auto-Render for all mathematical formulas
- * - Seamless Presentation Controls: arrows, Space, PageUp/Down, direct jump input, fullscreen (F), Esc
+ *   4. mcq: 2x2 large cards filling the screen with bold choices and instant feedback
+ *   5. worksheet: 6-group balanced cards with distinct colors, clean large fonts, and no wasted whitespace
  */
 
 (function () {
@@ -35,8 +38,38 @@
     }
 
     init() {
+      this.injectProjectorStyles();
       this.bindGlobalKeyboard();
       this.render();
+    }
+
+    injectProjectorStyles() {
+      if (document.getElementById('projectorPresenterStyles')) return;
+      const style = document.createElement('style');
+      style.id = 'projectorPresenterStyles';
+      style.innerHTML = `
+        /* Projector KaTeX Math Scaling */
+        #slidePresenterModal .katex {
+          font-size: 1.35em !important;
+          line-height: 1.35 !important;
+        }
+        #slidePresenterModal .katex-display {
+          font-size: 1.65em !important;
+          margin: 1.25rem 0 !important;
+          overflow-x: auto;
+          overflow-y: hidden;
+        }
+        #slidePresenterModal .katex-display > .katex {
+          font-size: 1em !important;
+        }
+        #slidePresenterModal .katex .mfrac .vlist-t {
+          font-size: 1.1em !important;
+        }
+        #slidePresenterModal .katex .sqrt {
+          font-size: 1.1em !important;
+        }
+      `;
+      document.head.appendChild(style);
     }
 
     bindGlobalKeyboard() {
@@ -104,7 +137,6 @@
 
     getGrade12Lessons() {
       return this.lessons.filter(l => {
-        // Only Grade 12 or template
         const isG12 = l.grade && (l.grade.includes('១២') || l.grade.includes('12'));
         const isTpl = l.is_template === true;
         if (!isG12 && !isTpl) return false;
@@ -544,7 +576,7 @@
     }
 
     // =========================================================================
-    // SLIDE PRESENTER ENGINE (Enlarged Projector Typography)
+    // SLIDE PRESENTER ENGINE (Massive Projector Typography)
     // =========================================================================
 
     openPresenter(lessonId) {
@@ -649,74 +681,74 @@
       if (document.getElementById('slideStageContainer')) return;
 
       modal.innerHTML = `
-        <div id="slideStageContainer" class="w-full max-w-[1560px] h-[96vh] flex flex-col bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-700/80 mx-auto my-auto transition-all">
+        <div id="slideStageContainer" class="w-full max-w-[1720px] h-[98vh] flex flex-col bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-700/80 mx-auto my-auto transition-all">
           <!-- Presenter Top Bar -->
-          <div class="px-5 py-3 bg-slate-950 flex items-center justify-between text-xs text-slate-300 border-b border-slate-800 shrink-0">
+          <div class="px-6 py-3.5 bg-slate-950 flex items-center justify-between text-xs text-slate-300 border-b border-slate-800 shrink-0">
             <div class="flex items-center gap-3">
-              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-10 h-10 rounded-xl border border-amber-400 object-contain bg-white">
+              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-11 h-11 rounded-xl border-2 border-amber-400 object-contain bg-white shadow-sm">
               <div class="flex flex-col">
-                <span id="slideTopTitle" class="font-bold text-white text-sm sm:text-base font-suwannaphum truncate max-w-xs sm:max-w-md lg:max-w-xl">
+                <span id="slideTopTitle" class="font-bold text-white text-base sm:text-lg font-suwannaphum truncate max-w-xs sm:max-w-md lg:max-w-xl">
                   មេរៀនគណិតវិទ្យា
                 </span>
-                <span class="text-[11px] text-slate-400 font-battambang">វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី • លោកគ្រូ នួន បូណង</span>
+                <span class="text-xs text-slate-400 font-battambang">វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី • លោកគ្រូ នួន បូណង</span>
               </div>
             </div>
 
             <!-- Center Slide Indicator & Direct Jump Input -->
-            <div class="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-2xl border border-slate-800">
-              <span class="text-xs text-slate-400 font-battambang">ស្លាយទី</span>
+            <div class="flex items-center gap-2 bg-slate-900 px-4 py-1.5 rounded-2xl border border-slate-800 shadow-inner">
+              <span class="text-xs sm:text-sm text-slate-400 font-battambang">ស្លាយទី</span>
               <input id="slideJumpInput" type="number" min="1" max="50" value="1"
-                class="w-14 text-center py-0.5 px-1 bg-slate-800 border border-slate-700 text-amber-400 font-bold text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 font-mono"
+                class="w-16 text-center py-1 px-1 bg-slate-800 border border-slate-700 text-amber-400 font-black text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 font-mono shadow-sm"
                 title="វាយលេខស្លាយ រួចចុច Enter ដើម្បីលោតទៅកាន់ស្លាយនោះ">
-              <span id="slideTotalBadge" class="text-xs text-slate-400 font-battambang">នៃ 39</span>
+              <span id="slideTotalBadge" class="text-xs sm:text-sm text-slate-400 font-battambang">នៃ 39</span>
             </div>
 
             <!-- Right Controls -->
-            <div class="flex items-center gap-2">
-              <a id="slidePptxDownloadBtn" href="#" download="" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-1.5 text-xs shadow" title="ទាញយក PowerPoint (.pptx)">
+            <div class="flex items-center gap-2.5">
+              <a id="slidePptxDownloadBtn" href="#" download="" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-1.5 text-xs sm:text-sm shadow" title="ទាញយក PowerPoint (.pptx)">
                 <i class="fa-solid fa-download"></i> PPTX
               </a>
-              <button onclick="window.teachingSlidesManager.toggleFullScreen()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="ពេញអេក្រង់ (F)">
-                <i class="fa-solid fa-expand text-sm"></i>
+              <button onclick="window.teachingSlidesManager.toggleFullScreen()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="ពេញអេក្រង់ (F)">
+                <i class="fa-solid fa-expand text-base"></i>
               </button>
-              <button onclick="window.teachingSlidesManager.closePresenter()" class="p-2 rounded-xl bg-rose-900/60 hover:bg-rose-700 text-rose-200 hover:text-white transition" title="បិទ (Esc)">
-                <i class="fa-solid fa-xmark text-sm"></i>
+              <button onclick="window.teachingSlidesManager.closePresenter()" class="p-2.5 rounded-xl bg-rose-900/60 hover:bg-rose-700 text-rose-200 hover:text-white transition" title="បិទ (Esc)">
+                <i class="fa-solid fa-xmark text-base"></i>
               </button>
             </div>
           </div>
 
-          <!-- Slide Content Area (Generous space & Massive Projector Typography) -->
-          <div id="slideContentArea" class="flex-1 bg-white dark:bg-slate-900 overflow-y-auto relative p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+          <!-- Slide Content Area (Canvas: Generous space & Massive Projector Typography) -->
+          <div id="slideContentArea" class="flex-1 bg-white dark:bg-slate-900 overflow-y-auto relative p-6 sm:p-10 lg:p-12 flex flex-col justify-between">
             <!-- Rendered dynamically -->
           </div>
 
           <!-- Presenter Bottom Navigation Bar -->
-          <div class="px-5 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between gap-3 shrink-0">
+          <div class="px-6 py-3 bg-slate-950 border-t border-slate-800 flex items-center justify-between gap-4 shrink-0">
             <!-- Left Prev Buttons -->
             <div class="flex items-center gap-2">
               <button onclick="window.teachingSlidesManager.stepSlides(-5)"
-                class="px-3 py-2 rounded-xl font-bold text-xs transition bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95" title="ថយក្រោយ ៥ ស្លាយ">
+                class="px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95 shadow-sm" title="ថយក្រោយ ៥ ស្លាយ">
                 -5
               </button>
               <button id="slidePrevBtn" onclick="window.teachingSlidesManager.prevSlide()"
-                class="px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-purple-600 text-white shadow-md active:scale-95">
+                class="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-purple-600 text-white shadow-md active:scale-95">
                 <i class="fa-solid fa-chevron-left"></i> ថយក្រោយ
               </button>
             </div>
 
             <!-- Slide Dots / Thumbnails (Scrollable with active centered) -->
-            <div id="slideDotsContainer" class="flex items-center gap-1.5 overflow-x-auto max-w-xl sm:max-w-2xl py-1 px-2 scrollbar-thin scroll-smooth">
+            <div id="slideDotsContainer" class="flex items-center gap-1.5 overflow-x-auto max-w-xl sm:max-w-3xl py-1 px-2 scrollbar-thin scroll-smooth">
               <!-- Rendered dynamically -->
             </div>
 
             <!-- Right Next Buttons -->
             <div class="flex items-center gap-2">
               <button id="slideNextBtn" onclick="window.teachingSlidesManager.nextSlide()"
-                class="px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-purple-600 text-white shadow-md active:scale-95">
+                class="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-purple-600 text-white shadow-md active:scale-95">
                 បន្ទាប់ <i class="fa-solid fa-chevron-right"></i>
               </button>
               <button onclick="window.teachingSlidesManager.stepSlides(5)"
-                class="px-3 py-2 rounded-xl font-bold text-xs transition bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95" title="ទៅមុខ ៥ ស្លាយ">
+                class="px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95 shadow-sm" title="ទៅមុខ ៥ ស្លាយ">
                 +5
               </button>
             </div>
@@ -768,10 +800,10 @@
       if (prevBtn) {
         if (idx === 0) {
           prevBtn.disabled = true;
-          prevBtn.className = "px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-slate-800 text-slate-500 cursor-not-allowed";
+          prevBtn.className = "px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-slate-800 text-slate-500 cursor-not-allowed";
         } else {
           prevBtn.disabled = false;
-          prevBtn.className = "px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-purple-600 hover:bg-purple-500 text-white shadow-md active:scale-95";
+          prevBtn.className = "px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-purple-600 hover:bg-purple-500 text-white shadow-md active:scale-95";
         }
       }
 
@@ -780,10 +812,10 @@
       if (nextBtn) {
         if (idx === total - 1) {
           nextBtn.disabled = true;
-          nextBtn.className = "px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-slate-800 text-slate-500 cursor-not-allowed";
+          nextBtn.className = "px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-slate-800 text-slate-500 cursor-not-allowed";
         } else {
           nextBtn.disabled = false;
-          nextBtn.className = "px-5 py-2 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition bg-purple-600 hover:bg-purple-500 text-white shadow-md active:scale-95";
+          nextBtn.className = "px-6 py-2.5 rounded-xl font-bold text-xs sm:text-base flex items-center gap-2 transition bg-purple-600 hover:bg-purple-500 text-white shadow-md active:scale-95";
         }
       }
 
@@ -792,7 +824,7 @@
       if (dots) {
         dots.innerHTML = Array.from({ length: total }).map((_, i) => `
           <button id="slideDot_${i}" onclick="window.teachingSlidesManager.goToSlide(${i})"
-            class="min-w-[28px] h-7 px-1.5 rounded-lg text-xs font-bold transition shrink-0 ${i === idx ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300 scale-110 shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
+            class="min-w-[32px] h-8 px-2 rounded-xl text-xs sm:text-sm font-bold transition shrink-0 ${i === idx ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300 scale-110 shadow-md' : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'}">
             ${i + 1}
           </button>
         `).join('');
@@ -815,7 +847,7 @@
 
       return `
         <div class="p-8 text-center text-slate-400">
-          <p class="text-2xl font-bold font-suwannaphum text-white">ស្លាយទី ${slideIdx + 1}</p>
+          <p class="text-3xl font-bold font-suwannaphum text-white">ស្លាយទី ${slideIdx + 1}</p>
         </div>
       `;
     }
@@ -828,13 +860,13 @@
 
       // Standard Massive Header for every slide
       const headerHtml = `
-        <div class="mb-4 sm:mb-6">
+        <div class="mb-6 sm:mb-8 shrink-0">
           <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
-            <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
+            <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang shadow-xs">
               ${badge}
             </span>
             ${slide.timer ? `
-              <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-amber-500/20 text-amber-400 border border-amber-500/40 font-mono flex items-center gap-1.5">
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-black bg-amber-500/20 text-amber-400 border border-amber-500/40 font-mono flex items-center gap-1.5 shadow-xs">
                 <i class="fa-regular fa-clock"></i> ${slide.timer}
               </span>
             ` : ''}
@@ -843,7 +875,7 @@
             ${title}
           </h2>
           ${subtitle ? `
-            <p class="text-base sm:text-lg lg:text-xl text-purple-600 dark:text-purple-300 font-battambang font-medium mt-1">
+            <p class="text-lg sm:text-xl lg:text-2xl text-purple-600 dark:text-purple-300 font-battambang font-medium mt-1.5">
               ${subtitle}
             </p>
           ` : ''}
@@ -868,15 +900,15 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto flex-1 items-center">
                 ${(slide.cards || []).map(c => `
-                  <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-purple-200 dark:border-purple-800 shadow-md">
-                    <h3 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-700 dark:text-purple-300 mb-2">${c.title}</h3>
-                    <p class="text-lg sm:text-xl font-battambang text-slate-700 dark:text-slate-200 leading-relaxed">${c.detail}</p>
+                  <div class="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-purple-200 dark:border-purple-800 shadow-md h-full flex flex-col justify-center">
+                    <h3 class="text-2xl sm:text-3xl font-bold font-suwannaphum text-purple-700 dark:text-purple-300 mb-3">${c.title}</h3>
+                    <p class="text-xl sm:text-2xl font-battambang text-slate-700 dark:text-slate-200 leading-relaxed">${c.detail}</p>
                   </div>
                 `).join('')}
               </div>
-              <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-base sm:text-lg font-battambang mt-4">
+              <div class="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-lg sm:text-xl font-battambang mt-6 shrink-0">
                 <i class="fa-solid fa-circle-info mr-2"></i> រៀបចំឡើងតាមស្តង់ដាកម្មវិធីសិក្សាជាតិ និងគរុកោសល្យទំនើបសាលារៀនជំនាន់ថ្មី (NGS)
               </div>
             </div>
@@ -886,14 +918,14 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-slate-800/90 dark:to-slate-800/50 border-2 border-purple-200 dark:border-slate-700 shadow-lg space-y-4 my-auto">
+              <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-slate-800/90 dark:to-slate-800/50 border-2 border-purple-200 dark:border-slate-700 shadow-xl space-y-6 my-auto flex-1 flex flex-col justify-center">
                 ${(slide.body || []).map(p => `
-                  <p class="text-xl sm:text-2xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
+                  <p class="text-2xl sm:text-3xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
                     ${p}
                   </p>
                 `).join('')}
               </div>
-              <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-base sm:text-lg font-battambang mt-4">
+              <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-lg sm:text-xl font-battambang mt-6 shrink-0">
                 <i class="fa-solid fa-bullseye mr-2"></i> <b>គោលបំណង ៖</b> ពង្រឹងសមត្ថភាពគិតស៊ីជម្រៅ និងការយល់ដឹងពីបាតុភូតគណិតវិទ្យាជាក់ស្តែង
               </div>
             </div>
@@ -903,24 +935,24 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto flex-1 items-center">
                 ${(slide.items || []).map(item => `
-                  <div class="p-5 sm:p-6 rounded-2xl border-2 transition-all flex items-center gap-4 ${item.active ? 'bg-amber-500/10 border-amber-400 dark:bg-amber-950/40 ring-2 ring-amber-400/50' : item.done ? 'bg-emerald-500/10 border-emerald-400 dark:bg-emerald-950/30' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 opacity-60'}">
-                    <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shrink-0 ${item.active ? 'bg-amber-400 text-slate-950 font-mono' : item.done ? 'bg-emerald-500 text-white' : 'bg-slate-300 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">
+                  <div class="p-6 sm:p-8 rounded-3xl border-2 transition-all flex items-center gap-5 ${item.active ? 'bg-amber-500/10 border-amber-400 dark:bg-amber-950/40 ring-4 ring-amber-400/40 shadow-lg' : item.done ? 'bg-emerald-500/10 border-emerald-400 dark:bg-emerald-950/30' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 opacity-60'}">
+                    <span class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-black text-2xl sm:text-3xl shrink-0 ${item.active ? 'bg-amber-400 text-slate-950 font-mono shadow-md' : item.done ? 'bg-emerald-500 text-white' : 'bg-slate-300 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">
                       ${item.done ? '<i class="fa-solid fa-check"></i>' : item.num}
                     </span>
                     <div>
-                      <h4 class="text-lg sm:text-xl font-bold font-suwannaphum ${item.active ? 'text-amber-500 dark:text-amber-300' : 'text-slate-800 dark:text-slate-200'}">
+                      <h4 class="text-2xl sm:text-3xl font-bold font-suwannaphum ${item.active ? 'text-amber-500 dark:text-amber-300' : 'text-slate-800 dark:text-slate-200'}">
                         ${item.title}
                       </h4>
-                      <span class="text-xs sm:text-sm font-battambang ${item.active ? 'text-amber-600 dark:text-amber-400 font-bold' : 'text-slate-400'}">
+                      <span class="text-base sm:text-lg font-battambang ${item.active ? 'text-amber-600 dark:text-amber-400 font-bold' : 'text-slate-400'}">
                         ${item.active ? 'កំពុងសិក្សា (Current Focus)' : item.done ? 'បានសិក្សារួច (Completed)' : 'ចំណុចបន្ទាប់ (Upcoming)'}
                       </span>
                     </div>
                   </div>
                 `).join('')}
               </div>
-              <div class="p-3 text-xs sm:text-sm text-center text-slate-400 font-battambang">
+              <div class="p-3 text-sm sm:text-base text-center text-slate-400 font-battambang shrink-0">
                 ប្រើគ្រាប់ចុចសញ្ញាព្រួញ (Left / Right) ដើម្បីប្តូរស្លាយ
               </div>
             </div>
@@ -931,16 +963,16 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 my-auto flex-1 items-center">
                 ${(slide.cards || []).map(c => `
-                  <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 shadow-sm">
-                    <h4 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-2">${c.title}</h4>
-                    <div class="text-lg sm:text-xl font-battambang text-slate-700 dark:text-slate-200 leading-relaxed">${c.detail}</div>
+                  <div class="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 shadow-md h-full flex flex-col justify-center">
+                    <h4 class="text-2xl sm:text-3xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-3">${c.title}</h4>
+                    <div class="text-xl sm:text-2xl font-battambang text-slate-700 dark:text-slate-200 leading-relaxed">${c.detail}</div>
                   </div>
                 `).join('')}
               </div>
               ${slide.highlight ? `
-                <div class="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-lg sm:text-xl font-battambang mt-4">
+                <div class="p-6 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 text-xl sm:text-2xl font-battambang mt-6 shrink-0">
                   ${slide.highlight}
                 </div>
               ` : ''}
@@ -952,34 +984,34 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="space-y-5 my-auto">
+              <div class="space-y-6 my-auto flex-1 flex flex-col justify-center">
                 ${(slide.body || []).map(p => `
-                  <p class="text-xl sm:text-2xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
+                  <p class="text-2xl sm:text-3xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
                     ${p}
                   </p>
                 `).join('')}
 
                 ${slide.formula ? `
-                  <div class="my-4 p-6 sm:p-8 rounded-3xl bg-slate-950 border-2 border-amber-400/80 text-center shadow-xl">
-                    <div class="text-2xl sm:text-3xl lg:text-4xl text-amber-400 font-bold overflow-x-auto py-2">
+                  <div class="my-6 p-8 sm:p-10 rounded-3xl bg-slate-950 border-3 border-amber-400 text-center shadow-2xl">
+                    <div class="text-3xl sm:text-4xl lg:text-5xl text-amber-400 font-black overflow-x-auto py-2">
                       ${slide.formula}
                     </div>
                   </div>
                 ` : ''}
 
                 ${(slide.cards || []).length > 0 ? `
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                     ${slide.cards.map(c => `
-                      <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <div class="text-lg sm:text-xl font-bold font-suwannaphum text-purple-600 dark:text-purple-400 mb-1">${c.title}</div>
-                        <div class="text-base sm:text-lg font-battambang text-slate-700 dark:text-slate-300 leading-relaxed">${c.detail}</div>
+                      <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-400 mb-2">${c.title}</div>
+                        <div class="text-lg sm:text-xl font-battambang text-slate-700 dark:text-slate-300 leading-relaxed">${c.detail}</div>
                       </div>
                     `).join('')}
                   </div>
                 ` : ''}
               </div>
 
-              <div class="p-3 text-xs sm:text-sm text-center text-slate-400 font-battambang">
+              <div class="p-3 text-sm text-center text-slate-400 font-battambang shrink-0">
                 វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី • លោកគ្រូ នួន បូណង
               </div>
             </div>
@@ -989,26 +1021,26 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="space-y-5 my-auto">
+              <div class="space-y-6 my-auto flex-1 flex flex-col justify-center">
                 ${slide.problem ? `
-                  <div class="p-6 rounded-3xl bg-purple-50 dark:bg-purple-950/30 border-2 border-purple-300 dark:border-purple-800 text-slate-900 dark:text-slate-100 shadow-sm">
-                    <h3 class="text-lg sm:text-xl font-bold font-suwannaphum text-purple-700 dark:text-purple-300 mb-2">
+                  <div class="p-8 rounded-3xl bg-purple-50 dark:bg-purple-950/30 border-3 border-purple-300 dark:border-purple-800 text-slate-900 dark:text-slate-100 shadow-sm">
+                    <h3 class="text-2xl sm:text-3xl font-bold font-suwannaphum text-purple-700 dark:text-purple-300 mb-2">
                       <i class="fa-solid fa-pen-fancy mr-2"></i> ប្រធានលំហាត់ ៖
                     </h3>
-                    <div class="text-xl sm:text-2xl font-battambang leading-relaxed">
+                    <div class="text-2xl sm:text-3xl font-battambang leading-relaxed">
                       ${slide.problem}
                     </div>
                   </div>
                 ` : ''}
 
                 ${(slide.steps || []).length > 0 ? `
-                  <div class="space-y-3">
+                  <div class="space-y-4">
                     ${slide.steps.map(st => `
-                      <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-                        <span class="text-lg sm:text-xl font-bold font-suwannaphum text-emerald-600 dark:text-emerald-400 shrink-0">
+                      <div class="p-6 sm:p-7 rounded-3xl bg-slate-50 dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+                        <span class="text-xl sm:text-2xl font-bold font-suwannaphum text-emerald-600 dark:text-emerald-400 shrink-0">
                           ${st.title}
                         </span>
-                        <div class="text-lg sm:text-xl lg:text-2xl font-battambang text-slate-800 dark:text-slate-100 flex-1 sm:text-right">
+                        <div class="text-xl sm:text-2xl lg:text-3xl font-battambang text-slate-800 dark:text-slate-100 flex-1 sm:text-right">
                           ${st.detail}
                         </div>
                       </div>
@@ -1017,7 +1049,7 @@
                 ` : ''}
               </div>
 
-              <div class="p-3 text-xs sm:text-sm text-center text-slate-400 font-battambang">
+              <div class="p-3 text-sm text-center text-slate-400 font-battambang shrink-0">
                 គន្លឹះ ៖ កំណត់រូបមន្តឱ្យបានច្បាស់លាស់មុននឹងជំនួសលេខ
               </div>
             </div>
@@ -1033,19 +1065,19 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 border-2 border-amber-400/80 shadow-xl space-y-4 my-auto">
+              <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-amber-500/10 via-purple-500/10 to-indigo-500/10 border-3 border-amber-400 shadow-2xl space-y-6 my-auto flex-1 flex flex-col justify-center">
                 ${(slide.summary_points || []).map((pt, i) => `
-                  <div class="flex items-start gap-3">
-                    <span class="w-8 h-8 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center shrink-0 text-sm font-mono mt-1">
+                  <div class="flex items-start gap-4">
+                    <span class="w-10 h-10 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center shrink-0 text-base font-mono mt-1 shadow-md">
                       ${i+1}
                     </span>
-                    <p class="text-xl sm:text-2xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
+                    <p class="text-2xl sm:text-3xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
                       ${pt}
                     </p>
                   </div>
                 `).join('')}
               </div>
-              <div class="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-300 dark:border-purple-700 text-purple-900 dark:text-purple-200 text-base sm:text-lg font-battambang mt-4">
+              <div class="p-5 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-300 dark:border-purple-700 text-purple-900 dark:text-purple-200 text-lg sm:text-xl font-battambang mt-6 shrink-0">
                 <i class="fa-solid fa-star text-amber-500 mr-2"></i> ចងចាំរូបមន្តគ្រឹះទាំងនេះសម្រាប់ការប្រឡងសញ្ញាបត្រមធ្យមសិក្សាទុតិយភូមិ (បាក់ឌុប)!
               </div>
             </div>
@@ -1055,22 +1087,22 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-purple-300 dark:border-purple-800 shadow-xl space-y-4 my-auto">
-                <h3 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-3">
+              <div class="p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-3 border-purple-300 dark:border-purple-800 shadow-2xl space-y-6 my-auto flex-1 flex flex-col justify-center">
+                <h3 class="text-2xl sm:text-3xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-3">
                   <i class="fa-solid fa-book-open mr-2"></i> កិច្ចការស្រាវជ្រាវ និងអនុវត្តនៅផ្ទះ ៖
                 </h3>
                 ${(slide.homework || []).map((hw, i) => `
-                  <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-start gap-3">
-                    <span class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 text-xs font-mono mt-1">
+                  <div class="p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-start gap-4 shadow-sm">
+                    <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 text-sm font-mono mt-1">
                       ${i+1}
                     </span>
-                    <p class="text-lg sm:text-xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
+                    <p class="text-xl sm:text-2xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
                       ${hw}
                     </p>
                   </div>
                 `).join('')}
               </div>
-              <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-center text-lg font-battambang font-bold mt-4">
+              <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-center text-xl font-battambang font-bold mt-6 shrink-0">
                 សូមអរគុណប្អូនៗសិស្សានុសិស្សទាំងអស់សម្រាប់ការយកចិត្តទុកដាក់!
               </div>
             </div>
@@ -1080,7 +1112,7 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="space-y-4 my-auto text-xl font-battambang text-slate-800 dark:text-slate-100">
+              <div class="space-y-6 my-auto text-2xl font-battambang text-slate-800 dark:text-slate-100 flex-1 flex flex-col justify-center">
                 ${(slide.body || []).map(p => `<p class="leading-relaxed">${p}</p>`).join('')}
               </div>
             </div>
@@ -1089,7 +1121,7 @@
     }
 
     // =========================================================================
-    // AUTHENTIC SPLIT LAYOUT (Images 1 & 3: Banner, Problem, Method, 2-Cols)
+    // AUTHENTIC SPLIT LAYOUT (Images 1 & 3: Massive Font & Space Filling)
     // =========================================================================
 
     layoutAuthenticSplit(lesson, slide) {
@@ -1102,33 +1134,33 @@
       const flowchart = slide.flowchart || [];
 
       return `
-        <div class="flex flex-col justify-between h-full space-y-4">
+        <div class="flex flex-col justify-between h-full space-y-5">
           <!-- Top Authentic Dark Blue Banner (matching Image 1 & 3) -->
-          <div class="bg-[#0f3b57] text-white rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-lg shrink-0">
-            <div class="flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-sky-300 shrink-0">
-                <i class="fa-solid fa-book-open text-lg"></i>
+          <div class="bg-[#0f3b57] text-white rounded-3xl p-5 sm:p-6 flex items-center justify-between shadow-xl shrink-0">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-sky-300 shrink-0">
+                <i class="fa-solid fa-book-open text-2xl"></i>
               </div>
-              <h2 class="text-2xl sm:text-3xl font-black font-suwannaphum tracking-wide text-white">
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black font-suwannaphum tracking-wide text-white">
                 ${bannerTitle}
               </h2>
             </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-10 h-10 rounded-xl bg-white p-1 border border-amber-400">
+            <div class="flex items-center gap-3 shrink-0">
+              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-12 h-12 rounded-2xl bg-white p-1 border-2 border-amber-400">
             </div>
           </div>
 
-          <!-- Problem Card (White box with red magnifying glass search icon and red pill badge) -->
+          <!-- Problem Card (Large Projector Text) -->
           ${probText ? `
-            <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3 shrink-0">
-              <div class="w-9 h-9 rounded-full bg-[#c0392b] text-white flex items-center justify-center text-sm shrink-0 shadow-sm">
+            <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-md flex items-center gap-4 shrink-0">
+              <div class="w-11 h-11 rounded-full bg-[#c0392b] text-white flex items-center justify-center text-lg shrink-0 shadow-md">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
-              <div class="flex items-center gap-3 flex-wrap flex-1">
-                <span class="px-3 py-1 rounded-full bg-[#c0392b] text-white text-xs sm:text-sm font-bold font-battambang shrink-0 shadow-xs">
+              <div class="flex items-center gap-4 flex-wrap flex-1">
+                <span class="px-4 py-1.5 rounded-full bg-[#c0392b] text-white text-sm sm:text-base font-bold font-battambang shrink-0 shadow-sm">
                   ${probBadge}
                 </span>
-                <span class="text-lg sm:text-xl font-bold font-battambang text-slate-800 dark:text-slate-100">
+                <span class="text-2xl sm:text-3xl font-bold font-battambang text-slate-800 dark:text-slate-100">
                   ${probText}
                 </span>
               </div>
@@ -1138,23 +1170,23 @@
           <!-- Method Pill Badge -->
           ${methodBadge ? `
             <div class="shrink-0">
-              <span class="inline-block px-5 py-2 rounded-full bg-[#0f3b57] text-white text-base sm:text-lg font-bold font-battambang shadow-sm">
+              <span class="inline-block px-8 py-3 rounded-full bg-[#0f3b57] text-white text-xl sm:text-2xl font-bold font-battambang shadow-md">
                 ${methodBadge}
               </span>
             </div>
           ` : ''}
 
           <!-- 2-COLUMN SPLIT: Left = Math Derivations & Green Result; Right = Flowchart Sequence -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto flex-1 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 my-auto flex-1 items-center">
             <!-- Left Column: Math Steps & Final Result Box (7 cols) -->
-            <div class="lg:col-span-7 space-y-4">
-              <div class="space-y-3 font-battambang text-xl sm:text-2xl leading-relaxed text-slate-800 dark:text-slate-100">
+            <div class="lg:col-span-7 space-y-6 flex flex-col justify-center">
+              <div class="space-y-4 font-battambang text-2xl sm:text-3xl lg:text-4xl leading-relaxed text-slate-900 dark:text-slate-100">
                 ${derivations.map(d => `<div class="py-1">${d}</div>`).join('')}
               </div>
 
               ${result ? `
-                <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400 text-emerald-950 dark:text-emerald-100 flex items-center gap-4 text-xl sm:text-2xl font-bold shadow-sm mt-4">
-                  <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xl shrink-0 shadow-xs">
+                <div class="p-6 sm:p-8 rounded-3xl bg-emerald-50 dark:bg-emerald-950/50 border-3 border-emerald-400 text-emerald-950 dark:text-emerald-100 flex items-center gap-5 text-2xl sm:text-3xl lg:text-4xl font-black shadow-md mt-6">
+                  <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shrink-0 shadow-md">
                     <i class="fa-solid fa-check"></i>
                   </div>
                   <div>${result}</div>
@@ -1163,20 +1195,20 @@
             </div>
 
             <!-- Right Column: Flowchart Sequence Cards (5 cols) -->
-            <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-2">
+            <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-3">
               ${flowchart.map((item, fIdx) => {
                 if (item.arrow) {
                   return `
-                    <div class="flex flex-col items-center justify-center my-0.5">
-                      <div class="text-sm font-bold font-mono px-2 py-0.5 rounded ${item.color === 'red' ? 'text-rose-600' : item.color === 'green' ? 'text-emerald-600' : 'text-sky-600'}">
+                    <div class="flex flex-col items-center justify-center my-1">
+                      <div class="text-lg sm:text-xl font-bold font-mono px-3 py-1 rounded ${item.color === 'red' ? 'text-rose-600' : item.color === 'green' ? 'text-emerald-600' : 'text-sky-600'}">
                         ${item.arrow}
                       </div>
-                      <i class="fa-solid fa-arrow-down text-lg ${item.color === 'red' ? 'text-rose-500' : item.color === 'green' ? 'text-emerald-500' : 'text-sky-500'}"></i>
+                      <i class="fa-solid fa-arrow-down text-2xl ${item.color === 'red' ? 'text-rose-500' : item.color === 'green' ? 'text-emerald-500' : 'text-sky-500'}"></i>
                     </div>
                   `;
                 }
 
-                // Node card
+                // Node card (enlarged!)
                 const bgClass = item.bg === 'dark' 
                   ? 'bg-[#0f3b57] text-white border-[#0f3b57]' 
                   : item.bg === 'soft_blue' 
@@ -1188,8 +1220,8 @@
                         : 'bg-white dark:bg-slate-800 text-[#0f3b57] dark:text-sky-300 border-[#0f3b57] dark:border-sky-500';
 
                 return `
-                  <div class="w-full max-w-sm p-4 rounded-2xl border-2 shadow-sm text-center font-bold text-lg sm:text-xl font-battambang ${bgClass}">
-                    ${item.title ? `<div class="text-xs uppercase tracking-wider mb-1 opacity-75">${item.title}</div>` : ''}
+                  <div class="w-full max-w-md p-5 sm:p-6 rounded-3xl border-3 shadow-md text-center font-bold text-2xl sm:text-3xl font-battambang ${bgClass}">
+                    ${item.title ? `<div class="text-sm uppercase tracking-wider mb-1.5 opacity-80">${item.title}</div>` : ''}
                     <div>${item.text}</div>
                   </div>
                 `;
@@ -1197,7 +1229,7 @@
             </div>
           </div>
 
-          <div class="p-2 text-xs text-center text-slate-400 font-battambang">
+          <div class="p-2 text-sm text-center text-slate-400 font-battambang shrink-0">
             វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី • គរុកោសល្យទំនើបគណិតវិទ្យា
           </div>
         </div>
@@ -1205,7 +1237,7 @@
     }
 
     // =========================================================================
-    // SECTION COVER LAYOUT (Image 2: Left Stripe, Red Circle, S_n vs S_{n-1} Bars)
+    // SECTION COVER LAYOUT (Image 2: Massive Left Stripe, S_n vs S_{n-1} Bars)
     // =========================================================================
 
     layoutSectionCover(lesson, slide) {
@@ -1215,140 +1247,140 @@
       const keyConcept = slide.key_concept || '';
 
       return `
-        <div class="flex flex-col lg:flex-row h-full rounded-3xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-xl bg-white dark:bg-slate-900">
+        <div class="flex flex-col lg:flex-row h-full rounded-3xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-2xl bg-white dark:bg-slate-900">
           <!-- Left Dark Blue Stripe with Yukunthor NGS Emblem -->
-          <div class="w-full lg:w-48 bg-[#0f3b57] text-white p-6 flex flex-col items-center justify-between shrink-0 shadow-lg">
-            <div class="flex flex-col items-center text-center space-y-3">
-              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-20 h-20 rounded-2xl bg-white p-1.5 border-2 border-amber-400 shadow-md">
-              <div class="text-xs font-battambang font-bold text-slate-200 leading-tight">
+          <div class="w-full lg:w-60 bg-[#0f3b57] text-white p-8 flex flex-col items-center justify-between shrink-0 shadow-xl">
+            <div class="flex flex-col items-center text-center space-y-4">
+              <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-24 h-24 rounded-3xl bg-white p-2 border-3 border-amber-400 shadow-lg">
+              <div class="text-sm font-battambang font-bold text-slate-200 leading-tight">
                 វិទ្យាល័យព្រះយុគន្ធរ<br>
                 <span class="text-amber-400">សាលារៀនជំនាន់ថ្មី</span>
               </div>
             </div>
 
-            <div class="text-center font-battambang text-[11px] text-sky-200/70 hidden lg:block">
+            <div class="text-center font-battambang text-xs text-sky-200/80 hidden lg:block">
               គណិតវិទ្យាថ្នាក់ទី ១២<br>NGS Standard
             </div>
 
             <div class="text-center text-slate-400 hidden lg:block">
-              <i class="fa-solid fa-infinity text-2xl opacity-40"></i>
+              <i class="fa-solid fa-infinity text-3xl opacity-50"></i>
             </div>
           </div>
 
           <!-- Main Content Area -->
-          <div class="flex-1 p-6 sm:p-10 flex flex-col justify-between space-y-6">
+          <div class="flex-1 p-8 sm:p-12 flex flex-col justify-between space-y-8">
             <div>
               <!-- Red Circle Badge & Section Title -->
-              <div class="flex items-center gap-4 mb-4">
-                <div class="w-16 h-16 rounded-full bg-[#c0392b] text-white flex items-center justify-center text-3xl font-black font-suwannaphum shadow-md shrink-0">
+              <div class="flex items-center gap-5 mb-6">
+                <div class="w-20 h-20 rounded-full bg-[#c0392b] text-white flex items-center justify-center text-4xl font-black font-suwannaphum shadow-lg shrink-0">
                   ${sectionNum}
                 </div>
                 <div>
-                  <div class="text-rose-600 font-bold text-lg font-battambang">${sectionBadge}</div>
-                  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black font-suwannaphum text-[#0f3b57] dark:text-sky-300 tracking-wide">
+                  <div class="text-rose-600 font-bold text-xl font-battambang">${sectionBadge}</div>
+                  <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black font-suwannaphum text-[#0f3b57] dark:text-sky-300 tracking-wide">
                     ${title}
                   </h1>
                 </div>
               </div>
 
-              <!-- Key Concept Callout Box (Light cyan container) -->
+              <!-- Key Concept Callout Box -->
               ${keyConcept ? `
-                <div class="p-4 sm:p-5 rounded-2xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 text-sky-950 dark:text-sky-100 text-xl sm:text-2xl font-battambang font-bold shadow-sm max-w-3xl">
+                <div class="p-6 sm:p-8 rounded-3xl bg-sky-50 dark:bg-sky-950/60 border-2 border-sky-300 dark:border-sky-800 text-sky-950 dark:text-sky-100 text-2xl sm:text-3xl font-battambang font-bold shadow-md max-w-4xl">
                   ${keyConcept}
                 </div>
               ` : ''}
             </div>
 
-            <!-- Authentic Diagram: S_n vs S_{n-1} Stacked Color Block Diagram -->
-            <div class="my-auto py-6 flex flex-col items-center justify-center">
+            <!-- Authentic Diagram: S_n vs S_{n-1} Stacked Color Block Diagram (Enlarged!) -->
+            <div class="my-auto py-8 flex flex-col items-center justify-center">
               <!-- Top Orange Arrow: S_n -->
-              <div class="w-full max-w-xl text-center mb-1">
-                <div class="text-sm font-bold font-mono text-amber-500 mb-0.5">S_n (ផលបូក n តួដំបូង)</div>
-                <div class="h-1 bg-amber-400 rounded-full relative flex items-center justify-between">
-                  <i class="fa-solid fa-caret-left text-amber-400 text-lg -ml-1"></i>
-                  <i class="fa-solid fa-caret-right text-amber-400 text-lg -mr-1"></i>
+              <div class="w-full max-w-2xl text-center mb-2">
+                <div class="text-lg font-bold font-mono text-amber-500 mb-1">S_n (ផលបូក n តួដំបូង)</div>
+                <div class="h-1.5 bg-amber-400 rounded-full relative flex items-center justify-between">
+                  <i class="fa-solid fa-caret-left text-amber-400 text-2xl -ml-2"></i>
+                  <i class="fa-solid fa-caret-right text-amber-400 text-2xl -mr-2"></i>
                 </div>
               </div>
 
               <!-- Middle Blue Arrow: S_{n-1} -->
-              <div class="w-full max-w-xl pr-20 text-center mb-4">
-                <div class="text-xs font-bold font-mono text-sky-600 mb-0.5">S_{n-1} (ផលបូក n-1 តួ)</div>
-                <div class="h-1 bg-sky-500 rounded-full relative flex items-center justify-between">
-                  <i class="fa-solid fa-caret-left text-sky-500 text-base -ml-1"></i>
-                  <i class="fa-solid fa-caret-right text-sky-500 text-base -mr-1"></i>
+              <div class="w-full max-w-2xl pr-28 text-center mb-6">
+                <div class="text-base font-bold font-mono text-sky-600 mb-1">S_{n-1} (ផលបូក n-1 តួ)</div>
+                <div class="h-1.5 bg-sky-500 rounded-full relative flex items-center justify-between">
+                  <i class="fa-solid fa-caret-left text-sky-500 text-xl -ml-2"></i>
+                  <i class="fa-solid fa-caret-right text-sky-500 text-xl -mr-2"></i>
                 </div>
               </div>
 
-              <!-- Stacked Blocks Grid (a1 to a5 blue-gray, an red) -->
-              <div class="flex items-end gap-3 sm:gap-4 h-48 sm:h-56 pb-2">
+              <!-- Stacked Blocks Grid (Large Blocks!) -->
+              <div class="flex items-end gap-4 sm:gap-6 h-60 sm:h-72 pb-3">
                 <!-- a1 -->
-                <div class="flex flex-col items-center gap-1.5">
-                  <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                  <span class="text-xs sm:text-sm font-bold font-mono text-slate-600 dark:text-slate-300">a_1</span>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                  <span class="text-base sm:text-lg font-bold font-mono text-slate-700 dark:text-slate-300">a_1</span>
                 </div>
 
                 <!-- a2 -->
-                <div class="flex flex-col items-center gap-1.5">
-                  <div class="flex flex-col gap-1">
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="flex flex-col gap-1.5">
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold font-mono text-slate-600 dark:text-slate-300">a_2</span>
+                  <span class="text-base sm:text-lg font-bold font-mono text-slate-700 dark:text-slate-300">a_2</span>
                 </div>
 
                 <!-- a3 -->
-                <div class="flex flex-col items-center gap-1.5">
-                  <div class="flex flex-col gap-1">
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="flex flex-col gap-1.5">
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold font-mono text-slate-600 dark:text-slate-300">a_3</span>
+                  <span class="text-base sm:text-lg font-bold font-mono text-slate-700 dark:text-slate-300">a_3</span>
                 </div>
 
                 <!-- a4 -->
-                <div class="flex flex-col items-center gap-1.5">
-                  <div class="flex flex-col gap-1">
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="flex flex-col gap-1.5">
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold font-mono text-slate-600 dark:text-slate-300">a_4</span>
+                  <span class="text-base sm:text-lg font-bold font-mono text-slate-700 dark:text-slate-300">a_4</span>
                 </div>
 
                 <!-- a5 -->
-                <div class="flex flex-col items-center gap-1.5">
-                  <div class="flex flex-col gap-1">
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#4a7c98] rounded-md shadow-xs"></div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="flex flex-col gap-1.5">
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#4a7c98] rounded-lg shadow-sm"></div>
                   </div>
-                  <span class="text-xs sm:text-sm font-bold font-mono text-slate-600 dark:text-slate-300">a_5</span>
+                  <span class="text-base sm:text-lg font-bold font-mono text-slate-700 dark:text-slate-300">a_5</span>
                 </div>
 
                 <!-- Separator / Difference Bar a_n (Vivid Red!) -->
-                <div class="flex flex-col items-center gap-1.5 ml-2">
-                  <div class="flex flex-col gap-1">
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
-                    <div class="w-10 sm:w-12 h-7 bg-[#c0392b] rounded-md shadow-xs"></div>
+                <div class="flex flex-col items-center gap-2 ml-3">
+                  <div class="flex flex-col gap-1.5">
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
+                    <div class="w-14 sm:w-16 h-9 sm:h-10 bg-[#c0392b] rounded-lg shadow-md"></div>
                   </div>
-                  <span class="text-xs sm:text-sm font-black font-mono text-rose-600 dark:text-rose-400">a_n</span>
+                  <span class="text-base sm:text-lg font-black font-mono text-rose-600 dark:text-rose-400">a_n</span>
                 </div>
               </div>
 
-              <div class="text-sm font-battambang font-bold text-slate-500 mt-2">
+              <div class="text-base sm:text-xl font-battambang font-bold text-slate-600 dark:text-slate-300 mt-4 text-center">
                 រូបមន្ត ៖ $a_n = S_n - S_{n-1} \quad (n \ge 2)$ ព្រោះ $S_n$ និង $S_{n-1}$ ខុសគ្នាតែតួ $a_n$ ប៉ុណ្ណោះ!
               </div>
             </div>
 
-            <div class="text-xs text-slate-400 font-battambang text-right">
+            <div class="text-sm text-slate-400 font-battambang text-right shrink-0">
               វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី (NGS)
             </div>
           </div>
@@ -1365,61 +1397,61 @@
       const isRevealed = !!this.revealedPractice[pKey];
 
       return `
-        <div class="flex flex-col justify-between h-full space-y-4">
+        <div class="flex flex-col justify-between h-full space-y-6">
           <!-- Header -->
-          <div>
+          <div class="shrink-0">
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
-              <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500/20 text-amber-500 border border-amber-400/40 font-battambang">
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-amber-500/20 text-amber-500 border border-amber-400/40 font-battambang">
                 ${slide.badge || 'អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn'}
               </span>
-              <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-purple-500/20 text-purple-400 border border-purple-500/40 font-battambang">
-                <i class="fa-solid fa-chalkboard-user mr-1"></i> សិស្សដោះស្រាយលើក្តារខៀន ឬសៀវភៅ
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-black bg-purple-500/20 text-purple-400 border border-purple-500/40 font-battambang">
+                <i class="fa-solid fa-chalkboard-user mr-1.5"></i> សិស្សដោះស្រាយលើក្តារខៀន ឬសៀវភៅ
               </span>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black font-suwannaphum text-slate-900 dark:text-white">
               ${slide.title}
             </h2>
             ${slide.subtitle ? `
-              <p class="text-base sm:text-lg text-purple-600 dark:text-purple-300 font-battambang font-medium mt-1">
+              <p class="text-lg sm:text-xl text-purple-600 dark:text-purple-300 font-battambang font-medium mt-1.5">
                 ${slide.subtitle}
               </p>
             ` : ''}
           </div>
 
           <!-- Problem Box (Massive Font for Projector) -->
-          <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-amber-400 shadow-md my-auto space-y-4">
-            <div class="flex items-center gap-3 text-amber-600 dark:text-amber-400 font-bold text-xl font-suwannaphum">
+          <div class="p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-3 border-amber-400 shadow-xl my-auto flex-1 flex flex-col justify-center space-y-6">
+            <div class="flex items-center gap-3 text-amber-600 dark:text-amber-400 font-bold text-2xl font-suwannaphum">
               <i class="fa-solid fa-pen-fancy"></i>
               <span>ប្រធានលំហាត់អនុវត្តន៍ ៖</span>
             </div>
-            <div class="text-xl sm:text-2xl lg:text-3xl font-battambang text-slate-900 dark:text-slate-100 leading-relaxed">
+            <div class="text-2xl sm:text-3xl lg:text-4xl font-battambang text-slate-900 dark:text-slate-100 leading-relaxed">
               ${slide.problem}
             </div>
 
             <!-- Solution Reveal Button -->
-            <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-4 flex-wrap">
+            <div class="pt-6 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-4 flex-wrap">
               <button onclick="window.teachingSlidesManager.togglePracticeSolution('${pKey}')"
-                class="px-6 py-3 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white'} font-bold text-sm sm:text-base font-battambang transition shadow-md flex items-center gap-2 active:scale-95">
+                class="px-8 py-3.5 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white'} font-bold text-base sm:text-lg font-battambang transition shadow-lg flex items-center gap-2.5 active:scale-95">
                 <i class="fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
                 ${isRevealed ? 'លាក់ដំណោះស្រាយ' : 'បង្ហាញដំណោះស្រាយលម្អិត'}
               </button>
-              <span class="text-xs sm:text-sm text-slate-400 font-battambang">
+              <span class="text-sm sm:text-base text-slate-400 font-battambang">
                 ចុចប៊ូតុងខាងឆ្វេង ដើម្បីផ្ទៀងផ្ទាត់ចម្លើយ និងជំហានដោះស្រាយ
               </span>
             </div>
 
             <!-- Revealed Solution Area -->
             ${isRevealed ? `
-              <div class="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400 text-emerald-950 dark:text-emerald-100 space-y-3 animate-fadeIn">
-                <div class="text-lg font-bold font-suwannaphum text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
-                  <i class="fa-solid fa-circle-check"></i>
+              <div class="p-8 rounded-3xl bg-emerald-50 dark:bg-emerald-950/40 border-3 border-emerald-400 text-emerald-950 dark:text-emerald-100 space-y-4 animate-fadeIn">
+                <div class="text-xl font-bold font-suwannaphum text-emerald-700 dark:text-emerald-300 flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-2xl"></i>
                   <span>ដំណោះស្រាយជាជំហានៗ ៖</span>
                 </div>
-                <div class="space-y-2 text-lg sm:text-xl font-battambang leading-relaxed">
+                <div class="space-y-3 text-xl sm:text-2xl font-battambang leading-relaxed">
                   ${(slide.solution || []).map(st => `<div>${st}</div>`).join('')}
                 </div>
                 ${slide.answer ? `
-                  <div class="mt-4 pt-3 border-t border-emerald-300 dark:border-emerald-700 font-bold text-xl sm:text-2xl text-emerald-800 dark:text-emerald-200">
+                  <div class="mt-6 pt-4 border-t border-emerald-300 dark:border-emerald-700 font-bold text-2xl sm:text-3xl text-emerald-800 dark:text-emerald-200">
                     <b>ចម្លើយចុងក្រោយ ៖</b> ${slide.answer}
                   </div>
                 ` : ''}
@@ -1427,7 +1459,7 @@
             ` : ''}
           </div>
 
-          <div class="p-2 text-xs text-center text-slate-400 font-battambang">
+          <div class="p-2 text-sm text-center text-slate-400 font-battambang shrink-0">
             វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី • លោកគ្រូ នួន បូណង
           </div>
         </div>
@@ -1435,54 +1467,54 @@
     }
 
     // =========================================================================
-    // MCQ & WORKSHEET LAYOUTS (Massive Projector Readability)
+    // MCQ & WORKSHEET LAYOUTS (Massive Projector Readability & Space Filling)
     // =========================================================================
 
     layoutCover(lesson, slide) {
       const meta = slide.meta || {};
       return `
-        <div class="flex flex-col items-center justify-center text-center h-full px-4 sm:px-8 my-auto">
-          <div class="flex items-center gap-3 mb-4">
-            <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-amber-400 p-1 bg-white shadow-xl">
+        <div class="flex flex-col items-center justify-center text-center h-full px-6 sm:px-12 my-auto flex-1">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="images/yukunthor-logo.jpg" alt="Logo" class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl border-3 border-amber-400 p-1.5 bg-white shadow-2xl">
             <div class="text-left">
-              <span class="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-bold bg-amber-400 text-slate-950 font-battambang shadow-sm">
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-amber-400 text-slate-950 font-battambang shadow-sm">
                 ${slide.badge || 'វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី (NGS)'}
               </span>
-              <p class="text-xs sm:text-sm text-slate-400 font-battambang mt-1">
+              <p class="text-sm sm:text-base text-slate-400 font-battambang mt-1.5">
                 ក្រសួងអប់រំ យុវជន និងកីឡា • គម្រោងសាលារៀនជំនាន់ថ្មី
               </p>
             </div>
           </div>
 
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-suwannaphum text-slate-900 dark:text-white leading-tight max-w-4xl tracking-wide my-4">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-suwannaphum text-slate-900 dark:text-white leading-tight max-w-5xl tracking-wide my-6">
             ${slide.title}
           </h1>
 
-          <p class="text-lg sm:text-2xl text-purple-600 dark:text-purple-300 font-battambang font-bold max-w-2xl mb-8">
+          <p class="text-2xl sm:text-3xl text-purple-600 dark:text-purple-300 font-battambang font-bold max-w-3xl mb-10">
             ${slide.subtitle}
           </p>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 sm:p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-xl max-w-3xl w-full text-center font-battambang">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 shadow-2xl max-w-4xl w-full text-center font-battambang">
             <div>
-              <div class="text-xs text-slate-400">គ្រូបង្រៀន</div>
-              <div class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">${meta.teacher || 'លោកគ្រូ នួន បូណង'}</div>
+              <div class="text-sm text-slate-400">គ្រូបង្រៀន</div>
+              <div class="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100">${meta.teacher || 'លោកគ្រូ នួន បូណង'}</div>
             </div>
             <div>
-              <div class="text-xs text-slate-400">កម្រិតថ្នាក់</div>
-              <div class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">${meta.grade || 'ថ្នាក់ទី ១២'}</div>
+              <div class="text-sm text-slate-400">កម្រិតថ្នាក់</div>
+              <div class="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100">${meta.grade || 'ថ្នាក់ទី ១២'}</div>
             </div>
             <div>
-              <div class="text-xs text-slate-400">រយៈពេល</div>
-              <div class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">${meta.duration || '៩០ នាទី'}</div>
+              <div class="text-sm text-slate-400">រយៈពេល</div>
+              <div class="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100">${meta.duration || '៩០ នាទី'}</div>
             </div>
             <div>
-              <div class="text-xs text-slate-400">ស្ថាប័ន</div>
-              <div class="text-base sm:text-lg font-bold text-amber-500">${meta.school || 'NGS Yukunthor'}</div>
+              <div class="text-sm text-slate-400">ស្ថាប័ន</div>
+              <div class="text-lg sm:text-xl font-bold text-amber-500">${meta.school || 'NGS Yukunthor'}</div>
             </div>
           </div>
 
-          <div class="mt-8 text-xs sm:text-sm text-slate-400 font-battambang">
-            ចុចគ្រាប់ចុច <kbd class="px-2 py-1 bg-slate-800 text-amber-400 rounded-lg border border-slate-700">Space</kbd> ឬ <kbd class="px-2 py-1 bg-slate-800 text-amber-400 rounded-lg border border-slate-700">→</kbd> ដើម្បីចាប់ផ្តើម
+          <div class="mt-10 text-sm sm:text-base text-slate-400 font-battambang">
+            ចុចគ្រាប់ចុច <kbd class="px-2.5 py-1 bg-slate-800 text-amber-400 rounded-lg border border-slate-700">Space</kbd> ឬ <kbd class="px-2.5 py-1 bg-slate-800 text-amber-400 rounded-lg border border-slate-700">→</kbd> ដើម្បីចាប់ផ្តើម
           </div>
         </div>
       `;
@@ -1497,75 +1529,75 @@
       const isRevealed = !!this.revealedMcqs[mcqKey];
 
       return `
-        <div class="flex flex-col justify-start gap-4 sm:gap-6 h-full max-w-5xl mx-auto w-full py-2">
+        <div class="flex flex-col justify-between h-full space-y-6 flex-1">
           <!-- Top Header -->
-          <div>
+          <div class="shrink-0">
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
-              <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
                 ${slide.badge || 'ពង្រឹងការយល់ដឹង (MCQ Assessment)'}
               </span>
-              <span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 font-mono">
+              <span class="px-4 py-1.5 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 font-mono">
                 MCQ ${slideIdx + 1}
               </span>
             </div>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
+            <h2 class="text-3xl sm:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
               ${slide.title}
             </h2>
           </div>
 
-          <!-- Question Box (Enlarged) -->
-          <div class="p-5 sm:p-7 rounded-2xl bg-purple-50/70 dark:bg-purple-950/30 border-2 border-purple-200 dark:border-purple-800 text-slate-900 dark:text-slate-100 text-xl sm:text-2xl lg:text-3xl font-battambang leading-relaxed shadow-sm">
-            <i class="fa-solid fa-circle-question text-purple-600 dark:text-purple-400 mr-2"></i>
+          <!-- Question Box (Massive Font) -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-purple-50/70 dark:bg-purple-950/30 border-3 border-purple-200 dark:border-purple-800 text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl lg:text-4xl font-battambang leading-relaxed shadow-sm shrink-0">
+            <i class="fa-solid fa-circle-question text-purple-600 dark:text-purple-400 mr-3"></i>
             ${mcq.question}
           </div>
 
-          <!-- Choices Grid (Enlarged 2x2 cards) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-auto">
+          <!-- Choices Grid (2x2 filling the screen height with big spacious cards) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto flex-1 items-stretch">
             ${mcq.choices.map((choice, cIdx) => {
               const isSelected = selected === cIdx;
               const isCorrect = isRevealed && cIdx === mcq.correct_index;
               const isWrong = isRevealed && isSelected && cIdx !== mcq.correct_index;
 
-              let cardStyle = 'bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 hover:border-purple-400';
+              let cardStyle = 'bg-white dark:bg-slate-800 border-3 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-purple-500';
               if (isCorrect) {
-                cardStyle = 'bg-emerald-50 dark:bg-emerald-950/70 border-2 border-emerald-500 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-400';
+                cardStyle = 'bg-emerald-50 dark:bg-emerald-950/70 border-3 border-emerald-500 text-emerald-950 dark:text-emerald-100 ring-4 ring-emerald-400/50';
               } else if (isWrong) {
-                cardStyle = 'bg-rose-50 dark:bg-rose-950/70 border-2 border-rose-500 text-rose-900 dark:text-rose-100';
+                cardStyle = 'bg-rose-50 dark:bg-rose-950/70 border-3 border-rose-500 text-rose-950 dark:text-rose-100';
               } else if (isSelected) {
-                cardStyle = 'bg-purple-50 dark:bg-purple-950/70 border-2 border-purple-600 text-purple-900 dark:text-purple-100';
+                cardStyle = 'bg-purple-50 dark:bg-purple-950/70 border-3 border-purple-600 text-purple-950 dark:text-purple-100';
               }
 
               const choiceLabels = ['(ក)', '(ខ)', '(គ)', '(ឃ)'];
 
               return `
                 <button onclick="window.teachingSlidesManager.selectMcqChoice('${mcqKey}', ${cIdx})"
-                  class="p-5 sm:p-6 rounded-2xl text-left transition-all flex items-center gap-4 ${cardStyle} shadow-sm group">
-                  <span class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg shrink-0 ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 group-hover:bg-purple-100'}">
+                  class="p-6 sm:p-8 rounded-3xl text-left transition-all flex items-center gap-5 ${cardStyle} shadow-md group min-h-[110px]">
+                  <span class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-black text-xl sm:text-2xl shrink-0 ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 group-hover:bg-purple-100'}">
                     ${choiceLabels[cIdx] || (cIdx + 1)}
                   </span>
-                  <span class="text-xl sm:text-2xl font-bold font-battambang flex-1">
+                  <span class="text-2xl sm:text-3xl font-bold font-battambang flex-1">
                     ${choice}
                   </span>
-                  ${isCorrect ? '<i class="fa-solid fa-circle-check text-2xl text-emerald-500 shrink-0"></i>' : ''}
-                  ${isWrong ? '<i class="fa-solid fa-circle-xmark text-2xl text-rose-500 shrink-0"></i>' : ''}
+                  ${isCorrect ? '<i class="fa-solid fa-circle-check text-3xl text-emerald-500 shrink-0"></i>' : ''}
+                  ${isWrong ? '<i class="fa-solid fa-circle-xmark text-3xl text-rose-500 shrink-0"></i>' : ''}
                 </button>
               `;
             }).join('')}
           </div>
 
           <!-- Bottom Action & Explanation -->
-          <div class="flex items-center justify-between gap-4 pt-2 border-t border-slate-200 dark:border-slate-800">
-            <span class="text-xs sm:text-sm text-slate-400 font-battambang">
+          <div class="flex items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+            <span class="text-sm sm:text-base text-slate-400 font-battambang">
               ចុចលើជម្រើសដើម្បីផ្ទៀងផ្ទាត់ ឬចុចប៊ូតុងបង្ហាញចម្លើយ
             </span>
             <button onclick="window.teachingSlidesManager.revealMcqAnswer('${mcqKey}')"
-              class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm font-battambang transition shadow-md flex items-center gap-2 active:scale-95">
+              class="px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm sm:text-base font-battambang transition shadow-md flex items-center gap-2 active:scale-95">
               <i class="fa-solid fa-eye"></i> បង្ហាញចម្លើយ & ការពន្យល់
             </button>
           </div>
 
           ${isRevealed && mcq.explanation ? `
-            <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-lg sm:text-xl font-battambang shrink-0">
+            <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-400 text-emerald-950 dark:text-emerald-100 text-xl font-battambang shrink-0">
               <b>ការពន្យល់ ៖</b> ${mcq.explanation}
             </div>
           ` : ''}
@@ -1585,50 +1617,50 @@
       ];
 
       return `
-        <div class="flex flex-col justify-between h-full space-y-4">
-          <div>
+        <div class="flex flex-col justify-between h-full space-y-6 flex-1">
+          <div class="shrink-0">
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
-              <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
+              <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
                 ${slide.badge || 'សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុមតុល្យភាព'}
               </span>
-              <span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500/20 text-sky-400 border border-sky-500/40 font-battambang">
+              <span class="px-4 py-1.5 rounded-xl text-sm font-bold bg-sky-500/20 text-sky-400 border border-sky-500/40 font-battambang">
                 រយៈពេល ១៥ នាទី (ស្មើគ្នាគ្រប់ក្រុម)
               </span>
             </div>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
+            <h2 class="text-3xl sm:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
               ${slide.title}
             </h2>
           </div>
 
-          <!-- 6-Group Balanced Grid (Responsive 2x3 layout with large typography) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 my-auto">
+          <!-- 6-Group Balanced Grid (Responsive 2x3 layout with large typography, no empty space) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-auto flex-1 items-stretch">
             ${groups.map((g, i) => `
-              <div class="p-5 rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 shadow-md hover:border-purple-400 transition flex flex-col justify-between">
+              <div class="p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 shadow-md hover:border-purple-400 transition flex flex-col justify-between">
                 <div>
-                  <div class="flex items-center gap-2.5 mb-3 pb-2 border-b border-slate-200 dark:border-slate-700">
-                    <span class="w-8 h-8 rounded-xl ${groupColors[i % groupColors.length]} flex items-center justify-center text-xs font-mono font-bold shadow-xs">
+                  <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
+                    <span class="w-10 h-10 rounded-2xl ${groupColors[i % groupColors.length]} flex items-center justify-center text-sm font-mono font-bold shadow-xs">
                       ${g.group_num || (i + 1)}
                     </span>
-                    <h4 class="text-base sm:text-lg font-bold font-suwannaphum text-slate-900 dark:text-slate-100">
+                    <h4 class="text-lg sm:text-xl font-bold font-suwannaphum text-slate-900 dark:text-slate-100">
                       ${g.title}
                     </h4>
                   </div>
-                  <div class="space-y-2.5">
+                  <div class="space-y-3">
                     ${(g.problems || []).map(p => `
-                      <p class="text-base sm:text-lg font-battambang text-slate-800 dark:text-slate-200 leading-relaxed">
+                      <p class="text-lg sm:text-xl font-battambang text-slate-800 dark:text-slate-200 leading-relaxed">
                         ${p}
                       </p>
                     `).join('')}
                   </div>
                 </div>
-                <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-700/60 text-xs text-slate-400 font-battambang text-right">
+                <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-700/60 text-xs sm:text-sm text-slate-400 font-battambang text-right">
                   សរសេរលើក្តារខៀនក្រុម
                 </div>
               </div>
             `).join('')}
           </div>
 
-          <div class="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-xs sm:text-sm text-center text-purple-900 dark:text-purple-200 font-battambang">
+          <div class="p-3.5 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-sm sm:text-base text-center text-purple-900 dark:text-purple-200 font-battambang shrink-0">
             💡 <b>សកម្មភាពសិស្ស ៖</b> ពិភាក្សាជាក្រុម រួចចាត់តាំងតំណាងក្រុមឡើងដោះស្រាយ និងពន្យល់លើក្តារខៀន
           </div>
         </div>
