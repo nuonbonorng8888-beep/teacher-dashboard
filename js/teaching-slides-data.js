@@ -622,6 +622,19 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 32,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ ប្រមាណវិធីលើទម្រង់ពីជគណិត",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គេឱ្យចំនួនកុំផ្លិច $z_1 = 3 - 2i$ និង $z_2 = 1 + 4i$ ។<br>ក. គណនាផលគុណ $A = z_1 \\cdot z_2$<br>ខ. សរសេរ $B = \\frac{z_1}{z_2}$ ជាទម្រង់ $a + bi$",
+        "solution": [
+          "<b>ក. គណនា $A = z_1 \\cdot z_2$ ៖</b><br>$A = (3 - 2i)(1 + 4i) = 3 + 12i - 2i - 8i^2 = 3 + 10i - 8(-1) = 11 + 10i$",
+          "<b>ខ. គណនា $B = \\frac{z_1}{z_2}$ ៖</b><br>គុណនឹងចំនួនកុំផ្លិចឆ្លាស់ $\\overline{z_2} = 1 - 4i$ ៖<br>$$B = \\frac{(3 - 2i)(1 - 4i)}{(1 + 4i)(1 - 4i)} = \\frac{3 - 12i - 2i + 8i^2}{1^2 + 4^2} = \\frac{3 - 14i - 8}{17} = -\\frac{5}{17} - \\frac{14}{17}i$$"
+        ],
+        "answer": "$$A = 11 + 10i, \\quad B = -\\frac{5}{17} - \\frac{14}{17}i$$"
+      },
+      {
+        "slide_num": 33,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ ឯកតានិមិត្ត",
@@ -651,7 +664,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 33,
+        "slide_num": 34,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ផលគុណកុំផ្លិច",
@@ -681,7 +694,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 34,
+        "slide_num": 35,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ សមីការកុំផ្លិច",
@@ -711,7 +724,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 35,
+        "slide_num": 36,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (៦ ក្រុមតុល្យភាព)",
         "title": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (រយៈពេល ១៥ នាទី)",
@@ -774,7 +787,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 36,
+        "slide_num": 37,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ១ & កិច្ចការផ្ទះ (Wrap-up)",
         "title": "រូបមន្តសង្ខេបគន្លឹះ និងកិច្ចការផ្ទះ",
@@ -1565,6 +1578,19 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 37,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ បំប្លែងជាទម្រង់ត្រីកោណមាត្រ និងដឺម័រ",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គេឱ្យចំនួនកុំផ្លិច $z = -\\sqrt{3} + i$ ។<br>ក. សរសេរ $z$ ជាទម្រង់ត្រីកោណមាត្រ $r(\\cos\\theta + i\\sin\\theta)$<br>ខ. គណនា $z^{12}$ ដោយប្រើរូបមន្តដឺម័រ (De Moivre)",
+        "solution": [
+          "<b>ក. រកម៉ូឌុល $r$ និងអាគុយម៉ង់ $\\theta$ ៖</b><br>$r = \\sqrt{(-\\sqrt{3})^2 + 1^2} = \\sqrt{3 + 1} = 2$<br>$\\cos\\theta = -\\frac{\\sqrt{3}}{2}, \\, \\sin\\theta = \\frac{1}{2} \\implies \\theta = \\pi - \\frac{\\pi}{6} = \\frac{5\\pi}{6}$<br>$$z = 2\\left(\\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6}\\right)$$",
+          "<b>ខ. គណនា $z^{12}$ ៖</b><br>$$z^{12} = 2^{12}\\left(\\cos\\left(12 \\cdot \\frac{5\\pi}{6}\\right) + i\\sin\\left(12 \\cdot \\frac{5\\pi}{6}\\right)\\right) = 4096(\\cos 10\\pi + i\\sin 10\\pi) = 4096(1 + 0) = 4096$$"
+        ],
+        "answer": "$$z = 2\\left(\\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6}\\right), \\quad z^{12} = 4096$$"
+      },
+      {
+        "slide_num": 38,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ វាយតម្លៃការយល់ដឹង)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងភ្លាមៗ",
@@ -1594,7 +1620,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 38,
+        "slide_num": 39,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (Collaborative Learning)",
         "title": "សន្លឹកកិច្ចការ ៦ ក្រុមតុល្យភាព (រយៈពេល ១៥ នាទី)",
@@ -1657,7 +1683,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 39,
+        "slide_num": 40,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ២ & កិច្ចការផ្ទះ (Wrap-up)",
         "title": "រូបមន្តសង្ខេបគន្លឹះ និងកិច្ចការផ្ទះ",
@@ -2035,6 +2061,20 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 18,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ គណនាឫសទី $n$ នៃចំនួនកុំផ្លិច",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "ចូរស្វែងរកឫសទី ៣ ទាំងអស់នៃចំនួនកុំផ្លិច $z = 8i$ ក្នុងសំណុំ $\\mathbb{C}$ ។",
+        "solution": [
+          "<b>ជំហានទី ១ ៖</b> សរសេរ $z = 8i$ ជាទម្រង់ត្រីកោណមាត្រ ៖<br>$r = 8, \\, \\theta = \\frac{\\pi}{2} \\implies z = 8\\left(\\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2}\\right)$",
+          "<b>ជំហានទី ២ ៖</b> រូបមន្តឫសទី ៣ ៖ $w_k = \\sqrt[3]{8}\\left(\\cos\\frac{\\frac{\\pi}{2} + 2k\\pi}{3} + i\\sin\\frac{\\frac{\\pi}{2} + 2k\\pi}{3}\\right) \\quad (k = 0, 1, 2)$",
+          "<b>ជំហានទី ៣ ៖</b> ជំនួសតម្លៃ $k$ ៖<br>• $k=0 ៖ w_0 = 2\\left(\\cos\\frac{\\pi}{6} + i\\sin\\frac{\\pi}{6}\\right) = \\sqrt{3} + i$<br>• $k=1 ៖ w_1 = 2\\left(\\cos\\frac{5\\pi}{6} + i\\sin\\frac{5\\pi}{6}\\right) = -\\sqrt{3} + i$<br>• $k=2 ៖ w_2 = 2\\left(\\cos\\frac{9\\pi}{6} + i\\sin\\frac{9\\pi}{6}\\right) = -2i$"
+        ],
+        "answer": "$$w_0 = \\sqrt{3} + i, \\quad w_1 = -\\sqrt{3} + i, \\quad w_2 = -2i$$"
+      },
+      {
+        "slide_num": 19,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ ទ្រឹស្តីបទដឺម័រ",
@@ -2064,7 +2104,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 19,
+        "slide_num": 20,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ចំនួនឫសទី $n$",
@@ -2094,7 +2134,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 20,
+        "slide_num": 21,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (៦ ក្រុមតុល្យភាព)",
         "title": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (រយៈពេល ១៥ នាទី)",
@@ -2157,7 +2197,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 21,
+        "slide_num": 22,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ៣ & កិច្ចការផ្ទះ (Wrap-up)",
         "title": "រូបមន្តសង្ខេបគន្លឹះ និងកិច្ចការផ្ទះ",
@@ -2801,6 +2841,19 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 28,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ គណនាលីមីតរាងមិនកំណត់ $\\frac{0}{0}$",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គណនាលីមីតខាងក្រោម ៖<br>ក. $L_1 = \\lim_{x \\to 2} \\frac{\\sqrt{x + 2} - 2}{x - 2}$<br>ខ. $L_2 = \\lim_{x \\to 0} \\frac{1 - \\cos 4x}{x^2}$",
+        "solution": [
+          "<b>ក. គណនា $L_1$ (គុណកន្សោមឆ្លាស់) ៖</b><br>$$L_1 = \\lim_{x \\to 2} \\frac{(\\sqrt{x+2}-2)(\\sqrt{x+2}+2)}{(x-2)(\\sqrt{x+2}+2)} = \\lim_{x \\to 2} \\frac{x - 2}{(x-2)(\\sqrt{x+2}+2)} = \\lim_{x \\to 2} \\frac{1}{\\sqrt{x+2}+2} = \\frac{1}{4}$$",
+          "<b>ខ. គណនា $L_2$ (ប្រើរូបមន្ត $1 - \\cos 2a = 2\\sin^2 a$) ៖</b><br>$$1 - \\cos 4x = 2\\sin^2 2x \\implies L_2 = \\lim_{x \\to 0} \\frac{2\\sin^2 2x}{x^2} = 2 \\lim_{x \\to 0} \\left(\\frac{\\sin 2x}{x}\\right)^2 = 2 \\cdot 2^2 = 8$$"
+        ],
+        "answer": "$$L_1 = \\frac{1}{4}, \\quad L_2 = 8$$"
+      },
+      {
+        "slide_num": 29,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១",
@@ -2830,7 +2883,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 29,
+        "slide_num": 30,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២",
@@ -2860,7 +2913,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 30,
+        "slide_num": 31,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣",
@@ -2890,7 +2943,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 31,
+        "slide_num": 32,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ១ & ២)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ១ & ២)",
@@ -2917,7 +2970,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 32,
+        "slide_num": 33,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៣ & ៤)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ៣ & ៤)",
@@ -2944,7 +2997,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 33,
+        "slide_num": 34,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៥ & ៦)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ៥ & ៦)",
@@ -2971,7 +3024,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 34,
+        "slide_num": 35,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ១ & កិច្ចការផ្ទះ (Wrap-up)",
         "title": "រូបមន្តសង្ខេបគន្លឹះ និងកិច្ចការផ្ទះ",
@@ -3448,6 +3501,20 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 21,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ សិក្សាភាពជាប់ និងកំណត់ប៉ារ៉ាម៉ែត្រ",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គេឱ្យអនុគមន៍ $f(x) = \\begin{cases} \\frac{x^2 - 1}{x - 1} & \\text{បើ } x \\ne 1 \\\\ k & \\text{បើ } x = 1 \\end{cases}$<br>ចូររកតម្លៃ $k$ ដើម្បីឱ្យអនុគមន៍ $f$ ជាប់ត្រង់ចំណុច $x = 1$ ។",
+        "solution": [
+          "<b>ជំហានទី ១ ៖</b> អនុគមន៍ $f$ កំណត់ត្រង់ $x=1$ ដោយ $f(1) = k$",
+          "<b>ជំហានទី ២ ៖</b> គណនាលីមីតត្រង់ $x=1$ ៖<br>$$\\lim_{x \\to 1} f(x) = \\lim_{x \\to 1} \\frac{x^2 - 1}{x - 1} = \\lim_{x \\to 1} \\frac{(x - 1)(x + 1)}{x - 1} = \\lim_{x \\to 1} (x + 1) = 2$$",
+          "<b>ជំហានទី ៣ ៖</b> ដើម្បីឱ្យ $f$ ជាប់ត្រង់ $x=1$ លុះត្រាតែ $\\lim_{x \\to 1} f(x) = f(1) \\iff k = 2$"
+        ],
+        "answer": "$$k = 2$$"
+      },
+      {
+        "slide_num": 22,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ លក្ខខណ្ឌភាពជាប់",
@@ -3477,7 +3544,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 22,
+        "slide_num": 23,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ទ្រឹស្តីបទតម្លៃកណ្តាល",
@@ -3507,7 +3574,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 23,
+        "slide_num": 24,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ អនុគមន៍បន្ត",
@@ -3537,7 +3604,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 24,
+        "slide_num": 25,
         "type": "concept",
         "badge": "៥. វិធីសាស្ត្រចែកជាពីរ (Bisection Method)",
         "title": "៥.១ ក្បួនដោះស្រាយសមីការតាមវិធីចែកជាពីរ",
@@ -3551,7 +3618,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 25,
+        "slide_num": 26,
         "type": "example",
         "badge": "លំហាត់គំរូទី ៥ ៖ វិធីចែកជាពីរ",
         "title": "ការបង្រួញចន្លោះឫសនៃសមីការ",
@@ -3577,7 +3644,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 26,
+        "slide_num": 27,
         "type": "concept",
         "badge": "សង្ខេបភាពជាប់នៃអនុគមន៍បណ្តាក់",
         "title": "ភាពជាប់នៃអនុគමន៍បណ្តាក់ $(g \\circ f)(x)$",
@@ -3586,7 +3653,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "highlight": "<b>ឧទាហរណ៍ ៖</b> $h(x) = \\cos(x^2 + 1)$ ជាប់លើ $\\mathbb{R}$ ព្រោះ $x^2+1$ ជាប់លើ $\\mathbb{R}$ និង $\\cos u$ ជាប់លើ $\\mathbb{R}$!"
       },
       {
-        "slide_num": 27,
+        "slide_num": 28,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ១)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ១ (កម្រិតមូលដ្ឋាន)",
@@ -3604,7 +3671,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 28,
+        "slide_num": 29,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ២)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ២ (កម្រិតមូលដ្ឋាន)",
@@ -3622,7 +3689,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 29,
+        "slide_num": 30,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ៣)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ៣ (កម្រិតមធ្យម)",
@@ -3640,7 +3707,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 30,
+        "slide_num": 31,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ៤)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ៤ (កម្រិតមធ្យម)",
@@ -3658,7 +3725,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 31,
+        "slide_num": 32,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ៥)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ៥ (កម្រិតខ្ពស់)",
@@ -3676,7 +3743,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 32,
+        "slide_num": 33,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុមទី ៦)",
         "title": "សន្លឹកកិច្ចការ ក្រុមទី ៦ (កម្រិតខ្ពស់)",
@@ -3694,7 +3761,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 33,
+        "slide_num": 34,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ២ & កិច្ចការផ្ទះ (Wrap-up)",
         "title": "រូបមន្តសង្ខេបគន្លឹះ និងកិច្ចការផ្ទះ",
@@ -3983,6 +4050,19 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 16,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ គណនាដេរីវេ និងសមីការបន្ទាត់ប៉ះ",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គេឱ្យអនុគមន៍ $f(x) = x^3 - 3x + 2$ មានក្រាហ្វ $(C)$ ។<br>ក. គណនាដេរីវេ $f'(x)$<br>ខ. សរសេរសមីការបន្ទាត់ប៉ះ $(T)$ ទៅនឹងក្រាហ្វ $(C)$ ត្រង់ចំណុចដែលមានអាប់ស៊ីស $x_0 = 2$",
+        "solution": [
+          "<b>ក. គណនា $f'(x)$ ៖</b><br>$$f'(x) = (x^3)' - 3(x)' + (2)' = 3x^2 - 3$$",
+          "<b>ខ. រកសមីការបន្ទាត់ប៉ះត្រង់ $x_0 = 2$ ៖</b><br>• អ័រដោនេចំណុចប៉ះ ៖ $y_0 = f(2) = 2^3 - 3(2) + 2 = 8 - 6 + 2 = 4$<br>• មេគុណប្រាប់ទិស ៖ $m = f'(2) = 3(2)^2 - 3 = 12 - 3 = 9$<br>• សមីការបន្ទាត់ប៉ះ ៖ $y - y_0 = f'(x_0)(x - x_0) \\implies y - 4 = 9(x - 2) \\implies y = 9x - 14$"
+        ],
+        "answer": "$$f'(x) = 3x^2 - 3, \\quad (T) ៖ y = 9x - 14$$"
+      },
+      {
+        "slide_num": 17,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១",
@@ -4012,7 +4092,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 17,
+        "slide_num": 18,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២",
@@ -4042,7 +4122,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 18,
+        "slide_num": 19,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣",
@@ -4072,7 +4152,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 19,
+        "slide_num": 20,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ១-៣)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ១ ដល់ ៣)",
@@ -4108,7 +4188,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 20,
+        "slide_num": 21,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៤-៦)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ៤ ដល់ ៦)",
@@ -4144,7 +4224,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 21,
+        "slide_num": 22,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ១",
         "title": "រូបមន្តសង្ខេបគន្លឹះនៃដេរីវេ",
@@ -4156,7 +4236,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 22,
+        "slide_num": 23,
         "type": "homework",
         "badge": "កិច្ចការផ្ទះ (Homework)",
         "title": "កិច្ចការផ្ទះ និងការត្រៀមរៀនមេរៀនទី ២",
@@ -4381,6 +4461,19 @@ window.NGS_TEACHING_SLIDES_DATA = [
       },
       {
         "slide_num": 12,
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ រកបរមា និងទិសដៅអថេរភាព",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចចុចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "គេឱ្យអនុគមន៍ $f(x) = x^3 - 3x^2 + 1$ ។<br>ក. រកតម្លៃបរមាក្នុងនៃអនុគមន៍ $f$<br>ខ. បញ្ជាក់ចន្លោះឡើង និងចន្លោះចុះនៃ $f$",
+        "solution": [
+          "<b>ក. ដេរីវេ និងរកឫស $f'(x) = 0$ ៖</b><br>$f'(x) = 3x^2 - 6x = 3x(x - 2)$<br>$f'(x) = 0 \\iff x = 0 \\quad \\text{ឬ} \\quad x = 2$",
+          "<b>ខ. តម្លៃបរមា និងទិសដៅអថេរភាព ៖</b><br>• ត្រង់ $x = 0$ ៖ $f'(x)$ ប្តូរសញ្ញាពី $+$ ទៅ $-$ នាំឱ្យ $f(0) = 1$ ជា <b>តម្លៃអតិបរមាធៀប</b><br>• ត្រង់ $x = 2$ ៖ $f'(x)$ ប្តូរសញ្ញាពី $-$ ទៅ $+$ នាំឱ្យ $f(2) = 2^3 - 3(4) + 1 = -3$ ជា <b>តម្លៃអប្បបរមាធៀប</b><br>• អនុគមន៍កើនលើ $(-\\infty, 0) \\cup (2, +\\infty)$ និងចុះលើ $(0, 2)$"
+        ],
+        "answer": "$$f_\\text{max} = 1 \\quad (x = 0), \\quad f_\\text{min} = -3 \\quad (x = 2)$$"
+      },
+      {
+        "slide_num": 13,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ មេគុណប្រាប់ទិស",
@@ -4410,7 +4503,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 13,
+        "slide_num": 14,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ បរមា",
@@ -4440,7 +4533,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 14,
+        "slide_num": 15,
         "type": "mcq",
         "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
         "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ ចំណុចរបត់",
@@ -4470,7 +4563,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         }
       },
       {
-        "slide_num": 15,
+        "slide_num": 16,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ១ & ២)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ១ & ២)",
@@ -4495,7 +4588,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 16,
+        "slide_num": 17,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៣ & ៤)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ៣ & ៤)",
@@ -4520,7 +4613,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 17,
+        "slide_num": 18,
         "type": "worksheet",
         "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៥ & ៦)",
         "title": "សន្លឹកកិច្ចការពិភាក្សាជាក្រុម (ក្រុម ៥ & ៦)",
@@ -4545,7 +4638,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 18,
+        "slide_num": 19,
         "type": "summary",
         "badge": "សង្ខេបមេរៀនទី ២",
         "title": "រូបមន្តសង្ខេបគន្លឹះនៃការអនុវត្តន៍ដេរីវេ",
@@ -4557,7 +4650,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         ]
       },
       {
-        "slide_num": 19,
+        "slide_num": 20,
         "type": "homework",
         "badge": "កិច្ចការផ្ទះ (Homework)",
         "title": "កិច្ចការផ្ទះ និងការបិទបញ្ចប់ជំពូកទី ៣",
@@ -4584,10 +4677,10 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 1,
         "type": "cover",
-        "badge": "វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី (NGS) • ស្លាយគំរូផ្លូវការ",
+        "badge": "វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី (NGS)",
         "title": "មេរៀនទី ៥ ៖ ទំនាក់ទំនងតួនៃស្វ៊ីត",
         "subtitle": "Recurrence Relations of Sequences • គណិតវិទ្យា ថ្នាក់ទី ១២ (កម្រិតខ្ពស់)",
-        "chapter_title": "ជំពូកទី ១ ៖ ស្វ៊ីតនិងអនុមានរួមគណិតវិទ្យា",
+        "chapter_title": "ជំពូកទី ១ ៖ ស្វ៊ីត និងអនុមានរួមគណិតវិទ្យា",
         "meta": {
           "teacher": "លោកគ្រូ នួន បូណង",
           "school": "វិទ្យាល័យព្រះយុគន្ធរ (NGS)",
@@ -4598,464 +4691,519 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 2,
         "type": "intro",
-        "badge": "សេចក្តីផ្តើមមេរៀនគំរូ NGS",
-        "title": "ស្វ៊ីតកំណត់ដោយទំនាក់ទំនងកំណើន",
-        "subtitle": "Recurrence Relations in Sequences",
+        "badge": "ជំពូកទី ១ ៖ ស្វ៊ីតនិងអនុមានរួមគណិតវិទ្យា",
+        "title": "មេរៀនទី ៥ ៖ ទំនាក់ទំនងតួនៃស្វ៊ីត",
+        "subtitle": "សេចក្តីផ្តើមនៃទំនាក់ទំនងកំណើន (Recurrence Relations)",
         "body": [
-          "នៅក្នុងការអនុវត្តជាក់ស្តែង ស្វ៊ីតជាច្រើនមិនត្រូវបានកំណត់ដោយរូបមន្តតួទី $n$ ផ្ទាល់ឡើយ តែត្រូវបានកំណត់ដោយ <b>ទំនាក់ទំនងកំណើនរវាងតួបន្ទាប់ និងតួមុន</b> ដូចជា $a_{n+1} = p a_n + q$!",
-          "ស្លាយគំរូ NGS នេះបង្ហាញពីវិធីសាស្ត្រគន្លឹះចំនួន ៣ ក្នុងការស្វែងរកតួទី $n$ តាមរយៈស្វ៊ីតជំនួយ ផលសង និងស្វ៊ីតធរណីមាត្រ!"
+          "ស្វ៊ីតចំនួនពិតជាច្រើនមិនត្រូវបានកំណត់ដោយរូបមន្តតួទូទៅផ្ទាល់ឡើយ ប៉ុន្តែត្រូវបានកំណត់តាមរយៈ <b>ទំនាក់ទំនងរវាងតួមួយទៅតួបន្ទាប់ (ទំនាក់ទំនងកំណើន)</b>។",
+          "ឧទាហរណ៍ ៖ ស្វ៊ីត Fibonacci $a_1=1, a_2=1, a_{n+2} = a_{n+1} + a_n$ ជាគំរូដ៏ល្បីល្បាញបំផុតក្នុងធម្មជាតិ និងវិទ្យាសាស្ត្រកុំព្យូទ័រ!",
+          "<b>គោលដៅមេរៀន ៖</b> បំប្លែងទំនាក់ទំនងស្មុគស្មាញ ទៅជាស្វ៊ីតដែលយើងស្គាល់ (ស្វ៊ីតនព្វន្ត ឬស្វ៊ីតធរណីមាត្រ) ដើម្បីទាញរកតួទូទៅ $a_n$។"
         ]
       },
       {
         "slide_num": 3,
-        "type": "roadmap",
-        "badge": "មាតិកាមេរៀន (Roadmap)",
-        "title": "គ្រោងការណ៍មាតិកាមេរៀនទី ៥",
-        "subtitle": "ដំណើរការសិក្សា ២ ផ្នែកធំៗ",
-        "items": [
-          {
-            "num": "១",
-            "title": "ផ្នែកទី ១ ៖ កំណត់តួទី $n$ ដោយប្រើស្វ៊ីតជំនួយ",
-            "active": true
-          },
-          {
-            "num": "២",
-            "title": "ផ្នែកទី ២ ៖ ទំនាក់ទំនងរវាង $a_{n+1} = p a_n + q$",
-            "active": true
-          }
+        "type": "intro",
+        "badge": "វត្ថុបំណងនៃមេរៀន",
+        "title": "វត្ថុបំណងនៃការរៀនសូត្រ (Learning Objectives)",
+        "subtitle": "បន្ទាប់ពីសិក្សាមេរៀននេះចប់ សិស្សនឹងអាច ៖",
+        "body": [
+          "<b>១. កំណត់តួទី $n$ នៃស្វ៊ីត ដោយប្រើស្វ៊ីតជំនួយ ៖</b> ចេះបំប្លែងទំនាក់ទំនង $a_{n+1} = pa_n + f(n)$ ទៅជាស្វ៊ីតធរណីមាត្រយ៉ាងស្ទាត់ជំនាញ។",
+          "<b>២. កំណត់តួទី $n$ តាមទំនាក់ទំនងរវាង $a_n$ និង $S_n$ ៖</b> ប្រើប្រាស់រូបមន្ត $a_n = S_n - S_{n-1}$ ចំពោះ $n \\ge 2$ និង $a_1 = S_1$ បានត្រឹមត្រូវ។",
+          "<b>៣. កំណត់តួទូទៅនៃទំនាក់ទំនងកំណើនបីតួជាប់គ្នា ៖</b> ដោះស្រាយសមីការសម្គាល់ $x^2 + px + q = 0$ សម្រាប់ទម្រង់ $a_{n+2} + pa_{n+1} + qa_n = 0$។",
+          "💡 <b>គោលដៅគន្លឹះ ៖</b> បំប្លែងទំនាក់ទំនងស្មុគស្មាញ ទៅជាស្វ៊ីតដែលយើងស្គាល់ (ស្វ៊ីតនព្វន្ត ឬធរណីមាត្រ)!"
         ]
       },
       {
         "slide_num": 4,
-        "type": "concept",
-        "badge": "១. កំណត់តួទី $n$ ដោយស្វ៊ីតជំនួយ",
-        "title": "១.១ និយមន័យស្វ៊ីត និងទំនាក់ទំនងកំណើន",
-        "subtitle": "ការកំណត់ស្វ៊ីតតាមរយៈ $a_1$ និង $a_{n+1} = f(a_n)$",
-        "body": [
-          "ស្វ៊ីតមួយត្រូវបានកំណត់តាមទំនាក់ទំនងកំណើន កាលណាគេស្គាល់ ៖",
-          "• តួដំបូង $a_1$",
-          "• ទំនាក់ទំនងរវាងតួទី $n+1$ និងតួទី $n$ ៖ $a_{n+1} = f(a_n)$ ចំពោះគ្រប់ $n \\ge 1$"
-        ]
+        "type": "recall",
+        "badge": "រំលឹកចំណេះដឹងមូលដ្ឋាន",
+        "title": "រំលឹកស្វ៊ីតនព្វន្ត និងស្វ៊ីតធរណីមាត្រ",
+        "subtitle": "រូបមន្តគ្រឹះពីរដែលជាគោលដៅនៃការបំប្លែងស្វ៊ីត",
+        "cards": [
+          {
+            "title": "ស្វ៊ីតនព្វន្ត (Arithmetic Progression - AP)",
+            "detail": "• ទំនាក់ទំនង ៖ $a_{n+1} = a_n + d$<br>• តួទូទៅ ៖ $a_n = a_1 + (n - 1)d$<br>• ផលបូក $n$ តួ ៖ $S_n = \\frac{n}{2}(a_1 + a_n)$<br>• លំនាំ ៖ $2, 5, 8, 11, \\dots$ ($+3$ រាល់ជំហាន)"
+          },
+          {
+            "title": "ស្វ៊ីតធរណីមាត្រ (Geometric Progression - GP)",
+            "detail": "• ទំនាក់ទំនង ៖ $a_{n+1} = q \\cdot a_n$<br>• តួទូទៅ ៖ $a_n = a_1 \\cdot q^{n-1}$<br>• ផលបូក $n$ តួ ៖ $S_n = a_1 \\frac{q^n - 1}{q - 1} \\quad (q \\ne 1)$<br>• លំនាំ ៖ $3, 6, 12, 24, \\dots$ ($\\times 2$ រាល់ជំហាន)"
+          }
+        ],
+        "highlight": "💡 <b>គន្លឹះ ៖</b> គ្រប់វិធីក្នុងមេរៀននេះ គឺបំប្លែងស្វ៊ីតថ្មី ឱ្យក្លាយជាស្វ៊ីតនព្វន្ត ឬស្វ៊ីតធរណីមាត្រ!"
       },
       {
         "slide_num": 5,
-        "type": "concept",
-        "badge": "របៀបទី ១ ៖ ប្រើផលបូកបន្តបន្ទាប់",
-        "title": "ការបូកសមីការសរុបដើម្បីរក $a_n$",
-        "subtitle": "Method of Telescoping Sums",
-        "formula": "$$a_n = a_1 + (a_2 - a_1) + (a_3 - a_2) + \\dots + (a_n - a_{n-1})$$"
+        "type": "section_cover",
+        "badge": "ផ្នែកទី ១",
+        "section_num": "១",
+        "section_badge": "ផ្នែកទី ១",
+        "title": "កំណត់តួទី $n$ ដោយប្រើស្វ៊ីតជំនួយ",
+        "subtitle": "ទម្រង់ទូទៅ ៖ $a_{n+1} = p a_n + q$ ($p \\ne 1, q \\ne 0$)",
+        "key_concept": "គំនិតគន្លឹះ ៖ ស្វែងរកស្វ៊ីតជំនួយ $V_n$ ដើម្បីបំប្លែងឱ្យទៅជាស្វ៊ីតធរណីមាត្រ",
+        "diagram": "flow_concept"
       },
       {
         "slide_num": 6,
-        "type": "concept",
-        "badge": "របៀបទី ២ ៖ ប្រើស្វ៊ីតផលសង",
-        "title": "ការកំណត់ស្វ៊ីតផលសង $b_n = a_{n+1} - a_n$",
-        "subtitle": "Difference Sequence Method",
-        "body": [
-          "តាង $b_n = a_{n+1} - a_n$ ជាស្វ៊ីតផលសងនៃស្វ៊ីត $(a_n)$។",
-          "នោះគេបានតួទូទៅនៃ $(a_n)$ កំណត់ដោយ ៖"
+        "type": "authentic_split",
+        "badge": "១. កំណត់តួទី n ដោយប្រើស្វ៊ីតជំនួយ",
+        "problem_badge": "លំហាត់គំរូ ១",
+        "problem": "កំណត់តួទូទៅនៃស្វ៊ីត $(a_n)$ ដោយទំនាក់ទំនងកំណើន $a_1 = 1, a_{n+1} = 1 + 4a_n$ ។",
+        "method_badge": "របៀបទី ១ ៖ គណនាតួដំបូងៗ រួចរកលំនាំ",
+        "derivations": [
+          "$a_2 = 1 + 4a_1 = 1 + 4$",
+          "$a_3 = 1 + 4a_2 = 1 + 4 \\cdot (1 + 4) = 1 + 4 + 4^2$",
+          "$a_4 = 1 + 4a_3 = 1 + 4 + 4^2 + 4^3$",
+          "នោះ $a_n = 1 + 4 + 4^2 + \\dots + 4^{n-1} \\quad (\\text{ផលបូកធរណីមាត្រ } q = 4)$"
         ],
-        "formula": "$$a_n = a_1 + \\sum_{k=1}^{n-1} b_k \\quad (n \\ge 2)$$"
+        "result": "ដូចនេះ $a_n = \\frac{1 \\cdot (4^n - 1)}{4 - 1} = \\frac{4^n - 1}{3}$",
+        "flowchart": [
+          {
+            "text": "a_1 = 1",
+            "bg": "dark"
+          },
+          {
+            "arrow": "\\times 4 + 1",
+            "color": "red"
+          },
+          {
+            "text": "a_2 = 5",
+            "bg": "white"
+          },
+          {
+            "arrow": "\\times 4 + 1",
+            "color": "red"
+          },
+          {
+            "text": "a_3 = 21",
+            "bg": "white"
+          },
+          {
+            "arrow": "\\times 4 + 1",
+            "color": "red"
+          },
+          {
+            "text": "a_4 = 85",
+            "bg": "white"
+          }
+        ]
       },
       {
         "slide_num": 7,
-        "type": "concept",
-        "badge": "ករណី $b_n$ ជាស្វ៊ីតនព្វន្ត ឬធរណីមាត្រ",
-        "title": "រូបមន្តផលបូកតួនៃ $b_n$",
-        "subtitle": "ការជំនួសរូបមន្ត $S_n$ នៃស្វ៊ីតស្គាល់",
-        "cards": [
+        "type": "authentic_split",
+        "badge": "១. កំណត់តួទី n ដោយប្រើស្វ៊ីតជំនួយ",
+        "problem_badge": "លំហាត់គំរូ ១ (បន្ត)",
+        "problem": "កំណត់តួទូទៅនៃស្វ៊ីត $(a_n)$ ដោយទំនាក់ទំនងកំណើន $a_1 = 1, a_{n+1} = 1 + 4a_n$ ។",
+        "method_badge": "របៀបទី ២ ៖ ប្រើស្វ៊ីតផលសង $b_n$",
+        "derivations": [
+          "ចំពោះ $n \\ge 2$ ៖ $a_{n+1} = 1 + 4a_n, \\quad a_n = 1 + 4a_{n-1}$",
+          "ដកអង្គនិងអង្គ ៖ $a_{n+1} - a_n = 4(a_n - a_{n-1})$",
+          "តាង $b_n = a_{n+1} - a_n \\implies b_n = 4b_{n-1}$",
+          "$(b_n)$ ជាស្វ៊ីតធរណីមាត្រ $q = 4, \\quad b_1 = a_2 - a_1 = 4 \\implies b_n = 4^n$",
+          "$a_n = a_1 + \\sum_{k=1}^{n-1} b_k = 1 + 4 + 4^2 + \\dots + 4^{n-1}$"
+        ],
+        "result": "ដូចនេះ $a_n = \\frac{4^n - 1}{3}$",
+        "flowchart": [
           {
-            "title": "បើ $(b_n)$ ជាស្វ៊ីតនព្វន្ត (AP)",
-            "detail": "$$\\sum_{k=1}^{n-1} b_k = \\frac{n-1}{2}(b_1 + b_{n-1})$$"
+            "text": "a_1=1, \\, a_2=5, \\, a_3=21, \\, a_4=85",
+            "bg": "white"
           },
           {
-            "title": "បើ $(b_n)$ ជាស្វ៊ីតធរណីមាត្រ (GP)",
-            "detail": "$$\\sum_{k=1}^{n-1} b_k = b_1 \\frac{q^{n-1} - 1}{q - 1} \\quad (q \\ne 1)$$"
+            "arrow": "\\text{ផលសងតួជាប់គ្នា}",
+            "color": "blue"
+          },
+          {
+            "text": "b_1=4, \\, b_2=16, \\, b_3=64",
+            "bg": "dark"
+          },
+          {
+            "arrow": "\\times 4 \\quad (q = 4)",
+            "color": "red"
+          },
+          {
+            "text": "ស្វ៊ីតផលសង ជាស្វ៊ីតធរណីមាត្រ!",
+            "bg": "white"
           }
         ]
       },
       {
         "slide_num": 8,
-        "type": "example",
-        "badge": "លំហាត់គំរូទី ១ ៖ ស្វ៊ីតផលសង",
-        "title": "រកតួទូទៅ $a_n$ តាមស្វ៊ីតផលសង",
-        "subtitle": "អនុវត្តលើ $a_1 = 1$ និង $a_{n+1} = a_n + 2n$",
-        "problem": "គេមានស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 1$ និង $a_{n+1} = a_n + 2n$ ចំពោះ $n \\ge 1$។ ចូររកតួទូទៅ $a_n$។",
-        "steps": [
+        "type": "concept",
+        "badge": "ការប្រៀបធៀបវិធីសាស្ត្រ",
+        "title": "ការប្រៀបធៀបរបៀបទី ១ និងរបៀបទី ២",
+        "subtitle": "គុណសម្បត្តិ និងដែនកំណត់នៃការដោះស្រាយ",
+        "cards": [
           {
-            "title": "១. កំណត់ស្វ៊ីតផលសង ៖",
-            "detail": "$b_n = a_{n+1} - a_n = 2n$"
+            "title": "របៀបទី ១ ៖ រកលំនាំ (Pattern Finding)",
+            "detail": "• ងាយយល់ និងគិតលឿនសម្រាប់តួដំបូងៗ<br>• ស័ក្តិសមសម្រាប់លំហាត់សាមញ្ញ<br>• ប៉ុន្តែត្រូវផ្ទៀងផ្ទាត់ដោយអនុមានរួមគណិតវិទ្យា (Mathematical Induction) ដើម្បីភាពម៉ត់ចត់"
           },
           {
-            "title": "២. អនុវត្តរូបមន្តផលបូក ៖",
-            "detail": "$$a_n = a_1 + \\sum_{k=1}^{n-1} 2k = 1 + 2 \\frac{(n-1)n}{2} = 1 + n(n-1) = n^2 - n + 1$$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$a_n = n^2 - n + 1$</span>"
+            "title": "របៀបទី ២ ៖ ស្វ៊ីតផលសង (Difference Sequence)",
+            "detail": "• ជាវិធីសាស្ត្រពិជគណិតពិតប្រាកដ និងម៉ត់ចត់ខ្ពស់<br>• អនុវត្តបានល្អនៅពេល $a_{n+1} - a_n$ បង្កើតបានជាស្វ៊ីតស្គាល់<br>• រូបមន្តគន្លឹះ ៖ $a_n = a_1 + \\sum_{k=1}^{n-1} b_k \\quad (n \\ge 2)$"
           }
-        ]
+        ],
+        "highlight": "💡 <b>អនុវត្ត ៖</b> ក្នុងចំណោមវិធីទាំងពីរ របៀបទី ២ មានលក្ខណៈទូទៅជាងសម្រាប់កម្រិតបាក់ឌុប!"
       },
       {
         "slide_num": 9,
-        "type": "concept",
-        "badge": "របៀបទី ៣ ៖ ប្រើស្វ៊ីតជំនួយ $(r_n)$",
-        "title": "ការជ្រើសរើសស្វ៊ីតជំនួយសមស្រប",
-        "subtitle": "Auxiliary Sequence Method",
-        "body": [
-          "នៅពេលទំនាក់ទំនងកំណើនមានទម្រង់ស្មុគស្មាញ គេអាចប្តូរអថេរដោយតាងស្វ៊ីតថ្មី $(b_n)$ ដូចជា ៖",
-          "• $b_n = \\frac{a_n}{c^n}$ ឬ $b_n = \\frac{1}{a_n}$",
-          "ដើម្បីបំប្លែងស្វ៊ីតស្មុគស្មាញទៅជាស្វ៊ីតនព្វន្ត ឬស្វ៊ីតធរណីមាត្រងាយស្រួល!"
+        "type": "authentic_split",
+        "badge": "១. កំណត់តួទី n ដោយប្រើស្វ៊ីតជំនួយ",
+        "problem_badge": "លំហាត់គំរូ ១ (បន្ត)",
+        "problem": "កំណត់តួទូទៅនៃស្វ៊ីត $(a_n)$ ដោយទំនាក់ទំនងកំណើន $a_1 = 1, a_{n+1} = 1 + 4a_n$ ។",
+        "method_badge": "របៀបទី ៣ ៖ ប្រើស្វ៊ីតជំនួយ (r_n)",
+        "derivations": [
+          "យក $r_n = -\\frac{1}{3} \\implies a_{n+1} + \\frac{1}{3} = 4a_n + \\frac{4}{3} = 4\\left(a_n + \\frac{1}{3}\\right)$",
+          "តាង $V_n = a_n + \\frac{1}{3} \\implies V_{n+1} = 4V_n$",
+          "$(V_n)$ ជាស្វ៊ីតធរណីមាត្រ $q = 4$ និង $V_1 = a_1 + \\frac{1}{3} = \\frac{4}{3}$",
+          "$V_n = 4^{n-1} \\cdot \\frac{4}{3} = \\frac{1}{3} \\cdot 4^n$"
+        ],
+        "result": "ដូចនេះ $a_n = V_n - \\frac{1}{3} = \\frac{4^n - 1}{3}$",
+        "flowchart": [
+          {
+            "title": "(a_n)",
+            "text": "a_{n+1} = 4a_n + 1",
+            "bg": "soft_blue"
+          },
+          {
+            "arrow": "+\\frac{1}{3}",
+            "color": "red"
+          },
+          {
+            "title": "(V_n)",
+            "text": "ស្វ៊ីតធរណីមាត្រ \\, q = 4",
+            "bg": "soft_pink"
+          },
+          {
+            "arrow": "-\\frac{1}{3}",
+            "color": "green"
+          },
+          {
+            "title": "លទ្ធផល",
+            "text": "a_n = \\frac{4^n - 1}{3}",
+            "bg": "soft_green"
+          }
         ]
       },
       {
         "slide_num": 10,
-        "type": "example",
-        "badge": "លំហាត់គំរូទី ២ ៖ ស្វ៊ីតជំនួយផលធៀប",
-        "title": "រកតួទូទៅតាមរយៈការចែកនឹង $2^{n+1}$",
-        "subtitle": "អនុវត្តន៍លើ $a_{n+1} = 2a_n + 1$",
-        "problem": "គេឱ្យ $a_1 = 2$ និង $a_{n+1} = 2a_n + 1$។ រកតួទូទៅ $a_n$។",
-        "steps": [
+        "type": "concept",
+        "badge": "រូបមន្តទូទៅ",
+        "title": "ជាទូទៅ ៖ របៀបរកស្វ៊ីតជំនួយ $r_n = \\alpha n + \\beta$",
+        "subtitle": "វិធីសាស្ត្រមេគុណមិនកំណត់ (Undetermined Coefficients)",
+        "body": [
+          "ចំពោះទម្រង់ $a_{n+1} = p a_n + f(n)$ ៖",
+          "១. តាង $r_n$ ដែលផ្ទៀងផ្ទាត់ទំនាក់ទំនងកំណើន $r_{n+1} = p r_n + f(n)$",
+          "២. ដកសមីការទាំងពីរ ៖ $(a_{n+1} - r_{n+1}) = p (a_n - r_n)$",
+          "៣. តាង $V_n = a_n - r_n$ នាំឱ្យ $V_{n+1} = p V_n$ ជា <b>ស្វ៊ីតធរណីមាត្រ</b> ផលធៀបរួម $q = p$ !"
+        ],
+        "formula": "$$V_n = V_1 \\cdot p^{n-1} \\implies a_n = V_n + r_n$$"
+      },
+      {
+        "slide_num": 11,
+        "type": "tip",
+        "badge": "គន្លឹះដោះស្រាយរហ័ស",
+        "title": "គន្លឹះរហ័សសម្រាប់ទម្រង់ពិសេស $a_{n+1} = pa_n + q$",
+        "subtitle": "Shortcuts for Standard First-Order Recurrence",
+        "body": [
+          "<b>ទម្រង់ ៖</b> $a_{n+1} = p a_n + q$ ដែល $p \\ne 1$ និង $q$ ជាចំនួនថេរ ៖",
+          "<b>ជំហានទី ១ ៖</b> ដោះស្រាយសមីការសម្គាល់ $x = px + q \\implies x = \\frac{q}{1 - p}$ (តាងជា $\\alpha$)",
+          "<b>ជំហានទី ២ ៖</b> នោះស្វ៊ីត $V_n = a_n - \\alpha$ ជាស្វ៊ីតធរណីមាត្រ ផលធៀបរួម $q = p$",
+          "<b>ជំហានទី ៣ ៖</b> ទាញបានរូបមន្តរហ័ស ៖"
+        ],
+        "formula": "$$a_n = (a_1 - \\alpha) \\cdot p^{n-1} + \\alpha \\quad \\text{ដែល } \\alpha = \\frac{q}{1 - p}$$"
+      },
+      {
+        "slide_num": 12,
+        "type": "authentic_split",
+        "badge": "១. កំណត់តួទី n ដោយប្រើស្វ៊ីតជំនួយ",
+        "problem_badge": "លំហាត់គំរូ ២",
+        "problem": "គេឱ្យស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 3, a_{n+1} = 2a_n - n + 1$ ។ កំណត់តួទី $n$ ។",
+        "method_badge": "របៀបរកស្វ៊ីតជំនួយដឺក្រេទីមួយ $r_n = \\alpha n + \\beta$",
+        "derivations": [
+          "តាង $r_n = \\alpha n + \\beta$ ផ្ទៀងផ្ទាត់ ៖ $r_{n+1} = 2r_n - n + 1$",
+          "$\\alpha(n+1) + \\beta = 2(\\alpha n + \\beta) - n + 1$",
+          "$\\alpha n + (\\alpha + \\beta) = (2\\alpha - 1)n + (2\\beta + 1)$",
+          "ផ្ទឹមមេគុណ ៖ $\\begin{cases} \\alpha = 2\\alpha - 1 \\implies \\alpha = 1 \\\\ \\alpha + \\beta = 2\\beta + 1 \\implies \\beta = 0 \\end{cases} \\implies r_n = n$"
+        ],
+        "result": "ស្វ៊ីតជំនួយគឺ $r_n = n$",
+        "flowchart": [
           {
-            "title": "១. បន្ថែម ១ សងខាង ៖",
-            "detail": "$a_{n+1} + 1 = 2(a_n + 1)$"
+            "text": "r_n = \\alpha n + \\beta",
+            "bg": "dark"
           },
           {
-            "title": "២. តាងស្វ៊ីតជំនួយ $b_n = a_n + 1$ ៖",
-            "detail": "$b_{n+1} = 2b_n$ នាំឱ្យ $(b_n)$ ជាស្វ៊ីតធរណីមាត្រមានរេស្យុង $q = 2$ និងតួដំបូង $b_1 = a_1 + 1 = 3$"
+            "arrow": "\\text{ជំនួសចូល}",
+            "color": "red"
           },
           {
-            "title": "៣. រក $b_n$ និងទាញរក $a_n$ ៖",
-            "detail": "$$b_n = 3 \\cdot 2^{n-1} \\implies a_n = b_n - 1 = 3 \\cdot 2^{n-1} - 1$$"
+            "text": "\\alpha = 1, \\, \\beta = 0",
+            "bg": "white"
+          },
+          {
+            "arrow": "\\text{ទាញបាន}",
+            "color": "red"
+          },
+          {
+            "text": "r_n = n",
+            "bg": "white"
           }
         ]
       },
       {
-        "slide_num": 11,
-        "type": "concept",
-        "badge": "២. ទំនាក់ទំនងរវាង $a_{n+1} = p a_n + q$",
-        "title": "២.១ ទម្រង់ទូទៅ $a_{n+1} = p a_n + q$ ($p \\ne 1, q \\ne 0$)",
-        "subtitle": "Linear Recurrence of Order 1",
-        "body": [
-          "នេះជាទម្រង់ស្វ៊ីតដ៏សំខាន់បំផុតក្នុងកម្មវិធីបាក់ឌុប!",
-          "វិធីដោះស្រាយ ៖ ដោះស្រាយសមីការលក្ខណៈរកចំនួនថេរ $\\alpha$ ៖"
-        ],
-        "formula": "$$x = p x + q \\iff \\alpha = \\frac{q}{1 - p}$$",
-        "highlight": "សមីការនេះអនុញ្ញាតឱ្យសរសេរ ៖ $a_{n+1} - \\alpha = p(a_n - \\alpha)$ !"
-      },
-      {
-        "slide_num": 12,
-        "type": "concept",
-        "badge": "២.២ ការទាញស្វ៊ីតធរណីមាត្រជំនួយ",
-        "title": "ស្វ៊ីត $b_n = a_n - \\alpha$ ជាស្វ៊ីតធរណីមាត្រ",
-        "subtitle": "រេស្យុង $q = p$ និងតួដំបូង $b_1 = a_1 - \\alpha$",
-        "body": [
-          "ដោយសារ $b_{n+1} = a_{n+1} - \\alpha = p(a_n - \\alpha) = p b_n$",
-          "នាំឱ្យ $(b_n)$ ជាស្វ៊ីតធរណីមាត្រមានរេស្យុង $p$ ៖",
-          "$$b_n = b_1 \\cdot p^{n-1} = (a_1 - \\alpha) p^{n-1}$$",
-          "ទាញបានតួទូទៅ $a_n$ ៖"
-        ],
-        "formula": "$$a_n = \\alpha + (a_1 - \\alpha) p^{n-1} = \\frac{q}{1-p} + \\left(a_1 - \\frac{q}{1-p}\\right) p^{n-1}$$"
-      },
-      {
         "slide_num": 13,
         "type": "example",
-        "badge": "លំហាត់គំរូទី ៣ ៖ អនុវត្តរូបមន្ត $a_{n+1} = p a_n + q$",
-        "title": "គណនាតួទូទៅ $a_n$ តាមវិធីសមីការលក្ខណៈ",
-        "subtitle": "អនុវត្តលើ $a_1 = 3$ និង $a_{n+1} = 3a_n - 4$",
-        "problem": "គេឱ្យស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 3$ និង $a_{n+1} = 3a_n - 4$ ($n \\ge 1$)។ រកតួទូទៅ $a_n$។",
+        "badge": "១. កំណត់តួទី n ដោយប្រើស្វ៊ីតជំនួយ",
+        "title": "ដំណោះស្រាយលម្អិតលំហាត់គំរូ ២",
+        "subtitle": "ទាញរកតួទូទៅ $a_n$ តាមរយៈ $V_n = a_n - n$",
+        "problem": "គេឱ្យ $a_1 = 3, a_{n+1} = 2a_n - n + 1$ ។ រកតួទី $n$ នៃស្វ៊ីតនេះ។",
         "steps": [
           {
-            "title": "១. សមីការលក្ខណៈ ៖",
-            "detail": "$x = 3x - 4 \\iff -2x = -4 \\iff \\alpha = 2$"
+            "title": "១. បង្កើតស្វ៊ីតថ្មី ៖",
+            "detail": "តាង $V_n = a_n - r_n = a_n - n$ ។ គេបាន $V_{n+1} = a_{n+1} - (n+1) = (2a_n - n + 1) - n - 1 = 2(a_n - n) = 2V_n$"
           },
           {
-            "title": "២. សរសេរទម្រង់ថ្មី ៖",
-            "detail": "$a_{n+1} - 2 = 3(a_n - 2)$"
+            "title": "២. កំណត់លក្ខណៈ $(V_n)$ ៖",
+            "detail": "$(V_n)$ ជាស្វ៊ីតធរណីមាត្រ មានផលធៀបរួម $q = 2$ និងតួទីមួយ $V_1 = a_1 - 1 = 3 - 1 = 2$"
           },
           {
-            "title": "៣. តាង $b_n = a_n - 2$ ៖",
-            "detail": "$b_1 = a_1 - 2 = 3 - 2 = 1$ និង $b_{n+1} = 3b_n$ នាំឱ្យ $b_n = 1 \\cdot 3^{n-1} = 3^{n-1}$"
-          },
-          {
-            "title": "៤. ទាញរក $a_n$ ៖",
-            "detail": "$$a_n = b_n + 2 = 3^{n-1} + 2$$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$a_n = 3^{n-1} + 2$</span>"
+            "title": "៣. រកតួទូទៅ $V_n$ និង $a_n$ ៖",
+            "detail": "$$V_n = V_1 \\cdot q^{n-1} = 2 \\cdot 2^{n-1} = 2^n \\implies a_n = V_n + n = 2^n + n$$"
           }
         ]
       },
       {
         "slide_num": 14,
-        "type": "concept",
-        "badge": "២.៣ ទំនាក់ទំនង $a_{n+1} = p a_n + q^n$",
-        "title": "ទម្រង់ស្វ៊ីតមានអនុគមន៍អិចស្ប៉ូណង់ស្យែល",
-        "subtitle": "វិធីសាស្ត្រចែកនឹង $q^{n+1}$",
-        "formula": "$$\\frac{a_{n+1}}{q^{n+1}} = \\frac{p}{q} \\cdot \\frac{a_n}{q^n} + \\frac{1}{q}$$",
-        "highlight": "តាង $c_n = \\frac{a_n}{q^n}$ នាំឱ្យបំប្លែងទៅជាទម្រង់ $c_{n+1} = k c_n + m$ ដូចទម្រង់មុន!"
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ កំណត់តួទី $n$ តាមស្វ៊ីតជំនួយ",
+        "subtitle": "សិស្សអនុវត្តដោយខ្លួនឯង រួចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "កំណត់តួទី $n$ នៃស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 5, \\quad a_n = 2a_{n-1} - n \\quad (n \\ge 2)$ ។",
+        "solution": [
+          "<b>ជំហានទី ១ ៖</b> សរសេរជា $a_{n+1} = 2a_n - (n+1)$",
+          "<b>ជំហានទី ២ ៖</b> រកស្វ៊ីតជំនួយ $r_n = \\alpha n + \\beta$ នាំឱ្យ $\\alpha = 1, \\beta = 2 \\implies r_n = n + 2$",
+          "<b>ជំហានទី ៣ ៖</b> តាង $V_n = a_n - (n + 2) \\implies V_{n+1} = 2V_n$ (ស្វ៊ីតធរណីមាត្រ $q = 2, V_1 = 5 - 3 = 2$)",
+          "<b>ជំហានទី ៤ ៖</b> $V_n = 2 \\cdot 2^{n-1} = 2^n \\implies a_n = 2^n + n + 2$"
+        ],
+        "answer": "$$a_n = 2^n + n + 2$$"
       },
       {
         "slide_num": 15,
-        "type": "example",
-        "badge": "លំហាត់គំរូទី ៤ ៖ ចែកនឹង $3^{n+1}$",
-        "title": "រកតួទូទៅនៃ $a_{n+1} = 2a_n + 3^n$",
-        "subtitle": "អនុវត្តន៍លើស្វ៊ីតជំនួយ $c_n = \\frac{a_n}{3^n}$",
-        "problem": "គេឱ្យ $a_1 = 1$ និង $a_{n+1} = 2a_n + 3^n$។ ចូររក $a_n$។",
-        "steps": [
-          {
-            "title": "១. ចែកសមីការនឹង $3^{n+1}$ ៖",
-            "detail": "$$\\frac{a_{n+1}}{3^{n+1}} = \\frac{2}{3} \\cdot \\frac{a_n}{3^n} + \\frac{1}{3}$$"
-          },
-          {
-            "title": "២. តាង $c_n = \\frac{a_n}{3^n}$ ៖",
-            "detail": "$c_{n+1} = \\frac{2}{3}c_n + \\frac{1}{3}$ (សមីការលក្ខណៈ $x = \\frac{2}{3}x + \\frac{1}{3} \\iff x = 1$)"
-          },
-          {
-            "title": "៣. ទាញរក $c_n$ និង $a_n$ ៖",
-            "detail": "$$c_n - 1 = \\left(\\frac{1}{3} - 1\\right)\\left(\\frac{2}{3}\\right)^{n-1} = -\\frac{2}{3}\\left(\\frac{2}{3}\\right)^{n-1} = -\\left(\\frac{2}{3}\\right)^n$$<br>$$a_n = 3^n c_n = 3^n - 2^n$$"
-          }
-        ]
+        "type": "section_cover",
+        "badge": "ផ្នែកទី ២",
+        "section_num": "២",
+        "section_badge": "ផ្នែកទី ២",
+        "title": "ទំនាក់ទំនងរវាង $a_n$ និង $S_n$",
+        "subtitle": "Relation Between General Term $a_n$ and Sum $S_n$",
+        "key_concept": "គំនិតគន្លឹះ ៖ $S_n = S_{n-1} + \\text{តួចុងក្រោយ } a_n$",
+        "diagram": "bars_Sn"
       },
       {
         "slide_num": 16,
         "type": "concept",
-        "badge": "២.៤ ស្វ៊ីតប្រភាគសនិទាន $a_{n+1} = \\frac{a a_n + b}{c a_n + d}$",
-        "title": "Homographic Recurrence Relation",
-        "subtitle": "ការប្រើប្រាស់សមីការលក្ខណៈរកចំណុចថេរ",
+        "badge": "២. ទំនាក់ទំនងរវាងតួ និងផលបូក",
+        "title": "រូបមន្តគ្រឹះនៃការទាញ $a_n$ ពីផលបូក $S_n$",
+        "subtitle": "Fundamental Formula for Terms from Partial Sums",
         "body": [
-          "ដោះស្រាយសមីការលក្ខណៈ $x = \\frac{ax + b}{cx + d} \\iff cx^2 + (d - a)x - b = 0$ ៖",
-          "• បើសមីការមានឫសឌុប $\\alpha$ ៖ តាង $b_n = \\frac{1}{a_n - \\alpha}$ ជាស្វ៊ីតនព្វន្ត!",
-          "• បើសមីការមានឫសពីរផ្សេងគ្នា $\\alpha, \\beta$ ៖ តាង $b_n = \\frac{a_n - \\alpha}{a_n - \\beta}$ ជាស្វ៊ីតធរណីមាត្រ!"
-        ]
+          "គេមានផលបូក $n$ តួដំបូងនៃស្វ៊ីត ៖ $S_n = a_1 + a_2 + a_3 + \\dots + a_{n-1} + a_n$",
+          "និងផលបូក $n-1$ តួដំបូង ៖ $S_{n-1} = a_1 + a_2 + a_3 + \\dots + a_{n-1}$",
+          "ដកសមីការទាំងពីរ គេទទួលបានរូបមន្តគន្លឹះ ៖"
+        ],
+        "formula": "$$a_1 = S_1 \\quad \\text{និង} \\quad a_n = S_n - S_{n-1} \\quad (n \\ge 2)$$"
       },
       {
         "slide_num": 17,
         "type": "example",
-        "badge": "លំហាត់គំរូទី ៥ ៖ ស្វ៊ីតប្រភាគ",
-        "title": "រកតួទូទៅនៃស្វ៊ីតប្រភាគសនិទាន",
-        "subtitle": "អនុវត្តលើ $a_{n+1} = \\frac{4a_n - 1}{a_n + 2}$",
-        "problem": "គេឱ្យ $a_1 = 2$ និង $a_{n+1} = \\frac{4a_n - 1}{a_n + 2}$។ រក $a_n$។",
+        "badge": "២. ទំនាក់ទំនងរវាងតួ និងផលបូក",
+        "title": "ឧទាហរណ៍ ៖ គេមានផលបូក $S_n = n^2 + n$",
+        "subtitle": "ការកំណត់តួទី $n$ និងផ្ទៀងផ្ទាត់ប្រភេទស្វ៊ីត",
+        "problem": "គេមានផលបូក $n$ តួដំបូងនៃស្វ៊ីត $(a_n)$ គឺ $S_n = n^2 + n$ ។ ចូររកតួទី $n$ ។",
         "steps": [
           {
-            "title": "១. សមីការលក្ខណៈ ៖",
-            "detail": "$x = \\frac{4x - 1}{x + 2} \\iff x^2 + 2x = 4x - 1 \\iff (x - 1)^2 = 0 \\Rightarrow \\alpha = 1$ (ឫសឌុប)"
+            "title": "១. ចំពោះ $n = 1$ ៖",
+            "detail": "$a_1 = S_1 = 1^2 + 1 = 2$"
           },
           {
-            "title": "២. តាង $b_n = \\frac{1}{a_n - 1}$ ៖",
-            "detail": "$$b_{n+1} = \\frac{1}{a_{n+1} - 1} = \\frac{a_n + 2}{3(a_n - 1)} = b_n + \\frac{1}{3}$$ នាំឱ្យ $(b_n)$ ជាស្វ៊ីតនព្វន្តមានផលសងរួម $r = \\frac{1}{3}$"
+            "title": "២. ចំពោះ $n \\ge 2$ ៖",
+            "detail": "$$a_n = S_n - S_{n-1} = (n^2 + n) - \\left[(n-1)^2 + (n-1)\\right]$$<br>$$a_n = (n^2 + n) - (n^2 - 2n + 1 + n - 1) = (n^2 + n) - (n^2 - n) = 2n$$"
           },
           {
-            "title": "៣. ទាញរក $a_n$ ៖",
-            "detail": "$$b_n = 1 + (n-1)\\frac{1}{3} = \\frac{n+2}{3} \\implies a_n = 1 + \\frac{3}{n+2} = \\frac{n+5}{n+2}$$"
+            "title": "៣. ផ្ទៀងផ្ទាត់ $n=1$ ៖",
+            "detail": "ជំនួស $n=1$ ក្នុង $2n \\implies 2(1) = 2 = a_1$ (ត្រូវ!) ។ ដូចនេះ $a_n = 2n$ ចំពោះគ្រប់ $n \\ge 1$ ។"
           }
         ]
       },
       {
         "slide_num": 18,
-        "type": "concept",
-        "badge": "សង្ខេបរូបមន្តគន្លឹះស្វ៊ីត",
-        "title": "តារាងសង្ខេបវិធីសាស្ត្រដោះស្រាយស្វ៊ីតទាំង ៤ ទម្រង់",
-        "subtitle": "NGS Reference Cheat Sheet",
-        "cards": [
+        "type": "authentic_split",
+        "badge": "២. ទំនាក់ទំនងរវាងតួ និងផលបូក",
+        "problem_badge": "លំហាត់គំរូ ៣",
+        "problem": "គេឱ្យផលបូក $n$ តួដំបូងនៃស្វ៊ីត $(a_n)$ គឺ $S_n = n^3 + 2n$ ។ ចូររក $a_n$ ។",
+        "method_badge": "ប្រើរូបមន្ត $a_n = S_n - S_{n-1} \\quad (n \\ge 2)$",
+        "derivations": [
+          "$a_1 = S_1 = 1^3 + 2(1) = 3$",
+          "$S_{n-1} = (n-1)^3 + 2(n-1) = n^3 - 3n^2 + 3n - 1 + 2n - 2 = n^3 - 3n^2 + 5n - 3$",
+          "$a_n = S_n - S_{n-1} = (n^3 + 2n) - (n^3 - 3n^2 + 5n - 3)$",
+          "$a_n = 3n^2 - 3n + 3 = 3(n^2 - n + 1)$"
+        ],
+        "result": "ផ្ទៀងផ្ទាត់ ៖ ចំពោះ $n=1, a_1 = 3(1 - 1 + 1) = 3$ ✔ ដូចនេះ $a_n = 3(n^2 - n + 1)$",
+        "flowchart": [
           {
-            "title": "$a_{n+1} = a_n + f(n)$",
-            "detail": "ស្វ៊ីតផលសង ៖ $a_n = a_1 + \\sum_{k=1}^{n-1} f(k)$"
+            "text": "S_n = n^3 + 2n",
+            "bg": "white"
           },
           {
-            "title": "$a_{n+1} = p a_n + q$",
-            "detail": "សមីការលក្ខណៈ $x = px+q$ ៖ $a_n = \\alpha + (a_1-\\alpha)p^{n-1}$"
+            "arrow": "\\text{គណនា } S_{n-1}",
+            "color": "blue"
           },
           {
-            "title": "$a_{n+1} = p a_n + q^n$",
-            "detail": "ចែកនឹង $q^{n+1}$ រួចតាង $c_n = \\frac{a_n}{q^n}$"
+            "text": "S_{n-1} = (n-1)^3 + 2(n-1)",
+            "bg": "dark"
           },
           {
-            "title": "$a_{n+1} = \\frac{aa_n+b}{ca_n+d}$",
-            "detail": "សមីការលក្ខណៈ $x = \\frac{ax+b}{cx+d}$ (តាង $b_n = \\frac{1}{a_n-\\alpha}$)"
+            "arrow": "\\text{ដកផលសង}",
+            "color": "red"
+          },
+          {
+            "text": "a_n = 3(n^2 - n + 1)",
+            "bg": "white"
           }
         ]
       },
       {
         "slide_num": 19,
-        "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ សមីការលក្ខណៈ",
-        "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
-        "mcq": {
-          "question": "តម្លៃថេរ $\\alpha$ នៃសមីការលក្ខណៈសម្រាប់ $a_{n+1} = 2a_n + 3$ គឺ ៖",
-          "choices": [
-            {
-              "label": "ក",
-              "text": "$-3$"
-            },
-            {
-              "label": "ខ",
-              "text": "$3$"
-            },
-            {
-              "label": "គ",
-              "text": "$2$"
-            },
-            {
-              "label": "ឃ",
-              "text": "$1$"
-            }
-          ],
-          "correct": 0,
-          "explanation": "$x = 2x + 3 \\iff -x = 3 \\iff x = -3$ !"
-        }
+        "type": "section_cover",
+        "badge": "ផ្នែកទី ៣",
+        "section_num": "៣",
+        "section_badge": "ផ្នែកទី ៣",
+        "title": "ទំនាក់ទំនងកំណើនបីតួជាប់គ្នា",
+        "subtitle": "Second-Order Linear Homogeneous Recurrence ៖ $a_{n+2} + p a_{n+1} + q a_n = 0$",
+        "key_concept": "គំនិតគន្លឹះ ៖ ដោះស្រាយសមីការសម្គាល់ (Characteristic Equation) $x^2 + px + q = 0$",
+        "diagram": "characteristic"
       },
       {
         "slide_num": 20,
-        "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ស្វ៊ីតផលសង",
-        "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
-        "mcq": {
-          "question": "បើ $a_1 = 1$ និង $a_{n+1} - a_n = 3$ នោះ $a_{10}$ ស្មើនឹង ៖",
-          "choices": [
-            {
-              "label": "ក",
-              "text": "$28$"
-            },
-            {
-              "label": "ខ",
-              "text": "$30$"
-            },
-            {
-              "label": "គ",
-              "text": "$31$"
-            },
-            {
-              "label": "ឃ",
-              "text": "$27$"
-            }
-          ],
-          "correct": 0,
-          "explanation": "$(a_n)$ ជាស្វ៊ីតនព្វន្តមាន $r = 3 \\Rightarrow a_{10} = 1 + 9(3) = 28$ !"
-        }
+        "type": "example",
+        "badge": "៣. ទំនាក់ទំនងកំណើនបីតួជាប់គ្នា",
+        "title": "ឧទាហរណ៍ ៖ $a_1=1, a_2=3, a_{n+2}=3a_{n+1}-2a_n$",
+        "subtitle": "បំប្លែងទៅជាស្វ៊ីតធរណីមាត្រដោយបំបែកមេគុណ",
+        "problem": "កំណត់តួទី $n$ នៃស្វ៊ីត $(a_n)$ ដោយ $a_1 = 1, a_2 = 3$ និង $a_{n+2} = 3a_{n+1} - 2a_n$ ។",
+        "steps": [
+          {
+            "title": "១. សរសេរជាទម្រង់ផលសង ៖",
+            "detail": "$a_{n+2} - a_{n+1} = 2(a_{n+1} - a_n)$ ។ តាង $b_n = a_{n+1} - a_n \\implies b_{n+1} = 2b_n$"
+          },
+          {
+            "title": "២. $(b_n)$ ជាស្វ៊ីតធរណីមាត្រ ៖",
+            "detail": "ផលធៀប $q = 2, b_1 = a_2 - a_1 = 3 - 1 = 2 \\implies b_n = 2 \\cdot 2^{n-1} = 2^n$"
+          },
+          {
+            "title": "៣. ទាញរក $a_n$ ៖",
+            "detail": "$$a_n = a_1 + \\sum_{k=1}^{n-1} 2^k = 1 + 2\\frac{2^{n-1}-1}{2-1} = 1 + 2^n - 2 = 2^n - 1$$"
+          }
+        ]
       },
       {
         "slide_num": 21,
-        "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ តួទូទៅ",
-        "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
-        "mcq": {
-          "question": "បើ $a_1 = 2$ និង $a_{n+1} = 3a_n$ នោះ $a_n$ ស្មើនឹង ៖",
-          "choices": [
-            {
-              "label": "ក",
-              "text": "$2 \\cdot 3^{n-1}$"
-            },
-            {
-              "label": "ខ",
-              "text": "$3 \\cdot 2^{n-1}$"
-            },
-            {
-              "label": "គ",
-              "text": "$6^{n-1}$"
-            },
-            {
-              "label": "ឃ",
-              "text": "$2 + 3(n-1)$"
-            }
-          ],
-          "correct": 0,
-          "explanation": "ជាស្វ៊ីតធរណីមាត្រ $a_n = a_1 q^{n-1} = 2 \\cdot 3^{n-1}$ !"
-        }
+        "type": "concept",
+        "badge": "វិធីសមីការសម្គាល់",
+        "title": "ទ្រឹស្តីបទសមីការសម្គាល់ (Characteristic Equation Method)",
+        "subtitle": "ចំពោះទំនាក់ទំនងកំណើន $a_{n+2} + pa_{n+1} + qa_n = 0$",
+        "body": [
+          "ពិចារណាសមីការសម្គាល់ ៖ $x^2 + px + q = 0$ ៖",
+          "<b>ករណីទី ១ (ឫសពីរផ្សេងគ្នា $\\alpha \\ne \\beta$) ៖</b><br>$$a_n = A \\cdot \\alpha^n + B \\cdot \\beta^n$$",
+          "<b>ករណីទី ២ (ឫសឌុប $\\alpha = \\beta$) ៖</b><br>$$a_n = (An + B) \\cdot \\alpha^n$$",
+          "ដែល $A$ និង $B$ ជាចំនួនថេរកំណត់តាមតម្លៃដើម $a_1$ និង $a_2$ !"
+        ]
       },
       {
         "slide_num": 22,
-        "type": "worksheet",
-        "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ១ & ២)",
-        "title": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុម ១ & ២)",
-        "subtitle": "រយៈពេល ១៥ នាទី",
-        "worksheet": [
+        "type": "authentic_split",
+        "badge": "៣. ទំនាក់ទំនងកំណើនបីតួជាប់គ្នា",
+        "problem_badge": "លំហាត់គំរូ ៤",
+        "problem": "ស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 1, a_2 = 13, a_{n+2} = a_{n+1} + 6a_n$ ។ កំណត់តួទី $n$ ។",
+        "method_badge": "ដោះស្រាយតាមសមីការសម្គាល់ $x^2 - x - 6 = 0$",
+        "derivations": [
+          "សមីការសម្គាល់ ៖ $x^2 - x - 6 = 0 \\iff (x - 3)(x + 2) = 0 \\implies x_1 = 3, \\, x_2 = -2$",
+          "ទម្រង់តួទូទៅ ៖ $a_n = A \\cdot 3^n + B \\cdot (-2)^n$",
+          "ជំនួស $n=1, n=2$ ៖ $\\begin{cases} 3A - 2B = 1 \\\\ 9A + 4B = 13 \\end{cases} \\implies A = 1, \\, B = 1$",
+          "ផ្ទៀងផ្ទាត់ ៖ $a_1 = 3(1) - 2(1) = 1$ ✔, $a_2 = 9(1) + 4(1) = 13$ ✔"
+        ],
+        "result": "ដូចនេះ $a_n = 3^n + (-2)^n$",
+        "flowchart": [
           {
-            "group_num": 1,
-            "title": "ក្រុមទី ១",
-            "problems": [
-              "១. រកតួទូទៅ $a_n$ បើ $a_1 = 2, a_{n+1} = 2a_n + 3$",
-              "២. គណនាផលបូក $S_n = \\sum_{k=1}^n a_k$"
-            ]
+            "text": "x^2 - x - 6 = 0",
+            "bg": "white"
           },
           {
-            "group_num": 2,
-            "title": "ក្រុមទី ២",
-            "problems": [
-              "១. រកតួទូទៅ $a_n$ បើ $a_1 = 1, a_{n+1} = 3a_n - 2$",
-              "២. គណនាលីមីត $\\lim_{n \\to +\\infty} \\frac{a_n}{3^n}$"
-            ]
+            "arrow": "\\text{ដោះស្រាយឫស}",
+            "color": "blue"
+          },
+          {
+            "text": "x_1 = 3, \\, x_2 = -2",
+            "bg": "dark"
+          },
+          {
+            "arrow": "\\text{រក } A, B",
+            "color": "red"
+          },
+          {
+            "text": "a_n = 3^n + (-2)^n",
+            "bg": "white"
           }
         ]
       },
       {
         "slide_num": 23,
-        "type": "worksheet",
-        "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៣ & ៤)",
-        "title": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុម ៣ & ៤)",
-        "subtitle": "រយៈពេល ១៥ នាទី",
-        "worksheet": [
-          {
-            "group_num": 3,
-            "title": "ក្រុមទី ៣",
-            "problems": [
-              "១. រកតួទូទៅ $a_n$ បើ $a_1 = 0, a_{n+1} = a_n + 3n^2$",
-              "២. រក $a_{10}$"
-            ]
-          },
-          {
-            "group_num": 4,
-            "title": "ក្រុមទី ៤",
-            "problems": [
-              "១. រកតួទូទៅ $a_n$ បើ $a_1 = 1, a_{n+1} = \\frac{1}{2}a_n + 1$",
-              "២. គណនាលីមីត $\\lim_{n \\to +\\infty} a_n$"
-            ]
-          }
-        ]
+        "type": "practice",
+        "badge": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ / Your Turn",
+        "title": "ប្រតិបត្តិ ៖ ទំនាក់ទំនងកំណើនបីតួ",
+        "subtitle": "សិស្សដោះស្រាយដោយខ្លួនឯង រួចផ្ទៀងផ្ទាត់ដំណោះស្រាយ",
+        "problem": "ស្វ៊ីត $(a_n)$ កំណត់ដោយ $a_1 = 0, a_2 = 3, a_{n+2} = 4a_{n+1} - 3a_n$ ។ កំណត់តួទី $n$ ។",
+        "solution": [
+          "<b>ជំហានទី ១ ៖</b> សមីការសម្គាល់ $x^2 - 4x + 3 = 0 \\implies x_1 = 1, \\, x_2 = 3$",
+          "<b>ជំហានទី ២ ៖</b> ទម្រង់តួទូទៅ $a_n = A \\cdot 1^n + B \\cdot 3^n = A + B \\cdot 3^n$",
+          "<b>ជំហានទី ៣ ៖</b> ប្រព័ន្ធសមីការ $\\begin{cases} A + 3B = 0 \\\\ A + 9B = 3 \\end{cases} \\implies 6B = 3 \\implies B = \\frac{1}{2}, \\, A = -\\frac{3}{2}$",
+          "<b>ជំហានទី ៤ ៖</b> $a_n = -\\frac{3}{2} + \\frac{1}{2} \\cdot 3^n = \\frac{1}{2}(3^n - 3)$"
+        ],
+        "answer": "$$a_n = \\frac{1}{2}(3^n - 3)$$"
       },
       {
         "slide_num": 24,
-        "type": "worksheet",
-        "badge": "សន្លឹកកិច្ចការ ៦ ក្រុម (ក្រុម ៥ & ៦)",
-        "title": "សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម (ក្រុម ៥ & ៦)",
-        "subtitle": "រយៈពេល ១៥ នាទី",
-        "worksheet": [
-          {
-            "group_num": 5,
-            "title": "ក្រុមទី ៥",
-            "problems": [
-              "១. រកតួទូទៅ $a_n$ បើ $a_1 = 2, a_{n+1} = 2a_n + 5^n$",
-              "២. រកតួទូទៅនៃស្វ៊ីតប្រភាគ $a_{n+1} = \\frac{3a_n-1}{a_n+1}$ បើ $a_1 = 2$"
-            ]
-          },
-          {
-            "group_num": 6,
-            "title": "ក្រុមទី ៦",
-            "problems": [
-              "១. រកតួទូទៅនៃស្វ៊ីតហ្វីបូណាស៊ី $F_1=1, F_2=1, F_{n+2}=F_{n+1}+F_n$",
-              "២. ស្រាយបញ្ជាក់រូបមន្ត Binet តាមអនុមានរួម"
-            ]
-          }
+        "type": "summary",
+        "badge": "សេចក្តីសង្ខេប & គន្លឹះសំខាន់ៗ",
+        "title": "តារាងសង្ខេបវិធីសាស្ត្រដោះស្រាយស្វ៊ីតទាំង ៣ ទម្រង់",
+        "subtitle": "រូបមន្តសង្ខេប និងកំហុសដែលច្រើនជួបប្រទះក្នុងការប្រឡងបាក់ឌុប",
+        "summary_points": [
+          "<b>ទម្រង់ ១ ($a_{n+1} = pa_n + f(n)$) ៖</b> រកស្វ៊ីតជំនួយ $r_n$ ដើម្បីបង្កើត $V_n = a_n - r_n$ ជាស្វ៊ីតធរណីមាត្រ $q = p$។",
+          "<b>ទម្រង់ ២ (គេឱ្យផលបូក $S_n$) ៖</b> ប្រើរូបមន្ត $a_n = S_n - S_{n-1}$ ចំពោះ $n \\ge 2$ និង $a_1 = S_1$ (កុំភ្លេចផ្ទៀងផ្ទាត់ $n=1$!)។",
+          "<b>ទម្រង់ ៣ ($a_{n+2} + pa_{n+1} + qa_n = 0$) ៖</b> ដោះស្រាយសមីការសម្គាល់ $x^2 + px + q = 0$ រួចកំណត់មេគុណ $A, B$។",
+          "⚠️ <b>កំហុសដែលច្រើនជួបប្រទះ ៖</b> ភ្លេចផ្ទៀងផ្ទាត់ករណី $n=1$, គណនា $b_1$ ខុសលិបិក្រម, ឬច្រឡំសញ្ញាក្នុងសមីការសម្គាល់!"
         ]
       },
       {
         "slide_num": 25,
-        "type": "summary",
-        "badge": "សង្ខេបមេរៀនទី ៥",
-        "title": "រូបមន្តសង្ខេបគន្លឹះ និងក្បួនដោះស្រាយ",
-        "subtitle": "ចំណុចត្រូវចងចាំក្នុងការប្រឡងបាក់ឌុប",
-        "summary_points": [
-          "<b>១. ស្វ៊ីត $a_{n+1} = p a_n + q$ ៖</b> រក $\\alpha = \\frac{q}{1-p}$ រួចតាង $b_n = a_n - \\alpha$",
-          "<b>២. ស្វ៊ីតផលសង ៖</b> $a_n = a_1 + \\sum_{k=1}^{n-1} b_k$",
-          "<b>៣. ស្វ៊ីតប្រភាគ ៖</b> ដោះស្រាយសមីការលក្ខណៈ $x = \\frac{ax+b}{cx+d}$"
-        ]
+        "type": "practice",
+        "badge": "លំហាត់អនុវត្តន៍ចុងមេរៀន / Classroom Practice",
+        "title": "លំហាត់អនុវត្តន៍ចម្រុះ ៤ លំហាត់",
+        "subtitle": "អនុវត្តន៍ផ្ទាល់ក្នុងថ្នាក់ និងមានដំណោះស្រាយផ្ទៀងផ្ទាត់",
+        "problem": "<b>លំហាត់ ១ ៖</b> ស្វ៊ីត $(a_n)$ កំណត់ដោយ ៖<br>ក. $a_1 = 3, a_{n+1} = 2a_n - 4$<br>ខ. $a_1 = 5, a_{n+1} = 3a_n - 2n$<br>ចូរគណនាតួទី ៤ នៃស្វ៊ីតនីមួយៗ។<br><br><b>លំហាត់ ២ ៖</b> ស្វ៊ីត $(a_n)$ មាន $a_1 = 1, a_2 = 2, a_{n+2} = a_{n+1} + a_n$ ។ គណនា $a_7$ ។<br><br><b>លំហាត់ ៣ ៖</b> ស្វ៊ីត $(a_n)$ មាន $a_1 = 1, a_{n+1} = pa_n + q$ ។ គណនា $p$ និង $q$ បើ $a_3 = 6$ និង $a_5 = 86$ ។",
+        "solution": [
+          "<b>លំហាត់ ១ ក ៖</b> $a_1=3, a_2=2(3)-4=2, a_3=2(2)-4=0, a_4=2(0)-4 = -4$",
+          "<b>លំហាត់ ១ ខ ៖</b> $a_1=5, a_2=3(5)-2(1)=13, a_3=3(13)-2(2)=35, a_4=3(35)-2(3)=99$",
+          "<b>លំហាត់ ២ ៖</b> $a_1=1, a_2=2, a_3=3, a_4=5, a_5=8, a_6=13, a_7 = 21$",
+          "<b>លំហាត់ ៣ ៖</b> ដោះស្រាយប្រព័ន្ធសមីការទាញបាន $p = 4, q = 1$"
+        ],
+        "answer": "$$1\\text{ក. } a_4 = -4, \\quad 1\\text{ខ. } a_4 = 99, \\quad 2. \\, a_7 = 21, \\quad 3. \\, p=4, q=1$$"
       },
       {
         "slide_num": 26,
         "type": "homework",
-        "badge": "កិច្ចការផ្ទះ & ថ្លែងអំណរគុណ",
-        "title": "កិច្ចការផ្ទះ និងថ្លែងអំណរគុណ",
-        "subtitle": "វិទ្យាល័យព្រះយុគន្ធរ • សាលារៀនជំនាន់ថ្មី (NGS)",
+        "badge": "សូមអរគុណ & កិច្ចការផ្ទះ",
+        "title": "កិច្ចការស្រាវជ្រាវ និងអនុវត្តនៅផ្ទះ",
+        "subtitle": "ជំពូកទី ១ ៖ ស្វ៊ីត និងអនុមានរួមគណិតវិទ្យា • មេរៀនទី ៥ ៖ ទំនាក់ទំនងតួនៃស្វ៊ីត",
         "homework": [
-          "ធ្វើលំហាត់ ១ ដល់ ៩ ក្នុងសៀវភៅសិក្សាគោលទំព័រទី ៤២ ដល់ ៤៣",
-          "អនុវត្តការដោះស្រាយស្វ៊ីតតាមវិធីសាស្ត្រតារាង Excel ឬ Python",
-          "សូមអរគុណប្អូនៗសិស្សានុសិស្សទាំងអស់សម្រាប់ការយកចិត្តទុកដាក់រៀនសូត្រ!"
+          "ធ្វើលំហាត់ទី ១ ដល់ ទី ៩ ក្នុងសៀវភៅសិក្សាគោលគណិតវិទ្យា ថ្នាក់ទី ១១ កម្រិតខ្ពស់ ទំព័រ ៤២ ដល់ ៤៣",
+          "ស្រាវជ្រាវបន្ថែមអំពីការអនុវត្តស្វ៊ីត Fibonacci ក្នុងក្បួនដោះស្រាយកុំព្យូទ័រ និងបាតុភូតធម្មជាតិ",
+          "ត្រៀមខ្លួនសម្រាប់មេរៀនបន្ទាប់ ៖ លីមីតនៃស្វ៊ីតចំនួនពិត និងផលបូកអនន្ត!"
         ]
       }
     ]
