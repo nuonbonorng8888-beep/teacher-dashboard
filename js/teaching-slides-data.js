@@ -636,8 +636,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 33,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ ឯកតានិមិត្ត",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១ ៖ ឯកតានិមិត្ត",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃនៃកន្សោម $i^{2026} + i^{2024}$ ស្មើនឹង ៖",
@@ -666,8 +666,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 34,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ផលគុណកុំផ្លិច",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២ ៖ ផលគុណកុំផ្លិច",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "បើ $z = 3 - 4i$ នោះតម្លៃនៃ $z \\cdot \\bar{z}$ ស្មើនឹង ៖",
@@ -696,8 +696,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 35,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ សមីការកុំផ្លិច",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣ ៖ សមីការកុំផ្លិច",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "ឫសនៃសមីការ $z^2 - 2z + 2 = 0$ ក្នុងសំណុំ $\\mathbb{C}$ គឺ ៖",
@@ -1181,15 +1181,15 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "steps": [
           {
             "title": "១. $\\theta = \\frac{2\\pi}{3} = \\pi - \\frac{\\pi}{3}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី II</b> ($\\cos < 0, \\sin > 0$) នាំឱ្យ $\\cos\\frac{2\\pi}{3} = -\\frac{1}{2}$ និង $\\sin\\frac{2\\pi}{3} = \\frac{\\sqrt{3}}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី II</b> ($\cos\\theta < 0$, $\sin\\theta > 0$) នាំឱ្យ $\\cos\\frac{2\\pi}{3} = -\\frac{1}{2}$ និង $\\sin\\frac{2\\pi}{3} = \\frac{\\sqrt{3}}{2}$"
           },
           {
             "title": "២. $\\theta = \\frac{5\\pi}{4} = \\pi + \\frac{\\pi}{4}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី III</b> ($\\cos < 0, \\sin < 0$) នាំឱ្យ $\\cos\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$ និង $\\sin\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី III</b> ($\cos\\theta < 0$, $\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$ និង $\\sin\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$"
           },
           {
             "title": "៣. $\\theta = \\frac{11\\pi}{6} = 2\\pi - \\frac{\\pi}{6}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី IV</b> ($\\cos > 0, \\sin < 0$) នាំឱ្យ $\\cos\\frac{11\\pi}{6} = \\frac{\\sqrt{3}}{2}$ និង $\\sin\\frac{11\\pi}{6} = -\\frac{1}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី IV</b> ($\cos\\theta > 0$, $\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{11\\pi}{6} = \\frac{\\sqrt{3}}{2}$ និង $\\sin\\frac{11\\pi}{6} = -\\frac{1}{2}$"
           }
         ]
       },
@@ -1240,15 +1240,15 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "subtitle": "កំណត់តម្លៃ $a$ និង $b$ រួចជំនួសក្នុងរូបមន្ត",
         "steps": [
           {
-            "title": "ក. $z_1 = 1 + 2i$ (មាន $a = 1, b = 2$) ៖",
+            "title": "ក. $z_1 = 1 + 2i$ (មាន $a = 1$, $b = 2$) ៖",
             "detail": "យើងបាន $|z_1| = \\sqrt{1^2 + 2^2} = \\sqrt{1 + 4} = \\sqrt{5}$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_1| = \\sqrt{5}$</span>"
           },
           {
-            "title": "ខ. $z_2 = -2 + i$ (មាន $a = -2, b = 1$) ៖",
+            "title": "ខ. $z_2 = -2 + i$ (មាន $a = -2$, $b = 1$) ៖",
             "detail": "យើងបាន $|z_2| = \\sqrt{(-2)^2 + 1^2} = \\sqrt{4 + 1} = \\sqrt{5}$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_2| = \\sqrt{5}$</span>"
           },
           {
-            "title": "គ. $z_3 = 3 + 4i$ (មាន $a = 3, b = 4$) ៖",
+            "title": "គ. $z_3 = 3 + 4i$ (មាន $a = 3$, $b = 4$) ៖",
             "detail": "យើងបាន $|z_3| = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_3| = 5$</span>"
           }
         ]
@@ -1306,7 +1306,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "title": "ប្រព័ន្ធសមីការកំណត់អាគុយម៉ង់",
         "subtitle": "ទំនាក់ទំនងរវាងផ្នែកពិត ផ្នែកនិម្មិត ម៉ូឌុល និងអាគុយម៉ង់",
         "body": [
-          "<b>ជាទូទៅ ៖</b> ចំនួនកុំផ្លិច $z = a + bi$ ($z \\ne 0$) ដែលមានម៉ូឌុល $r = |z| = \\sqrt{a^2 + b^2}$ មានអាគុយម៉ង់កំណត់ដោយ ៖",
+          "<b>ជាទូទៅ ៖</b> ចំនួនកុំផ្លិច $z = a + bi$ ($z \\neq 0$) ដែលមានម៉ូឌុល $r = |z| = \\sqrt{a^2 + b^2}$ មានអាគុយម៉ង់កំណត់ដោយ ៖",
           "$$\\arg(z) = \\alpha + 2k\\pi \\quad (k \\in \\mathbb{Z})$$",
           "ដែល $\\alpha$ ជាមុំផ្ទៀងផ្ទាត់ប្រព័ន្ធសមីការ ៖"
         ],
@@ -1381,7 +1381,7 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "title": "៣.១ និយមន័យទម្រង់ត្រីកោណមាត្រ",
         "subtitle": "ការបំប្លែងតាមរយៈម៉ូឌុល $r$ និងអាគុយម៉ង់ $\\theta$",
         "body": [
-          "គេមានចំនួនកុំផ្លិច $z = a + bi$ ($z \\ne 0$) ដែលមានម៉ូឌុល $r = |z| = \\sqrt{a^2 + b^2}$ និងអាគុយម៉ង់ $\\theta = \\arg(z)$។",
+          "គេមានចំនួនកុំផ្លិច $z = a + bi$ ($z \\neq 0$) ដែលមានម៉ូឌុល $r = |z| = \\sqrt{a^2 + b^2}$ និងអាគុយម៉ង់ $\\theta = \\arg(z)$។",
           "ដោយសារ $\\cos\\theta = \\frac{a}{r}$ និង $\\sin\\theta = \\frac{b}{r}$ យើងទាញបាន ៖",
           "$$a = r\\cos\\theta \\quad \\text{និង} \\quad b = r\\sin\\theta$$",
           "ជំនួស $a$ និង $b$ ចូលក្នុង $z = a + bi$ យើងបាន ៖",
@@ -1592,8 +1592,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 38,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ វាយតម្លៃការយល់ដឹង)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងភ្លាមៗ",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣ ៖ ផលគុណកុំផ្លិចត្រីកោណមាត្រ",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវបំផុត",
         "mcq": {
           "question": "បើ $z_1 = 3(\\cos 40^\\circ + i\\sin 40^\\circ)$ និង $z_2 = 2(\\cos 50^\\circ + i\\sin 50^\\circ)$ នោះ $z_1 \\cdot z_2$ ស្មើនឹង ៖",
@@ -2076,8 +2076,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 19,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ ទ្រឹស្តីបទដឺម័រ",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១ ៖ ទ្រឹស្តីបទដឺម័រ",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃនៃ $(\\cos\\frac{\\pi}{6} + i\\sin\\frac{\\pi}{6})^{12}$ ស្មើនឹង ៖",
@@ -2106,8 +2106,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 20,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ចំនួនឫសទី $n$",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២ ៖ ចំនួនឫសទី $n$",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "ចំនួនឫសទី ៥ នៃចំនួនកុំផ្លិច $z = -32$ ក្នុងសំណុំ $\\mathbb{C}$ មានចំនួន ៖",
@@ -2855,8 +2855,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 29,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃនៃ $\\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}$ ស្មើនឹង ៖",
@@ -2885,8 +2885,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 30,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃនៃ $\\lim_{x \\to 0} \\frac{\\tan 4x}{2x}$ ស្មើនឹង ៖",
@@ -2915,8 +2915,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 31,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃនៃ $\\lim_{x \\to +\\infty} \\frac{5x^3 - 2}{2x^3 + 7x}$ ស្មើនឹង ៖",
@@ -3516,8 +3516,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 22,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ លក្ខខណ្ឌភាពជាប់",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១ ៖ លក្ខខណ្ឌភាពជាប់",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "អនុគមន៍ $f(x)$ ជាប់ត្រង់ $x_0$ លុះត្រាតែ ៖",
@@ -3546,8 +3546,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 23,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ ទ្រឹស្តីបទតម្លៃកណ្តាល",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២ ៖ ទ្រឹស្តីបទតម្លៃកណ្តាល",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "បើ $f$ ជាប់លើ $[0, 3]$ ដែល $f(0) = -2$ និង $f(3) = 5$ នោះសមីការ $f(x) = 0$ ៖",
@@ -3576,8 +3576,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 24,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ អនុគមន៍បន្ត",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣ ៖ អនុគមន៍បន្ត",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "តម្លៃដែលត្រូវកំណត់ឱ្យ $f(0)$ ដើម្បីឱ្យ $f(x) = \\frac{\\sin 2x}{x}$ ជាប់ត្រង់ $x = 0$ គឺ ៖",
@@ -4064,8 +4064,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 17,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "ដេរីវេនៃ $f(x) = \\cos(3x)$ គឺ ៖",
@@ -4094,8 +4094,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 18,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "ដេរីវេនៃ $f(x) = x e^x$ គឺ ៖",
@@ -4124,8 +4124,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 19,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "បើ $f(x) = \\sqrt{2x+1}$ នោះ $f'(4)$ ស្មើនឹង ៖",
@@ -4475,8 +4475,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 13,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 1)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ១ ៖ មេគុណប្រាប់ទិស",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១ ៖ មេគុណប្រាប់ទិស",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "មេគុណប្រាប់ទិសបន្ទាត់ប៉ះក្រាប $y = x^2$ ត្រង់ $x = 3$ គឺ ៖",
@@ -4505,8 +4505,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 14,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 2)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ២ ៖ បរមា",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ២ ៖ បរមា",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "បើ $f'(x_0) = 0$ និង $f''(x_0) > 0$ នោះ $f$ មាន ៖",
@@ -4535,8 +4535,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 15,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ 3)",
-        "title": "តេស្តវាស់ស្ទង់ការយល់ដឹងទី ៣ ៖ ចំណុចរបត់",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ៣ ៖ ចំណុចរបត់",
         "subtitle": "ជ្រើសរើសចម្លើយដែលត្រឹមត្រូវ",
         "mcq": {
           "question": "ក្រាបនៃ $f(x) = x^3$ មានចំណុចរបត់ត្រង់ ៖",
@@ -5387,8 +5387,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 9,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ)",
-        "title": "សំណួរពហុជ្រើសរើសទី ១",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្តទី ១",
         "subtitle": "ពង្រឹងចំណេះដឹងលើឌីស្គ្រីមីណង់ $\\Delta$",
         "mcq": {
           "question": "ឌីស្គ្រីមីណង់នៃសមីការ $3x^2 - 4x + 1 = 0$ ស្មើនឹង ៖",
@@ -5559,8 +5559,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 5,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ)",
-        "title": "សំណួរពហុជ្រើសរើស",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្ត",
         "subtitle": "ត្រៀមប្រឡងឌីប្លូម",
         "mcq": {
           "question": "គូចម្លើយ $(x, y)$ នៃប្រព័ន្ធសមីការ $\\begin{cases} x + y = 7 \\\\ x - y = 1 \\end{cases}$ គឺ ៖",
@@ -5699,8 +5699,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 4,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ)",
-        "title": "សំណួរពហុជ្រើសរើស",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្ត",
         "subtitle": "ពង្រឹងការចងចាំ",
         "mcq": {
           "question": "កន្សោម $x^2 - 16$ ស្មើនឹង ៖",
@@ -5839,8 +5839,8 @@ window.NGS_TEACHING_SLIDES_DATA = [
       {
         "slide_num": 4,
         "type": "mcq",
-        "badge": "សំណួរពហុជ្រើសរើស (MCQ)",
-        "title": "សំណួរពហុជ្រើសរើស",
+        "badge": "តេស្ត (MCQ)",
+        "title": "តេស្ត",
         "subtitle": "ពង្រឹងការគិតលេខសញ្ញា",
         "mcq": {
           "question": "តម្លៃនៃ $(-5) \\times (-4) - 10$ ស្មើនឹង ៖",

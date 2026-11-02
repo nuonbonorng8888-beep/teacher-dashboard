@@ -33,6 +33,7 @@
       this.currentSlideIndex = 0;
       this.selectedMcqChoices = {}; // key: `lessonId_mcqIndex` -> choiceIndex
       this.revealedMcqs = {};        // key: `lessonId_mcqIndex` -> boolean
+      this.revealedExamples = {};
       this.revealedPractice = {};    // key: `lessonId_slideIndex_problemIndex` -> boolean
       this.keyboardBound = false;
     }
@@ -50,23 +51,29 @@
       style.innerHTML = `
         /* Projector KaTeX Math Scaling */
         #slidePresenterModal .katex {
-          font-size: 1.35em !important;
-          line-height: 1.35 !important;
+          font-size: 1.32em;
+          text-rendering: geometricPrecision;
         }
         #slidePresenterModal .katex-display {
-          font-size: 1.65em !important;
+          font-size: 1.55em;
           margin: 1.25rem 0 !important;
-          overflow-x: auto;
-          overflow-y: hidden;
+          padding: 0.35em 0 !important;
+          overflow-x: auto !important;
+          overflow-y: visible !important;
         }
         #slidePresenterModal .katex-display > .katex {
-          font-size: 1em !important;
+          font-size: 1em;
         }
-        #slidePresenterModal .katex .mfrac .vlist-t {
-          font-size: 1.1em !important;
+        /* Ensure radical SVG checkmark seamlessly aligns with vinculum roof */
+        #slidePresenterModal .katex .sqrt-line {
+          border-top-style: solid;
         }
-        #slidePresenterModal .katex .sqrt {
-          font-size: 1.1em !important;
+        /* Prevent clipping of numerators, superscripts and subscripts */
+        #slidePresenterModal .katex .mfrac,
+        #slidePresenterModal .katex .vlist-t,
+        #slidePresenterModal .katex .vlist-r,
+        #slidePresenterModal .katex .vlist {
+          overflow: visible !important;
         }
       `;
       document.head.appendChild(style);
@@ -1017,24 +1024,40 @@
             </div>
           `;
 
-        case 'example':
+        case 'example': {
+          const exKey = `${lesson.id}_${idx}`;
+          const isRevealed = !!this.revealedExamples[exKey];
+
           return `
-            <div class="flex flex-col justify-between h-full">
+            <div class="flex flex-col justify-between h-full space-y-6">
               ${headerHtml}
               <div class="space-y-6 my-auto flex-1 flex flex-col justify-center">
                 ${slide.problem ? `
-                  <div class="p-8 rounded-3xl bg-purple-50 dark:bg-purple-950/30 border-3 border-purple-300 dark:border-purple-800 text-slate-900 dark:text-slate-100 shadow-sm">
-                    <h3 class="text-2xl sm:text-3xl font-bold font-suwannaphum text-purple-700 dark:text-purple-300 mb-2">
+                  <div class="p-6 sm:p-8 rounded-3xl bg-purple-500/10 border-2 border-purple-400 shadow-md">
+                    <h3 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-2">
                       <i class="fa-solid fa-pen-fancy mr-2"></i> ប្រធានលំហាត់ ៖
                     </h3>
-                    <div class="text-2xl sm:text-3xl font-battambang leading-relaxed">
+                    <div class="text-2xl sm:text-3xl font-battambang leading-relaxed text-slate-900 dark:text-slate-100">
                       ${slide.problem}
                     </div>
                   </div>
                 ` : ''}
 
-                ${(slide.steps || []).length > 0 ? `
-                  <div class="space-y-4">
+                <!-- Reveal Solution Toggle Button (Answers hidden until clicked) -->
+                <div class="pt-2 flex items-center justify-between gap-4 flex-wrap">
+                  <button onclick="window.teachingSlidesManager.toggleExampleSolution('${exKey}')"
+                    class="px-8 py-3.5 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white'} font-bold text-base sm:text-lg font-battambang transition shadow-lg flex items-center gap-2.5 active:scale-95">
+                    <i class="fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                    ${isRevealed ? 'លាក់ដំណោះស្រាយ' : '👁️ បង្ហាញដំណោះស្រាយលម្អិត'}
+                  </button>
+                  <span class="text-sm sm:text-base text-slate-400 font-battambang">
+                    ${isRevealed ? 'ដំណោះស្រាយត្រូវបានបង្ហាញ' : 'ចុចប៊ូតុងខាងឆ្វេង ដើម្បីបង្ហាញជំហានដោះស្រាយ'}
+                  </span>
+                </div>
+
+                <!-- Solution Steps (Revealed when clicked) -->
+                ${isRevealed && (slide.steps || []).length > 0 ? `
+                  <div class="space-y-4 animate-fadeIn">
                     ${slide.steps.map(st => `
                       <div class="p-6 sm:p-7 rounded-3xl bg-slate-50 dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
                         <span class="text-xl sm:text-2xl font-bold font-suwannaphum text-emerald-600 dark:text-emerald-400 shrink-0">
@@ -1054,6 +1077,7 @@
               </div>
             </div>
           `;
+        }
 
         case 'mcq':
           return this.layoutMcq(lesson, slide, idx);
@@ -1527,6 +1551,11 @@
       const mcqKey = `${lesson.id}_${slideIdx}`;
       const selected = this.selectedMcqChoices[mcqKey];
       const isRevealed = !!this.revealedMcqs[mcqKey];
+      const correctIdx = (typeof mcq.correct_index !== 'undefined') 
+        ? mcq.correct_index 
+        : (typeof mcq.correct !== 'undefined' ? mcq.correct : 0);
+
+      const choiceLabels = ['ក', 'ខ', 'គ', 'ឃ', 'ង'];
 
       return `
         <div class="flex flex-col justify-between h-full space-y-6 flex-1">
@@ -1534,10 +1563,10 @@
           <div class="shrink-0">
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
               <span class="px-4 py-1.5 rounded-xl text-sm sm:text-base font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
-                ${slide.badge || 'ពង្រឹងការយល់ដឹង (MCQ Assessment)'}
+                ${slide.badge || 'តេស្ត (MCQ)'}
               </span>
               <span class="px-4 py-1.5 rounded-xl text-sm font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 font-mono">
-                MCQ ${slideIdx + 1}
+                តេស្ត ${slideIdx + 1}
               </span>
             </div>
             <h2 class="text-3xl sm:text-4xl font-black font-suwannaphum text-slate-900 dark:text-white">
@@ -1553,10 +1582,17 @@
 
           <!-- Choices Grid (2x2 filling the screen height with big spacious cards) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-auto flex-1 items-stretch">
-            ${mcq.choices.map((choice, cIdx) => {
+            ${(mcq.choices || []).map((choice, cIdx) => {
+              const choiceText = (typeof choice === 'object' && choice !== null) 
+                ? (choice.text || choice.choice || '') 
+                : String(choice);
+              const choiceLabel = (typeof choice === 'object' && choice !== null && choice.label) 
+                ? `(${choice.label})` 
+                : (choiceLabels[cIdx] ? `(${choiceLabels[cIdx]})` : `(${cIdx + 1})`);
+
               const isSelected = selected === cIdx;
-              const isCorrect = isRevealed && cIdx === mcq.correct_index;
-              const isWrong = isRevealed && isSelected && cIdx !== mcq.correct_index;
+              const isCorrect = isRevealed && cIdx === correctIdx;
+              const isWrong = isRevealed && isSelected && cIdx !== correctIdx;
 
               let cardStyle = 'bg-white dark:bg-slate-800 border-3 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-purple-500';
               if (isCorrect) {
@@ -1567,16 +1603,14 @@
                 cardStyle = 'bg-purple-50 dark:bg-purple-950/70 border-3 border-purple-600 text-purple-950 dark:text-purple-100';
               }
 
-              const choiceLabels = ['(ក)', '(ខ)', '(គ)', '(ឃ)'];
-
               return `
                 <button onclick="window.teachingSlidesManager.selectMcqChoice('${mcqKey}', ${cIdx})"
                   class="p-6 sm:p-8 rounded-3xl text-left transition-all flex items-center gap-5 ${cardStyle} shadow-md group min-h-[110px]">
                   <span class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-black text-xl sm:text-2xl shrink-0 ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 group-hover:bg-purple-100'}">
-                    ${choiceLabels[cIdx] || (cIdx + 1)}
+                    ${choiceLabel}
                   </span>
                   <span class="text-2xl sm:text-3xl font-bold font-battambang flex-1">
-                    ${choice}
+                    ${choiceText}
                   </span>
                   ${isCorrect ? '<i class="fa-solid fa-circle-check text-3xl text-emerald-500 shrink-0"></i>' : ''}
                   ${isWrong ? '<i class="fa-solid fa-circle-xmark text-3xl text-rose-500 shrink-0"></i>' : ''}
@@ -1674,9 +1708,10 @@
           delimiters: [
             { left: '$$', right: '$$', display: true },
             { left: '$', right: '$', display: false },
-            { left: '\(', right: '\)', display: false },
-            { left: '\[', right: '\]', display: true }
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
           ],
+          ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
           throwOnError: false
         });
       } catch (e) {
