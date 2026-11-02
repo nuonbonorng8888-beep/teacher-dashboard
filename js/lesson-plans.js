@@ -651,13 +651,21 @@
               <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
                 🎓 ថ្នាក់បង្រៀន (Grade / Class):
               </label>
-              <select id="batchClassSelect" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-                <option value="១២A" ${this.savedClass === '១២A' ? 'selected' : ''}>ថ្នាក់ទី ១២A (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="១២B" ${this.savedClass === '១២B' ? 'selected' : ''}>ថ្នាក់ទី ១២B</option>
+                            <select id="batchClassSelect" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+                <option value="៧A" ${this.savedClass === '៧A' ? 'selected' : ''}>ថ្នាក់ទី ៧A</option>
+                <option value="៧B" ${this.savedClass === '៧B' ? 'selected' : ''}>ថ្នាក់ទី ៧B</option>
+                <option value="៨A" ${this.savedClass === '៨A' ? 'selected' : ''}>ថ្នាក់ទី ៨A</option>
+                <option value="៨B" ${this.savedClass === '៨B' ? 'selected' : ''}>ថ្នាក់ទី ៨B</option>
+                <option value="៩A" ${this.savedClass === '៩A' ? 'selected' : ''}>ថ្នាក់ទី ៩A</option>
+                <option value="៩B" ${this.savedClass === '៩B' ? 'selected' : ''}>ថ្នាក់ទី ៩B</option>
+                <option value="១០A" ${this.savedClass === '១០A' ? 'selected' : ''}>ថ្នាក់ទី ១០A</option>
+                <option value="១០B" ${this.savedClass === '១០B' ? 'selected' : ''}>ថ្នាក់ទី ១០B</option>
+                <option value="១១A" ${this.savedClass === '១១A' ? 'selected' : ''}>ថ្នាក់ទី ១១A (វិទ្យាសាស្ត្រពិត)</option>
+                <option value="១១B" ${this.savedClass === '១១B' ? 'selected' : ''}>ថ្នាក់ទី ១១B (វិទ្យាសាស្ត្រសង្គម)</option>
+                <option value="១២A" ${(!this.savedClass || this.savedClass === '១២A') ? 'selected' : ''}>ថ្នាក់ទី ១២A (វិទ្យាសាស្ត្រពិត)</option>
+                <option value="១២B" ${this.savedClass === '១២B' ? 'selected' : ''}>ថ្នាក់ទី ១២B (វិទ្យាសាស្ត្រសង្គម)</option>
                 <option value="១២C" ${this.savedClass === '១២C' ? 'selected' : ''}>ថ្នាក់ទី ១២C</option>
                 <option value="១២D" ${this.savedClass === '១២D' ? 'selected' : ''}>ថ្នាក់ទី ១២D</option>
-                <option value="១២E" ${this.savedClass === '១២E' ? 'selected' : ''}>ថ្នាក់ទី ១២E</option>
-                <option value="១២F" ${this.savedClass === '១២F' ? 'selected' : ''}>ថ្នាក់ទី ១២F</option>
               </select>
             </div>
 

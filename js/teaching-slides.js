@@ -82,11 +82,21 @@
 
     getFilteredLessons() {
       return this.lessons.filter(l => {
-        if (this.activeChapter === 'template') {
+        const ch = this.activeChapter;
+        if (ch === 'template') {
           if (!l.is_template) return false;
-        } else if (this.activeChapter !== 'all') {
-          if (l.is_template) return false;
-          if (String(l.chapter_num) !== String(this.activeChapter)) return false;
+        } else if (ch === 'g12') {
+          if (!l.grade || (!l.grade.includes('១២') && !l.grade.includes('12'))) return false;
+        } else if (ch === 'g11') {
+          if (!l.grade || (!l.grade.includes('១១') && !l.grade.includes('11'))) return false;
+        } else if (ch === 'g10') {
+          if (!l.grade || (!l.grade.includes('១០') && !l.grade.includes('10'))) return false;
+        } else if (ch === 'g7_9') {
+          const isJHS = l.grade && (l.grade.includes('៧') || l.grade.includes('៨') || l.grade.includes('៩') || l.grade.includes('7') || l.grade.includes('8') || l.grade.includes('9'));
+          if (!isJHS) return false;
+        } else if (ch !== 'all') {
+          if (l.is_template && ch !== 'template') return false;
+          if (String(l.chapter_num) !== String(ch)) return false;
         }
 
         if (!this.searchQuery) return true;
@@ -164,12 +174,13 @@
 
           <!-- Controls Bar: Filter Tabs & Search -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-            <!-- Filter Tabs -->
+            <!-- Filter Tabs (Covering All Grade Levels: 7-12) -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none font-battambang">
-              ${this.renderChapterTab('all', 'ទាំងអស់ (All)')}
-              ${this.renderChapterTab('1', 'ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច')}
-              ${this.renderChapterTab('2', 'ជំពូកទី ២ ៖ លីមីត & ភាពជាប់')}
-              ${this.renderChapterTab('3', 'ជំពូកទី ៣ ៖ ដេរីវេ & អនុវត្តន៍')}
+              ${this.renderChapterTab('all', '📚 ទាំងអស់ (All)')}
+              ${this.renderChapterTab('g12', '🎓 ថ្នាក់ទី ១២ (វិទ្យាសាស្ត្រពិត)')}
+              ${this.renderChapterTab('g11', '📐 ថ្នាក់ទី ១១ (អនុវត្តន៍ & ស្វ៊ីត)')}
+              ${this.renderChapterTab('g10', '📊 ថ្នាក់ទី ១០ (សមីការ)')}
+              ${this.renderChapterTab('g7_9', '🎒 អនុវិទ្យាល័យ (៧-៩)')}
               ${this.renderChapterTab('template', '⭐ ស្លាយគំរូ (Template NGS)')}
             </div>
 
@@ -869,8 +880,8 @@
       const isRevealed = !!this.revealedMcqs[mcqKey];
 
       return `
-        <div class="flex flex-col justify-between h-full">
-          <!-- Top -->
+        <div class="flex flex-col justify-start gap-4 sm:gap-6 h-full max-w-5xl mx-auto w-full py-2">
+          <!-- Top Header -->
           <div>
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
               <span class="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
@@ -885,15 +896,15 @@
             </h2>
           </div>
 
-          <!-- Question Box (Big, prominent font) -->
-          <div class="p-6 sm:p-8 rounded-3xl bg-purple-50 dark:bg-purple-950/40 border-2 border-purple-300 dark:border-purple-800 shadow-md my-auto">
+          <!-- Question Card (Prominent, High-Contrast) -->
+          <div class="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800/80 border-2 border-purple-300 dark:border-purple-700 shadow-md shrink-0">
             <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold font-suwannaphum text-slate-900 dark:text-white leading-relaxed">
               <i class="fa-solid fa-circle-question text-purple-600 mr-2"></i> ${mcq.question}
             </h3>
           </div>
 
-          <!-- Choices 2x2 Grid (Fills generous height, large typography) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 my-auto">
+          <!-- Choices 2x2 Grid (Balanced Height, Big Typography, Zero Void Space) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-auto">
             ${mcq.choices.map((c, cIdx) => {
               const isSelected = selected === cIdx;
               const isCorrect = cIdx === mcq.correct;
@@ -913,11 +924,11 @@
 
               return `
                 <button onclick="window.teachingSlidesManager.selectMcqChoice('${mcqKey}', ${cIdx})"
-                  class="p-5 sm:p-6 rounded-2xl text-left transition-all flex items-center gap-4 ${btnClass} active:scale-98">
-                  <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-lg sm:text-xl shrink-0 ${isSelected || (isRevealed && isCorrect) ? 'bg-white text-slate-950 font-bold' : 'bg-purple-100 dark:bg-slate-700 text-purple-700 dark:text-purple-300'}">
+                  class="p-4 sm:p-5 rounded-2xl text-left transition-all flex items-center gap-4 ${btnClass} active:scale-98 shadow-sm min-h-[72px] sm:min-h-[82px]">
+                  <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-lg sm:text-2xl shrink-0 ${isSelected || (isRevealed && isCorrect) ? 'bg-white text-slate-950 font-bold' : 'bg-purple-100 dark:bg-slate-700 text-purple-700 dark:text-purple-300'}">
                     (${c.label})
                   </span>
-                  <div class="text-xl sm:text-2xl font-battambang leading-relaxed flex-1">
+                  <div class="text-xl sm:text-2xl lg:text-3xl font-battambang font-bold leading-relaxed flex-1">
                     ${c.text}
                   </div>
                 </button>
@@ -926,7 +937,7 @@
           </div>
 
           <!-- Action & Explanation Footer -->
-          <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
             <div class="text-xs sm:text-sm text-slate-400 font-battambang">
               ${isRevealed ? `
                 <span class="text-emerald-500 font-bold text-base"><i class="fa-solid fa-circle-check mr-1"></i> ចម្លើយត្រឹមត្រូវគឺ (${mcq.choices[mcq.correct].label})</span>
@@ -940,7 +951,7 @@
           </div>
 
           ${isRevealed && mcq.explanation ? `
-            <div class="mt-3 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-base sm:text-lg font-battambang">
+            <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200 text-base sm:text-lg font-battambang shrink-0">
               <b>ការពន្យល់ ៖</b> ${mcq.explanation}
             </div>
           ` : ''}
@@ -950,15 +961,24 @@
 
     layoutWorksheet(lesson, slide) {
       const groups = slide.worksheet || [];
+      const groupColors = [
+        'bg-blue-600 text-white',
+        'bg-emerald-600 text-white',
+        'bg-purple-600 text-white',
+        'bg-amber-500 text-slate-950 font-bold',
+        'bg-rose-600 text-white',
+        'bg-indigo-600 text-white'
+      ];
+
       return `
         <div class="flex flex-col justify-between h-full">
           <div>
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">
               <span class="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-bold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 font-battambang">
-                ${slide.badge || 'សន្លឹកកិច្ចការ ៦ ក្រុមតុល្យភាព'}
+                ${slide.badge || 'សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុមតុល្យភាព'}
               </span>
               <span class="px-3 py-1 rounded-xl text-xs font-bold bg-sky-500/20 text-sky-400 border border-sky-500/40 font-battambang">
-                រយៈពេល ១៥ នាទី
+                រយៈពេល ១៥ នាទី (ស្មើគ្នាគ្រប់ក្រុម)
               </span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-black font-suwannaphum text-slate-900 dark:text-white">
@@ -967,30 +987,35 @@
           </div>
 
           <!-- 6-Group Balanced Grid (Responsive 2x3 or 3x2, clean large text) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 my-auto">
-            ${groups.map(g => `
-              <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 shadow-sm hover:border-purple-400 transition">
-                <div class="flex items-center gap-2 mb-3 pb-2 border-b border-slate-200 dark:border-slate-700">
-                  <span class="w-8 h-8 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center text-xs font-mono">
-                    ${g.group_num}
-                  </span>
-                  <h4 class="text-lg font-bold font-suwannaphum text-purple-600 dark:text-purple-300">
-                    ${g.title}
-                  </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 my-auto">
+            ${groups.map((g, i) => `
+              <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 shadow-md hover:border-purple-400 transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2.5 mb-3 pb-2 border-b border-slate-200 dark:border-slate-700">
+                    <span class="w-8 h-8 rounded-xl ${groupColors[i % groupColors.length]} flex items-center justify-center text-xs font-mono font-bold shadow-xs">
+                      ${g.group_num || (i + 1)}
+                    </span>
+                    <h4 class="text-base sm:text-lg font-bold font-suwannaphum text-slate-900 dark:text-slate-100">
+                      ${g.title}
+                    </h4>
+                  </div>
+                  <div class="space-y-2">
+                    ${(g.problems || []).map(p => `
+                      <p class="text-sm sm:text-base font-battambang text-slate-800 dark:text-slate-200 leading-relaxed">
+                        ${p}
+                      </p>
+                    `).join('')}
+                  </div>
                 </div>
-                <div class="space-y-2">
-                  ${(g.problems || []).map(p => `
-                    <p class="text-base sm:text-lg font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
-                      ${p}
-                    </p>
-                  `).join('')}
+                <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-700/60 text-[11px] text-slate-400 font-battambang text-right">
+                  សរសេរលើក្តារខៀនក្រុម
                 </div>
               </div>
             `).join('')}
           </div>
 
-          <div class="p-3 text-xs sm:text-sm text-center text-slate-400 font-battambang">
-            សិស្សពិភាក្សាជាក្រុម រួចចាត់តាំងតំណាងឡើងដោះស្រាយលើក្តារខៀន
+          <div class="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-xs sm:text-sm text-center text-purple-900 dark:text-purple-200 font-battambang">
+            💡 <b>សកម្មភាពសិស្ស ៖</b> ពិភាក្សាជាក្រុម រួចចាត់តាំងតំណាងក្រុមឡើងដោះស្រាយ និងពន្យល់លើក្តារខៀន
           </div>
         </div>
       `;

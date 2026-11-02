@@ -645,6 +645,26 @@
           </button>
         </div>
 
+        <!-- Attendance Class Filter Pills -->
+        <div class="flex items-center gap-1.5 flex-wrap p-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-battambang">
+          <span class="font-bold text-slate-500 mr-1 text-[11px]">ជ្រើសរើសថ្នាក់៖</span>
+          <div id="attendanceClassFilterBtns" class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" class="attendance-class-btn px-3 py-1 rounded-xl font-bold transition bg-purple-600 text-white shadow-xs" data-class="all">ថ្នាក់ទាំងអស់</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="7A">7A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="7B">7B</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="8A">8A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="8B">8B</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="9A">9A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="9B">9B</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="10A">10A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="10B">10B</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="11A">11A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="11B">11B</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="12A">12A</button>
+            <button type="button" class="attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="12B">12B</button>
+          </div>
+        </div>
+
         <div id="attendanceListContainer">
           <!-- Dynamically populated -->
         </div>
@@ -664,6 +684,26 @@
             <button id="btnExportGradesCSV" class="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50 font-bold text-xs shadow-sm flex items-center gap-2 transition">
               <i class="fa-solid fa-file-excel text-green-600"></i> ទាញយកជា Excel/CSV
             </button>
+          </div>
+        </div>
+
+        <!-- Grades Class Filter Pills -->
+        <div class="flex items-center gap-1.5 flex-wrap p-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 text-xs font-battambang">
+          <span class="font-bold text-slate-500 mr-1 text-[11px]">តម្រងថ្នាក់៖</span>
+          <div id="gradesClassFilterBtns" class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" class="grades-class-btn px-3 py-1 rounded-xl font-bold transition bg-purple-600 text-white shadow-xs" data-class="all">ថ្នាក់ទាំងអស់</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="7A">7A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="7B">7B</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="8A">8A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="8B">8B</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="9A">9A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="9B">9B</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="10A">10A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="10B">10B</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="11A">11A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="11B">11B</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="12A">12A</button>
+            <button type="button" class="grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50" data-class="12B">12B</button>
           </div>
         </div>
 
@@ -1712,10 +1752,19 @@
           <div class="flex items-center gap-2 flex-1">
             <label class="font-bold text-slate-600 dark:text-slate-300">ជ្រើសរើសថ្នាក់៖</label>
             <select id="wheelGradeSelect" class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200">
-              <option value="all">ថ្នាក់ទាំងអស់</option>
-              <option value="ថ្នាក់ទី 10A">ថ្នាក់ទី 10A</option>
-              <option value="ថ្នាក់ទី 11B">ថ្នាក់ទី 11B</option>
-              <option value="ថ្នាក់ទី 12A">ថ្នាក់ទី 12A</option>
+              <option value="all">ថ្នាក់ទាំងអស់ (All Classes)</option>
+              <option value="7A">ថ្នាក់ទី 7A</option>
+              <option value="7B">ថ្នាក់ទី 7B</option>
+              <option value="8A">ថ្នាក់ទី 8A</option>
+              <option value="8B">ថ្នាក់ទី 8B</option>
+              <option value="9A">ថ្នាក់ទី 9A</option>
+              <option value="9B">ថ្នាក់ទី 9B</option>
+              <option value="10A">ថ្នាក់ទី 10A</option>
+              <option value="10B">ថ្នាក់ទី 10B</option>
+              <option value="11A">ថ្នាក់ទី 11A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="11B">ថ្នាក់ទី 11B (វិទ្យាសាស្ត្រសង្គម)</option>
+              <option value="12A" selected>ថ្នាក់ទី 12A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="12B">ថ្នាក់ទី 12B (វិទ្យាសាស្ត្រសង្គម)</option>
             </select>
           </div>
           <span id="wheelStudentCountBadge" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 font-bold text-[11px]">
@@ -1836,10 +1885,19 @@
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ថ្នាក់</label>
-            <select id="newStudentClass" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            <select id="newStudentClass" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
+              <option value="7A">7A</option>
+              <option value="7B">7B</option>
+              <option value="8A">8A</option>
+              <option value="8B">8B</option>
+              <option value="9A">9A</option>
+              <option value="9B">9B</option>
               <option value="10A">10A</option>
-              <option value="11B">11B</option>
-              <option value="12A">12A</option>
+              <option value="10B">10B</option>
+              <option value="11A">11A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="11B">11B (វិទ្យាសាស្ត្រសង្គម)</option>
+              <option value="12A" selected>12A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="12B">12B (វិទ្យាសាស្ត្រសង្គម)</option>
             </select>
           </div>
         </div>
@@ -1866,10 +1924,19 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">ថ្នាក់</label>
-            <select id="newPlanGrade" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+            <select id="newPlanGrade" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
+              <option value="ថ្នាក់ទី 7A">ថ្នាក់ទី 7A</option>
+              <option value="ថ្នាក់ទី 7B">ថ្នាក់ទី 7B</option>
+              <option value="ថ្នាក់ទី 8A">ថ្នាក់ទី 8A</option>
+              <option value="ថ្នាក់ទី 8B">ថ្នាក់ទី 8B</option>
+              <option value="ថ្នាក់ទី 9A">ថ្នាក់ទី 9A</option>
+              <option value="ថ្នាក់ទី 9B">ថ្នាក់ទី 9B</option>
               <option value="ថ្នាក់ទី 10A">ថ្នាក់ទី 10A</option>
-              <option value="ថ្នាក់ទី 11B">ថ្នាក់ទី 11B</option>
-              <option value="ថ្នាក់ទី 12A">ថ្នាក់ទី 12A</option>
+              <option value="ថ្នាក់ទី 10B">ថ្នាក់ទី 10B</option>
+              <option value="ថ្នាក់ទី 11A">ថ្នាក់ទី 11A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="ថ្នាក់ទី 11B">ថ្នាក់ទី 11B (វិទ្យាសាស្ត្រសង្គម)</option>
+              <option value="ថ្នាក់ទី 12A" selected>ថ្នាក់ទី 12A (វិទ្យាសាស្ត្រពិត)</option>
+              <option value="ថ្នាក់ទី 12B">ថ្នាក់ទី 12B (វិទ្យាសាស្ត្រសង្គម)</option>
             </select>
           </div>
           <div>

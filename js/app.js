@@ -393,7 +393,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function getStudentList() {
     const grade = wheelGradeSelect?.value || 'all';
     const all = window.appStore?.data?.students || [];
-    const filtered = (grade === 'all') ? all : all.filter(s => s.grade === grade);
+    const cleanGrade = grade.replace(/^ថ្នាក់ទី\s*/, '').trim();
+    const filtered = (grade === 'all') 
+      ? all 
+      : all.filter(s => (s.class === cleanGrade || s.class === grade || s.grade === grade || s.grade === `ថ្នាក់ទី ${cleanGrade}`));
     if (wheelStudentCountBadge) {
       wheelStudentCountBadge.textContent = `សិស្ស ${filtered.length} នាក់`;
     }
@@ -654,11 +657,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ================== GRADES MANAGEMENT VIEW ================== */
-  function renderGradesTable() {
+  let currentGradesFilterClass = 'all';
+  function renderGradesTable(filterClass = currentGradesFilterClass) {
+    currentGradesFilterClass = filterClass;
     const tableBody = document.getElementById('gradesTableBody');
     if (!tableBody) return;
 
-    const rankedStudents = window.gradeManager.getRankedStudents();
+    let allStudents = window.appStore.data.students || [];
+    let studentsToRank = allStudents;
+    if (filterClass !== 'all') {
+      studentsToRank = allStudents.filter(s => s.class === filterClass);
+    }
+
+    const rankedStudents = window.gradeManager.getRankedStudents(studentsToRank);
     tableBody.innerHTML = rankedStudents.map((s, idx) => `
       <tr class="border-b border-gray-100 dark:border-slate-700 hover:bg-purple-50/50 dark:hover:bg-slate-800/50 transition">
         <td class="p-3 text-center font-bold text-gray-500">${idx + 1}</td>
@@ -688,6 +699,21 @@ document.addEventListener('DOMContentLoaded', () => {
         </td>
       </tr>
     `).join('');
+
+    // Attach listeners for grades class filter buttons
+    document.querySelectorAll('.grades-class-btn').forEach(btn => {
+      btn.onclick = () => {
+        const cls = btn.dataset.class;
+        document.querySelectorAll('.grades-class-btn').forEach(b => {
+          if (b.dataset.class === cls) {
+            b.className = 'grades-class-btn px-3 py-1 rounded-xl font-bold transition bg-purple-600 text-white shadow-xs';
+          } else {
+            b.className = 'grades-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50';
+          }
+        });
+        renderGradesTable(cls);
+      };
+    });
 
     // Attach listeners for live grade editing
     document.querySelectorAll('.grade-input').forEach(input => {
@@ -777,10 +803,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ================== ATTENDANCE VIEW ================== */
-  function renderAttendanceTable() {
+  let currentAttendanceFilterClass = 'all';
+  function renderAttendanceTable(filterClass = currentAttendanceFilterClass) {
+    currentAttendanceFilterClass = filterClass;
     const container = document.getElementById('attendanceListContainer');
     if (!container) return;
-    const students = window.appStore.data.students || [];
+    let all = window.appStore.data.students || [];
+    let students = (filterClass === 'all') ? all : all.filter(s => s.class === filterClass);
     const today = new Date().toISOString().slice(0, 10);
     const dateAttendance = (window.appStore.data.attendance && window.appStore.data.attendance[today]) || {};
 
@@ -807,6 +836,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('')}
       </div>
     `;
+
+    // Attach listeners for attendance class filter buttons
+    document.querySelectorAll('.attendance-class-btn').forEach(btn => {
+      btn.onclick = () => {
+        const cls = btn.dataset.class;
+        document.querySelectorAll('.attendance-class-btn').forEach(b => {
+          if (b.dataset.class === cls) {
+            b.className = 'attendance-class-btn px-3 py-1 rounded-xl font-bold transition bg-purple-600 text-white shadow-xs';
+          } else {
+            b.className = 'attendance-class-btn px-2.5 py-1 rounded-xl font-bold transition bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50';
+          }
+        });
+        renderAttendanceTable(cls);
+      };
+    });
 
     // Click handler for attendance buttons
     document.querySelectorAll('.btn-att').forEach(btn => {
