@@ -49,15 +49,15 @@
       const style = document.createElement('style');
       style.id = 'projectorPresenterStyles';
       style.innerHTML = `
-        /* Projector KaTeX Math Scaling */
+        /* Projector KaTeX Math Scaling (High-Definition Projector Typography) */
         #slidePresenterModal .katex {
-          font-size: 1.32em;
+          font-size: 1.38em;
           text-rendering: geometricPrecision;
         }
         #slidePresenterModal .katex-display {
-          font-size: 1.55em;
-          margin: 1.25rem 0 !important;
-          padding: 0.35em 0 !important;
+          font-size: 1.65em;
+          margin: 1.35rem 0 !important;
+          padding: 0.4em 0 !important;
           overflow-x: auto !important;
           overflow-y: visible !important;
         }
@@ -66,8 +66,22 @@
         }
         /* High-definition, crisp SVG radicals for projectors and screens (prevents severed or faint vinculum) */
         #slidePresenterModal .katex .sqrt svg path {
-          stroke: currentColor;
-          stroke-width: 28px;
+          stroke: currentColor !important;
+          stroke-width: 28px !important;
+          vector-effect: non-scaling-stroke;
+        }
+        /* Projector MCQ Math & Typography Scaling */
+        #slidePresenterModal .mcq-choice-text .katex {
+          font-size: 1.5em;
+        }
+        /* Enhanced Projector Big-Font Typography */
+        #slidePresenterModal .slide-pro-title {
+          font-size: clamp(2rem, 3.5vw, 3.25rem);
+          line-height: 1.25;
+        }
+        #slidePresenterModal .slide-pro-text {
+          font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+          line-height: 1.75;
         }
       `;
       document.head.appendChild(style);
@@ -144,14 +158,35 @@
     getGrade12Lessons() {
       return this.lessons.filter(l => {
         const isG12 = l.grade && (l.grade.includes('១២') || l.grade.includes('12'));
-        const isTpl = l.is_template === true;
-        if (!isG12 && !isTpl) return false;
+        if (!isG12) return false;
 
         const ch = this.activeChapter;
         if (ch === 'template') {
           if (!l.is_template) return false;
         } else if (ch !== 'all') {
-          if (l.is_template) return false;
+          if (l.is_template && ch !== 'template') return false;
+          if (String(l.chapter_num) !== String(ch)) return false;
+        }
+
+        if (!this.searchQuery) return true;
+        const q = this.searchQuery;
+        const haystack = [
+          l.lesson_title,
+          l.chapter_title,
+          l.subtitle,
+          l.grade
+        ].join(' ').toLowerCase();
+        return haystack.includes(q);
+      });
+    }
+
+    getGrade11Lessons() {
+      return this.lessons.filter(l => {
+        const isG11 = l.grade && (l.grade.includes('១១') || l.grade.includes('11'));
+        if (!isG11) return false;
+
+        const ch = this.activeChapter;
+        if (ch !== 'all') {
           if (String(l.chapter_num) !== String(ch)) return false;
         }
 
@@ -250,12 +285,12 @@
             <!-- Grade Pills Bar -->
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 font-battambang">
               ${this.renderGradeSelectorPill('12', '🎓 ថ្នាក់ទី ១២', 'វិទ្យាសាស្ត្រពិត (Active)', true)}
-              ${this.renderGradeSelectorPill('11', '📐 ថ្នាក់ទី ១១', 'គ្រោងមេរៀន (Syllabus)')}
+              ${this.renderGradeSelectorPill('11', '📐 ថ្នាក់ទី ១១', 'ស្លាយពេញលេញ (៤៥ ស្លាយ)', true)}
               ${this.renderGradeSelectorPill('10', '📊 ថ្នាក់ទី ១០', 'គ្រោងមេរៀន (Syllabus)')}
               ${this.renderGradeSelectorPill('9', '🎒 ថ្នាក់ទី ៩', 'អនុវិទ្យាល័យ (Syllabus)')}
-              ${this.renderGradeSelectorPill('8', '📘 ថ្នាក់ទី ៨', 'អនុវិទ្យាល័យ (Syllabus)')}
+              ${this.renderGradeSelectorPill('8', '📘 ថ្នាក់ទី ៨', 'ស្លាយគំរូ (២២ ស្លាយ)')}
               ${this.renderGradeSelectorPill('7', '📗 ថ្នាក់ទី ៧', 'អនុវិទ្យាល័យ (Syllabus)')}
-              ${this.renderGradeSelectorPill('template', '⭐ ស្លាយគំរូ', 'NGS 26 Slides')}
+              ${this.renderGradeSelectorPill('template', '⭐ ស្លាយគំរូ', 'NGS Standard Decks')}
             </div>
           </div>
 
@@ -290,11 +325,71 @@
     renderGradeView(grade) {
       if (grade === '12') {
         return this.renderGrade12InteractiveView();
+      } else if (grade === '11') {
+        return this.renderGrade11InteractiveView();
       } else if (grade === 'template') {
         return this.renderTemplateDeckView();
       } else {
         return this.renderGradeSyllabusView(grade);
       }
+    }
+
+    // =========================================================================
+    // GRADE 11 INTERACTIVE SLIDES VIEW
+    // =========================================================================
+
+    renderGrade11InteractiveView() {
+      const filtered = this.getGrade11Lessons();
+      const totalSlides = filtered.reduce((acc, l) => acc + this.getTotalSlides(l), 0);
+
+      return `
+        <div class="space-y-6">
+          <!-- Grade 11 Sub-Header & Controls Bar -->
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="flex items-center gap-3">
+              <span class="px-3.5 py-1.5 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 font-black text-sm font-battambang border border-purple-200 shrink-0">
+                ថ្នាក់ទី ១១
+              </span>
+              <div>
+                <h3 class="text-base sm:text-lg font-bold font-suwannaphum text-slate-900 dark:text-white">
+                  ជ្រើសរើសជំពូក ឬមេរៀនសម្រាប់បង្រៀន (ថ្នាក់ទី ១១)
+                </h3>
+                <p class="text-xs text-slate-500 font-battambang">
+                  មាន ${filtered.length} មេរៀន (${totalSlides} ស្លាយពេញលេញ) • សាលារៀនជំនាន់ថ្មី (NGS) • កម្រិតអក្សរធំច្បាស់សម្រាប់ម៉ាស៊ីនបញ្ចាំង
+                </p>
+              </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="relative min-w-[260px]">
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="text"
+                value="${this.searchQuery}"
+                oninput="window.teachingSlidesManager.setSearch(this.value)"
+                placeholder="ស្វែងរកមេរៀន ជំពូក ឬប្រធានបទ..."
+                class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 font-battambang transition">
+            </div>
+          </div>
+
+          <!-- Chapter Filter Tabs -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none font-battambang">
+            ${this.renderChapterTab('all', '📚 ជំពូកទាំងអស់ (All Lessons)')}
+            ${this.renderChapterTab('1', 'ជំពូកទី ១ ៖ ស្វ៊ីតចំនួនពិត (៤៥ ស្លាយ)')}
+          </div>
+
+          <!-- Lessons Grid -->
+          ${filtered.length === 0 ? `
+            <div class="p-12 text-center bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700">
+              <i class="fa-solid fa-folder-open text-4xl text-slate-300 dark:text-slate-600 mb-3"></i>
+              <p class="text-slate-500 dark:text-slate-400 font-battambang text-sm">មិនមានមេរៀនត្រូវនឹងការស្វែងរកឡើយ</p>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${filtered.map(l => this.renderLessonCard(l)).join('')}
+            </div>
+          `}
+        </div>
+      `;
     }
 
     // =========================================================================
@@ -429,7 +524,7 @@
     // =========================================================================
 
     renderTemplateDeckView() {
-      const templates = this.lessons.filter(l => l.id === 'template_sequence' || l.id === 'g8_template' || l.is_template);
+      const templates = this.lessons.filter(l => l.id === 'template_sequence' || l.id === 'g11_ch1_l1' || l.id === 'g8_template' || l.is_template);
       if (templates.length === 0) {
         return `<div class="p-8 text-center">គ្មានស្លាយគំរូ</div>`;
       }
@@ -1628,15 +1723,15 @@
 
               return `
                 <button onclick="window.teachingSlidesManager.selectMcqChoice('${mcqKey}', ${cIdx})"
-                  class="p-6 sm:p-8 rounded-3xl text-left transition-all flex items-center gap-5 ${cardStyle} shadow-md group min-h-[110px]">
-                  <span class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center font-black text-xl sm:text-2xl shrink-0 ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 group-hover:bg-purple-100'}">
+                  class="p-7 sm:p-9 rounded-3xl text-left transition-all flex items-center gap-6 ${cardStyle} shadow-lg group min-h-[140px] hover:scale-[1.01] active:scale-[0.99]">
+                  <span class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center font-black text-2xl sm:text-3xl shrink-0 shadow-sm ${isSelected ? 'bg-purple-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 group-hover:bg-purple-100 dark:group-hover:bg-slate-600'}">
                     ${choiceLabel}
                   </span>
-                  <span class="text-2xl sm:text-3xl font-bold font-battambang flex-1">
+                  <span class="mcq-choice-text text-3xl sm:text-4xl lg:text-5xl font-black font-battambang flex-1 leading-snug">
                     ${choiceText}
                   </span>
-                  ${isCorrect ? '<i class="fa-solid fa-circle-check text-3xl text-emerald-500 shrink-0"></i>' : ''}
-                  ${isWrong ? '<i class="fa-solid fa-circle-xmark text-3xl text-rose-500 shrink-0"></i>' : ''}
+                  ${isCorrect ? '<i class="fa-solid fa-circle-check text-4xl text-emerald-500 shrink-0 animate-bounce"></i>' : ''}
+                  ${isWrong ? '<i class="fa-solid fa-circle-xmark text-4xl text-rose-500 shrink-0"></i>' : ''}
                 </button>
               `;
             }).join('')}
