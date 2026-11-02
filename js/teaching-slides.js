@@ -429,43 +429,31 @@
     // =========================================================================
 
     renderTemplateDeckView() {
-      const tpl = this.lessons.find(l => l.id === 'template_sequence' || l.is_template);
-      if (!tpl) {
+      const templates = this.lessons.filter(l => l.id === 'template_sequence' || l.id === 'g8_template' || l.is_template);
+      if (templates.length === 0) {
         return `<div class="p-8 text-center">គ្មានស្លាយគំរូ</div>`;
       }
 
       return `
-        <div class="space-y-6">
+        <div class="space-y-8">
+          <!-- Top Hero Banner -->
           <div class="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-sky-500/10 p-6 sm:p-8 rounded-3xl border-2 border-amber-400 shadow-xl">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div class="space-y-2">
-                <span class="px-3.5 py-1 rounded-xl text-xs font-bold bg-amber-400 text-slate-950 font-battambang shadow-sm">
-                  ⭐ ស្លាយគំរូស្តង់ដា NGS (Authentic 26 Slides)
-                </span>
-                <h2 class="text-2xl sm:text-3xl font-black font-suwannaphum text-slate-900 dark:text-white">
-                  ${tpl.lesson_title}
-                </h2>
-                <p class="text-sm sm:text-base font-battambang text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-                  រៀបចំឡើងតាមឯកសារ PPTX គំរូជាក់ស្តែងរបស់សាលារៀនជំនាន់ថ្មី • បង្ហាញរូបមន្ត គំនូសបំព្រួញលំនាំ ស្វ៊ីតផលសង ស្វ៊ីតជំនួយ និងដ្យាក្រាមរបារ $S_n$
-                </p>
-              </div>
-
-              <div class="flex items-center gap-3 shrink-0">
-                <button onclick="window.teachingSlidesManager.openPresenter('${tpl.id}')"
-                  class="px-6 py-3.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm sm:text-base font-battambang shadow-lg shadow-purple-600/30 flex items-center gap-2 transition active:scale-95">
-                  <i class="fa-solid fa-play text-lg"></i> ចាក់ស្លាយគំរូ (${this.getTotalSlides(tpl)} ស្លាយ)
-                </button>
-                <a href="slides/${encodeURIComponent(tpl.filename)}" download="${tpl.filename}"
-                  class="px-5 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base font-battambang shadow-lg flex items-center gap-2 transition active:scale-95">
-                  <i class="fa-solid fa-download"></i> ទាញយក PPTX
-                </a>
-              </div>
+            <div class="space-y-2">
+              <span class="px-3.5 py-1 rounded-xl text-xs font-bold bg-amber-400 text-slate-950 font-battambang shadow-sm">
+                ⭐ បណ្ដុំស្លាយគំរូស្តង់ដាគរុកោសល្យ NGS Standard Slide Decks
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-black font-suwannaphum text-slate-900 dark:text-white">
+                គំរូស្លាយបង្រៀនគណិតវិទ្យាឌីជីថលកម្រិតស្តង់ដាជាតិ
+              </h2>
+              <p class="text-sm sm:text-base font-battambang text-slate-600 dark:text-slate-300 max-w-4xl leading-relaxed">
+                រៀបចំឡើងតាមក្បួនគរុកោសល្យទំនើបរបស់សាលារៀនជំនាន់ថ្មី (NGS) • កម្រិតអក្សរធំច្បាស់សម្រាប់ម៉ាស៊ីនបញ្ចាំង (Projector) • ខ្លឹមសារលម្អិតពេញលេញគ្មានកាត់ខ្លី • សន្លឹកកិច្ចការពិភាក្សា ៦ ក្រុម • តេស្តពង្រឹងពុទ្ធិ និងប៊ូតុងបង្ហាញដំណោះស្រាយអន្តរកម្ម
+              </p>
             </div>
           </div>
 
-          <!-- Lesson Card Preview -->
-          <div class="max-w-xl mx-auto">
-            ${this.renderLessonCard(tpl)}
+          <!-- Templates Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${templates.map(tpl => this.renderLessonCard(tpl)).join('')}
           </div>
         </div>
       `;
@@ -519,11 +507,37 @@
             </button>
           </div>
 
+          <!-- Grade 8 Special Showcase Banner -->
+          ${grade === '8' ? `
+            <div class="bg-gradient-to-r from-emerald-500/10 via-purple-500/10 to-sky-500/10 p-6 sm:p-7 rounded-3xl border-2 border-emerald-400 dark:border-emerald-500 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-3 py-1 rounded-xl bg-emerald-600 text-white font-bold text-xs font-battambang shadow-xs">
+                    🌟 ស្លាយគំរូស្តង់ដា ២២ ស្លាយពេញលេញ (Ready to Teach)
+                  </span>
+                  <span class="px-3 py-1 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-bold text-xs font-battambang border border-purple-200">
+                    មេរៀនទី ១២ ៖ ករណី ម.ជ.ម
+                  </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-black font-suwannaphum text-slate-900 dark:text-white">
+                  ការប្រៀបធៀបត្រីកោណ (ត្រីកោណប៉ុនគ្នា ករណី ម.ជ.ម)
+                </h3>
+                <p class="text-xs sm:text-sm font-battambang text-slate-600 dark:text-slate-300">
+                  រៀបចំឡើងតាមគំរូស្តង់ដាជាក់ស្តែង • មាននិយមន័យ ធាតុតម្រូវ ទ្រឹស្តីបទ វិបាក លំហាត់គំរូ ប្រតិបត្តិ និងពង្រឹងពុទ្ធិ
+                </p>
+              </div>
+              <button onclick="window.teachingSlidesManager.openPresenter('g8_template')"
+                class="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base font-battambang shadow-lg shadow-emerald-600/30 flex items-center gap-2.5 shrink-0 transition active:scale-95">
+                <i class="fa-solid fa-play"></i> ចាក់ស្លាយបង្រៀន (២២ ស្លាយ)
+              </button>
+            </div>
+          ` : ''}
+
           <!-- Information Notice -->
           <div class="p-4 sm:p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 font-battambang flex items-start gap-3">
             <i class="fa-solid fa-circle-info text-amber-500 text-xl mt-0.5 shrink-0"></i>
             <div class="text-xs sm:text-sm leading-relaxed">
-              <b>ការណែនាំ ៖</b> ចំពោះថ្នាក់ទី ៧ ដល់ ១១ ត្រូវបានរៀបចំ <b>ចំណងជើងជំពូក មេរៀន និងគ្រោងខ្លឹមសារតាមកម្មវិធីសិក្សាជាតិរួចរាល់ជាផ្លូវការ</b> (មិនទាន់បង្កើតស្លាយពេញលេញនៅឡើយ)។ លោកគ្រូអាចពិនិត្យគ្រោងការណ៍ខាងក្រោម ដើម្បីត្រៀមរៀបចំការបង្រៀន ឬចូលទៅកាន់ថ្នាក់ទី ១២ សម្រាប់ស្លាយបង្រៀនពេញលេញ!
+              <b>ការណែនាំ ៖</b> ចំពោះថ្នាក់ទី ៧ ដល់ ១១ ត្រូវបានរៀបចំ <b>ចំណងជើងជំពូក មេរៀន និងគ្រោងខ្លឹមសារតាមកម្មវិធីសិក្សាជាតិរួចរាល់ជាផ្លូវការ</b>${grade === '8' ? ' (មានស្លាយគំរូពេញលេញ ២២ ស្លាយសម្រាប់មេរៀនទី ១២ ខាងលើ)' : ' (មិនទាន់បង្កើតស្លាយពេញលេញនៅឡើយ)'}។ លោកគ្រូអាចពិនិត្យគ្រោងការណ៍ខាងក្រោម ដើម្បីត្រៀមរៀបចំការបង្រៀន ឬចូលទៅកាន់ថ្នាក់ទី ១២ សម្រាប់ស្លាយបង្រៀនពេញលេញ!
             </div>
           </div>
 
