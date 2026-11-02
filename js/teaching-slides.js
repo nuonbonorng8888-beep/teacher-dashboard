@@ -280,7 +280,7 @@
             <!-- Grade Pills Bar -->
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 font-battambang">
               ${this.renderGradeSelectorPill('12', '🎓 ថ្នាក់ទី ១២', 'វិទ្យាសាស្ត្រពិត (Active)', true)}
-              ${this.renderGradeSelectorPill('11', '📐 ថ្នាក់ទី ១១', 'ស្លាយពេញលេញ (៤៥ ស្លាយ)', true)}
+              ${this.renderGradeSelectorPill('11', '📐 ថ្នាក់ទី ១១', 'ស្លាយពេញលេញ (២ មេរៀន • ៨៤ ស្លាយ)', true)}
               ${this.renderGradeSelectorPill('10', '📊 ថ្នាក់ទី ១០', 'គ្រោងមេរៀន (Syllabus)')}
               ${this.renderGradeSelectorPill('9', '🎒 ថ្នាក់ទី ៩', 'អនុវិទ្យាល័យ (Syllabus)')}
               ${this.renderGradeSelectorPill('8', '📘 ថ្នាក់ទី ៨', 'ស្លាយគំរូ (២២ ស្លាយ)')}
@@ -369,7 +369,7 @@
           <!-- Chapter Filter Tabs -->
           <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none font-battambang">
             ${this.renderChapterTab('all', '📚 ជំពូកទាំងអស់ (All Lessons)')}
-            ${this.renderChapterTab('1', 'ជំពូកទី ១ ៖ ស្វ៊ីតចំនួនពិត (៤៥ ស្លាយ)')}
+            ${this.renderChapterTab('1', 'ជំពូកទី ១ ៖ ស្វ៊ីតចំនួនពិត (២ មេរៀន • ៨៤ ស្លាយ)')}
           </div>
 
           <!-- Lessons Grid -->
@@ -1513,7 +1513,7 @@
               </div>
 
               <div class="text-base sm:text-xl font-battambang font-bold text-slate-600 dark:text-slate-300 mt-4 text-center">
-                រូបមន្ត ៖ $a_n = S_n - S_{n-1} \quad (n \ge 2)$ ព្រោះ $S_n$ និង $S_{n-1}$ ខុសគ្នាតែតួ $a_n$ ប៉ុណ្ណោះ!
+                រូបមន្ត ៖ $a_n = S_n - S_{n-1} \\quad (n \\ge 2)$ ព្រោះ $S_n$ និង $S_{n-1}$ ខុសគ្នាតែតួ $a_n$ ប៉ុណ្ណោះ!
               </div>
             </div>
 
