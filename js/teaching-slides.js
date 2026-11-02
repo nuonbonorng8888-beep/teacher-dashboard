@@ -64,16 +64,10 @@
         #slidePresenterModal .katex-display > .katex {
           font-size: 1em;
         }
-        /* Ensure radical SVG checkmark seamlessly aligns with vinculum roof */
-        #slidePresenterModal .katex .sqrt-line {
-          border-top-style: solid;
-        }
-        /* Prevent clipping of numerators, superscripts and subscripts */
-        #slidePresenterModal .katex .mfrac,
-        #slidePresenterModal .katex .vlist-t,
-        #slidePresenterModal .katex .vlist-r,
-        #slidePresenterModal .katex .vlist {
-          overflow: visible !important;
+        /* High-definition, crisp SVG radicals for projectors and screens (prevents severed or faint vinculum) */
+        #slidePresenterModal .katex .sqrt svg path {
+          stroke: currentColor;
+          stroke-width: 28px;
         }
       `;
       document.head.appendChild(style);
@@ -135,6 +129,11 @@
     setSearch(query) {
       this.searchQuery = (query || '').toLowerCase().trim();
       this.render();
+    }
+
+    toggleExampleSolution(key) {
+      this.revealedExamples[key] = !this.revealedExamples[key];
+      this.renderPresenterStage();
     }
 
     togglePracticeSolution(key) {
@@ -991,7 +990,7 @@
           return `
             <div class="flex flex-col justify-between h-full">
               ${headerHtml}
-              <div class="space-y-6 my-auto flex-1 flex flex-col justify-center">
+              <div class="space-y-4 sm:space-y-5 my-auto flex-1 flex flex-col justify-center">
                 ${(slide.body || []).map(p => `
                   <p class="text-2xl sm:text-3xl font-battambang text-slate-800 dark:text-slate-100 leading-relaxed">
                     ${p}
@@ -1027,36 +1026,46 @@
         case 'example': {
           const exKey = `${lesson.id}_${idx}`;
           const isRevealed = !!this.revealedExamples[exKey];
+          const hasSteps = (slide.steps || []).length > 0;
 
           return `
-            <div class="flex flex-col justify-between h-full space-y-6">
+            <div class="flex flex-col justify-between h-full space-y-5">
               ${headerHtml}
-              <div class="space-y-6 my-auto flex-1 flex flex-col justify-center">
+              <div class="space-y-5 my-auto flex-1 flex flex-col justify-center">
                 ${slide.problem ? `
-                  <div class="p-6 sm:p-8 rounded-3xl bg-purple-500/10 border-2 border-purple-400 shadow-md">
-                    <h3 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 mb-2">
-                      <i class="fa-solid fa-pen-fancy mr-2"></i> ប្រធានលំហាត់ ៖
-                    </h3>
+                  <div class="p-6 sm:p-7 rounded-3xl bg-purple-500/10 border-2 border-purple-400 shadow-md">
+                    <div class="flex items-center justify-between gap-4 mb-3 pb-3 border-b border-purple-300/30 flex-wrap">
+                      <h3 class="text-xl sm:text-2xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-fancy"></i>
+                        <span>ប្រធានលំហាត់ ៖</span>
+                      </h3>
+                      ${hasSteps ? `
+                        <button onclick="window.teachingSlidesManager.toggleExampleSolution('${exKey}')"
+                          class="px-6 py-2.5 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-600/30'} font-bold text-sm sm:text-base font-battambang transition flex items-center gap-2 active:scale-95">
+                          <i class="fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                          <span>${isRevealed ? 'លាក់ដំណោះស្រាយ' : 'បង្ហាញដំណោះស្រាយ'}</span>
+                        </button>
+                      ` : ''}
+                    </div>
                     <div class="text-2xl sm:text-3xl font-battambang leading-relaxed text-slate-900 dark:text-slate-100">
                       ${slide.problem}
                     </div>
                   </div>
-                ` : ''}
-
-                <!-- Reveal Solution Toggle Button (Answers hidden until clicked) -->
-                <div class="pt-2 flex items-center justify-between gap-4 flex-wrap">
-                  <button onclick="window.teachingSlidesManager.toggleExampleSolution('${exKey}')"
-                    class="px-8 py-3.5 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white'} font-bold text-base sm:text-lg font-battambang transition shadow-lg flex items-center gap-2.5 active:scale-95">
-                    <i class="fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
-                    ${isRevealed ? 'លាក់ដំណោះស្រាយ' : '👁️ បង្ហាញដំណោះស្រាយលម្អិត'}
-                  </button>
-                  <span class="text-sm sm:text-base text-slate-400 font-battambang">
-                    ${isRevealed ? 'ដំណោះស្រាយត្រូវបានបង្ហាញ' : 'ចុចប៊ូតុងខាងឆ្វេង ដើម្បីបង្ហាញជំហានដោះស្រាយ'}
-                  </span>
-                </div>
+                ` : (hasSteps ? `
+                  <div class="flex items-center justify-between gap-4 p-4 rounded-2xl bg-purple-500/10 border border-purple-400">
+                    <span class="text-xl font-bold font-suwannaphum text-purple-600 dark:text-purple-300">
+                      <i class="fa-solid fa-lightbulb mr-2"></i> ដំណោះស្រាយលម្អិត ៖
+                    </span>
+                    <button onclick="window.teachingSlidesManager.toggleExampleSolution('${exKey}')"
+                      class="px-6 py-2.5 rounded-2xl ${isRevealed ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-600/30'} font-bold text-sm sm:text-base font-battambang transition flex items-center gap-2 active:scale-95">
+                      <i class="fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                      <span>${isRevealed ? 'លាក់ដំណោះស្រាយ' : 'បង្ហាញដំណោះស្រាយ'}</span>
+                    </button>
+                  </div>
+                ` : '')}
 
                 <!-- Solution Steps (Revealed when clicked) -->
-                ${isRevealed && (slide.steps || []).length > 0 ? `
+                ${isRevealed && hasSteps ? `
                   <div class="space-y-4 animate-fadeIn">
                     ${slide.steps.map(st => `
                       <div class="p-6 sm:p-7 rounded-3xl bg-slate-50 dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
@@ -1072,7 +1081,7 @@
                 ` : ''}
               </div>
 
-              <div class="p-3 text-sm text-center text-slate-400 font-battambang shrink-0">
+              <div class="p-2 text-sm text-center text-slate-400 font-battambang shrink-0">
                 គន្លឹះ ៖ កំណត់រូបមន្តឱ្យបានច្បាស់លាស់មុននឹងជំនួសលេខ
               </div>
             </div>
@@ -1421,7 +1430,7 @@
       const isRevealed = !!this.revealedPractice[pKey];
 
       return `
-        <div class="flex flex-col justify-between h-full space-y-6">
+        <div class="flex flex-col justify-between h-full space-y-4 sm:space-y-5">
           <!-- Header -->
           <div class="shrink-0">
             <div class="flex items-center justify-between gap-3 mb-2 flex-wrap">

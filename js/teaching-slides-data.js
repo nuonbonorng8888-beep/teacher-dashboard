@@ -1,4 +1,3 @@
-// NGS Teaching Slides Master Data - Version 5.8 (All Grades 7-12)
 window.NGS_TEACHING_SLIDES_DATA = [
   {
     "id": "ch1_l1",
@@ -1181,15 +1180,15 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "steps": [
           {
             "title": "១. $\\theta = \\frac{2\\pi}{3} = \\pi - \\frac{\\pi}{3}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី II</b> ($\cos\\theta < 0$, $\sin\\theta > 0$) នាំឱ្យ $\\cos\\frac{2\\pi}{3} = -\\frac{1}{2}$ និង $\\sin\\frac{2\\pi}{3} = \\frac{\\sqrt{3}}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី II</b> ($\\cos\\theta < 0$, $\\sin\\theta > 0$) នាំឱ្យ $\\cos\\frac{2\\pi}{3} = -\\frac{1}{2}$ និង $\\sin\\frac{2\\pi}{3} = \\frac{\\sqrt{3}}{2}$"
           },
           {
             "title": "២. $\\theta = \\frac{5\\pi}{4} = \\pi + \\frac{\\pi}{4}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី III</b> ($\cos\\theta < 0$, $\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$ និង $\\sin\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី III</b> ($\\cos\\theta < 0$, $\\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$ និង $\\sin\\frac{5\\pi}{4} = -\\frac{\\sqrt{2}}{2}$"
           },
           {
             "title": "៣. $\\theta = \\frac{11\\pi}{6} = 2\\pi - \\frac{\\pi}{6}$ ៖",
-            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី IV</b> ($\cos\\theta > 0$, $\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{11\\pi}{6} = \\frac{\\sqrt{3}}{2}$ និង $\\sin\\frac{11\\pi}{6} = -\\frac{1}{2}$"
+            "detail": "ស្ថិតក្នុង <b>កាដ្រង់ទី IV</b> ($\\cos\\theta > 0$, $\\sin\\theta < 0$) នាំឱ្យ $\\cos\\frac{11\\pi}{6} = \\frac{\\sqrt{3}}{2}$ និង $\\sin\\frac{11\\pi}{6} = -\\frac{1}{2}$"
           }
         ]
       },
@@ -1230,7 +1229,21 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "title": "ការគណនាម៉ូឌុលនៃចំនួនកុំផ្លិច",
         "subtitle": "អនុវត្តរូបមន្ត $|z| = \\sqrt{a^2 + b^2}$ ផ្ទាល់",
         "problem": "កំណត់ម៉ូឌុលនៃចំនួនកុំផ្លិចខាងក្រោម ៖<br><br>ក. $z_1 = 1 + 2i$<br>ខ. $z_2 = -2 + i$<br>គ. $z_3 = 3 + 4i$",
-        "timer": "3:00"
+        "timer": "3:00",
+        "steps": [
+          {
+            "title": "ក. $z_1 = 1 + 2i$ (មាន $a = 1$, $b = 2$) ៖",
+            "detail": "យើងបាន $|z_1| = \\sqrt{1^2 + 2^2} = \\sqrt{1 + 4} = \\sqrt{5}$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_1| = \\sqrt{5}$</span>"
+          },
+          {
+            "title": "ខ. $z_2 = -2 + i$ (មាន $a = -2$, $b = 1$) ៖",
+            "detail": "យើងបាន $|z_2| = \\sqrt{(-2)^2 + 1^2} = \\sqrt{4 + 1} = \\sqrt{5}$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_2| = \\sqrt{5}$</span>"
+          },
+          {
+            "title": "គ. $z_3 = 3 + 4i$ (មាន $a = 3$, $b = 4$) ៖",
+            "detail": "យើងបាន $|z_3| = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$<br><b>ដូចនេះ ៖</b> <span class='text-amber-500 font-bold text-2xl'>$|z_3| = 5$</span>"
+          }
+        ]
       },
       {
         "slide_num": 19,
@@ -1346,7 +1359,25 @@ window.NGS_TEACHING_SLIDES_DATA = [
         "title": "ការស្វែងរកអាគុយម៉ង់គ្រប់កាដ្រង់",
         "subtitle": "អនុវត្តប្រព័ន្ធត្រីកោណមាត្រ និងកំណត់ទីតាំងកាដ្រង់",
         "problem": "រកអាគុយម៉ង់នៃចំនួនកុំផ្លិចខាងក្រោម ៖<br><br>ក. $z_1 = 1 + i$<br>ខ. $z_2 = 1 - i\\sqrt{3}$<br>គ. $z_3 = -2 + 2i\\sqrt{3}$<br>ឃ. $z_4 = -2 - 2i$",
-        "timer": "5:00"
+        "timer": "5:00",
+        "steps": [
+          {
+            "title": "ក. $z_1 = 1 + i$ ៖",
+            "detail": "$a = 1 > 0, b = 1 > 0$ (កាដ្រង់ I) នាំឱ្យ $\\tan\\theta = 1 \\Rightarrow \\theta = \\frac{\\pi}{4}$"
+          },
+          {
+            "title": "ខ. $z_2 = 1 - i\\sqrt{3}$ ៖",
+            "detail": "$a = 1 > 0, b = -\\sqrt{3} < 0$ (កាដ្រង់ IV) នាំឱ្យ $\\theta = -\\frac{\\pi}{3}$ (ឬ $\\frac{5\\pi}{3}$)"
+          },
+          {
+            "title": "គ. $z_3 = -2 + 2i\\sqrt{3}$ ៖",
+            "detail": "$a = -2 < 0, b = 2\\sqrt{3} > 0$ (កាដ្រង់ II) នាំឱ្យ $\\theta = \\pi - \\frac{\\pi}{3} = \\frac{2\\pi}{3}$"
+          },
+          {
+            "title": "ឃ. $z_4 = -2 - 2i$ ៖",
+            "detail": "$a = -2 < 0, b = -2 < 0$ (កាដ្រង់ III) នាំឱ្យ $\\theta = -\\left(\\pi - \\frac{\\pi}{4}\\right) = -\\frac{3\\pi}{4}$ (ឬ $\\frac{5\\pi}{4}$)"
+          }
+        ]
       },
       {
         "slide_num": 25,
