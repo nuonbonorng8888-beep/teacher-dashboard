@@ -180,6 +180,11 @@ div:where(.swal2-container) button.swal2-styled.swal2-cancel {
 }
 
 /* Print Styles */
+@page {
+  size: A4 portrait;
+  margin: 10mm 12mm;
+}
+
 @media print {
   body {
     background: #ffffff !important;
@@ -197,6 +202,64 @@ div:where(.swal2-container) button.swal2-styled.swal2-cancel {
     border: 1px solid #ccc !important;
     box-shadow: none !important;
     break-inside: avoid;
+  }
+
+  /* Specialized Dedicated Lesson Plans Print Engine (A4 Portrait Official Layout) */
+  body.printing-lesson-plans {
+    background: #ffffff !important;
+    color: #111827 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.printing-lesson-plans > *:not(#printableLessonPlansArea) {
+    display: none !important;
+  }
+
+  body.printing-lesson-plans #printableLessonPlansArea {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    z-index: 999999 !important;
+  }
+
+  body.printing-lesson-plans .lesson-plan-print-page {
+    page-break-after: always !important;
+    break-after: page !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    font-family: 'Kantumruy Pro', 'Khmer OS Siemreap', 'Noto Sans Khmer', sans-serif !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+    color: #111827 !important;
+    background: #ffffff !important;
+  }
+
+  body.printing-lesson-plans .lesson-plan-print-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  body.printing-lesson-plans table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.printing-lesson-plans th,
+  body.printing-lesson-plans td {
+    border: 1px solid #475569 !important;
+    padding: 5px 7px !important;
+    font-size: 9.5pt !important;
   }
 }
 
