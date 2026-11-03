@@ -25,3 +25,4 @@ finally:
 print("File exists?", os.path.exists(out_img))
 if os.path.exists(out_img):
     print("Size:", os.path.getsize(out_img))
+

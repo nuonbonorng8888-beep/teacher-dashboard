@@ -8,3 +8,4 @@ with open('js/lesson-plans.js', 'r', encoding='utf-8') as f:
 for idx, l in enumerate(lines, 1):
     if 'switchGrade' in l or 'selectGrade' in l or 'filterGrade' in l:
         print(f"L{idx}: {l.strip()}")
+

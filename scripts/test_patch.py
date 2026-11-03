@@ -17,3 +17,4 @@ with open('js/lesson-plans.js', 'r', encoding='utf-8') as f:
 # Let's inspect constructor additions
 # We want to ensure this.printHubActiveTab, this.printHubSelectedSingleChapter, this.printHubSelectedChapters
 print("Original size:", len(content))
+

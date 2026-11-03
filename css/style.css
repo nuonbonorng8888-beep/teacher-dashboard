@@ -229,7 +229,10 @@ div:where(.swal2-container) button.swal2-styled.swal2-cancel {
     z-index: 999999 !important;
   }
 
+  /* Duplex Printing: Every lesson plan MUST start on an ODD page (Recto) */
   body.printing-lesson-plans .lesson-plan-print-page {
+    break-before: recto !important;
+    page-break-before: right !important;
     page-break-after: always !important;
     break-after: page !important;
     display: block !important;

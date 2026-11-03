@@ -520,6 +520,172 @@
       });
     }
 
+    // Unified Dynamic PDF Custom Stamper (Header, Class, Date, Teacher, Signatures)
+    async applyPdfCustomStamps(doc, plan) {
+      const pages = doc.getPages();
+      if (!pages || pages.length === 0) return;
+
+      const isGrade8 = (plan.grade === 'ថ្នាក់ទី ៨' || plan.grade === 'ថ្នាក់ទី 8');
+      const teacherTitle = (plan.teacher && plan.teacher.includes('សុភារី')) ? 'អ្នកគ្រូ' : 'លោកគ្រូ';
+      const teacherFullName = `${teacherTitle} ${plan.teacher}`;
+
+      // Helper to generate crisp Khmer text via Canvas
+      const makeTextImg = async (text, fontStyle = 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif', width = 600, height = 70, color = '#000000') => {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = color;
+        ctx.font = fontStyle;
+        ctx.fillText(text, 10, 48);
+        const pngUrl = canvas.toDataURL('image/png');
+        const bytes = await fetch(pngUrl).then(r => r.arrayBuffer());
+        return await doc.embedPng(bytes);
+      };
+
+      // 1. TOP PART (Cover Page - Header Info)
+      const coverPage = pages[plan.cover_page_index || 0];
+      if (coverPage) {
+        const pageH = coverPage.getHeight();
+
+        // A. Class Name (Line 1: ថ្នាក់ទី : ...)
+        if (plan.class_name) {
+          const classImg = await makeTextImg(':   ' + plan.class_name, 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 450, 70);
+          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : 77.9);
+          const class_h = 20.0;
+          const class_y_bottom = pageH - class_y_top - class_h;
+          const class_x = isGrade8 ? 235.0 : 226.0;
+
+          // Whiteout only the value slot after :
+          coverPage.drawRectangle({
+            x: class_x,
+            y: class_y_bottom,
+            width: 190.0,
+            height: class_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+          coverPage.drawImage(classImg, {
+            x: class_x,
+            y: class_y_bottom,
+            width: 140.0,
+            height: class_h,
+          });
+        }
+
+        // B. Date (Line 4: កាលបរិច្ឆេទ : ...)
+        if (plan.date_khmer) {
+          const dateImg = await makeTextImg(':   ' + plan.date_khmer, 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
+          const date_y_top = plan.box_y0 || (isGrade8 ? 141.1 : 172.0);
+          const date_h = 20.0;
+          const date_y_bottom = pageH - date_y_top - date_h;
+          const date_x = isGrade8 ? 235.0 : 130.92;
+
+          // Whiteout old date dots
+          coverPage.drawRectangle({
+            x: date_x,
+            y: date_y_bottom,
+            width: 320.0,
+            height: date_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+          coverPage.drawImage(dateImg, {
+            x: date_x,
+            y: date_y_bottom,
+            width: 290.0,
+            height: date_h,
+          });
+        }
+
+        // C. Teacher Name (Line 5: បង្រៀនដោយ : ...)
+        if (plan.teacher) {
+          const teacherImg = await makeTextImg(':   ' + teacherFullName, 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 600, 70);
+          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : 194.0);
+          const teacher_h = 20.0;
+          const teacher_y_bottom = pageH - teacher_y_top - teacher_h;
+          const teacher_x = isGrade8 ? 235.0 : 130.92;
+
+          // Whiteout old dots
+          coverPage.drawRectangle({
+            x: teacher_x,
+            y: teacher_y_bottom,
+            width: 320.0,
+            height: teacher_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+          coverPage.drawImage(teacherImg, {
+            x: teacher_x,
+            y: teacher_y_bottom,
+            width: 220.0,
+            height: teacher_h,
+          });
+        }
+      }
+
+      // 2. BOTTOM PART (Signature Page - Signatures and Date)
+      const sigPageIdx = (typeof plan.sig_page_index === 'number' && plan.sig_page_index < pages.length)
+        ? plan.sig_page_index
+        : (pages.length - 1);
+      const sigPage = pages[sigPageIdx];
+
+      if (sigPage && plan.sig_y0) {
+        const pageH = sigPage.getHeight();
+
+        // A. Signature Date: "រាជធានីភ្នំពេញ, ថ្ងៃទី... ខែ... ឆ្នាំ..."
+        const sigDateText = plan.sig_date_khmer
+          ? `រាជធានីភ្នំពេញ, ${plan.sig_date_khmer}`
+          : (plan.date_khmer ? `រាជធានីភ្នំពេញ, ${plan.date_khmer}` : '');
+
+        if (sigDateText) {
+          const sigDateImg = await makeTextImg(sigDateText, '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 700, 60);
+          const sig_y_top = plan.sig_y0;
+          const sig_h = 20.0;
+          const sig_y_bottom = pageH - sig_y_top - sig_h;
+          const sig_x = 438.0;
+
+          // Whiteout old blank date
+          sigPage.drawRectangle({
+            x: sig_x,
+            y: sig_y_bottom,
+            width: 145.0,
+            height: sig_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+          sigPage.drawImage(sigDateImg, {
+            x: sig_x,
+            y: sig_y_bottom,
+            width: 145.0,
+            height: sig_h,
+          });
+        }
+
+        // B. Teacher signature name under "គ្រូបង្រៀន"
+        if (plan.teacher) {
+          const sigTeacherImg = await makeTextImg(teacherFullName, 'bold 26px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 500, 60);
+          const sig_t_y_top = plan.sig_teacher_y0 || (plan.sig_y0 + 75.0);
+          const sig_t_h = 22.0;
+          const sig_t_y_bottom = pageH - sig_t_y_top - sig_t_h;
+          const sig_t_x = plan.sig_teacher_x0 || 435.0;
+
+          // Whiteout old blank line/dots
+          sigPage.drawRectangle({
+            x: sig_t_x - 5.0,
+            y: sig_t_y_bottom,
+            width: 155.0,
+            height: sig_t_h,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+          sigPage.drawImage(sigTeacherImg, {
+            x: sig_t_x - 5.0,
+            y: sig_t_y_bottom,
+            width: 145.0,
+            height: sig_t_h,
+          });
+        }
+      }
+    }
+
     // Dynamic Client-side PDF Generation with custom Date and Class
     async downloadCustomPdf(planId) {
       const plan = this.plans.find(item => item.id === planId);
@@ -542,81 +708,9 @@
         });
 
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes, { ignoreEncryption: true });
-        const pages = pdfDoc.getPages();
-
-        if (pages.length > 0) {
-          const page = pages[plan.cover_page_index || 0];
-          const pageH = page.getHeight();
-          const y_top = plan.box_y0 || 172.0;
-          const box_h = 24.0;
-          const y_bottom = pageH - y_top - box_h;
-
-          // Render dynamic Khmer date via Canvas for crisp Khmer font
-          const dateCanvas = document.createElement('canvas');
-          dateCanvas.width = 900;
-          dateCanvas.height = 70;
-          const ctx = dateCanvas.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, dateCanvas.width, dateCanvas.height);
-          ctx.fillStyle = '#000000';
-          ctx.font = 'bold 36px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
-          ctx.fillText(':   ' + plan.date_khmer, 10, 50);
-
-          const datePngUrl = dateCanvas.toDataURL('image/png');
-          const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
-          const dateImg = await pdfDoc.embedPng(datePngBytes);
-
-          // Whiteout old date box
-          page.drawRectangle({
-            x: 130.92,
-            y: y_bottom,
-            width: 320,
-            height: box_h,
-            color: PDFLib.rgb(1, 1, 1),
-          });
-
-          // Draw customized date
-          page.drawImage(dateImg, {
-            x: 130.92,
-            y: y_bottom,
-            width: 286.0,
-            height: box_h,
-          });
-
-          // Also update Class if customized
-          if (plan.class_name) {
-            const classCanvas = document.createElement('canvas');
-            classCanvas.width = 400;
-            classCanvas.height = 80;
-            const cctx = classCanvas.getContext('2d');
-            cctx.fillStyle = '#ffffff';
-            cctx.fillRect(0, 0, classCanvas.width, classCanvas.height);
-            cctx.fillStyle = '#000000';
-            cctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-            cctx.fillText(':   ' + plan.class_name, 10, 55);
-
-            const classPngUrl = classCanvas.toDataURL('image/png');
-            const classPngBytes = await fetch(classPngUrl).then(res => res.arrayBuffer());
-            const classImg = await pdfDoc.embedPng(classPngBytes);
-
-            const class_y_top = plan.class_y0 || 77.9;
-            const class_y_bottom = pageH - class_y_top - 18.0;
-
-            page.drawRectangle({
-              x: 226,
-              y: class_y_bottom,
-              width: 120,
-              height: 18.0,
-              color: PDFLib.rgb(1, 1, 1),
-            });
-            page.drawImage(classImg, {
-              x: 226,
-              y: class_y_bottom,
-              width: 100.0,
-              height: 18.0,
-            });
-          }
-        }
+        
+        // Apply unified custom stamps to header (class, date, teacher) and signatures
+        await this.applyPdfCustomStamps(pdfDoc, plan);
 
         const modifiedBytes = await pdfDoc.save();
         const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
@@ -1870,7 +1964,7 @@
         if (window.showToast) window.showToast(msg, type);
       };
 
-      progressToast(`កំពុងបញ្ចូលឯកសារ PDF ចំនួន ${toKhmerNum(plans.length)} កិច្ចតែងការ...`);
+      progressToast(`កំពុងបញ្ចូលឯកសារ PDF ចំនួន ${toKhmerNum(plans.length)} កិច្ចតែងការ (រៀបចំទំព័រសេសសម្រាប់ Duplex Print)...`);
 
       try {
         const mergedPdf = await PDFLib.PDFDocument.create();
@@ -1887,81 +1981,27 @@
             const pdfBytes = await res.arrayBuffer();
             const doc = await PDFLib.PDFDocument.load(pdfBytes, { ignoreEncryption: true });
 
-            const pages = doc.getPages();
-            if (pages.length > 0) {
-              const page = pages[plan.cover_page_index || 0];
-              const pageH = page.getHeight();
-              const y_top = plan.box_y0 || 172.0;
-              const box_h = 24.0;
-              const y_bottom = pageH - y_top - box_h;
+            // Apply unified custom stamps to header (class, date, teacher) and signatures
+            await this.applyPdfCustomStamps(doc, plan);
 
-              // Date stamp
-              const dateCanvas = document.createElement('canvas');
-              dateCanvas.width = 900;
-              dateCanvas.height = 70;
-              const ctx = dateCanvas.getContext('2d');
-              ctx.fillStyle = '#ffffff';
-              ctx.fillRect(0, 0, dateCanvas.width, dateCanvas.height);
-              ctx.fillStyle = '#000000';
-              ctx.font = 'bold 36px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
-              ctx.fillText(':   ' + plan.date_khmer, 10, 50);
-
-              const datePngUrl = dateCanvas.toDataURL('image/png');
-              const datePngBytes = await fetch(datePngUrl).then(r => r.arrayBuffer());
-              const dateImg = await doc.embedPng(datePngBytes);
-
-              page.drawRectangle({
-                x: 130.92,
-                y: y_bottom,
-                width: 320,
-                height: box_h,
-                color: PDFLib.rgb(1, 1, 1),
-              });
-              page.drawImage(dateImg, {
-                x: 130.92,
-                y: y_bottom,
-                width: 286.0,
-                height: box_h,
-              });
-
-              // Class stamp
-              if (plan.class_name) {
-                const classCanvas = document.createElement('canvas');
-                classCanvas.width = 400;
-                classCanvas.height = 80;
-                const cctx = classCanvas.getContext('2d');
-                cctx.fillStyle = '#ffffff';
-                cctx.fillRect(0, 0, classCanvas.width, classCanvas.height);
-                cctx.fillStyle = '#000000';
-                cctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-                cctx.fillText(':   ' + plan.class_name, 10, 55);
-
-                const classPngUrl = classCanvas.toDataURL('image/png');
-                const classPngBytes = await fetch(classPngUrl).then(r => r.arrayBuffer());
-                const classImg = await doc.embedPng(classPngBytes);
-
-                const class_y_top = plan.class_y0 || 77.9;
-                const class_y_bottom = pageH - class_y_top - 18.0;
-
-                page.drawRectangle({
-                  x: 226,
-                  y: class_y_bottom,
-                  width: 120,
-                  height: 18.0,
-                  color: PDFLib.rgb(1, 1, 1),
-                });
-                page.drawImage(classImg, {
-                  x: 226,
-                  y: class_y_bottom,
-                  width: 100.0,
-                  height: 18.0,
-                });
-              }
-            }
-
+            // Copy all pages into merged PDF
             const copiedPages = await mergedPdf.copyPages(doc, doc.getPageIndices());
             copiedPages.forEach(p => mergedPdf.addPage(p));
             successfulCount++;
+
+            // DUPLEX PRINTING ENFORCEMENT:
+            // "មួយទៀតរាល់ចូលចំណុចថ្មីឬមេរៀនថ្មី ឬកិច្ចថ្មី ត្រូវតែទំព័រសេស" (Every new plan/lesson MUST start on an ODD page)
+            // If the merged document currently has an ODD number of pages (e.g. 5 pages),
+            // we MUST append a blank padding page (Page 6) so the NEXT plan starts on Page 7 (an ODD page)!
+            if (i < plans.length - 1) {
+              const currentTotalPages = mergedPdf.getPageCount();
+              if (currentTotalPages % 2 === 1) {
+                const firstPage = copiedPages[0];
+                const pWidth = firstPage ? firstPage.getWidth() : 612.0;
+                const pHeight = firstPage ? firstPage.getHeight() : 792.0;
+                mergedPdf.addPage([pWidth, pHeight]);
+              }
+            }
           } catch (docErr) {
             console.warn(`Error processing ${plan.pdf_file}:`, docErr);
           }
@@ -1982,7 +2022,7 @@
         link.click();
         document.body.removeChild(link);
 
-        progressToast(`ទាញយកបានជោគជ័យចំនួន ${toKhmerNum(successfulCount)} កិច្ចតែងការ! 🎉`, 'success');
+        progressToast(`ទាញយកបានជោគជ័យចំនួន ${toKhmerNum(successfulCount)} កិច្ចតែងការ (រៀបចំទំព័រសេសរួចរាល់)! 🎉`, 'success');
       } catch (err) {
         console.error('Merged PDF generation error:', err);
         progressToast('មានបញ្ហាក្នុងការ Save PDF បញ្ចូលគ្នា។ កំពុងបើកមុខងារ Print ជំនួសវិញ...', 'warning');

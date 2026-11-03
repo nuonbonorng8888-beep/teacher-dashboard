@@ -10,3 +10,4 @@ matches = [m.start() for m in re.finditer(r'@media\s+print', text)]
 print(f"Print media queries found: {len(matches)}")
 for p in matches:
     print(text[p:p+400])
+

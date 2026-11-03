@@ -19,3 +19,4 @@ for k, v in g8[0].items():
 print("\nGrade 12 sample plan:")
 for k, v in g12[0].items():
     print(f"  {k}: {repr(v)[:80]}")
+

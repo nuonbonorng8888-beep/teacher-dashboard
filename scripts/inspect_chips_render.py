@@ -7,3 +7,4 @@ with open('js/lesson-plans.js', 'r', encoding='utf-8') as f:
 
 for i in range(875, 930):
     print(f"L{i+1}: {lines[i]}", end='')
+

@@ -98,3 +98,4 @@ try:
         print(f"Captured {name}: exists={os.path.exists(out_p)}, size={os.path.getsize(out_p) if os.path.exists(out_p) else 0}")
 finally:
     server.terminate()
+

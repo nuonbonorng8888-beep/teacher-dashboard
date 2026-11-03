@@ -11,3 +11,4 @@ with open('index.html', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print("Bumped cache buster to v=7.0 in index.html")
+

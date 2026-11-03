@@ -30,3 +30,4 @@ finally:
 print("out_img1 exists?", os.path.exists(out_img1))
 if os.path.exists(out_img1):
     print("Size:", os.path.getsize(out_img1))
+

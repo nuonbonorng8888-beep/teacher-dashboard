@@ -954,3 +954,4 @@ with open('js/lesson-plans.js', 'w', encoding='utf-8') as f:
     f.write(code_norm)
 
 print("Done updating js/lesson-plans.js!")
+

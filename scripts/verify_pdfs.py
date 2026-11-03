@@ -15,3 +15,4 @@ missing = [f for f in pdf_files if not os.path.exists(f)]
 print(f"Missing files: {len(missing)}")
 if missing:
     print("Sample missing:", missing[:5])
+

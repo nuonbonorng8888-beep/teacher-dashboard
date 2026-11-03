@@ -20,3 +20,4 @@ for src, dst in mappings:
     if os.path.exists(src) and not os.path.exists(dst):
         shutil.copy2(src, dst)
         print(f"Copied {src} -> {dst}")
+
