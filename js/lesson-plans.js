@@ -649,7 +649,7 @@
           x: 60.0,
           y: 8.0,
           width: 495.0,
-          height: 30.0,
+          height: 25.0,
           color: PDFLib.rgb(1, 1, 1),
         });
 
@@ -664,25 +664,27 @@
         // Render page-specific Footer Canvas (Left: Teacher, Center: Page Num, Right: Phone)
         try {
           const fCanvas = document.createElement('canvas');
-          fCanvas.width = 1400;
-          fCanvas.height = 70;
+          fCanvas.width = 1446;
+          fCanvas.height = 48;
           const fctx = fCanvas.getContext('2d');
           fctx.fillStyle = '#ffffff';
           fctx.fillRect(0, 0, fCanvas.width, fCanvas.height);
           fctx.fillStyle = '#000000';
-          fctx.font = '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+          fctx.font = '24px "Khmer OS Siemreap", "Khmer OS", "Noto Sans Khmer", "Kantumruy Pro", sans-serif';
+          fctx.textBaseline = 'middle';
+          const midY = 24;
 
           // Left: Teacher Name
           fctx.textAlign = 'left';
-          fctx.fillText(`បង្រៀនដោយ៖ ${teacherFullName}`, 10, 48);
+          fctx.fillText(`បង្រៀនដោយ៖ ${teacherFullName}`, 15, midY);
 
           // Center: Page number
           fctx.textAlign = 'center';
-          fctx.fillText(`- ${toKhmerNum(pIdx + 1)} -`, 700, 48);
+          fctx.fillText(`- ${toKhmerNum(pIdx + 1)} -`, 723, midY);
 
           // Right: Phone number
           fctx.textAlign = 'right';
-          fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1390, 48);
+          fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1431, midY);
 
           const footerImg = await doc.embedPng(b64ToUint8(fCanvas.toDataURL('image/png')));
 
@@ -754,7 +756,7 @@
 
         // C. Teacher Name (Line 5: បង្រៀនដោយ : <value>)
         if (plan.teacher) {
-          const teacherImg = await makeTextImg(teacherFullName, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 600, 70);
+          const teacherImg = await makeTextImg(teacherFullName, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
           const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : 190.5);
           const teacher_h = 20.0;
           const teacher_y_bottom = pageH - teacher_y_top - teacher_h;
@@ -771,7 +773,7 @@
           coverPage.drawImage(teacherImg, {
             x: teacher_x,
             y: teacher_y_bottom,
-            width: 220.0,
+            width: 290.0,
             height: teacher_h,
           });
         }

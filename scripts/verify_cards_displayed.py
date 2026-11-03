@@ -26,3 +26,4 @@ server.terminate()
 print("Screenshot created?", os.path.exists(screenshot_path))
 if os.path.exists(screenshot_path):
     print("Screenshot size:", os.path.getsize(screenshot_path))
+

@@ -1996,7 +1996,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 141.1,
     "class_y0": 78.1,
     "sig_page_index": 4,
-    "sig_y0": 32.6,
+    "sig_y0": 145.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-29",
     "sig_date_khmer": "ថ្ងៃទី ២៩ ខែ តុលា ឆ្នាំ ២០២៦",
