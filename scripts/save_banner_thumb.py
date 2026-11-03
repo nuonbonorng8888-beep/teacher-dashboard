@@ -10,3 +10,4 @@ print("im size:", im.size)
 im_thumb = im.resize((1000, int(im.height * 1000 / im.width)))
 im_thumb.save("C:/Users/LENOVO/.gemini/antigravity/brain/f1e067a4-40af-4458-9768-938ce551f866/full_header_banner_thumb.png")
 print("Saved full_header_banner_thumb.png")
+

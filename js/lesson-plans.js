@@ -10,6 +10,19 @@
 (function () {
   'use strict';
 
+  // Base64-embedded Yukunthor School Logo (Offline, 100% reliable)
+  const YUKUNTHOR_LOGO_B64 = "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAA0JCgsKCA0LCwsPDg0QFCEVFBISFCgdHhghMCoyMS8qLi00O0tANDhHOS0uQllCR05QVFVUMz9dY1xSYktTVFH/2wBDAQ4PDxQRFCcVFSdRNi42UVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVH/wAARCACfAJ4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD06iiigAooooAKKKKACiqN7q9nZZEku5/7icmsS68TXDcQQCIHoX5Jq405T2REpxjuzqaCQOprhJtVv5vv3Tj2XiqzTSt96aQ/VzW6wk3uYvEwR6HkHuKWvOhJIOkjj/gRqeLUL2I/u7qUf8CzTeEn3BYmB31Fchb+I76LAlCTL7jBrZs/EFlckJITA57P0/OsJUpw3RtGpGWzNaikBDAEEEHuKWsywooooAKKKKACiiigAooqtf3sNhbmaU/RR1Y0bgSXNzDaQmWdwij171yupa/cXRMdvmGH2+8f8KoX99PfzmSZuB91B0Wlh029nhM0VuxTGQTxn6etd9OhGK5qhx1K7k+WmQQPGlwjzJ5iA5ZSfvCtK+t2eSzgEckUbnCPMwJwccADoB6VZheKK1t/JhtZIG2rMHGZMk4JPpzTbyK5Szk+1wwxiIfu5s5d2B+XH4VbneStp/XYzUPdd9RI9Gh8yVd0sw2ho9oCHvyc+/8AOoLizgSxtnWPDFlEreZyM9cr25pTf2MwWa5iuHmUAbA/yf8A6vaq15eQzhlgthAJG3SNncWP+FOKqN6ik4JaF2Syt31PbHb7ohGGCQyZ8w5wOT0/+tVeaLTZIbloGmiljG4I+MehH51aEU1hIHWJZ7YQhfNLYXOc5/M9KqJd20lrBbyxFMvmeRRy4zmlG71TuErLRqxDc6fPbpGzbW3kKAvJyRnHv17VBNDJC/lzRsjddrDFatgqPfyNbb5hBGCke889N23P44qzujuo2Z7YvOxEIimBBUHOMMfTkmq9q1oxezT1Rl2GqXVgw8t98feNjx+HpXWabqlvqMeYztkH3kPUVyWoWSWZQLOJGOQyEYZT9KqxSPFIssTlHXowqKlCNRc0DSFeUHyzPRaKytF1ddQj8uTC3Cjkf3vcVq157TTsztTvqgooopDCiiigBk0qQQtLI21FGSa4bU7+TULoytkIOEX0FbPiK5lurhdOtlLkfNIB/WsN7K4SR0MRYxrvfacgL9RXbhoJe9I5MRN/DEkt9MupoklCKEY/KHbBf6CrV7dWt4VBmnjlJwVJwkWONuP61dEyXk2+wunEzRlQBgLGoxwQfU9xVXULqz+3LBLbpJHET86HrkdOOwrRSlKWqM3FRjoxl3fpa3bNZxsjOu2VJVBGexH4d+9ZLMcDcxIHqelWL2dJ5bazsIZJpFUogP3n5zk+gFbWm+FIhtm1VhcSdRCv+rX/AOK/H8qr2kKUddyVTlVemxzULvcsUtIJrlh18pCQPx6VdTRtckGV05UH/TSZQf0zXdxxpEgSNFRB0VRgCnVzyxcnsjoWGitzg20XXUXmwRwOyTj+uKo3Hn2f/H7Zz2w/vOny/mOK9KpCAwIIBB6g0LFzW4PDQex5zDNyssMmCOjKa1rm6kOnQNfRRzSHmPcSH2+uRWjqnhSzuS01ifsVz1yg+Rj7r/hXLSrcWd0bS+i8qcDK85Vx6qa6I1IVmu5zypypJ9jpLdI4JZLm6lVpZMB5kcEJu6fL6e9VtZsVDT3SkRsGGYuMMP7wrPsL02TyMsKSF12/P2rYktUjRprwrdzFQsa8kBj0UAfzqGnTne5SaqRtYwIpHhlWWJisinINdxpOoJqNoJBxIOHX0NcrqdnHFHHcwo0aOSrRN1jYdRTNHvjYX6yE/un+Vx/WivBVI88SqM3CXJI7qigEEAg5BorzztCormZbe2kmboik1LWL4on8vT1iB5lbB+g5qormaQm7K5kWV7b+RdvdORNI4cjGd4HO386u20DrB5LzedNOwlkjHAbcOAT6cEn6VzgBJAAyT0FWEvbuHaglcCPICtzjtjBr0pUekWedGt1kaWqxr/ZqySxwpOJiitCMBlFYblsqkSF5ZGCxoOrE1PcXM1ywaV87RhQBgKPYVq+EbET3MupyDKxkxQ/X+Jv6fnQ37Gndgl7WehsaFo0elW5ZyJLuQZll/wDZR6AVq0UV5jbk7s9FJJWQVnapqQsVZiQFUAsxXOM5wAO5OD6YxWjWNrVlFOjJJJ5UcmP3p6RuM4Jz2OSPyqqaTl7xFRtR90TTNYW6YxgnCsFbcm1lycDuQQemR0yK2q5fQrKBcGOYzPIwaQ941DZA49WH5V1AGBgVVVRUrRJouTjeQVR1fS7fVrM284wRzHIPvRt6ir1FZptO6NmrnA6fMdOu7nTtSjXevUhc7sfdI/2TVtLvz9ltb2zGQSeZG0ZCHd345GP6Ve8aWHmWSanEv760+9j+KM9R+HX86wLa5kgkWeB9rY4I9DXo07VY83U8+onTlbobLWl5qMa+fLHFmRhsCH7+P4vwFYkiFHeNuqkqcVLNd3NxgSTO/OQM9/oKhOc89a2hFx0ZlOSeqOy8OXZutNVXOZIjsP8AStWuS8LT+XqLwk8Spn8RXW15dWPJNo9KEuaKYVy3iyTN3DH2VCfzNdTXH+JznViPRFq8Or1ERXdqbJdO057YJdSbWkIyozwoPfPrRqGntd77iMKsqg7hnhwO+ap6VqBtpVimYm3J787PcUapf+fK0UDEQZ5xxvPr9K53Qxn13n5tO/S3a39dyPaUfYcttfxuZc7+XA7/AN1Sa7vTYo9K0KBJDtWGIM59+p/XNcHONyKp6M6qfxYV6Dqlu9zp8scUohkwGR26Ag5Gfbjn2rvxb1SM8KtGyDStQad2tpjukQZWQDAkX1x2I4yPxFS6nqkGmLG9wkpSQ7dyJuAPvXO+HLptR1dDHtjit0Lvhs+axyvy+qjnnucVD4zN1aalFPDcTRxzJjCuQNw/+sRWEKalPlZrOq40+ZGlD4imuY5EjjiZ8Ha8D72X0JjOG/LNWknOsadJay7I5mHDIco2D2zyPcHkVw66pd8CZkuFH8M6B/16j8DXQ6Dq9vNeIrZilYgFHbcG+jHkn2PPoT0redHlV0jnp1+d2kzQsYJNDt5ZJ9kk8n3Y0bCgDuWIGBzyaY3iC4t7bdLHCXYkiSR/KTHYKD8zfXFJ4l1G2tpgkjFnABEaY3E+pzwPqcn0HeuUl1e5MjNAsdvu6lFy5+rtlj+dKFN1Pekh1Kqpe7F7Hd6VrcGpSeTErtIqBnYIQgPoCean1e6ntdOme0jEt2VIgiIzvfHArifD0l5f65bxvdzsinzHBkOMD/6+K1vGl3dMLKzt7a6SeS7GxopArSIq7n2kHPPTmsK1NQlZHRQqOpG7OmRo72zIYZSRSjqRjHYgivOLVGhSS2f70EjRH8Diun8C3lxLosdrcQTNPBJLFPM7g/OrdDznOCO3asG9XZr+qKOnn5/MA1thH7zRGKXu3NnTtOktWW4mUGT+Fcj5M9z703UdOecvdQrtbkvH646kVHpOpGORbe5fMJ4Ut/Cf8Kj1O/MsjwQORBnkj+M/4VxKljPrvNfT8LdhudD2Fra/jcg0qTytVtX/ANvH513teeW5xdQn/pov869DrrxS98eGfuBXI+KFxqgP96MV11c14ti+e3mx2Kn+dZ4d2qIusr02YVtEk04jkmWFTnLt0FX7jSY4rF7mO6MoChgRHhSM461nwBGuI1lDFCwDBev4V0E1taxWZgdDF8rbUlmLMPQhRx1rvqzcZKzOGnFSTujlbo7YC4/gIf8AI5ruNfiN5orBCxhYq8oTq8fUgfX+Wa4tl3IVYdRgiuy8L3f2vQ4QxzLB+5f6rwPzGDWWKW0jXDO94jNIsGS5W6IgMIixE0ZznPp224A/yKj8ZWn2jRDMB81uwf8ADof5/pWvbWsdqZRF8qSPv2dlJ64+vX6k1JPClxBJDKu5JFKsPUGuOM7SUjqlDmg4nklHcfWu8n8G6a6/unnibsQ24frXP6p4Xv7BTLHi5hHJZB8wHuP8K9GNeEtLnlzw9SGrRR1wk65eknJ801RroZ9Bv9U1q8eJBHD5p/eycA/T1rYtvBliij7RPNM3sdo/z+NT7aEEk2V7CpOTaRV8CWnF1eMOuIlP6n+lW5P9O+IUKdY9NsmfPpJIcf8AoK1t2Fjb6dai2tlKxgk8nJyafFawQzzzxxKss5BkcDlsDAz9BXBVnzycj0aUPZwUTB0T/QvF+u6eeEn8u9jH+8Nrn81Fc5O4m1jUpgchrhgD9OP6V22rva2EE2ryRr58ELIr45IJHy/iQK4KzjaO2QOcufmY+pPJrpwkdXIxxUtEjRh028uIBNDAXQ5wQRUd5bm0uDCzZKgE8YwSM4rb0+1UWMLrDcybxkyQzYwT2257ViXpP22YGRpMORvY5JxxXTCo5Ta6I55wUYp9xLRd95AvrIv869CrhtDi87WLcY4Ulz+FdzXFineZ14dWphWZ4htzcaVIVGWj+cfhWnSMoZSpGQRg1zp2dzdq+h5z9DXSwSSG0Wa0igiV0X98zAEPnkHPJ/8Ar1h6jatZX0kBHAOVPqO1WNGuFhlkjLpEXHErAnbjngdz6V6dT95BSR50P3c3FkWq2z21628pmT958nQZ+tGiaiNK1TdIcWtzhJD2Rv4W/of/AK1aOp2lsll5hby2b5w8uTLI3oR2FYLKHUqwyDwRTjarTswlelO6PSKK5DQNe+x7LDUZP3P3Ybhj09FY/wAjXXg5GR0rzZwcHZnfCamroKj81cNjPynHII5qSoHbfuIzwcEYPNYzk4rQ1irjlkCRne5fYOWA6/lUoORmqygxqxbdheoxnP5VZHIqacm1qOSsFFFcz4h8ReSX0/THD3R4klHKwj+re3at4wc3ZGUpKKuyj4s1EX9+mmQtmC3bfOR0L9l/Dqff6VnRKHlRWyFyNxA6DuahhiWGPYuT3JPUn1Nbekxi023VyZbcSECOXAKkdwR7+temkqMLI85t1Z3Lk8EMdpLLHEkUYQlJ7aXg+gI7k/jXOVqa40QlEawRxyE7maJsqwPTj1rLAJICjLE4A9TRR92PMwq+9LlR0PhO3zLPdEcD5F/rXTVU0q0Flp8UH8QGW+p61brzZy5pNnoxjypIKKKKgox/EWnG7thPEuZYu3qO4rkVYqwZSQQcgjtXo1cn4g0k28jXcC/uWOWA/hPr9K68NV5fdlsc1elzLmW5nQxXOqXmC5d25Z2P3R61bvrGJ0eWzdGSEBSFHBH+93Y+grLDMudrEZGOD2rfsbuOeOCK3X99GuEiK/Ih7yE966qnNGzWxy0+WV09znmUMpVhkHgg1Z07VNQ0oBLdxPbD/lhKfu/7rdvp0rUv9NgluUigm/fsm7pncOpdj2/CsaWGSHHmIV3DcD2I9aacKqsxWnSeh01r4s0yUBbkyWcncSrx/wB9DitSPULGdf3V5BID/dkBrgSAeCM1E1rbuctAhP0rGWEi9mbRxT6o9E+2WlvH+9vYhjqzyKM1m3fivSLfIjnN1J/cgXd+vT9a4wWdspyIE/KplVVGFAH0pRwaW7HLFt7Iu6jr2p6mpjT/AEG2PUI2ZGHu3b8KoRRJCgSNQoqRVZ2CqpJJwAPWtS10vbcKly6BnyI8MGAcfwsK6LQpLQwbnVepX0zT/txkLMwSMDITBY5+vatSe4S0EU91HtuNhAEZDRyjGPwPSquqRR21wt7asi/PteI8YYe3pWddXMl1Jvk2gDhVUYVfoKz5XVfN0Luqat1Ia2/DWnGe4+2SL+7jPyZ7t61n6Zp8mo3IjXIjX77+g9PrXcQQx28KRRKFRRgCssTW+wjXD0re+ySiiiuE7AooooAKRlDqVYAg8EGlooA5TWNCe3LT2il4epQdV+ntWIGKnKsQemQcV6NWRqWgwXZMkJ8mY+g4P1FddLEuPuy2Oarh1LWO5iWupxsZRd5TzFRC8a5+Veq47ZrVge3uIJJptp3/AL8pwQqLwqn/AD61z95p13ZNiaIhf768rVZWZQ21iAwwcHqK3dOFTWDMOedPSaNlLS1uEsVaDy5rnLEo2Nqjvj6VG+jqjDfK6ARNK4wCQAcACqkWo3Ec8cxKu0cZjXcOg/CpV1VxtVoFZBD5BXcRkeufWny1Fsyeam9y3DocbSyRyTSEpIEyoA4IyCc1S022im1FrWYE5DKp5GGHQ099YmZpW8pAXdHHJ+Xb0/lVR7qVrxrtSElLb8r2NVGNRp8zFJ001yo32jgRNiskUVxHw4G1VlTv7f8A1qo3WrxSQSBIT5kwBcHAVWH8QI5z0/KsqSSSUkyOzck8nuadBBNcvsgiaRv9kf1qfZRjrNle0lPSCEnmkuJWlmcu7dWNW9M0ufUZBtBSEfekP9K1tO8NAESXzBu/lr0/E10KIkaBEUKo6AVjVxOnLA2p4ez5pkVnaQ2dusMK7VH61PRRXEdYUUUUAFFFFABRRRQAUUUUAIQGGCAR6Gs+50OwuSSYdjHuhxWjRTTa2A5ybwsM5huiPZ1zVVvDN6Puywt+YrraK1Veoupm6UH0ORHhq+PV4R+JqeLwtIf9bdKB/sLXT0UOvUfUSowXQyLfw7YREGQNMf8AbPH5VqRRRwrtiRUX0UYp9FZNt7miVtgooopDCiiigAooooA//9k=";
+
+  // Helper to convert Base64 string to Uint8Array synchronously (no fetch needed)
+  function b64ToUint8(b64) {
+    const cleanB64 = b64.includes(',') ? b64.split(',')[1] : b64;
+    const bin = atob(cleanB64);
+    const len = bin.length;
+    const u8 = new Uint8Array(len);
+    for (let i = 0; i < len; i++) u8[i] = bin.charCodeAt(i);
+    return u8;
+  }
+
   // Khmer numbers and months mapping
   const KHMER_DIGITS = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
   const KHMER_MONTHS = [
@@ -554,27 +567,17 @@
         ctx.fillStyle = color;
         ctx.font = fontStyle;
         ctx.fillText(text, 5, 48);
-        const pngUrl = canvas.toDataURL('image/png');
-        const bytes = await fetch(pngUrl).then(r => r.arrayBuffer());
-        return await doc.embedPng(bytes);
+        return await doc.embedPng(b64ToUint8(canvas.toDataURL('image/png')));
       };
 
-      // Load Yukunthor round Logo for Running Header
+      // 1. Embed Logo directly from Base64 (Zero network request, works offline & on file://)
       let logoImg = null;
       try {
-        let logoRes = await fetch('images/yukunthor-logo.jpg').catch(() => null);
-        if (!logoRes || !logoRes.ok) {
-          logoRes = await fetch('../images/yukunthor-logo.jpg').catch(() => null);
+        if (typeof YUKUNTHOR_LOGO_B64 !== 'undefined' && YUKUNTHOR_LOGO_B64) {
+          logoImg = await doc.embedJpg(b64ToUint8(YUKUNTHOR_LOGO_B64));
         }
-        if (!logoRes || !logoRes.ok) {
-          logoRes = await fetch('/images/yukunthor-logo.jpg').catch(() => null);
-        }
-        if (logoRes && logoRes.ok) {
-          const logoBytes = await logoRes.arrayBuffer();
-          logoImg = await doc.embedJpg(logoBytes);
-        }
-      } catch (e) {
-        console.warn('Could not load yukunthor-logo.jpg:', e);
+      } catch (err) {
+        console.warn('Error embedding base64 logo:', err);
       }
 
       // Pre-render Running Header Text (Khmer OS Muol Light)
@@ -589,10 +592,10 @@
         hctx.fillStyle = '#000000';
         hctx.font = 'bold 34px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
         hctx.fillText('វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)', 5, 60);
-        const hPngUrl = hCanvas.toDataURL('image/png');
-        const hBytes = await fetch(hPngUrl).then(r => r.arrayBuffer());
-        headerTextImg = await doc.embedPng(hBytes);
-      } catch (e) {}
+        headerTextImg = await doc.embedPng(b64ToUint8(hCanvas.toDataURL('image/png')));
+      } catch (e) {
+        console.warn('Error pre-rendering header text:', e);
+      }
 
       // ========================================================
       // 1. RUNNING HEADER & RUNNING FOOTER ON EVERY PAGE
@@ -681,9 +684,7 @@
           fctx.textAlign = 'right';
           fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1390, 48);
 
-          const fPngUrl = fCanvas.toDataURL('image/png');
-          const fBytes = await fetch(fPngUrl).then(r => r.arrayBuffer());
-          const footerImg = await doc.embedPng(fBytes);
+          const footerImg = await doc.embedPng(b64ToUint8(fCanvas.toDataURL('image/png')));
 
           p.drawImage(footerImg, {
             x: 65.0,
@@ -844,9 +845,7 @@
           sctx.fillText(teacherFullName, colRight, 310);
         }
 
-        const sigPngUrl = sigCanvas.toDataURL('image/png');
-        const sigPngBytes = await fetch(sigPngUrl).then(r => r.arrayBuffer());
-        const sigBlockImg = await doc.embedPng(sigPngBytes);
+        const sigBlockImg = await doc.embedPng(b64ToUint8(sigCanvas.toDataURL('image/png')));
 
         // Stamp clean authentic signature block onto the page
         sigPage.drawImage(sigBlockImg, {

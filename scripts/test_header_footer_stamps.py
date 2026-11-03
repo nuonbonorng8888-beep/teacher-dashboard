@@ -60,3 +60,4 @@ for pIdx, page in enumerate(doc):
 
 doc.save("scratch/test_header_footer_result.pdf")
 print("Saved scratch/test_header_footer_result.pdf successfully!")
+

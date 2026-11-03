@@ -12,3 +12,4 @@ for i in range(70, 95):
 print("---")
 for i in range(130, 155):
     print(f"{i+1}: {lines[i].rstrip()}")
+

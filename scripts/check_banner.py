@@ -11,3 +11,4 @@ print("size:", im.size)
 c = im.crop((0, 0, 800, im.height))
 c.save("scratch/check_banner_crop.png")
 print("Saved scratch/check_banner_crop.png")
+

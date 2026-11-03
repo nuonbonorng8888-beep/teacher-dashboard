@@ -14,3 +14,4 @@ w, h = im_user.size
 crop_logo = im_user.crop((30, 10, 115, 85))
 crop_logo.save("scratch/user_cropped_logo.png")
 print("Saved user cropped logo:", crop_logo.size)
+

@@ -22,3 +22,4 @@ for i in range(min(5, len(doc12))):
     for b in blocks:
         if b[4].strip():
             print(f"p{i}: {repr(b[4].strip())}")
+

@@ -15,3 +15,4 @@ pix_bot = p0.get_pixmap(clip=rect_bot, dpi=150)
 pix_bot.save("scratch/test_rendered_bottom_footer.png")
 
 print("Saved clips successfully!")
+

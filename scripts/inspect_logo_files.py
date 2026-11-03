@@ -10,3 +10,4 @@ for p in ['images/yukunthor-logo.jpg', 'scratch/yukunthor_logo.jpg', 'scratch/fu
         print(f"{p}: size={im.size}, mode={im.mode}")
     except Exception as e:
         print(f"{p}: {e}")
+

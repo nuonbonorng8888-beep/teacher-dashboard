@@ -13,3 +13,4 @@ for i in range(160, 205):
 print("--- Lines 980-1015 ---")
 for i in range(980, 1015):
     print(f"{i+1}: {lines[i].rstrip()}")
+

@@ -12,3 +12,4 @@ im_right = im.crop((1000, 0, w, h))
 im_left.save("scratch/banner_left.png")
 im_right.save("scratch/banner_right.png")
 print("Saved banner_left.png and banner_right.png")
+

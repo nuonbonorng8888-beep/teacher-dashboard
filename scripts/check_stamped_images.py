@@ -18,3 +18,4 @@ print("P1 images count:", len(p1.get_images()))
 for img in p1.get_images():
     bi = doc.extract_image(img[0])
     print(f"  xref {img[0]}: {bi['width']}x{bi['height']}")
+

@@ -16,3 +16,4 @@ arr = np.array(right_half)
 # non-white
 non_white = np.any(arr < 250, axis=2)
 print("Any non-white pixels in right half?", np.any(non_white))
+

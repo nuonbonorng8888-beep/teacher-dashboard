@@ -28,3 +28,4 @@ p4.get_pixmap(clip=rect_top0, dpi=150).save("scratch/browser_p4_top.png")
 p4.get_pixmap(clip=rect_bot0, dpi=150).save("scratch/browser_p4_bot.png")
 
 print("Saved all inspection clips successfully!")
+

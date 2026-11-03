@@ -364,3 +364,4 @@ with open('js/lesson-plans.js', 'w', encoding='utf-8') as f:
     f.write(code)
 
 print("SUCCESS: Patched running header & footer into applyPdfCustomStamps!")
+

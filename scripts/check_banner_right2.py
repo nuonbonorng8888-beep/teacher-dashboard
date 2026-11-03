@@ -9,3 +9,4 @@ w, h = im.size
 right_half = im.crop((w // 2, 0, w, h - 10)) # exclude bottom line
 bbox = right_half.getbbox()
 print("Bounding box of right half (excluding bottom line):", bbox)
+

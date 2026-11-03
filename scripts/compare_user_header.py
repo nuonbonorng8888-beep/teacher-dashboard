@@ -9,3 +9,4 @@ im_banner = Image.open("scratch/full_yukunthor_header_banner.png")
 
 print("User header image size:", im_user.size)
 print("full_yukunthor_header_banner size:", im_banner.size)
+

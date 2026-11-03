@@ -16,3 +16,4 @@ lines = text.split('\n')
 for i, l in enumerate(lines):
     if 'batchTeacherSelect' in l or 'setTeacher' in l:
         print(f"{i+1}: {l.strip()[:100]}")
+
