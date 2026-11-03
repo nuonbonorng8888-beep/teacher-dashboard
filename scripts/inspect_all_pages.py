@@ -15,3 +15,4 @@ for pno in range(len(doc)):
     lines = [l.strip() for l in text.splitlines() if l.strip()]
     for l in lines[:10]:
         print("  ", l)
+

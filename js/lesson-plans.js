@@ -539,30 +539,31 @@
         ctx.fillRect(0, 0, width, height);
         ctx.fillStyle = color;
         ctx.font = fontStyle;
-        ctx.fillText(text, 10, 48);
+        ctx.fillText(text, 5, 48);
         const pngUrl = canvas.toDataURL('image/png');
         const bytes = await fetch(pngUrl).then(r => r.arrayBuffer());
         return await doc.embedPng(bytes);
       };
 
       // 1. TOP PART (Cover Page - Header Info)
+      // Matching Grade 12 model: colon ':' is at x=226.8pt in PDF. Value starts at x=238pt.
       const coverPage = pages[plan.cover_page_index || 0];
       if (coverPage) {
         const pageH = coverPage.getHeight();
 
-        // A. Class Name (Line 1: ថ្នាក់ទី : ...)
+        // A. Class Name (Line 1: ថ្នាក់ទី : <value>)
         if (plan.class_name) {
-          const classImg = await makeTextImg(':   ' + plan.class_name, 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 450, 70);
-          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : 77.9);
+          const classImg = await makeTextImg(plan.class_name, 'bold 32px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 400, 70);
+          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : 99.2);
           const class_h = 20.0;
           const class_y_bottom = pageH - class_y_top - class_h;
-          const class_x = isGrade8 ? 235.0 : 226.0;
+          const class_x = 238.0;
 
-          // Whiteout only the value slot after :
+          // Whiteout only the value slot after the colon (x >= 238.0)
           coverPage.drawRectangle({
             x: class_x,
             y: class_y_bottom,
-            width: 190.0,
+            width: 200.0,
             height: class_h,
             color: PDFLib.rgb(1, 1, 1),
           });
@@ -574,15 +575,15 @@
           });
         }
 
-        // B. Date (Line 4: កាលបរិច្ឆេទ : ...)
+        // B. Date (Line 4: កាលបរិច្ឆេទ : <value>)
         if (plan.date_khmer) {
-          const dateImg = await makeTextImg(':   ' + plan.date_khmer, 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
+          const dateImg = await makeTextImg(plan.date_khmer, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
           const date_y_top = plan.box_y0 || (isGrade8 ? 141.1 : 172.0);
           const date_h = 20.0;
           const date_y_bottom = pageH - date_y_top - date_h;
-          const date_x = isGrade8 ? 235.0 : 130.92;
+          const date_x = 238.0;
 
-          // Whiteout old date dots
+          // Whiteout old date dots after the colon (x >= 238.0)
           coverPage.drawRectangle({
             x: date_x,
             y: date_y_bottom,
@@ -598,15 +599,15 @@
           });
         }
 
-        // C. Teacher Name (Line 5: បង្រៀនដោយ : ...)
+        // C. Teacher Name (Line 5: បង្រៀនដោយ : <value>)
         if (plan.teacher) {
-          const teacherImg = await makeTextImg(':   ' + teacherFullName, 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 600, 70);
-          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : 194.0);
+          const teacherImg = await makeTextImg(teacherFullName, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 600, 70);
+          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : 190.5);
           const teacher_h = 20.0;
           const teacher_y_bottom = pageH - teacher_y_top - teacher_h;
-          const teacher_x = isGrade8 ? 235.0 : 130.92;
+          const teacher_x = 238.0;
 
-          // Whiteout old dots
+          // Whiteout old dots after the colon (x >= 238.0)
           coverPage.drawRectangle({
             x: teacher_x,
             y: teacher_y_bottom,
@@ -623,66 +624,84 @@
         }
       }
 
-      // 2. BOTTOM PART (Signature Page - Signatures and Date)
+      // 2. BOTTOM PART (Signature Page - Clean 3-Column Authentic Signature Block)
+      // Matching Grade 12 model: Full whiteout of signature area, followed by clean 3-column table
       const sigPageIdx = (typeof plan.sig_page_index === 'number' && plan.sig_page_index < pages.length)
         ? plan.sig_page_index
         : (pages.length - 1);
       const sigPage = pages[sigPageIdx];
 
-      if (sigPage && plan.sig_y0) {
+      if (sigPage && typeof plan.sig_y0 === 'number') {
         const pageH = sigPage.getHeight();
+        const min_y = plan.sig_y0;
+        const sig_w = 500.0;
+        const sig_h = 145.0;
+        const sig_y_bottom = pageH - min_y - sig_h;
+        const sig_x = 65.0;
 
-        // A. Signature Date: "រាជធានីភ្នំពេញ, ថ្ងៃទី... ខែ... ឆ្នាំ..."
-        const sigDateText = plan.sig_date_khmer
-          ? `រាជធានីភ្នំពេញ, ${plan.sig_date_khmer}`
-          : (plan.date_khmer ? `រាជធានីភ្នំពេញ, ${plan.date_khmer}` : '');
+        // 1. Redact / Whiteout the ENTIRE old signature region cleanly
+        sigPage.drawRectangle({
+          x: sig_x,
+          y: sig_y_bottom,
+          width: sig_w,
+          height: sig_h,
+          color: PDFLib.rgb(1, 1, 1),
+        });
 
-        if (sigDateText) {
-          const sigDateImg = await makeTextImg(sigDateText, '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 700, 60);
-          const sig_y_top = plan.sig_y0;
-          const sig_h = 20.0;
-          const sig_y_bottom = pageH - sig_y_top - sig_h;
-          const sig_x = 438.0;
+        // 2. Render dynamic high-res 3-column signature block via Canvas
+        const sigCanvas = document.createElement('canvas');
+        sigCanvas.width = 1200;
+        sigCanvas.height = 360;
+        const sctx = sigCanvas.getContext('2d');
+        sctx.fillStyle = '#ffffff';
+        sctx.fillRect(0, 0, sigCanvas.width, sigCanvas.height);
 
-          // Whiteout old blank date
-          sigPage.drawRectangle({
-            x: sig_x,
-            y: sig_y_bottom,
-            width: 145.0,
-            height: sig_h,
-            color: PDFLib.rgb(1, 1, 1),
-          });
-          sigPage.drawImage(sigDateImg, {
-            x: sig_x,
-            y: sig_y_bottom,
-            width: 145.0,
-            height: sig_h,
-          });
-        }
+        // Date text
+        const cleanSigDate = plan.sig_date_khmer
+          ? plan.sig_date_khmer.replace(/^(រាជធានីភ្នំពេញ[\s,]*)?/, '')
+          : (plan.date_khmer ? plan.date_khmer : '');
+        const sigDateText = cleanSigDate.startsWith('ថ្ងៃទី')
+          ? `រាជធានីភ្នំពេញ ${cleanSigDate}`
+          : `រាជធានីភ្នំពេញ ថ្ងៃទី ${cleanSigDate}`;
 
-        // B. Teacher signature name under "គ្រូបង្រៀន"
+        const colLeft = 200;
+        const colMid = 600;
+        const colRight = 980;
+
+        // A. Date above teacher signature (Right column)
+        sctx.fillStyle = '#000000';
+        sctx.textAlign = 'center';
+        sctx.font = '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+        sctx.fillText(sigDateText, colRight, 38);
+
+        // B. Column Titles (Khmer OS Muol Light)
+        sctx.font = 'bold 26px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
+        sctx.fillText('បានឃើញ និងឯកភាព', colLeft, 80);
+        sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, 80);
+        sctx.fillText(isGrade8 ? 'គ្រូបង្រៀន' : 'គ្រូបង្រៀនគណិតវិទ្យា', colRight, 80);
+
+        // C. Roles & Subtitles
+        sctx.font = '22px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+        sctx.fillText(isGrade8 ? 'ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី' : 'នាយករងទទួលបន្ទុកសាលារៀនជំនាន់ថ្មី', colLeft, 118);
+        sctx.fillText('ប្រធានក្រុមបច្ចេកទេស', colMid, 118);
+
+        // D. Teacher Name (Under signature space)
         if (plan.teacher) {
-          const sigTeacherImg = await makeTextImg(teacherFullName, 'bold 26px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 500, 60);
-          const sig_t_y_top = plan.sig_teacher_y0 || (plan.sig_y0 + 75.0);
-          const sig_t_h = 22.0;
-          const sig_t_y_bottom = pageH - sig_t_y_top - sig_t_h;
-          const sig_t_x = plan.sig_teacher_x0 || 435.0;
-
-          // Whiteout old blank line/dots
-          sigPage.drawRectangle({
-            x: sig_t_x - 5.0,
-            y: sig_t_y_bottom,
-            width: 155.0,
-            height: sig_t_h,
-            color: PDFLib.rgb(1, 1, 1),
-          });
-          sigPage.drawImage(sigTeacherImg, {
-            x: sig_t_x - 5.0,
-            y: sig_t_y_bottom,
-            width: 145.0,
-            height: sig_t_h,
-          });
+          sctx.font = 'bold 26px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+          sctx.fillText(teacherFullName, colRight, 310);
         }
+
+        const sigPngUrl = sigCanvas.toDataURL('image/png');
+        const sigPngBytes = await fetch(sigPngUrl).then(r => r.arrayBuffer());
+        const sigBlockImg = await doc.embedPng(sigPngBytes);
+
+        // Stamp clean authentic signature block onto the page
+        sigPage.drawImage(sigBlockImg, {
+          x: sig_x,
+          y: sig_y_bottom,
+          width: sig_w,
+          height: sig_h,
+        });
       }
     }
 

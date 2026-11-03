@@ -11,3 +11,4 @@ print("8_2_1 pages:", len(doc))
 for pno in range(len(doc)):
     txt = doc[pno].get_text()
     print(f"Page {pno} has {len(txt)} chars. Sample: {repr(txt[:100])}")
+

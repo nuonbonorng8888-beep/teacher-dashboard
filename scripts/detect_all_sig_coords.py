@@ -69,3 +69,4 @@ print(f"Plans without detected signature block: {len(no_sig)} -> {no_sig}")
 # Print first 5
 for k, v in list(sig_info.items())[:8]:
     print(k, v)
+

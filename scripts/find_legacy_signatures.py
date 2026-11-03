@@ -17,3 +17,4 @@ for f in files[:10]:
         if 'ព.ស' in txt or 'រាជធ្ននី' in txt or 'ឯកភាេ' in txt or 'រាជធានី' in txt:
             found.append(pno)
     print(f"{f}: Total={len(doc)}, Sig pages={found}")
+

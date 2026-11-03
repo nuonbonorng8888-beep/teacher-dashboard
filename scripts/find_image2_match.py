@@ -16,3 +16,4 @@ print("\nPage 4 text:")
 txt4 = doc[4].get_text().splitlines()
 for l in txt4:
     if l.strip(): print("  P4:", l.strip())
+

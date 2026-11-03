@@ -29,3 +29,4 @@ missing_sig = [f for f, (tot, sig) in sig_map.items() if sig is None]
 print(f"Files without signature block found: {len(missing_sig)}")
 if missing_sig:
     print("Missing:", missing_sig)
+

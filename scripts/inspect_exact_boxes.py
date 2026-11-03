@@ -19,3 +19,4 @@ print("\n--- PAGE 4 (SIGNATURES) LINES & WORDS ---")
 page4 = doc[4]
 for word in page4.get_text("words"):
     print(f"y: {word[1]:.1f}-{word[3]:.1f}, x: {word[0]:.1f}-{word[2]:.1f} | {word[4]}")
+

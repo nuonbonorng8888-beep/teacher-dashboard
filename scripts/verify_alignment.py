@@ -19,3 +19,4 @@ p4 = doc[4]
 print("\nPage 4 get_drawings count:", len(p4.get_drawings()))
 for d in p4.get_drawings()[-5:]:
     print("Drawing rect:", d["rect"])
+

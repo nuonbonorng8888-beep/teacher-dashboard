@@ -29,3 +29,4 @@ try:
 finally:
     edge_proc.terminate()
     server.terminate()
+

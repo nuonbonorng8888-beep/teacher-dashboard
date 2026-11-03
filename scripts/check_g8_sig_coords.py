@@ -33,3 +33,4 @@ for m in matches[:10]:
             print(f"  Date word rect: y={date_w[0][1]:.1f}-{date_w[0][3]:.1f}, x={date_w[0][0]:.1f}")
         if teacher_w:
             print(f"  Teacher word rect: y={teacher_w[0][1]:.1f}-{teacher_w[0][3]:.1f}, x={teacher_w[0][0]:.1f}")
+

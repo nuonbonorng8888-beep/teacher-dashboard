@@ -48,3 +48,4 @@ if target_norm in css_norm:
     print("Updated css/style.css with duplex recto rules!")
 else:
     print("target_norm not found in css_norm!")
+

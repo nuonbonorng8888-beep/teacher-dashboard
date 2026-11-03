@@ -14,3 +14,4 @@ words = p0.get_text("words")
 for w in words:
     if w[1] < 200:
         print(f"y={w[1]:.1f}-{w[3]:.1f}, x={w[0]:.1f}-{w[2]:.1f}: {w[4]}")
+

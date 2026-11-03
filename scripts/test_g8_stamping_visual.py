@@ -41,3 +41,4 @@ pix4 = page4.get_pixmap(clip=fitz.Rect(0, 0, 612, 220), dpi=150)
 pix4.save(os.path.join(artifacts_dir, "test_whiteout_page4.png"))
 
 print("Whiteout test images saved!")
+

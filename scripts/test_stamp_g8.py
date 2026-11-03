@@ -22,3 +22,4 @@ print("Page 4 rect:", page4.rect)
 # Date line: y: 50.8 - 68.8, x: 397 - 546
 # Teacher label: y: 69.1 - 87.1, x: 446 - 495
 # Teacher name slot: y: 110 - 140, x: 400 - 540
+

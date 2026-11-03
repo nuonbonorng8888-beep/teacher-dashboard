@@ -10,3 +10,4 @@ with open('js/lesson-plans-data.js', 'r', encoding='utf-8') as f:
 m = re.search(r'\{\s*"id":\s*"plan_g8_1".*?"sig_date_khmer":\s*"[^"]+"\s*\}', text, re.DOTALL)
 if m:
     print(m.group(0))
+

@@ -26,3 +26,4 @@ print("Total found:", len(offsets))
 from collections import Counter
 c = Counter(diff for _, _, _, diff in offsets)
 print("Offset from end (sig_pno - total):", c)
+

@@ -27,3 +27,4 @@ finally:
     server.terminate()
 
 print("Screenshot exists:", os.path.exists(out_img))
+

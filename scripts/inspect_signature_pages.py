@@ -18,3 +18,4 @@ for f in files[:10]:
         if 'គ្រូបង្រៀន' in text or 'ប្រធានក្រុមបច្ចេកទេស' in text or 'រាជធានីភ្នំពេញ' in text:
             found_pages.append(pno)
     print(f"{f}: Total pages={len(doc)}, Signature page(s)={found_pages}")
+

@@ -16,3 +16,4 @@ for img in doc[0].get_images():
 print("Page 4 image list:")
 for img in doc[4].get_images():
     print(" ", img)
+

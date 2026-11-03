@@ -31,3 +31,4 @@ for b in blocks_last:
     text = b[4].strip().replace('\n', ' ')
     if any(k in text for k in ['ភ្នំពេញ', 'កាលបរិច្ឆេទ', 'ហត្ថលេខា', 'គ្រូបង្រៀន', 'ពិនិត្យ', 'ឯកភាព', 'ជំនួយការ', 'ប្រធាន']):
         print(f"Box: ({b[0]:.2f}, {b[1]:.2f}, {b[2]:.2f}, {b[3]:.2f}) -> {text}")
+

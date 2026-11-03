@@ -18,3 +18,4 @@ pix4 = doc[4].get_pixmap(dpi=150)
 pix4.save(os.path.join(artifacts_dir, "g8_page4_full.png"))
 
 print("Page 3 and 4 full renders saved!")
+

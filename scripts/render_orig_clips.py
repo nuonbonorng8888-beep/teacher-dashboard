@@ -20,3 +20,4 @@ pix4 = page4.get_pixmap(clip=fitz.Rect(0, 0, 612, 250), dpi=150)
 pix4.save(os.path.join(artifacts_dir, "g8_orig_page4_top.png"))
 
 print("Original clips saved successfully!")
+

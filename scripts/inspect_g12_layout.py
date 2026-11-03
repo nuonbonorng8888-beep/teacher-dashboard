@@ -20,3 +20,4 @@ print(f"\nPage 2 (sig page) dimensions: {last_page.rect}")
 for word in last_page.get_text("words"):
     if word[1] > 500:
         print(f"y: {word[1]:.1f}-{word[3]:.1f}, x: {word[0]:.1f}-{word[2]:.1f} | {word[4]}")
+

@@ -78,3 +78,4 @@ for m in matches:
 print(f"Extracted coordinates for {len(plan_coords)} plans.")
 print("Sample plan_g8_1:", plan_coords['plan_g8_1'])
 print("Sample plan_g8_2:", plan_coords['plan_g8_2'])
+

@@ -24,3 +24,4 @@ pix4 = p4.get_pixmap(clip=fitz.Rect(0, 0, 612, 220), dpi=150)
 out_img4 = os.path.join(artifacts_dir, "verified_browser_page4_signatures.png")
 pix4.save(out_img4)
 print("Saved Page 4 clip:", out_img4)
+

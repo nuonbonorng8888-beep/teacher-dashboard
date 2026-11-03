@@ -23,3 +23,4 @@ print(f"Even page count plans: {even_count}")
 print("\nFirst 10 files and their page counts:")
 for f, cnt in page_counts[:10]:
     print(f"  {cnt} pages: {f}")
+
