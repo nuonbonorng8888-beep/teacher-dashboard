@@ -613,8 +613,9 @@
         { id: 'ថ្នាក់ទី ១២', label: 'ថ្នាក់ទី ១២', count: 37, status: 'active', icon: '⭐' }
       ];
 
-      // Available classes based on grade
+      // Available classes and terminology based on grade
       const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
+      const unitLabel = isGrade8 ? 'មេរៀន' : 'ជំពូក';
       const defaultClasses = isGrade8
         ? ['8NGS_C1', '8NGS_C2', '8NGS_B']
         : ['១២A', '១២B', '១២C', '១២D'];
@@ -673,7 +674,7 @@
                 </h1>
                 <p class="text-xs md:text-sm text-purple-100 max-w-2xl leading-relaxed">
                   រៀបចំនិងបង្រៀនដោយ <strong>${this.savedTeacher.includes('សុភារី') ? 'អ្នកគ្រូ ថោង សុភារី' : 'លោកគ្រូ នួន បូណង'}</strong> តាមស្តង់ដារគុណវុឌ្ឍិ ៥ ជំហានបង្រៀន NGS
-                  (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ${toKhmerNum(gradeChapters.length)} ជំពូក ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
+                  (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ${toKhmerNum(gradeChapters.length)} ${unitLabel} ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
                 </p>
               </div>
             </div>
@@ -686,7 +687,7 @@
               </div>
               <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center min-w-[85px]">
                 <span class="block text-2xl font-black text-emerald-300">${toKhmerNum(gradeChapters.length)}</span>
-                <span class="text-[11px] text-purple-200 uppercase tracking-wider">ជំពូក</span>
+                <span class="text-[11px] text-purple-200 uppercase tracking-wider">${unitLabel}</span>
               </div>
               <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center min-w-[85px]">
                 <span class="block text-2xl font-black text-sky-300">100%</span>
@@ -930,7 +931,7 @@
           <div class="relative">
             <input type="text"
               oninput="window.lessonPlansManager.setSearchQuery(this.value)"
-              placeholder="🔍 ស្វែងរកកិច្ចតែងការ ${currentGrade} តាមចំណងជើង ខ្លឹមសារ ឬជំពូក..."
+              placeholder="🔍 ស្វែងរកកិច្ចតែងការ ${currentGrade} តាមចំណងជើង ខ្លឹមសារ ឬ${unitLabel}..."
               class="w-full px-4 py-2.5 pl-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
           </div>
@@ -985,6 +986,8 @@
       const container = document.getElementById('lessonPlansListContainer');
       if (!container) return;
 
+      const currentGrade = this.selectedGrade || 'ថ្នាក់ទី ៨';
+      const unitLabel = currentGrade === 'ថ្នាក់ទី ៨' ? 'មេរៀន' : 'ជំពូក';
       const filtered = this.getFilteredPlans();
 
       if (filtered.length === 0) {
@@ -992,7 +995,7 @@
           <div class="card-soft p-12 text-center text-slate-400 space-y-2">
             <div class="text-4xl">🔍</div>
             <p class="font-bold text-sm">រកមិនឃើញកិច្ចតែងការដែលត្រូវនឹងលក្ខខណ្ឌស្វែងរកឡើយ</p>
-            <p class="text-xs">សូមសាកល្បងពាក្យគន្លឹះផ្សេង ឬចុចមើលគ្រប់ជំពូក</p>
+            <p class="text-xs">សូមសាកល្បងពាក្យគន្លឹះផ្សេង ឬចុចមើលគ្រប់${unitLabel}</p>
           </div>
         `;
         return;
@@ -1017,7 +1020,7 @@
                       ✓ ${p.status}
                     </span>
                     <span class="text-[11px] text-slate-400 font-mono">
-                      ⏱️ ${p.duration} · ស្តង់ដារ ៥ ជំហាន NGS (ពិន្ទុ ${p.score}/50)
+                      ⏱️ ${p.duration} · ${p.grade === 'ថ្នាក់ទី ៨' ? 'ម៉ោងទី ' + toKhmerNum(p.ch_lesson_num) : 'ស្តង់ដារ ៥ ជំហាន NGS'} (ពិន្ទុ ${p.score}/50)
                     </span>
                   </div>
                   <h3 class="font-extrabold text-base text-slate-900 dark:text-white">
@@ -1166,7 +1169,7 @@
               <strong class="text-purple-700 dark:text-purple-300 text-sm">${p.date_khmer}</strong>
             </div>
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600 md:col-span-2">
-              <span class="block text-slate-400 font-bold">ជំពូក & មេរៀន៖</span>
+              <span class="block text-slate-400 font-bold">${p.grade === 'ថ្នាក់ទី ៨' ? 'មេរៀន ៖' : 'ជំពូក & មេរៀន៖'}</span>
               <strong class="text-slate-800 dark:text-slate-200">${p.chapter}</strong>
             </div>
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600 md:col-span-2">

@@ -26,7 +26,8 @@
   class TeachingSlidesManager {
     constructor() {
       this.lessons = window.NGS_TEACHING_SLIDES_DATA || [];
-      this.selectedGrade = '12'; // '12', '11', '10', '9', '8', '7', 'template'
+      const slideGradeParam = new URLSearchParams(window.location.search).get('slideGrade');
+      this.selectedGrade = slideGradeParam || '12'; // '12', '11', '10', '9', '8', '7', 'template'
       this.activeChapter = 'all';  // 'all', '1', '2', '3', 'template'
       this.searchQuery = '';
       this.currentLesson = null;
@@ -646,7 +647,7 @@
                     </h3>
                   </div>
                   <span class="text-xs font-bold font-battambang px-3 py-1 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                    ${ch.lessons.length} មេរៀន
+                    ${ch.lessons.length} ${gData.is_flat_lessons ? "ម៉ោងបង្រៀន" : "មេរៀន"}
                   </span>
                 </div>
 
@@ -657,7 +658,7 @@
                       <div>
                         <div class="flex items-center justify-between gap-2 mb-2">
                           <span class="text-xs font-bold text-purple-600 dark:text-purple-400 font-battambang">
-                            មេរៀនទី ${ls.lesson_num}
+                            ${gData.is_flat_lessons ? "ម៉ោងទី " + ls.lesson_num : "មេរៀនទី " + ls.lesson_num}
                           </span>
                           <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 font-battambang">
                             គ្រោងរួចរាល់

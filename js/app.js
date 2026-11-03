@@ -1139,9 +1139,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial tab render (supports URL query ?tab=...)
+  // Expose switchTab globally
+  window.switchTab = switchTab;
+
+  // Initial tab render (supports URL query ?tab=... or #hash)
   const urlParams = new URLSearchParams(window.location.search);
-  const initialTab = urlParams.get('tab') || 'dashboard';
+  const hashTab = window.location.hash.replace('#', '');
+  const initialTab = urlParams.get('tab') || (hashTab && document.getElementById('tab-' + hashTab) ? hashTab : null) || 'dashboard';
   switchTab(initialTab);
 });
 
