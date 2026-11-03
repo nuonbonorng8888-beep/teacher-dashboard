@@ -11,3 +11,4 @@ words = p0.get_text("words")
 for w in words:
     if 90 < w[1] < 210:
         print(f"y: {w[1]:.1f}-{w[3]:.1f}, x: {w[0]:.1f}-{w[2]:.1f} -> {repr(w[4])}")
+

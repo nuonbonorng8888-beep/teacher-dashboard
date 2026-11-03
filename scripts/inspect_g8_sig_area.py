@@ -15,3 +15,4 @@ sig_blocks = [b for b in p4.get_text("blocks") if b[1] < 220 and b[1] > 20]
 print("Signature area blocks on G8 p4:")
 for b in sig_blocks:
     print(f"  y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f} | {repr(b[4].strip())}")
+

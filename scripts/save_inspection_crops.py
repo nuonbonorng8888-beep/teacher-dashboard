@@ -16,3 +16,4 @@ crop4 = img4.crop((100, 50, 1180, 420))
 crop4.save("scratch/crop4_check.png")
 
 print("Saved crop0_check.png and crop4_check.png")
+

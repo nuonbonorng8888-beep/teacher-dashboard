@@ -12,3 +12,4 @@ p2 = doc[2]
 text = p2.get_text()
 print("Grade 12 page 2 full text:")
 print(text)
+

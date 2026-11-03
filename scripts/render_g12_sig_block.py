@@ -11,3 +11,4 @@ rect = fitz.Rect(60, 560, 560, 720)
 pix = p2.get_pixmap(clip=rect, dpi=150)
 pix.save("g12_plan1_sig_rendered.png")
 print("Saved g12_plan1_sig_rendered.png")
+

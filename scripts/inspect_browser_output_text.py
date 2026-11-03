@@ -22,3 +22,4 @@ for img in p4.get_images():
 for b in p4.get_text("blocks"):
     if b[1] < 220:
         print(f"y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f} | {repr(b[4].strip())}")
+

@@ -16,3 +16,4 @@ for img in p2.get_images():
     xref = img[0]
     bi = doc.extract_image(xref)
     print(f"P2 image xref {xref}: {bi['width']}x{bi['height']}")
+

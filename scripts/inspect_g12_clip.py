@@ -12,3 +12,4 @@ rect = fitz.Rect(100, 80, 500, 220)
 pix = p0.get_pixmap(clip=rect, dpi=150)
 pix.save("g12_header_clip.png")
 print("Saved g12_header_clip.png")
+

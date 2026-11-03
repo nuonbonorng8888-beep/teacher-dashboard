@@ -9,3 +9,4 @@ img4 = Image.open("C:/Users/LENOVO/.gemini/antigravity/brain/f1e067a4-40af-4458-
 
 print("Page 0 clip size:", img0.size)
 print("Page 4 clip size:", img4.size)
+

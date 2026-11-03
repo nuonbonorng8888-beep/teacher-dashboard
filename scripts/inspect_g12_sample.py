@@ -23,3 +23,4 @@ for b in blocks[1:]:
             if any(k in line for k in ['pdf_file', 'box_y0', 'class_y0', 'sig_', 'teacher_y0']):
                 print(" ", line.strip())
         break
+

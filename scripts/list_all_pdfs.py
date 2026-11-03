@@ -8,3 +8,4 @@ for root, dirs, files in os.walk('.'):
         if f.endswith('.pdf'):
             path = os.path.join(root, f)
             print(f"{path} ({os.path.getsize(path)} bytes)")
+

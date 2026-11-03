@@ -75,3 +75,4 @@ p4.insert_image(fitz.Rect(65.0, min_y, 65.0 + sig_w, min_y + sig_h), filename="s
 
 doc.save("scratch/test_g8_perfect_output.pdf")
 print("Saved scratch/test_g8_perfect_output.pdf successfully!")
+

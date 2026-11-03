@@ -38,3 +38,4 @@ p4.apply_redactions()
 # Save modified PDF to check whiteout cleanliness
 doc.save("scratch/test_clean_whiteout_g8.pdf")
 print("Saved scratch/test_clean_whiteout_g8.pdf")
+

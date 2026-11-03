@@ -12,3 +12,4 @@ for script in ['scratch/test_perfect_sig.py', 'scratch/apply_master_perfect_pdfs
                 print(l.rstrip())
     except Exception as e:
         print(e)
+

@@ -19,3 +19,4 @@ print("--- Page 2 text ---")
 for b in psig.get_text("blocks"):
     if b[1] > 550:
         print(f"y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f} | {b[4].strip()}")
+

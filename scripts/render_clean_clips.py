@@ -16,3 +16,4 @@ pix4 = p4.get_pixmap(clip=rect4, dpi=150)
 pix4.save("scratch/test_whiteout_p4_clip.png")
 
 print("Saved clips")
+

@@ -16,3 +16,4 @@ for b in p.get_text("blocks"):
 pix = p.get_pixmap(clip=fitz.Rect(0, p.rect.height - 300, p.rect.width, p.rect.height), dpi=150)
 pix.save("test_perfect_sig_clip.png")
 print("Saved test_perfect_sig_clip.png")
+

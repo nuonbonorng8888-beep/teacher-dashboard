@@ -12,3 +12,4 @@ for b in p0.get_text("blocks"):
     if 90 < b[1] < 210:
         print(f"y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f}")
         print(f"   text: {repr(b[4])}")
+

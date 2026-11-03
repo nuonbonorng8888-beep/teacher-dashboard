@@ -18,3 +18,4 @@ pix2 = p2.get_pixmap(clip=rect2, dpi=150)
 pix2.save("test_applied_p2.png")
 
 print("Saved test_applied_p0.png and test_applied_p2.png")
+

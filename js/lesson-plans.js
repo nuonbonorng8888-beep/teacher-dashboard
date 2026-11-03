@@ -520,14 +520,28 @@
       });
     }
 
-    // Unified Dynamic PDF Custom Stamper (Header, Class, Date, Teacher, Signatures)
+    // Helper: Get Teacher Phone number
+    getTeacherPhone(teacherName) {
+      const t = teacherName || this.savedTeacher || 'នួន បូណង';
+      if (t.includes('សុភារី')) return '096 75 74 005';
+      return '070 794 729';
+    }
+
+    // Helper: Get Teacher Full Title
+    getTeacherFullTitle(teacherName) {
+      const t = teacherName || this.savedTeacher || 'នួន បូណង';
+      if (t.includes('សុភារី')) return 'អ្នកគ្រូ ថោង សុភារី';
+      return 'លោកគ្រូ នួន បូណង';
+    }
+
+    // Unified Dynamic PDF Custom Stamper (Running Header & Footer, Cover Header, Signatures)
     async applyPdfCustomStamps(doc, plan) {
       const pages = doc.getPages();
       if (!pages || pages.length === 0) return;
 
       const isGrade8 = (plan.grade === 'ថ្នាក់ទី ៨' || plan.grade === 'ថ្នាក់ទី 8');
-      const teacherTitle = (plan.teacher && plan.teacher.includes('សុភារី')) ? 'អ្នកគ្រូ' : 'លោកគ្រូ';
-      const teacherFullName = `${teacherTitle} ${plan.teacher}`;
+      const teacherFullName = this.getTeacherFullTitle(plan.teacher);
+      const teacherPhone = this.getTeacherPhone(plan.teacher);
 
       // Helper to generate crisp Khmer text via Canvas
       const makeTextImg = async (text, fontStyle = 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif', width = 600, height = 70, color = '#000000') => {
@@ -545,8 +559,146 @@
         return await doc.embedPng(bytes);
       };
 
-      // 1. TOP PART (Cover Page - Header Info)
-      // Matching Grade 12 model: colon ':' is at x=226.8pt in PDF. Value starts at x=238pt.
+      // Load Yukunthor round Logo for Running Header
+      let logoImg = null;
+      try {
+        let logoRes = await fetch('images/yukunthor-logo.jpg').catch(() => null);
+        if (!logoRes || !logoRes.ok) {
+          logoRes = await fetch('../images/yukunthor-logo.jpg').catch(() => null);
+        }
+        if (!logoRes || !logoRes.ok) {
+          logoRes = await fetch('/images/yukunthor-logo.jpg').catch(() => null);
+        }
+        if (logoRes && logoRes.ok) {
+          const logoBytes = await logoRes.arrayBuffer();
+          logoImg = await doc.embedJpg(logoBytes);
+        }
+      } catch (e) {
+        console.warn('Could not load yukunthor-logo.jpg:', e);
+      }
+
+      // Pre-render Running Header Text (Khmer OS Muol Light)
+      let headerTextImg = null;
+      try {
+        const hCanvas = document.createElement('canvas');
+        hCanvas.width = 1200;
+        hCanvas.height = 90;
+        const hctx = hCanvas.getContext('2d');
+        hctx.fillStyle = '#ffffff';
+        hctx.fillRect(0, 0, hCanvas.width, hCanvas.height);
+        hctx.fillStyle = '#000000';
+        hctx.font = 'bold 34px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
+        hctx.fillText('វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)', 5, 60);
+        const hPngUrl = hCanvas.toDataURL('image/png');
+        const hBytes = await fetch(hPngUrl).then(r => r.arrayBuffer());
+        headerTextImg = await doc.embedPng(hBytes);
+      } catch (e) {}
+
+      // ========================================================
+      // 1. RUNNING HEADER & RUNNING FOOTER ON EVERY PAGE
+      // ========================================================
+      for (let pIdx = 0; pIdx < pages.length; pIdx++) {
+        const p = pages[pIdx];
+        const pageH = p.getHeight();
+        const pageW = p.getWidth();
+
+        // --- A. RUNNING HEADER ---
+        // Redact / Whiteout old header zone at top
+        p.drawRectangle({
+          x: 60.0,
+          y: pageH - 49.0,
+          width: 495.0,
+          height: 44.0,
+          color: PDFLib.rgb(1, 1, 1),
+        });
+
+        // Yukunthor Logo
+        if (logoImg) {
+          p.drawImage(logoImg, {
+            x: 65.0,
+            y: pageH - 43.0,
+            width: 27.0,
+            height: 27.0,
+          });
+        }
+
+        // Yukunthor School Title
+        if (headerTextImg) {
+          p.drawImage(headerTextImg, {
+            x: logoImg ? 98.0 : 65.0,
+            y: pageH - 40.0,
+            width: 250.0,
+            height: 20.0,
+          });
+        }
+
+        // Horizontal Line below Header
+        p.drawLine({
+          start: { x: 65.0, y: pageH - 47.0 },
+          end: { x: 547.0, y: pageH - 47.0 },
+          thickness: 0.8,
+          color: PDFLib.rgb(0, 0, 0),
+        });
+
+        // --- B. RUNNING FOOTER ---
+        // Redact / Whiteout old footer zone at bottom
+        p.drawRectangle({
+          x: 60.0,
+          y: 8.0,
+          width: 495.0,
+          height: 30.0,
+          color: PDFLib.rgb(1, 1, 1),
+        });
+
+        // Horizontal Line above Footer
+        p.drawLine({
+          start: { x: 65.0, y: 34.0 },
+          end: { x: 547.0, y: 34.0 },
+          thickness: 0.8,
+          color: PDFLib.rgb(0, 0, 0),
+        });
+
+        // Render page-specific Footer Canvas (Left: Teacher, Center: Page Num, Right: Phone)
+        try {
+          const fCanvas = document.createElement('canvas');
+          fCanvas.width = 1400;
+          fCanvas.height = 70;
+          const fctx = fCanvas.getContext('2d');
+          fctx.fillStyle = '#ffffff';
+          fctx.fillRect(0, 0, fCanvas.width, fCanvas.height);
+          fctx.fillStyle = '#000000';
+          fctx.font = '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+
+          // Left: Teacher Name
+          fctx.textAlign = 'left';
+          fctx.fillText(`បង្រៀនដោយ៖ ${teacherFullName}`, 10, 48);
+
+          // Center: Page number
+          fctx.textAlign = 'center';
+          fctx.fillText(`- ${toKhmerNum(pIdx + 1)} -`, 700, 48);
+
+          // Right: Phone number
+          fctx.textAlign = 'right';
+          fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1390, 48);
+
+          const fPngUrl = fCanvas.toDataURL('image/png');
+          const fBytes = await fetch(fPngUrl).then(r => r.arrayBuffer());
+          const footerImg = await doc.embedPng(fBytes);
+
+          p.drawImage(footerImg, {
+            x: 65.0,
+            y: 15.0,
+            width: 482.0,
+            height: 16.0,
+          });
+        } catch (fErr) {
+          console.warn('Error stamping footer:', fErr);
+        }
+      }
+
+      // ========================================================
+      // 2. COVER PAGE (Page 0 Header Info Stamping)
+      // ========================================================
       const coverPage = pages[plan.cover_page_index || 0];
       if (coverPage) {
         const pageH = coverPage.getHeight();
@@ -624,8 +776,9 @@
         }
       }
 
-      // 2. BOTTOM PART (Signature Page - Clean 3-Column Authentic Signature Block)
-      // Matching Grade 12 model: Full whiteout of signature area, followed by clean 3-column table
+      // ========================================================
+      // 3. SIGNATURE PAGE (Authentic 3-Column Signature Block)
+      // ========================================================
       const sigPageIdx = (typeof plan.sig_page_index === 'number' && plan.sig_page_index < pages.length)
         ? plan.sig_page_index
         : (pages.length - 1);
@@ -633,7 +786,7 @@
 
       if (sigPage && typeof plan.sig_y0 === 'number') {
         const pageH = sigPage.getHeight();
-        const min_y = plan.sig_y0;
+        const min_y = Math.max(plan.sig_y0, 52.0);
         const sig_w = 500.0;
         const sig_h = 145.0;
         const sig_y_bottom = pageH - min_y - sig_h;
@@ -658,7 +811,7 @@
 
         // Date text
         const cleanSigDate = plan.sig_date_khmer
-          ? plan.sig_date_khmer.replace(/^(រាជធានីភ្នំពេញ[\s,]*)?/, '')
+          ? plan.sig_date_khmer.replace(/^(\u179a\u17b6\u1787\u1792\u17b6\u1793\u17b8\u1797\u17d2\u1793\u17c6\u1796\u17c1\u1789[\s,]*)?/, '')
           : (plan.date_khmer ? plan.date_khmer : '');
         const sigDateText = cleanSigDate.startsWith('ថ្ងៃទី')
           ? `រាជធានីភ្នំពេញ ${cleanSigDate}`
@@ -990,9 +1143,14 @@
                 </label>
                 <select id="batchTeacherSelect" onchange="window.lessonPlansManager.setTeacher(this.value)"
                   class="w-full px-3 py-2 rounded-xl border border-purple-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500">
-                  <option value="នួន បូណង" ${this.savedTeacher === 'នួន បូណង' ? 'selected' : ''}>👨‍🏫 លោកគ្រូ នួន បូណង</option>
-                  <option value="ថោង សុភារី" ${this.savedTeacher === 'ថោង សុភារី' ? 'selected' : ''}>👩‍🏫 អ្នកគ្រូ ថោង សុភារី</option>
+                  <option value="នួន បូណង" ${this.savedTeacher === 'នួន បូណង' ? 'selected' : ''}>👨‍🏫 លោកគ្រូ នួន បូណង (070 794 729)</option>
+                  <option value="ថោង សុភារី" ${this.savedTeacher === 'ថោង សុភារី' ? 'selected' : ''}>👩‍🏫 អ្នកគ្រូ ថោង សុភារី (096 75 74 005)</option>
                 </select>
+                <div class="mt-1 text-[10px] text-purple-700 dark:text-purple-300 font-semibold flex items-center justify-between">
+                  <span>📞 ទូរស័ព្ទ៖ <strong class="underline">${this.getTeacherPhone()}</strong></span>
+                  <span class="text-slate-400">|</span>
+                  <span>${this.getTeacherFullTitle()}</span>
+                </div>
               </div>
 
               <!-- 2. Class Selector & Multi-Class Customizer -->
@@ -1366,6 +1524,13 @@
                 <i class="fa-solid fa-user-tie text-purple-600"></i>
                 <span>គ្រូបង្រៀន៖ <strong class="text-slate-800 dark:text-slate-200">${p.teacher}</strong></span>
               </div>
+            </div>
+
+            <!-- Official Running Footer (Matching User Image 2) -->
+            <div style="border-top: 1.5px solid #000; padding-top: 6px; margin-top: 18px; display:flex; justify-content:space-between; align-items:center; font-size: 11px; font-family:'Khmer OS Siemreap', sans-serif; color: #000;">
+              <div>បង្រៀនដោយ៖ <strong>${teacherTitle} ${p.teacher}</strong></div>
+              <div>- ${toKhmerNum(idx + 1)} -</div>
+              <div>លេខទូរស័ព្ទ៖ <strong>${(p.teacher && p.teacher.includes('សុភារី')) ? '096 75 74 005' : '070 794 729'}</strong></div>
             </div>
           </div>
         `;
@@ -1761,7 +1926,7 @@
       const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
       const unitLabel = isGrade8 ? 'មេរៀន' : 'ជំពូក';
 
-      return plans.map(p => {
+      return plans.map((p, idx) => {
         const teacherTitle = (p.teacher && p.teacher.includes('សុភារី')) ? 'អ្នកគ្រូ' : 'លោកគ្រូ';
         const knowledgeItems = (p.objectives && p.objectives.knowledge && p.objectives.knowledge.length > 0)
           ? p.objectives.knowledge
@@ -1776,17 +1941,13 @@
 
         return `
           <div class="lesson-plan-print-page">
-            <!-- Official Header -->
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px; border-bottom: 1px solid #cbd5e1; padding-bottom: 8px;">
-              <div style="text-align:center; min-width: 220px;">
-                <div style="font-size: 13px; font-weight: bold; color: #1e293b;">ក្រសួងអប់រំ យុវជន និងកីឡា</div>
-                <div style="font-size: 14px; font-weight: 800; color: #4338ca;">វិទ្យាល័យព្រះយុគន្ធរ</div>
-                <div style="font-size: 11px; font-weight: bold; color: #6d28d9;">សាលារៀនជំនាន់ថ្មី (NGS)</div>
-              </div>
-              <div style="text-align:center; min-width: 240px;">
-                <div style="font-size: 14px; font-weight: 800; color: #0f172a;">ព្រះរាជាណាចក្រកម្ពុជា</div>
-                <div style="font-size: 13px; font-weight: bold; color: #0f172a;">ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
-                <div style="letter-spacing: 5px; font-size: 11px; color: #64748b; margin-top: 2px;">*** ៚ ៚ ៚ ***</div>
+            <!-- Official Running Header (Matching User Image 1) -->
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1.5px solid #000; padding-bottom: 6px; margin-bottom: 14px;">
+              <div style="display:flex; align-items:center; gap: 10px;">
+                <img src="images/yukunthor-logo.jpg" style="width: 32px; height: 32px; object-fit: contain;">
+                <span style="font-family:'Khmer OS Muol Light', sans-serif; font-size: 13.5px; font-weight: bold; color: #000;">
+                  វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)
+                </span>
               </div>
             </div>
 

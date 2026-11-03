@@ -209,3 +209,4 @@ with open('js/lesson-plans.js', 'w', encoding='utf-8') as f:
     f.write(code)
 
 print("SUCCESS: Updated applyPdfCustomStamps in js/lesson-plans.js!")
+

@@ -9,3 +9,4 @@ with open('update_pdfs_with_schedule.py', 'r', encoding='utf-8') as f:
 print(text[:3000])
 print("\n--- PART 2 ---")
 print(text[3000:6000])
+

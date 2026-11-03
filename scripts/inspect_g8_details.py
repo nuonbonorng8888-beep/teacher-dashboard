@@ -19,3 +19,4 @@ psig = doc[4] # page 4
 print("--- G8 Page 4 bottom text blocks ---")
 for b in psig.get_text("blocks"):
     print(f"  y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f} -> {repr(b[4].strip())}")
+

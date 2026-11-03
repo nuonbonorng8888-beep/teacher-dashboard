@@ -18,3 +18,4 @@ print("Page 4 get_drawings:")
 for d in p4.get_drawings():
     if d['rect'].y0 < 220:
         print("  rect:", d['rect'], "fill:", d.get('fill'))
+

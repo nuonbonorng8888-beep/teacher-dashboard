@@ -16,3 +16,4 @@ with open("extracted_p2_sig.png", "wb") as f:
     f.write(bi2["image"])
 
 print("Saved extracted_p0_banner.png and extracted_p2_sig.png")
+

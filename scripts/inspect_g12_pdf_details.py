@@ -34,3 +34,4 @@ if sig_page_idx < len(doc):
     for b in psig.get_text("blocks"):
         if b[1] > psig.rect.height - 300:
             print(f"  y: {b[1]:.1f}-{b[3]:.1f}, x: {b[0]:.1f}-{b[2]:.1f} -> {repr(b[4].strip())}")
+

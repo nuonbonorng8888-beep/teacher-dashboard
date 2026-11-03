@@ -22,3 +22,4 @@ y_values = [s[2] for s in sig_data]
 print(f"sig_y0 range: min={min(y_values)}, max={max(y_values)}")
 for s in sig_data[:10]:
     print(s)
+

@@ -9,3 +9,4 @@ p2 = doc[2]
 pix = p2.get_pixmap(dpi=150)
 pix.save("g12_page2_full.png")
 print("Saved g12_page2_full.png:", pix.width, pix.height)
+

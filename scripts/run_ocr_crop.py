@@ -12,3 +12,4 @@ try:
     print("OCR text0:", text0)
 except Exception as e:
     print("OCR not available:", e)
+
