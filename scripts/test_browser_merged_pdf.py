@@ -116,3 +116,4 @@ if os.path.exists(saved_merged_pdf):
     print("Size:", os.path.getsize(saved_merged_pdf))
     doc = fitz.open(saved_merged_pdf)
     print("Merged PDF total pages:", len(doc))
+

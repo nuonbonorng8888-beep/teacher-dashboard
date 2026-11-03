@@ -1525,12 +1525,6 @@
               </div>
             </div>
 
-            <!-- Official Running Footer (Matching User Image 2) -->
-            <div style="border-top: 1.5px solid #000; padding-top: 6px; margin-top: 18px; display:flex; justify-content:space-between; align-items:center; font-size: 11px; font-family:'Khmer OS Siemreap', sans-serif; color: #000;">
-              <div>បង្រៀនដោយ៖ <strong>${teacherTitle} ${p.teacher}</strong></div>
-              <div>- ${toKhmerNum(idx + 1)} -</div>
-              <div>លេខទូរស័ព្ទ៖ <strong>${(p.teacher && p.teacher.includes('សុភារី')) ? '096 75 74 005' : '070 794 729'}</strong></div>
-            </div>
           </div>
         `;
       }).join('');
@@ -2101,6 +2095,13 @@
                   </td>
                 </tr>
               </table>
+            </div>
+
+            <!-- Official Running Footer (Matching User Image 2) -->
+            <div style="border-top: 1.5px solid #000; padding-top: 6px; margin-top: 18px; display:flex; justify-content:space-between; align-items:center; font-size: 11px; font-family:'Khmer OS Siemreap', sans-serif; color: #000;">
+              <div>បង្រៀនដោយ៖ <strong>${teacherTitle} ${p.teacher}</strong></div>
+              <div>- ${toKhmerNum(idx + 1)} -</div>
+              <div>លេខទូរស័ព្ទ៖ <strong>${(p.teacher && p.teacher.includes('សុភារី')) ? '096 75 74 005' : '070 794 729'}</strong></div>
             </div>
           </div>
         `;
