@@ -9,3 +9,4 @@ lines = res.stdout.splitlines()
 print(f"Total status items: {len(lines)}")
 for l in lines[:20]:
     print(l)
+

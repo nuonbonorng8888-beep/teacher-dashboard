@@ -7,3 +7,4 @@ with open('js/app.js', 'r', encoding='utf-8') as f:
 
 for i in range(1140, len(lines)):
     print(f"L{i+1}: {repr(lines[i])}")
+

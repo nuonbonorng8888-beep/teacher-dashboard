@@ -16,3 +16,4 @@ with open('index.html', 'w', encoding='utf-8') as f:
     f.write(text)
 
 print("Updated cache busters in index.html to v=6.9.")
+

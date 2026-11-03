@@ -11,3 +11,4 @@ print(f"Matches count: {len(matches)}")
 for idx, l in enumerate(text.splitlines()[-150:], 1):
     if 'hash' in l or 'switchTab' in l or 'lesson-plans' in l:
         print(f"L{idx}: {l.strip()}")
+

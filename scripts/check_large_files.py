@@ -14,3 +14,4 @@ for root, dirs, files in os.walk('.'):
                 print(f"Large file (>25MB): {p} ({sz / (1024*1024):.2f} MB)")
         except Exception:
             pass
+

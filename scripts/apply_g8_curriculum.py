@@ -25,3 +25,4 @@ if count == 1:
     print("Successfully replaced Grade 8 in js/curriculum-outlines.js!")
 else:
     print(f"Error: regex matched {count} times.")
+

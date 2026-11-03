@@ -8,3 +8,4 @@ with open('js/teaching-slides-data.js', 'r', encoding='utf-8') as f:
 print(f"Total lines: {len(lines)}")
 for l in lines[:40]:
     print(l, end='')
+

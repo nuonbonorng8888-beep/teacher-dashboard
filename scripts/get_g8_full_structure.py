@@ -30,3 +30,4 @@ for k, v in lessons_dict.items():
     print(f"{k} ({len(v['topics'])} ម៉ោង)")
     for t in v['topics']:
         print(f"   - ម៉ោងទី {t['hour']}: {t['topic']}")
+

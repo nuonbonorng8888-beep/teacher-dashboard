@@ -20,3 +20,4 @@ if m:
     print(f"Total unique Grade 8 lessons: {len(lessons_seen)}")
     for k, v in lessons_seen.items():
         print(f"  {k} -> {v}")
+

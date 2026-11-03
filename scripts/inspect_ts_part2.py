@@ -7,3 +7,4 @@ with open('js/teaching-slides.js', 'r', encoding='utf-8') as f:
 
 idx1 = text.find('<!-- Chapters & Lessons Accordion/Cards -->')
 print(text[idx1:idx1+1800])
+

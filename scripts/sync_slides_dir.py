@@ -22,3 +22,4 @@ if os.path.exists('slidesទី១១'):
             print("Copied to slides/:", f)
 
 print("Slides directory synced successfully.")
+

@@ -18,3 +18,4 @@ print(f"Staged files count: {len(staged)}")
 print(f"Files >= 100MB: {len(over_limit)}")
 for f, sz in over_limit:
     print(f"  {f}: {sz / (1024*1024):.2f} MB")
+

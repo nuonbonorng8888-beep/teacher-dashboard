@@ -7,3 +7,4 @@ with open('js/app.js', 'r', encoding='utf-8') as f:
 
 for idx, l in enumerate(lines[90:170], 91):
     print(f"L{idx}: {l}", end='')
+

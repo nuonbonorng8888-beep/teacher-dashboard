@@ -10,3 +10,4 @@ for root, dirs, files in os.walk('js'):
             with open(p, 'r', encoding='utf-8') as fl:
                 if 'NGS_CURRICULUM_OUTLINES' in fl.read():
                     print("Found NGS_CURRICULUM_OUTLINES in:", p)
+

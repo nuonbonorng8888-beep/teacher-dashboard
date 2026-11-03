@@ -17,3 +17,4 @@ for idx, l in enumerate(lines):
 print(f"G8 lines: {g8_start} to {g8_end}")
 for i in range(g8_start, min(g8_start + 40, g8_end)):
     print(lines[i], end='')
+

@@ -10,3 +10,4 @@ for f in os.listdir('js'):
         t = fl.read()
         if 'showSection' in t or 'switchTab' in t or 'activeTab' in t:
             print(f"Found in {f}")
+

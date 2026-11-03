@@ -9,3 +9,4 @@ with open('js/teaching-slides.js', 'r', encoding='utf-8') as f:
 idx1 = text.find('renderGradeSyllabusView(grade) {')
 idx2 = text.find('openPresenter(lessonId) {', idx1)
 print(text[idx1:idx1+1500])
+

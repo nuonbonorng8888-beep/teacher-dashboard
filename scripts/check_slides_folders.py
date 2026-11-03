@@ -10,3 +10,4 @@ for g in ['៧', '៨', '៩', '១០', '១១', '១២']:
         print(f"=== {folder} ({len(files)} files) ===")
         for f in files:
             print("  ", f)
+

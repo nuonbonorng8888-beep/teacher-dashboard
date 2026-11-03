@@ -10,3 +10,4 @@ matches = re.findall(r'id:\s*[\'"]([^\'"]+)[\'"].*?lesson_title:\s*[\'"]([^\'"]+
 print(f"Total lessons in teaching-slides-data.js: {len(matches)}")
 for m in matches:
     print(" ", m)
+

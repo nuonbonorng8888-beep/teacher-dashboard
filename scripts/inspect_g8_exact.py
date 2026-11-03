@@ -7,3 +7,4 @@ with open('js/teaching-slides-data.js', 'r', encoding='utf-8') as f:
 
 for i in range(7280, 7310):
     print(f"L{i+1}: {repr(lines[i])}")
+

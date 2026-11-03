@@ -7,3 +7,4 @@ with open('js/teaching-slides.js', 'r', encoding='utf-8') as f:
 
 for i in range(632, 680):
     print(f"L{i+1}: {lines[i]}", end='')
+

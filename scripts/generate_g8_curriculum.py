@@ -255,3 +255,4 @@ print(f"Generated {len(outline_chapters)} units.")
 with open('scratch/g8_outline.json', 'w', encoding='utf-8') as f:
     json.dump(g8_outline_data, f, ensure_ascii=False, indent=2)
 print("Saved to scratch/g8_outline.json")
+

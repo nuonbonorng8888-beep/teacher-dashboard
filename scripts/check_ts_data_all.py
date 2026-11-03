@@ -15,3 +15,4 @@ if m:
         print(f"ID: {d['id']} | Grade: {d.get('grade')} | Chapter: {d.get('chapter_title')} | Lesson: {d.get('lesson_title')} | Slides: {len(d.get('slides', []))}")
 else:
     print("Could not match json")
+

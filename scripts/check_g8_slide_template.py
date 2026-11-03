@@ -18,3 +18,4 @@ if m:
     print(f"Total slides in g8_template: {len(g8['slides'])}")
     for s in g8['slides'][:5]:
         print("  Slide:", s.get('slide_num'), s.get('type'), s.get('title'), s.get('chapter_title'))
+
