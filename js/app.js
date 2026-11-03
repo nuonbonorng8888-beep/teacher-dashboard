@@ -1139,7 +1139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial tab render
-  switchTab('dashboard');
+  // Initial tab render (supports URL query ?tab=...)
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialTab = urlParams.get('tab') || 'dashboard';
+  switchTab(initialTab);
 });
 

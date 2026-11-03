@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+\usepackage[top = 1.5cm, bottom = 1.5cm, left = .6cm, right = .5cm, a4paper ]{geometry}
+\usepackage{mathtools}
+\usepackage{tasks}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage[many]{tcolorbox}
+\usepackage[framemethod=Tikz]{mdframed}
+\usetikzlibrary{shapes.geometric}%%Geometric Shapes nodes​ ប្រើសម្រាប់គូររូបនៅ​ footer និង header
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\definecolor{ocre}{RGB}{243,102,25}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[no-math]{fontspec}
+
+\usepackage{dsfont}
+
+\XeTeXlinebreaklocale “KHM”
+\setmainfont [Scale = 0.8333333334, Script=Khmer]{Khmer OS Siemreap}
+\setmathrm{Times New Roman}
+\newcommand{\ko}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS}\selectfont}
+\newcommand{\kml}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS Muol Light}\selectfont}
+\newcommand{\kos}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS System}\selectfont}
+\newcommand{\kbk}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS Bokor}\selectfont}
+\newcommand{\kfrh}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS Freehand}\selectfont}
+\newcommand{\kfh}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS Fasthand}\selectfont}
+\newcommand{\km}{\fontspec[Scale = 0.8333333334, Script=Khmer]{Khmer OS Muol}\selectfont}
+\newcommand{\kb}{\fontspec[Scale = 0.85, Script=Khmer]{Khmer OS Battambang}\selectfont}
+\newcommand{\mc}{\fontspec{Monotype Corsiva}\selectfont}
+\newcommand{\en}{\fontspec{Times New Roman}\selectfont}
+
+%-----------------------------------------------------------
+% This macro is to produce khmer numbering by adopting the thai numbering method
+
+\makeatletter
+\def\@khmernum#1{\expandafter\@@khmernum\number#1\@nil} 
+\def\@@khmernum#1{%
+	\ifx#1\@nil 
+	\else 
+	\char\numexpr#1+"17E0\relax 
+	\expandafter\@@khmernum\fi
+} 
+\def\knum#1{\expandafter\@khmernum\csname c@#1\endcsname}
+\def\khmernumeral#1{\@@khmernum#1\@nil}
+\AddEnumerateCounter{\knum}{\@knum}{}
+\makeatother
+\makeatletter
+\newcommand*{\kalph}[1]{%
+	\expandafter\@kalph\csname c@#1\endcsname%
+}
+\newcommand*{\@kalph}[1]{%
+	\ifcase#1\or ក\or ខ\or គ\or ឃ\or ង\or ច\or ឆ\or ជ\or ឈ\or ញ\or  ដ\or ឋ\or ឌ%
+	\or ឍ\or ណ\or ត\or ថ\or ទ\or ធ\or ន\or ប\or ផ\or ព\or ភ\or ម\or យ\or រ\or ល%
+	\or វ\or ស\or ហ\or ឡ\or អ%
+	\else\@ctrerr\fi%
+}
+\AddEnumerateCounter{\kalph}{\@kalph}{}
+\makeatother
+%----------------------------------------
+%%% to set khmer calendar 
+\renewcommand\today{\@khmernum\day\space-\space\ifcase\month\or 
+	មករា\or កុម្ភៈ\or មិនា\or មេសា\or ឧសភា\or មិថុនា\or
+	កក្កដា\or សីហា\or កញ្ញា\or តុលា\or វិច្ឆិកា\or ធ្នូ\fi
+	\space-\space\@khmernum\year} 
+\makeatother 
+
+%---------------------------------------------------------------------
+% Boxed/framed environments
+% Defines the theorem text style for each type of theorem to one of the three styles above
+\newcounter{dummy} 
+\numberwithin{dummy}{section}
+\newtheorem{theoremeT}[dummy]{\color{black} \kbk ទ្រឹស្តីបទ}
+%\newtheorem{problem}{\kbk លំហាត់}[chapter]
+%\newtheorem{exerciseT}{ \kbk លំហាត់}
+%-------------------------------------------------------------------
+\newtheorem*{SolutionT}{\color{black}\kbk សម្រាយបញ្ជាក់៖}
+\newtheorem*{AnswerT}{\color{black}\kbk ដំណោះស្រាយ៖}
+%---------------------------------------------------------------------
+\newtheorem{definitionT}[dummy]{\kbk និយមន័យ}
+\newtheorem{generalT}[dummy]{\kbk ជាទូទៅ}
+\newtheorem{notationT}[dummy]{\kbk ចំណាំ}
+%---------------------------------------------------------------------
+\newtheorem{proposition}[dummy]{\kbk សំណើរ}
+\newtheorem{review}{\kbk រំលឹក}
+\newtheorem{formula}{\kbk រូបមន្ត}
+\newtheorem{Remark}{\kbk សំគាល់}
+\newtheorem{Exercise}{\color{black}\kml លំហាត់}
+%-------------------------------------------------------------------
+% Creates an environment for each type of theorem and assigns it a theorem text style from the "Theorem Styles" section above and a colored box from above
+\newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
+%\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\color{ocre}\end{exerciseT}\end{eBox}}				  
+\newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}
+\newenvironment{general}{\begin{cBox}\begin{generalT}}{\end{generalT}\end{cBox}}	
+\newenvironment{notation}{\begin{cBox}\begin{notationT}}{\end{notationT}\end{cBox}}	
+\newenvironment{Solution}{\begin{SolutionT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{SolutionT}}	
+\newenvironment{Answer}{\begin{AnswerT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{AnswerT}}	
+	
+%----------------------------------- renewcommand---------------------
+
+\renewcommand{\theExercise}{\knum{Exercise}\;}
+\renewcommand{\thedefinitionT}{\knum{definitionT}}
+\renewcommand{\thetheoremeT}{\knum{theoremeT}}
+\renewcommand{\thenotationT}{\knum{notationT}}
+\renewcommand{\thepage}{\knum{page}}
+\renewcommand{\theequation}{\thechapter\knum{equation}}
+%\renewcommand{\thechapter}{\knum{chapter}}
+\renewcommand{\thesection}{\knum{section}} 
+\renewcommand{\thesubsection}{\thesection.\knum{subsection}}
+\renewcommand{\thereview}{\knum{review}}
+\renewcommand{\thesubsubsection}{\thesubsection .\knum{subsubsection}}
+\renewcommand{\thedummy}{\thesection.\knum{dummy}}
+%---------------------------------------------------------------------
+\makeatletter
+\renewcommand{\@seccntformat}[1]{\llap{\textcolor{black}{\csname the#1\endcsname}\hspace{1em}}}                    
+\renewcommand{\section}{\@startsection{section}{1}{\z@}
+	{-4ex \@plus -1ex \@minus -.4ex}
+	{1ex \@plus.2ex }
+	{\quad\normalfont\large\sffamily\bfseries\kml}}
+\renewcommand{\subsection}{\@startsection {subsection}{2}{\z@}
+	{-3ex \@plus -0.1ex \@minus -.4ex}
+	{0.5ex \@plus.2ex }
+	{\quad\;\; \normalfont\sffamily\bfseries\kml}}
+\renewcommand{\subsubsection}{\@startsection {subsubsection}{3}{\z@}
+	{-2ex \@plus -0.1ex \@minus -.2ex}
+	{.2ex \@plus.2ex }
+	{\quad\;\;\;\normalfont\small\sffamily\bfseries\kml}}                        
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+	{-2ex \@plus-.2ex \@minus .2ex}
+	{.1ex}
+	{\quad\normalfont\small\sffamily\bfseries\kml}}
+%------------------------------------------------------------------
+
+\tcbset{
+	%breakable,
+	enhanced,
+	boxsep=2pt,
+	attach boxed title to top left={yshift=-\tcboxedtitleheight,  yshifttext=-\baselineskip},
+	boxed title style={boxsep=3pt,rounded corners=all}}
+\newtcolorbox{generality}[1][]{
+	title={LDP},
+	colframe=gray!10!blue,
+	colback=yellow!10!white,
+	sharp corners,rounded corners=southeast,arc is angular,arc=3mm,
+	underlay={%
+		\path[fill=gray!80!black] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
+		\path[draw,shorten <=-0.05mm,shorten >=-0.05mm] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
+		\path[fill=yellow!50!black,draw=none] (interior.south west)  ([xshift=4mm]interior.north west);
+	},
+	drop fuzzy shadow,#1}
+	
+	
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=true,
+leftline=true,
+topline=true,
+bottomline=true,
+backgroundcolor=ocre!15,
+linecolor=gray,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=-1pt,
+innerbottommargin=7pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=3pt]{tBox}
+	
+%----------- Definition box-------------------------------------------
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=true,
+leftline=true,
+topline=false,
+bottomline=false,backgroundcolor=blue!15,
+linecolor=red,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=-1pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=3pt,
+innerbottommargin=7pt]{dBox}
+
+%----------------------------------------------------------------------
+% Corollary box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=true,
+bottomline=false,
+linecolor=blue!50,
+backgroundcolor=blue!5,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=-1pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=5pt,
+innerbottommargin=7pt]{cBox}
+
+
+%------- EXercise-----------------------------------------------------
+\tcbset{Theostyle/.style={
+		enhanced,
+		sharp corners,
+		attach boxed title to top left={
+			xshift=1mm,
+		yshift=-4mm,
+		yshifttext=-1mm
+		},
+		top=1.5ex,
+		colback=red!50!gray!15,
+		colframe=white,drop lifted shadow={blue!50!white},
+		fonttitle=\bfseries,
+		boxed title style={
+			sharp corners,
+			size=small,
+			colback=white!5!gray!13,
+			colframe=white!75,drop lifted shadow={blue!70!white},
+		} 
+}}
+\tcbuselibrary{theorems}
+\newtcbtheorem[number freestyle={\noexpand\textcolor{black}{\noexpand\knum{\tcbcounter}}}]{exercise}{\color{black}\kbk លំហាត់}{%
+	Theostyle}{thm}
+
+%------- example box new ---------------------------------------------
+\tcbset{theostyle/.style={
+		enhanced,
+		sharp corners,
+		attach boxed title to top left={
+			xshift=1mm,
+		yshift=-4mm,
+		yshifttext=-1mm
+		},
+		top=1.5ex,
+		colback=yellow!20!gray!20,
+		colframe=white,drop lifted shadow={blue!50!white},
+		fonttitle=\bfseries,
+		boxed title style={
+			sharp corners,
+			size=small,
+			colback=white!5!gray!13,
+			colframe=white!75,drop lifted shadow={blue!70!white},
+		} 
+}}
+
+%-------------------example----------------------------
+\tcbuselibrary{theorems}
+\newtcbtheorem[number freestyle={\noexpand\textcolor{black}{\noexpand\knum{\tcbcounter}}}]{example}{\color{black}\kbk ឧទាហរណ៍}{%
+	theostyle}{thm}
+
+%------- problem ------------------------------------------------------
+\tcbset{THeostyle/.style={
+		enhanced,
+		sharp corners,
+		attach boxed title to top left={
+				xshift=1mm,
+			yshift=-4mm,
+			yshifttext=-1mm
+		},
+		top=1.5ex,
+		colback=yellow!20!,
+		colframe=white,drop lifted shadow={blue!50!white},
+		fonttitle=\bfseries,
+		boxed title style={
+			sharp corners,
+			size=small,
+			colback=red!13,
+			colframe=white!75,drop lifted shadow={blue!70!white},
+		} 
+}}
+
+%-------------------problem-------------------------------------------
+\newtcbtheorem[number freestyle={\noexpand\textcolor{black}{\noexpand\knum{\tcbcounter}}}]{problem}{\color{black}\kbk ប្រតិបត្តិ}{%
+	THeostyle}{thm}
+
+%------- property ----------------------------------------------------
+\tcbset{THEOstyle/.style={
+		enhanced,
+		sharp corners,
+		attach boxed title to top left={
+			xshift=1mm,
+		yshift=-4mm,
+		yshifttext=-1mm
+		},
+		top=1.5ex,
+		colback=blue!5!,
+		colframe=white,drop lifted shadow={blue!50!white},
+		fonttitle=\bfseries,
+		boxed title style={
+			sharp corners,
+			size=small,
+			colback=red!13,
+			colframe=white!75,drop lifted shadow={blue!70!white},
+		} 
+}}
+
+%-------------------property-------
+\newtcbtheorem[number freestyle={\noexpand\textcolor{black}{\noexpand\knum{\tcbcounter}}}]{property}{\color{black}\kbk លក្ខណៈ}{%
+	THEOstyle}{thm}
+
+%------- way ----------------------------------------------
+\tcbset{THEOSTyle/.style={
+		enhanced,
+		sharp corners,
+		attach boxed title to top left={
+			xshift=5cm,
+			yshift=-4mm,
+			yshifttext=-1mm
+		},
+		top=1.5ex,
+		colback=yellow!15!,
+		colframe=white,drop lifted shadow={blue!50!white},
+		fonttitle=\bfseries,
+		boxed title style={
+			sharp corners,
+			size=small,
+			colback=red!13,
+			colframe=white!75,drop lifted shadow={blue!70!white},
+		} 
+}}
+
+%-------------------way-----------------------------------------
+\newtcbtheorem[number freestyle={\noexpand\textcolor{black}{\noexpand\knum{\tcbcounter}}}]{way}{\color{black}\kbk វិធាន}{%
+	THEOSTyle}{thm}
+
+%--------------------------------------------------------------------
+%	REMARK ENVIRONMENT
+\usepackage{blindtext}
+\usepackage{pifont,mdframed}
+%\newenvironment{remark}
+%  {\par\begin{mdframed}[linewidth=1pt,linecolor=red]%
+%    \begin{list}{}{\leftmargin=0.1cm
+%                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+%  {\end{list}\end{mdframed}\par}
+
+%-------------------------------------------------------------------
+%REMARK BOK
+\newtcolorbox{remark}[1][]{enhanced,
+	before skip=2mm,after skip=3mm,
+	boxrule=0.4pt,left=5mm,right=2mm,top=1mm,bottom=1mm,
+	colback=blue!30,
+	colframe=yellow!20!black,
+	sharp corners,rounded corners=southeast,arc is angular,arc=3mm,
+	underlay={%
+		\path[fill=gray!80!black] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
+		\path[draw,shorten <=-0.05mm,shorten >=-0.05mm] ([yshift=3mm]interior.south east)--++(-0.4,-0.1)--++(0.1,-0.2);
+		\path[fill=yellow!50!black,draw=none] (interior.south west) rectangle node[red]{\Huge\bfseries !} ([xshift=4mm]interior.north west);
+	},
+	drop fuzzy shadow,#1}
+\newcommand{\enu}{\begin{enumerate}}
+\newcommand{\eenu}{\end{enumerate}}
+%---------------------------------------------------------------------
+\begin{document}
+\begin{tikzpicture}[remember picture, overlay]% access to outside of text area
+\fill[left color=blue!50!black, right color=brown!70!black]
+(current page.north west) rectangle (current page.east);
+\fill[left color=gray!50!black, right color=pink!70!black]
+(current page.west) rectangle (current page.south east);
+\fill[left color=orange!23!red, right color=orange!67!red]
+([yshift=2cm]current page.west) -- ([shift={(-1,2)}]current page.center) -- (current page.center) -- (current page.west) -- cycle;
+\fill[left color=blue!67!red,right color=orange]
+(current page.center) -- ([shift={(1,-2)}]current page.center) -- ([yshift=-2cm]current page.east) -- (current page.east) -- cycle;
+\filldraw[fill=cyan,fill opacity=.5,draw=orange!67!red,line width=1ex,rounded corners=4.5ex]
+([yshift=8cm]current page.west) -- ([xshift=13.5cm,yshift=8cm]current page.west) -- ([xshift=13.5cm,yshift=6cm]current page.west) -- ([yshift=6cm]current page.west); %ចតុកោណកែងរាងជាស៊ីឡាំង
+\foreach \r in {9,8.5,...,0.5}{
+	\fill[left color=orange!50!red, right color=orange!50!black]
+	(current page.south west) arc [start angle=180, end angle=0, radius=\r cm];
+}
+\foreach \x/\y in {-9/-9,-7/-10,-5/-11,-3/-12}{
+	\draw[draw=cyan,line width=2ex]
+	([shift={(0,\y)}]current page.east) -- ([shift={(\x,\y)}]current page.east);
+}
+%todo: text placement
+\node[anchor=east,text=white, font=\fontsize{52}{52}\selectfont\bfseries] (Lesson Plan) at ([xshift=-12cm,yshift=-1cm]current page.east) {\mc{Lesson Plan}};
+\node[anchor=west,text=white, font=\fontsize{30}{30}\selectfont\bfseries] (statistics) at ([xshift=1cm,yshift=1.2cm]current page.center) {\kml{គណិតវិទ្យា ថ្នាក់ទី៨}};
+\node[anchor=east,text=cyan, font=\fontsize{30}{30}\selectfont\bfseries] (author) at ([xshift=13cm,yshift=7cm]current page.west) {\kml{សៀវភៅកិច្ចតែងការបង្រៀន}};
+\node[text=green, font=\fontsize{25}{25}\selectfont\bfseries] (edition) at ([shift={(-4.5,-8)}]current page.east) {\kml{បោះពុម្ភលើកទី១}};
+\node[anchor=west,text=yellow, font=\fontsize{25}{25}\selectfont\bfseries] (publisher) at ([shift={(1.5,2.5)}]current page.south west) {រៀបរៀងដោយ៖ ក្រុមគ្រូគណិតវិទ្យា សាលារៀនជំនាន់ថ្មី};
+\node[anchor=west,text=yellow, font=\fontsize{25}{25}\selectfont\bfseries] (publisher) at ([shift={(1.5,1)}]current page.south west) { វិទ្យាល័យព្រះស៊ីសុវត្ថិ វិទ្យាល័យព្រះយុគន្ធរ និងវិទ្យាល័យបឹងត្របែក};
+\end{tikzpicture}
+\end{document}  

@@ -1,7 +1,10 @@
 /**
  * NGS Lesson Plans Management Hub
- * Teacher: Nuon Bonorng (នួន បូណង)
+ * Teachers:
+ *   - Nuon Bonorng (លោកគ្រូ នួន បូណង)
+ *   - Thaong Sophary (អ្នកគ្រូ ថោង សុភារី)
  * School: Preah Yukunthor High School - New Generation School (NGS)
+ * Supporting Grades 7 to 12 (Fully populated for Grade 8 and Grade 12)
  */
 
 (function () {
@@ -42,14 +45,21 @@
 
   class LessonPlansManager {
     constructor() {
+      this.selectedGrade = localStorage.getItem('ngs_lp_active_grade') || 'ថ្នាក់ទី ៨';
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v5';
-      this.savedStartDate = '2026-11-05';
-      this.savedSigDate = '2026-11-04';
-      this.savedClass = '១២A';
-      this.savedCadence = '2';
+      this.storageKey = 'ngs_custom_lesson_plans_v6';
+
+      // Co-teaching support: Nuon Bonorng or Thaong Sophary
+      this.savedTeacher = localStorage.getItem('ngs_custom_teacher') || 'នួន បូណង';
+
+      // Schedule settings
+      this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '2026-11-05';
+      this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-10-29';
+      this.savedClass = localStorage.getItem('ngs_custom_class') || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A');
+      this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2_days_skip_weekend';
+      this.selectedWeekdays = JSON.parse(localStorage.getItem('ngs_custom_weekdays') || '[1, 3, 5]'); // Mon, Wed, Fri
     }
 
     init() {
@@ -59,10 +69,12 @@
 
       // Load saved settings & customizations from localStorage
       try {
+        this.selectedGrade = localStorage.getItem('ngs_lp_active_grade') || 'ថ្នាក់ទី ៨';
+        this.savedTeacher = localStorage.getItem('ngs_custom_teacher') || 'នួន បូណង';
         this.savedStartDate = localStorage.getItem('ngs_custom_start_date') || '2026-11-05';
-        this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-11-04';
-        this.savedClass = localStorage.getItem('ngs_custom_class') || '១២A';
-        this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2';
+        this.savedSigDate = localStorage.getItem('ngs_custom_sig_date') || '2026-10-29';
+        this.savedClass = localStorage.getItem('ngs_custom_class') || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A');
+        this.savedCadence = localStorage.getItem('ngs_custom_cadence') || '2_days_skip_weekend';
 
         const saved = localStorage.getItem(this.storageKey);
         if (saved) {
@@ -83,7 +95,13 @@
               if (customMap[p.id].teacher) {
                 p.teacher = customMap[p.id].teacher;
               }
+            } else if (this.savedTeacher) {
+              p.teacher = this.savedTeacher;
             }
+          });
+        } else if (this.savedTeacher) {
+          this.plans.forEach(p => {
+            p.teacher = this.savedTeacher;
           });
         }
       } catch (err) {
@@ -103,6 +121,48 @@
       });
     }
 
+    setGrade(grade) {
+      this.selectedGrade = grade;
+      try {
+        localStorage.setItem('ngs_lp_active_grade', grade);
+      } catch (e) {}
+      this.activeChapter = 'all';
+      this.searchQuery = '';
+      
+      // Update default class based on grade
+      if (grade === 'ថ្នាក់ទី ៨') {
+        this.savedClass = localStorage.getItem('ngs_custom_class_g8') || '8NGS_C1 & 8NGS_C2';
+      } else if (grade === 'ថ្នាក់ទី ១២') {
+        this.savedClass = localStorage.getItem('ngs_custom_class_g12') || '១២A';
+      } else {
+        this.savedClass = grade.replace('ថ្នាក់ទី ', '') + 'A';
+      }
+
+      this.render();
+      if (window.showToast) {
+        window.showToast(`បានប្តូរទៅកាន់៖ ${grade}`, 'info');
+      }
+    }
+
+    setTeacher(teacherName) {
+      if (!teacherName) return;
+      this.savedTeacher = teacherName;
+      try {
+        localStorage.setItem('ngs_custom_teacher', teacherName);
+      } catch (e) {}
+
+      // Update in memory plans
+      this.plans.forEach(p => {
+        p.teacher = teacherName;
+      });
+      this.saveCustomizations(false);
+      this.render();
+
+      if (window.showToast) {
+        window.showToast(`✓ បានប្តូរឈ្មោះគ្រូបង្រៀនទៅ «${teacherName}» រួចរាល់! 🎉`, 'success');
+      }
+    }
+
     onStartDateChange(val) {
       if (!val) return;
       this.savedStartDate = val;
@@ -117,7 +177,7 @@
       }
     }
 
-    saveCustomizations() {
+    saveCustomizations(showNotification = true) {
       const customMap = {};
       this.plans.forEach(p => {
         customMap[p.id] = {
@@ -137,14 +197,24 @@
         }
         if (this.savedClass) {
           localStorage.setItem('ngs_custom_class', this.savedClass);
+          if (this.selectedGrade === 'ថ្នាក់ទី ៨') {
+            localStorage.setItem('ngs_custom_class_g8', this.savedClass);
+          } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
+            localStorage.setItem('ngs_custom_class_g12', this.savedClass);
+          }
         }
         if (this.savedCadence) {
           localStorage.setItem('ngs_custom_cadence', this.savedCadence);
         }
-        if (window.showToast) {
-          window.showToast('បានរក្សាទុកកាលបរិច្ឆេទ និងថ្នាក់ដោយជោគជ័យ! 🎉', 'success');
-        } else {
-          alert('បានរក្សាទុកកាលបរិច្ឆេទ និងថ្នាក់ដោយជោគជ័យ!');
+        if (this.savedTeacher) {
+          localStorage.setItem('ngs_custom_teacher', this.savedTeacher);
+        }
+        if (showNotification) {
+          if (window.showToast) {
+            window.showToast('បានរក្សាទុកកាលបរិច្ឆេទ ថ្នាក់ និងគ្រូបង្រៀនដោយជោគជ័យ! 🎉', 'success');
+          } else {
+            alert('បានរក្សាទុកកាលបរិច្ឆេទ ថ្នាក់ និងគ្រូបង្រៀនដោយជោគជ័យ!');
+          }
         }
       } catch (err) {
         console.error('Save failed:', err);
@@ -152,16 +222,18 @@
     }
 
     resetCustomizations() {
-      if (confirm('តើអ្នកពិតជាចង់កំណត់កាលបរិច្ឆេទ និងថ្នាក់ឡើងវិញទៅកាន់ទិន្នន័យដើមមែនទេ?')) {
+      if (confirm('តើអ្នកពិតជាចង់កំណត់កាលបរិច្ឆេទ ថ្នាក់ និងគ្រូឡើងវិញទៅកាន់ទិន្នន័យដើមមែនទេ?')) {
         localStorage.removeItem(this.storageKey);
         localStorage.removeItem('ngs_custom_start_date');
         localStorage.removeItem('ngs_custom_sig_date');
         localStorage.removeItem('ngs_custom_class');
+        localStorage.removeItem('ngs_custom_class_g8');
+        localStorage.removeItem('ngs_custom_class_g12');
         localStorage.removeItem('ngs_custom_cadence');
         this.savedStartDate = '2026-11-05';
-        this.savedSigDate = '2026-11-04';
-        this.savedClass = '១២A';
-        this.savedCadence = '2';
+        this.savedSigDate = '2026-10-29';
+        this.savedCadence = '2_days_skip_weekend';
+        this.savedClass = this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
         this.render();
         if (window.showToast) {
@@ -172,7 +244,16 @@
 
     setChapterFilter(ch) {
       this.activeChapter = ch;
-      this.render();
+      this.renderPlansList();
+      // Update active pill style
+      document.querySelectorAll('.chapter-filter-btn').forEach(btn => {
+        const targetCh = btn.getAttribute('data-chapter');
+        if (targetCh === ch) {
+          btn.className = 'chapter-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 bg-purple-600 text-white shadow-purple-500/30';
+        } else {
+          btn.className = 'chapter-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100';
+        }
+      });
     }
 
     setSearchQuery(q) {
@@ -189,7 +270,7 @@
         if (khSpan) {
           khSpan.innerText = p.date_khmer;
         }
-        this.saveCustomizations();
+        this.saveCustomizations(false);
       }
     }
 
@@ -197,22 +278,53 @@
       const p = this.plans.find(item => item.id === id);
       if (p) {
         p.class_name = newClass;
-        this.saveCustomizations();
+        this.saveCustomizations(false);
       }
     }
 
-    // Batch update dates and class
+    // Quick toggle for class checkboxes (e.g. 8NGS_C1, 8NGS_C2, 8NGS_B)
+    toggleClassCheckbox(clsName) {
+      const input = document.getElementById('batchClassInput');
+      if (!input) return;
+      const checkedBoxes = Array.from(document.querySelectorAll('.class-toggle-checkbox:checked')).map(cb => cb.value);
+      if (checkedBoxes.length > 0) {
+        if (checkedBoxes.length === 1) {
+          input.value = checkedBoxes[0];
+        } else if (checkedBoxes.length === 2) {
+          input.value = `${checkedBoxes[0]} & ${checkedBoxes[1]}`;
+        } else {
+          input.value = `${checkedBoxes.slice(0, -1).join(', ')} & ${checkedBoxes[checkedBoxes.length - 1]}`;
+        }
+      }
+      this.savedClass = input.value;
+    }
+
+    setClassPreset(clsStr) {
+      const input = document.getElementById('batchClassInput');
+      if (input) {
+        input.value = clsStr;
+        this.savedClass = clsStr;
+      }
+      // Sync checkboxes if matched
+      document.querySelectorAll('.class-toggle-checkbox').forEach(cb => {
+        cb.checked = clsStr.includes(cb.value);
+      });
+    }
+
+    // Batch update dates, cadence, weekend exclusions, class, and teacher
     applyBatchSchedule() {
-      const classInput = document.getElementById('batchClassSelect');
+      const classInput = document.getElementById('batchClassInput');
       const dateInput = document.getElementById('batchStartDate');
       const sigInput = document.getElementById('batchSigDate');
       const stepInput = document.getElementById('batchStepDays');
+      const teacherInput = document.getElementById('batchTeacherSelect');
 
-      const selectedClass = classInput ? classInput.value : (this.savedClass || '១២A');
+      const selectedClass = classInput ? classInput.value.trim() : (this.savedClass || '8NGS_C1 & 8NGS_C2');
       const startDateStr = dateInput ? dateInput.value : (this.savedStartDate || '2026-11-05');
-      const cadenceMode = stepInput ? stepInput.value : (this.savedCadence || '2');
+      const cadenceMode = stepInput ? stepInput.value : (this.savedCadence || '2_days_skip_weekend');
+      const teacherName = teacherInput ? teacherInput.value : (this.savedTeacher || 'នួន បូណង');
 
-      let selectedSigDate = sigInput ? sigInput.value : (this.savedSigDate || '2026-11-04');
+      let selectedSigDate = sigInput ? sigInput.value : (this.savedSigDate || '2026-10-29');
       if (!selectedSigDate && startDateStr) {
         const p = startDateStr.split('-');
         const sD = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10) - 7);
@@ -233,28 +345,44 @@
         return;
       }
 
-      // Save custom start date, signature date, class, and cadence into memory & localStorage
+      // Save custom start date, signature date, class, teacher, and cadence into memory & localStorage
       this.savedStartDate = startDateStr;
       this.savedSigDate = selectedSigDate;
       this.savedClass = selectedClass;
       this.savedCadence = cadenceMode;
+      this.savedTeacher = teacherName;
+
       try {
         localStorage.setItem('ngs_custom_start_date', startDateStr);
         localStorage.setItem('ngs_custom_sig_date', selectedSigDate);
         localStorage.setItem('ngs_custom_class', selectedClass);
+        if (this.selectedGrade === 'ថ្នាក់ទី ៨') {
+          localStorage.setItem('ngs_custom_class_g8', selectedClass);
+        } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
+          localStorage.setItem('ngs_custom_class_g12', selectedClass);
+        }
         localStorage.setItem('ngs_custom_cadence', cadenceMode);
+        localStorage.setItem('ngs_custom_teacher', teacherName);
       } catch (e) {}
 
       const parts = startDateStr.split('-');
       let curDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
 
-      // If start date is Sunday (0), shift to Monday (1)
-      if (curDate.getDay() === 0) {
+      // Rule: STRICTLY EXCLUDE SATURDAY (6) AND SUNDAY (0)
+      // If start date is Saturday (6), advance +2 to Monday (1)
+      if (curDate.getDay() === 6) {
+        curDate.setDate(curDate.getDate() + 2);
+      }
+      // If start date is Sunday (0), advance +1 to Monday (1)
+      else if (curDate.getDay() === 0) {
         curDate.setDate(curDate.getDate() + 1);
       }
 
-      visiblePlans.forEach((p) => {
+      let stepToggle = 0;
+
+      visiblePlans.forEach((p, idx) => {
         p.class_name = selectedClass;
+        p.teacher = teacherName;
         const y = curDate.getFullYear();
         const m = String(curDate.getMonth() + 1).padStart(2, '0');
         const d = String(curDate.getDate()).padStart(2, '0');
@@ -263,55 +391,77 @@
         p.sig_date = selectedSigDate;
         p.sig_date_khmer = formatKhmerDate(selectedSigDate, false);
 
-        // Advance date with Sunday exclusion
-        if (cadenceMode === 'mon_wed_fri') {
+        // Advance date with STRICT Weekend Exclusion (Saturday & Sunday skipped)
+        if (cadenceMode === '2_days_skip_weekend') {
+          // Add 2 days: Friday -> Sunday(+2) -> Monday(+1). Skip Sat & Sun!
+          curDate.setDate(curDate.getDate() + 2);
+          if (curDate.getDay() === 6) {
+            curDate.setDate(curDate.getDate() + 2); // Sat -> Mon (+2)
+          } else if (curDate.getDay() === 0) {
+            curDate.setDate(curDate.getDate() + 1); // Sun -> Mon (+1)
+          }
+        } else if (cadenceMode === 'alt_1_2_days') {
+          // Alternating 1 school day and 2 school days in a week
+          // e.g. Mon -> Tue (+1), Tue -> Thu (+2), Thu -> Fri (+1), Fri -> Mon (+3)
+          const step = (stepToggle % 2 === 0) ? 1 : 2;
+          stepToggle++;
+          curDate.setDate(curDate.getDate() + step);
+          if (curDate.getDay() === 6) {
+            curDate.setDate(curDate.getDate() + 2); // Sat -> Mon
+          } else if (curDate.getDay() === 0) {
+            curDate.setDate(curDate.getDate() + 1); // Sun -> Mon
+          }
+        } else if (cadenceMode === 'mon_wed_fri') {
           // Target days: Monday(1), Wednesday(3), Friday(5)
           do {
             curDate.setDate(curDate.getDate() + 1);
           } while (![1, 3, 5].includes(curDate.getDay()));
-        } else if (cadenceMode === 'tue_thu_sat') {
-          // Target days: Tuesday(2), Thursday(4), Saturday(6)
+        } else if (cadenceMode === 'tue_thu') {
+          // Target days: Tuesday(2), Thursday(4)
           do {
             curDate.setDate(curDate.getDate() + 1);
-          } while (![2, 4, 6].includes(curDate.getDay()));
-        } else if (cadenceMode === 'daily') {
-          // Daily (Mon to Sat, skip Sunday)
+          } while (![2, 4].includes(curDate.getDay()));
+        } else if (cadenceMode === 'daily_weekdays') {
+          // Daily Mon-Fri (Skip Sat & Sun)
           curDate.setDate(curDate.getDate() + 1);
-          if (curDate.getDay() === 0) {
+          if (curDate.getDay() === 6) {
+            curDate.setDate(curDate.getDate() + 2);
+          } else if (curDate.getDay() === 0) {
             curDate.setDate(curDate.getDate() + 1);
           }
-        } else if (cadenceMode === '7') {
-          // Weekly
+        } else if (cadenceMode === 'weekly') {
+          // Weekly (+7 days)
           curDate.setDate(curDate.getDate() + 7);
-          if (curDate.getDay() === 0) {
+          if (curDate.getDay() === 6) {
+            curDate.setDate(curDate.getDate() + 2);
+          } else if (curDate.getDay() === 0) {
             curDate.setDate(curDate.getDate() + 1);
           }
         } else {
-          // 2 days interval: skip Sunday
-          const step = parseInt(cadenceMode, 10) || 2;
-          curDate.setDate(curDate.getDate() + step);
-          if (curDate.getDay() === 0) {
-            curDate.setDate(curDate.getDate() + 1);
-          }
+          // Fallback interval
+          curDate.setDate(curDate.getDate() + 2);
+          if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+          else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
         }
       });
 
-      this.saveCustomizations();
+      this.saveCustomizations(false);
       this.render();
       if (window.showToast) {
-        window.showToast(`✓ បានកំណត់កាលវិភាគចាប់ផ្តើមពីថ្ងៃ ${formatKhmerDate(startDateStr)} (លើកលែងថ្ងៃអាទិត្យ) ជូន ${visiblePlans.length} មេរៀន និងរក្សាទុកក្នុងប្រព័ន្ធដោយជោគជ័យ! 🎉`, 'success');
+        window.showToast(`✓ បានកំណត់កាលវិភាគ ${formatKhmerDate(startDateStr)} (លើកលែងសៅរ៍-អាទិត្យ) ជូន ${visiblePlans.length} មេរៀន សម្រាប់ ${selectedClass} (${teacherName}) រួចរាល់! 🎉`, 'success');
       }
     }
 
     getFilteredPlans() {
       return this.plans.filter(p => {
+        const matchesGrade = p.grade === this.selectedGrade;
         const matchesChapter = this.activeChapter === 'all' || p.chapter_code === this.activeChapter;
         const matchesSearch = !this.searchQuery ||
-          p.lesson_title.toLowerCase().includes(this.searchQuery) ||
-          p.topic.toLowerCase().includes(this.searchQuery) ||
-          p.chapter.toLowerCase().includes(this.searchQuery) ||
-          p.class_name.toLowerCase().includes(this.searchQuery);
-        return matchesChapter && matchesSearch;
+          (p.lesson_title && p.lesson_title.toLowerCase().includes(this.searchQuery)) ||
+          (p.topic && p.topic.toLowerCase().includes(this.searchQuery)) ||
+          (p.chapter && p.chapter.toLowerCase().includes(this.searchQuery)) ||
+          (p.class_name && p.class_name.toLowerCase().includes(this.searchQuery));
+        return matchesGrade && matchesChapter && matchesSearch;
       });
     }
 
@@ -331,58 +481,46 @@
           return;
         }
 
-        const existingPdfBytes = await fetch(plan.pdf_file).then(res => res.arrayBuffer());
-        const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+        const existingPdfBytes = await fetch(plan.pdf_file).then(res => {
+          if (!res.ok) throw new Error('Network error loading PDF');
+          return res.arrayBuffer();
+        });
 
-        // Create high-res canvas for Date and Teacher matching Image 2 exactly
-        const canvas = document.createElement('canvas');
-        canvas.width = 900;
-        canvas.height = 114;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#000000';
+        const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes, { ignoreEncryption: true });
+        const pages = pdfDoc.getPages();
 
-        const khmerDateClean = formatKhmerDate(plan.date, false);
-
-        // Row 1: កាលបរិច្ឆេទ
-        ctx.font = 'normal 31.5px "Khmer OS Muol Light", "Khmer OS Muol", sans-serif';
-        ctx.fillText('កាលបរិច្ឆេទ', 0, 42);
-        ctx.font = 'normal 31.5px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        ctx.fillText(':', 303, 42);
-        ctx.fillText(khmerDateClean, 340, 42);
-
-        // Row 2: បង្រៀនដោយ
-        ctx.font = 'normal 31.5px "Khmer OS Muol Light", "Khmer OS Muol", sans-serif';
-        ctx.fillText('បង្រៀនដោយ', 0, 99);
-        ctx.font = 'normal 31.5px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        ctx.fillText(':', 303, 99);
-        ctx.fillText(plan.teacher, 340, 99);
-
-        const datePngUrl = canvas.toDataURL('image/png');
-        const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
-        const dateImg = await pdfDoc.embedPng(datePngBytes);
-
-        // Target cover page
-        const pIdx = plan.cover_page_index !== undefined ? plan.cover_page_index : 0;
-        if (pIdx < pdfDoc.getPageCount()) {
-          const page = pdfDoc.getPage(pIdx);
+        if (pages.length > 0) {
+          const page = pages[plan.cover_page_index || 0];
           const pageH = page.getHeight();
-          const y_top = plan.box_y0 || 161.8;
-          const box_h = 36.0;
-          // In pdf-lib y=0 is at bottom
+          const y_top = plan.box_y0 || 172.0;
+          const box_h = 24.0;
           const y_bottom = pageH - y_top - box_h;
 
-          // Mask old date and teacher
+          // Render dynamic Khmer date via Canvas for crisp Khmer font
+          const dateCanvas = document.createElement('canvas');
+          dateCanvas.width = 900;
+          dateCanvas.height = 70;
+          const ctx = dateCanvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, dateCanvas.width, dateCanvas.height);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 36px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
+          ctx.fillText(':   ' + plan.date_khmer, 10, 50);
+
+          const datePngUrl = dateCanvas.toDataURL('image/png');
+          const datePngBytes = await fetch(datePngUrl).then(res => res.arrayBuffer());
+          const dateImg = await pdfDoc.embedPng(datePngBytes);
+
+          // Whiteout old date box
           page.drawRectangle({
-            x: 130,
+            x: 130.92,
             y: y_bottom,
             width: 320,
             height: box_h,
             color: PDFLib.rgb(1, 1, 1),
           });
 
-          // Draw customized date & teacher
+          // Draw customized date
           page.drawImage(dateImg, {
             x: 130.92,
             y: y_bottom,
@@ -393,13 +531,13 @@
           // Also update Class if customized
           if (plan.class_name) {
             const classCanvas = document.createElement('canvas');
-            classCanvas.width = 300;
+            classCanvas.width = 400;
             classCanvas.height = 80;
             const cctx = classCanvas.getContext('2d');
             cctx.fillStyle = '#ffffff';
             cctx.fillRect(0, 0, classCanvas.width, classCanvas.height);
             cctx.fillStyle = '#000000';
-            cctx.font = 'bold 36px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+            cctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
             cctx.fillText(':   ' + plan.class_name, 10, 55);
 
             const classPngUrl = classCanvas.toDataURL('image/png');
@@ -412,85 +550,16 @@
             page.drawRectangle({
               x: 226,
               y: class_y_bottom,
-              width: 80,
+              width: 120,
               height: 18.0,
               color: PDFLib.rgb(1, 1, 1),
             });
             page.drawImage(classImg, {
               x: 226,
               y: class_y_bottom,
-              width: 65.0,
+              width: 100.0,
               height: 18.0,
             });
-          }
-
-          // Also update Signature Page if available (Wipes old text, closes box, inserts date without dots + clean columns)
-          const sIdx = plan.sig_page_index !== undefined ? plan.sig_page_index : null;
-          if (sIdx !== null && sIdx < pdfDoc.getPageCount()) {
-            const sigPage = pdfDoc.getPage(sIdx);
-            const sigPageH = sigPage.getHeight();
-            const sig_y_top = plan.sig_y0 || 320.0;
-            const sig_box_h = plan.sig_h || 156.0;
-            // In pdf-lib y=0 is at bottom
-            const sig_y_bottom = sigPageH - sig_y_top - sig_box_h;
-
-            // 1. Wipe out old signature text completely (full-height pure white mask)
-            sigPage.drawRectangle({
-              x: 65,
-              y: Math.max(0, sig_y_bottom - 8),
-              width: 505,
-              height: sig_box_h + 16,
-              color: PDFLib.rgb(1, 1, 1),
-            });
-
-            // 2. CLOSE THE TABLE BOX AT THE TOP with crisp horizontal line!
-            const tableXEnd = plan.chapter_code === 'ch5' ? 565.4 : 538.5;
-            sigPage.drawLine({
-              start: { x: 71.0, y: sigPageH - sig_y_top },
-              end: { x: tableXEnd, y: sigPageH - sig_y_top },
-              thickness: 0.6,
-              color: PDFLib.rgb(0, 0, 0),
-            });
-
-            // 3. Render dynamic signature date via canvas (Clean without dots, bigger font, unified submission date)
-            const sigDateCanvas = document.createElement('canvas');
-            sigDateCanvas.width = 1000;
-            sigDateCanvas.height = 70;
-            const sctx = sigDateCanvas.getContext('2d');
-            sctx.fillStyle = '#ffffff';
-            sctx.fillRect(0, 0, sigDateCanvas.width, sigDateCanvas.height);
-            sctx.fillStyle = '#000000';
-            sctx.font = 'bold 34px "Khmer OS Siemreap", "Noto Sans Khmer", "Khmer OS", sans-serif';
-            sctx.textAlign = 'right';
-            const unifiedSigDate = formatKhmerDate(plan.sig_date || this.savedSigDate || '2026-11-04', false);
-            sctx.fillText('រាជធានីភ្នំពេញ ' + unifiedSigDate, 980, 48);
-
-            const sigDatePngUrl = sigDateCanvas.toDataURL('image/png');
-            const sigDatePngBytes = await fetch(sigDatePngUrl).then(res => res.arrayBuffer());
-            const sigDateImg = await pdfDoc.embedPng(sigDatePngBytes);
-
-            const sigDateYBottom = sigPageH - sig_y_top - 24.0;
-            sigPage.drawImage(sigDateImg, {
-              x: 300,
-              y: sigDateYBottom,
-              width: 255.0,
-              height: 20.0,
-            });
-
-            // 4. Render clean 3 columns (Teacher Bonorng, Tech Head, NGS Assistant)
-            try {
-              const colsBytes = await fetch('images/sample_sig_columns_clean.png').then(res => res.arrayBuffer());
-              const colsImg = await pdfDoc.embedPng(colsBytes);
-              const colsYBottom = sigPageH - sig_y_top - 27.0 - 110.5;
-              sigPage.drawImage(colsImg, {
-                x: 65,
-                y: colsYBottom,
-                width: 500.0,
-                height: 110.5,
-              });
-            } catch (errCols) {
-              console.warn('Could not embed signature columns image:', errCols);
-            }
           }
         }
 
@@ -507,7 +576,7 @@
           window.showToast(`ទាញយក PDF ជោគជ័យ៖ ថ្នាក់ ${plan.class_name} · ${plan.date_khmer}! 🎉`, 'success');
         }
       } catch (err) {
-        console.error('PDF modification error:', err);
+        console.warn('PDF modification error, opening directly:', err);
         window.open(plan.pdf_file, '_blank');
       }
     }
@@ -516,14 +585,78 @@
       const container = document.getElementById('tab-lessonplans');
       if (!container) return;
 
-      const totalPlans = this.plans.length;
-      const ch1Count = this.plans.filter(p => p.chapter_code === 'ch1').length;
-      const ch2Count = this.plans.filter(p => p.chapter_code === 'ch2').length;
-      const ch5Count = this.plans.filter(p => p.chapter_code === 'ch5').length;
+      const currentGrade = this.selectedGrade || 'ថ្នាក់ទី ៨';
+      const gradePlans = this.plans.filter(p => p.grade === currentGrade);
+      const totalGradePlans = gradePlans.length;
+
+      // Extract unique chapters for current grade
+      const chapterMap = {};
+      gradePlans.forEach(p => {
+        if (!chapterMap[p.chapter_code]) {
+          chapterMap[p.chapter_code] = {
+            code: p.chapter_code,
+            title: p.chapter,
+            count: 0
+          };
+        }
+        chapterMap[p.chapter_code].count++;
+      });
+      const gradeChapters = Object.values(chapterMap);
+
+      // Define grades for navigation
+      const gradesList = [
+        { id: 'ថ្នាក់ទី ៧', label: 'ថ្នាក់ទី ៧', count: 0, status: 'coming_soon' },
+        { id: 'ថ្នាក់ទី ៨', label: 'ថ្នាក់ទី ៨', count: 72, status: 'active', icon: '⚡' },
+        { id: 'ថ្នាក់ទី ៩', label: 'ថ្នាក់ទី ៩', count: 0, status: 'coming_soon' },
+        { id: 'ថ្នាក់ទី ១០', label: 'ថ្នាក់ទី ១០', count: 0, status: 'coming_soon' },
+        { id: 'ថ្នាក់ទី ១១', label: 'ថ្នាក់ទី ១១', count: 0, status: 'coming_soon' },
+        { id: 'ថ្នាក់ទី ១២', label: 'ថ្នាក់ទី ១២', count: 37, status: 'active', icon: '⭐' }
+      ];
+
+      // Available classes based on grade
+      const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
+      const defaultClasses = isGrade8
+        ? ['8NGS_C1', '8NGS_C2', '8NGS_B']
+        : ['១២A', '១២B', '១២C', '១២D'];
 
       container.innerHTML = `
-        <!-- Top Banner: School & Teacher Profile -->
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-800 via-indigo-800 to-sky-800 p-6 md:p-8 text-white shadow-xl">
+        <!-- Grade Navigation Selector Bar -->
+        <div class="card-soft p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-sm border border-slate-200/80 dark:border-slate-700/80">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-black uppercase tracking-wider text-purple-700 dark:text-purple-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-layer-group text-purple-600"></i> កម្រិតថ្នាក់បង្រៀន៖
+              </span>
+            </div>
+
+            <!-- Grade Pills -->
+            <div class="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
+              ${gradesList.map(g => {
+                const isSelected = currentGrade === g.id;
+                const hasPlans = g.count > 0;
+                return `
+                  <button onclick="window.lessonPlansManager.setGrade('${g.id}')"
+                    class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-105'
+                        : hasPlans
+                          ? 'bg-purple-50 dark:bg-slate-700 hover:bg-purple-100 dark:hover:bg-slate-600 text-purple-800 dark:text-purple-200 border border-purple-200 dark:border-slate-600'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 border border-transparent'
+                    }">
+                    <span>${g.label}</span>
+                    ${hasPlans
+                      ? `<span class="px-1.5 py-0.2 rounded-full text-[10px] ${isSelected ? 'bg-white/30 text-white' : 'bg-purple-200 dark:bg-purple-900/60 text-purple-800 dark:text-purple-200'}">${toKhmerNum(g.count)}</span>`
+                      : `<span class="px-1.5 py-0.2 rounded-full text-[9px] bg-slate-200 dark:bg-slate-700 text-slate-500">ឆាប់ៗ</span>`
+                    }
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Banner: School & Co-Teaching Profiles -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-900 via-indigo-900 to-sky-900 p-6 md:p-8 text-white shadow-xl">
           <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
           <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div class="flex items-start gap-4">
@@ -536,199 +669,277 @@
                   <i class="fa-solid fa-school"></i> វិទ្យាល័យព្រះយុគន្ធរ · សាលារៀនជំនាន់ថ្មី (NGS)
                 </div>
                 <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-                  កិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី ១២
+                  កិច្ចតែងការបង្រៀនគណិតវិទ្យា${currentGrade}
                 </h1>
                 <p class="text-xs md:text-sm text-purple-100 max-w-2xl leading-relaxed">
-                  រៀបចំនិងបង្រៀនដោយ <strong>លោកគ្រូ នួន បូណង</strong> តាមស្តង់ដារគុណវុឌ្ឍិ ៥ ជំហានបង្រៀន NGS
-                  (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ៣ ជំពូកធំៗ ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
+                  រៀបចំនិងបង្រៀនដោយ <strong>${this.savedTeacher.includes('សុភារី') ? 'អ្នកគ្រូ ថោង សុភារី' : 'លោកគ្រូ នួន បូណង'}</strong> តាមស្តង់ដារគុណវុឌ្ឍិ ៥ ជំហានបង្រៀន NGS
+                  (៥០/៥០ ពិន្ទុ) ពេញលេញចំនួន ${toKhmerNum(gradeChapters.length)} ជំពូក ស្របតាមសៀវភៅសិក្សាគោល និងកម្រងសំណួរ MoEYS។
                 </p>
               </div>
             </div>
-            <!-- Statistics Badges -->
+
+            <!-- Statistics Badges & Teacher Switcher Quick Pill -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 self-end md:self-center">
-              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center">
-                <span class="block text-2xl font-black text-amber-300">${totalPlans}</span>
+              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center min-w-[85px]">
+                <span class="block text-2xl font-black text-amber-300">${toKhmerNum(totalGradePlans)}</span>
                 <span class="text-[11px] text-purple-200 uppercase tracking-wider">កិច្ចតែងការ</span>
               </div>
-              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center">
-                <span class="block text-2xl font-black text-emerald-300">១៩១</span>
-                <span class="text-[11px] text-purple-200 uppercase tracking-wider">ទំព័រឯកសារ</span>
+              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center min-w-[85px]">
+                <span class="block text-2xl font-black text-emerald-300">${toKhmerNum(gradeChapters.length)}</span>
+                <span class="text-[11px] text-purple-200 uppercase tracking-wider">ជំពូក</span>
               </div>
-              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center">
-                <span class="block text-2xl font-black text-sky-300">១០០%</span>
+              <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 text-center min-w-[85px]">
+                <span class="block text-2xl font-black text-sky-300">100%</span>
                 <span class="text-[11px] text-purple-200 uppercase tracking-wider">បានឯកភាព</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Chapter Filter Tabs & Download Hub -->
-        <div class="card-soft p-4 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="window.lessonPlansManager.setChapterFilter('all')"
-              class="px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 ${this.activeChapter === 'all' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
-              <span>🌟 ទាំងអស់</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === 'all' ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${totalPlans}</span>
-            </button>
-            <button onclick="window.lessonPlansManager.setChapterFilter('ch1')"
-              class="px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 ${this.activeChapter === 'ch1' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
-              <span>🔵 ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === 'ch1' ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${ch1Count}</span>
-            </button>
-            <button onclick="window.lessonPlansManager.setChapterFilter('ch2')"
-              class="px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 ${this.activeChapter === 'ch2' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
-              <span>🟣 ជំពូកទី ២ ៖ លីមីត</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === 'ch2' ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${ch2Count}</span>
-            </button>
-            <button onclick="window.lessonPlansManager.setChapterFilter('ch5')"
-              class="px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 ${this.activeChapter === 'ch5' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
-              <span>🟢 ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === 'ch5' ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${ch5Count}</span>
-            </button>
+        ${totalGradePlans === 0 ? `
+          <!-- Placeholder State for Grades without uploaded plans yet -->
+          <div class="card-soft p-12 text-center space-y-4 bg-white dark:bg-slate-800 border-2 border-dashed border-purple-200 dark:border-slate-700">
+            <div class="w-20 h-20 mx-auto rounded-3xl bg-purple-50 dark:bg-slate-700 text-purple-600 dark:text-purple-300 flex items-center justify-center text-4xl shadow-inner">
+              📚
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-lg font-extrabold text-slate-800 dark:text-white">
+                កិច្ចតែងការបង្រៀនគណិតវិទ្យា ${currentGrade}
+              </h3>
+              <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 max-w-lg mx-auto">
+                ចំណងជើង និងទម្រង់កិច្ចតែងការសម្រាប់ ${currentGrade} ត្រូវបានរៀបចំរួចរាល់។ ឯកសារលម្អិតកំពុងត្រូវបាន Update បន្ថែមស្របតាមកម្មវិធីសិក្សា MoEYS។
+              </p>
+            </div>
+            <div class="flex items-center justify-center gap-3 pt-2">
+              <button onclick="window.lessonPlansManager.setGrade('ថ្នាក់ទី ៨')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
+                <span>⚡ ចូលមើល ថ្នាក់ទី ៨ (៧២ កិច្ចតែងការ)</span>
+              </button>
+              <button onclick="window.lessonPlansManager.setGrade('ថ្នាក់ទី ១២')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
+                <span>⭐ ចូលមើល ថ្នាក់ទី ១២ (៣៧ កិច្ចតែងការ)</span>
+              </button>
+            </div>
+          </div>
+        ` : `
+          <!-- Chapter Filter Tabs & Download Hub -->
+          <div class="card-soft p-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2 max-w-4xl">
+              <button onclick="window.lessonPlansManager.setChapterFilter('all')" data-chapter="all"
+                class="chapter-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-2 ${this.activeChapter === 'all' ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
+                <span>🌟 ទាំងអស់</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === 'all' ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${toKhmerNum(totalGradePlans)}</span>
+              </button>
+              ${gradeChapters.map(ch => `
+                <button onclick="window.lessonPlansManager.setChapterFilter('${ch.code}')" data-chapter="${ch.code}"
+                  class="chapter-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5 ${this.activeChapter === ch.code ? 'bg-purple-600 text-white shadow-purple-500/30' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-purple-100'}">
+                  <span>${ch.title.split(' ៖ ')[0] || ch.title}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] ${this.activeChapter === ch.code ? 'bg-white/30 text-white' : 'bg-slate-200 dark:bg-slate-700'}">${toKhmerNum(ch.count)}</span>
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Official Chapter Files Download Hub -->
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="text-xs text-slate-400 font-bold hidden sm:inline">ឯកសារដើម NGS:</span>
+              ${isGrade8 ? `
+                <div class="dropdown relative group">
+                  <button class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 hover:bg-purple-100 border border-purple-200 dark:border-slate-700 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-book-open text-purple-600"></i> សៀវភៅថ្នាក់ទី៨ ពេញ <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                  </button>
+                  <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[270px]">
+                    <a href="កិច្ចការតែងការទី៨/សៀវភៅកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨ all.docx" download class="block px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
+                      📝 សៀវភៅកិច្ចតែងការថ្នាក់ទី៨ ពេញ (Word all)
+                    </a>
+                    <a href="កិច្ចការតែងការទី៨/សៀវភៅកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
+                      📄 សៀវភៅកិច្ចតែងការថ្នាក់ទី៨ ពេញ (PDF)
+                    </a>
+                    <div class="my-1 border-t border-slate-100 dark:border-slate-700"></div>
+                    <a href="កិច្ចការតែងការទី៨/សៀវភៅកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨ 1.docx" download class="block px-3 py-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] text-slate-600 dark:text-slate-300">
+                      📝 ភាគទី ១ (Word)
+                    </a>
+                    <a href="កិច្ចការតែងការទី៨/សៀវភៅកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨ 2.docx" download class="block px-3 py-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] text-slate-600 dark:text-slate-300">
+                      📝 ភាគទី ២ (Word)
+                    </a>
+                    <a href="កិច្ចការតែងការទី៨/សៀវភៅកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨ 3.docx" download class="block px-3 py-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] text-slate-600 dark:text-slate-300">
+                      📝 ភាគទី ៣ (Word)
+                    </a>
+                  </div>
+                </div>
+              ` : `
+                <div class="dropdown relative group">
+                  <button class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 hover:bg-purple-100 border border-purple-200 dark:border-slate-700 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-file-pdf text-red-500"></i> PDF ជំពូកទាំងមូល <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                  </button>
+                  <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[240px]">
+                    <a href="ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
+                      📄 ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (73 ទំព័រ)
+                    </a>
+                    <a href="ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
+                      📄 ជំពូកទី ២ ៖ លីមីត (53 ទំព័រ)
+                    </a>
+                    <a href="ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
+                      📄 ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ (65 ទំព័រ)
+                    </a>
+                  </div>
+                </div>
+              `}
+            </div>
           </div>
 
-          <!-- Official Chapter Files Download Pills -->
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400 font-bold hidden sm:inline">ឯកសារដើម NGS:</span>
-            <div class="dropdown relative group">
-              <button class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 hover:bg-purple-100 border border-purple-200 dark:border-slate-700 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-file-pdf text-red-500"></i> PDF ជំពូកទាំងមូល <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[240px]">
-                <a href="ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📄 ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (73 ទំព័រ)
-                </a>
-                <a href="ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📄 ជំពូកទី ២ ៖ លីមីត (53 ទំព័រ)
-                </a>
-                <a href="ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.pdf" target="_blank" download class="block px-3 py-2 rounded-xl hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📄 ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ (65 ទំព័រ)
-                </a>
+          <!-- Interactive Batch Editor & Schedule Toolbar -->
+          <div class="card-soft p-5 bg-gradient-to-r from-purple-50/70 via-indigo-50/50 to-pink-50/60 dark:from-slate-800 dark:to-slate-800/80 border-purple-200 dark:border-slate-700 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-extrabold text-purple-900 dark:text-purple-300 flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-days text-purple-600"></i> កំណត់កាលវិភាគ គ្រូបង្រៀន & ថ្នាក់បង្រៀនរហ័ស (Batch Customizer)
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="window.lessonPlansManager.saveCustomizations()" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-floppy-disk"></i> រក្សាទុក
+                </button>
+                <button onclick="window.lessonPlansManager.resetCustomizations()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-700 dark:text-slate-300 font-bold text-xs transition">
+                  <i class="fa-solid fa-rotate-left"></i> កំណត់ឡើងវិញ
+                </button>
               </div>
             </div>
 
-            <div class="dropdown relative group">
-              <button class="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-file-word text-blue-500"></i> Word (.docx) <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <div class="absolute right-0 top-full mt-1 hidden group-hover:block bg-white dark:bg-slate-800 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-700 p-2 z-30 min-w-[240px]">
-                <a href="ជំពូកទី_1_ចំនួនកុំផ្លិច_ព្រះយុគន្ធរ_NGS.docx" download class="block px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📝 ជំពូកទី ១ ៖ ចំនួនកុំផ្លិច (Word)
-                </a>
-                <a href="ជំពូកទី_2_លីមីត_ព្រះយុគន្ធរ_NGS.docx" download class="block px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📝 ជំពូកទី ២ ៖ លីមីត (Word)
-                </a>
-                <a href="ជំពូកទី_5_វ៉ិចទ័រក្នុងលំហ_ព្រះយុគន្ធរ_NGS.docx" download class="block px-3 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200">
-                  📝 ជំពូកទី ៥ ៖ វ៉ិចទ័រក្នុងលំហ (Word)
-                </a>
+            <!-- Controls Grid: Teacher, Multi-Class, Start Date, Signature Date, Cadence -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end pt-1">
+              
+              <!-- 1. Teacher Selector (Nuon Bonorng or Thaong Sophary) -->
+              <div>
+                <label class="block text-[11px] font-bold text-purple-800 dark:text-purple-300 mb-1">
+                  👨‍🏫 គ្រូបង្រៀន (Teacher Switcher):
+                </label>
+                <select id="batchTeacherSelect" onchange="window.lessonPlansManager.setTeacher(this.value)"
+                  class="w-full px-3 py-2 rounded-xl border border-purple-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500">
+                  <option value="នួន បូណង" ${this.savedTeacher === 'នួន បូណង' ? 'selected' : ''}>👨‍🏫 លោកគ្រូ នួន បូណង</option>
+                  <option value="ថោង សុភារី" ${this.savedTeacher === 'ថោង សុភារី' ? 'selected' : ''}>👩‍🏫 អ្នកគ្រូ ថោង សុភារី</option>
+                </select>
+              </div>
+
+              <!-- 2. Class Selector & Multi-Class Customizer -->
+              <div>
+                <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  🎓 ថ្នាក់បង្រៀន (១, ២ ឬ ៣ ថ្នាក់):
+                </label>
+                <div class="relative">
+                  <input type="text" id="batchClassInput" value="${this.savedClass || (isGrade8 ? '8NGS_C1 & 8NGS_C2' : '១២A')}"
+                    class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500"
+                    placeholder="ឧ. 8NGS_C1 & 8NGS_C2">
+                </div>
+              </div>
+
+              <!-- 3. Start Date Picker (Cover) -->
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+                  📅 ថ្ងៃចាប់ផ្តើម (ក្បាលកិច្ច - លើ):
+                </label>
+                <input type="date" id="batchStartDate" value="${this.savedStartDate || '2026-11-05'}"
+                  onchange="window.lessonPlansManager.onStartDateChange(this.value)"
+                  class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+              </div>
+
+              <!-- 4. Signature Date Picker (Bottom - identical for all) -->
+              <div>
+                <label class="block text-[11px] font-bold text-purple-700 dark:text-purple-300 mb-1">
+                  ✍️ ថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម):
+                </label>
+                <input type="date" id="batchSigDate" value="${this.savedSigDate || '2026-10-29'}"
+                  class="w-full px-3 py-1.5 rounded-xl border border-purple-300 dark:border-slate-600 bg-purple-50/50 dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500">
+              </div>
+
+              <!-- 5. Cadence Step with Weekend Exclusions -->
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+                  ⏱️ គម្លាតថ្ងៃ (Cadence & លើកលែង):
+                </label>
+                <select id="batchStepDays" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+                  <option value="2_days_skip_weekend" ${this.savedCadence === '2_days_skip_weekend' ? 'selected' : ''}>
+                    ២ ថ្ងៃម្តង (លើកលែង សៅរ៍-អាទិត្យ · សុក្រទៅចន្ទ)
+                  </option>
+                  <option value="alt_1_2_days" ${this.savedCadence === 'alt_1_2_days' ? 'selected' : ''}>
+                    រំលង ១ថ្ងៃ ផង ២ថ្ងៃ ផង (លើកលែង សៅរ៍-អាទិត្យ)
+                  </option>
+                  <option value="mon_wed_fri" ${this.savedCadence === 'mon_wed_fri' ? 'selected' : ''}>
+                    ចន្ទ - ពុធ - សុក្រ (៣ ថ្ងៃ/សប្តាហ៍)
+                  </option>
+                  <option value="tue_thu" ${this.savedCadence === 'tue_thu' ? 'selected' : ''}>
+                    អង្គារ - ព្រហស្បតិ៍ (២ ថ្ងៃ/សប្តាហ៍)
+                  </option>
+                  <option value="daily_weekdays" ${this.savedCadence === 'daily_weekdays' ? 'selected' : ''}>
+                    រាល់ថ្ងៃចន្ទ ដល់ សុក្រ (លើកលែង សៅរ៍-អាទិត្យ)
+                  </option>
+                  <option value="weekly" ${this.savedCadence === 'weekly' ? 'selected' : ''}>
+                    រៀងរាល់ ១ សប្តាហ៍ម្តង (+៧ ថ្ងៃ)
+                  </option>
+                </select>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Interactive Batch Editor Toolbar -->
-        <div class="card-soft p-5 bg-gradient-to-r from-purple-50/70 via-indigo-50/50 to-pink-50/60 dark:from-slate-800 dark:to-slate-800/80 border-purple-200 dark:border-slate-700 space-y-3">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-extrabold text-purple-900 dark:text-purple-300 flex items-center gap-2">
-                <i class="fa-solid fa-calendar-days text-purple-600"></i> កំណត់កាលបរិច្ឆេទ & ថ្នាក់បង្រៀនរហ័ស (Batch Customizer)
-              </span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button onclick="window.lessonPlansManager.saveCustomizations()" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-floppy-disk"></i> រក្សាទុក
-              </button>
-              <button onclick="window.lessonPlansManager.resetCustomizations()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-700 dark:text-slate-300 font-bold text-xs transition">
-                <i class="fa-solid fa-rotate-left"></i> កំណត់ឡើងវិញ
-              </button>
-            </div>
-          </div>
+            <!-- Quick Class Selectors & Apply Action -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <!-- Class Toggle Pills -->
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="font-bold text-slate-500 dark:text-slate-400 text-[11px]">ជ្រើសរើសរហ័ស៖</span>
+                ${isGrade8 ? `
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
+                    8NGS_C1
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
+                    8NGS_C2
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
+                    8NGS_B
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1 & 8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
+                    8NGS_C1 & 8NGS_C2 (២ ថ្នាក់)
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1, 8NGS_C2 & 8NGS_B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
+                    8NGS_C1, 8NGS_C2 & 8NGS_B (៣ ថ្នាក់)
+                  </button>
+                ` : `
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
+                    ១២A
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
+                    ១២B
+                  </button>
+                  <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A & ១២B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
+                    ១២A & ១២B (២ ថ្នាក់)
+                  </button>
+                `}
+              </div>
 
-          <!-- Controls Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end pt-1">
-            <!-- Class Selector -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
-                🎓 ថ្នាក់បង្រៀន (Grade / Class):
-              </label>
-                            <select id="batchClassSelect" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-                <option value="៧A" ${this.savedClass === '៧A' ? 'selected' : ''}>ថ្នាក់ទី ៧A</option>
-                <option value="៧B" ${this.savedClass === '៧B' ? 'selected' : ''}>ថ្នាក់ទី ៧B</option>
-                <option value="៨A" ${this.savedClass === '៨A' ? 'selected' : ''}>ថ្នាក់ទី ៨A</option>
-                <option value="៨B" ${this.savedClass === '៨B' ? 'selected' : ''}>ថ្នាក់ទី ៨B</option>
-                <option value="៩A" ${this.savedClass === '៩A' ? 'selected' : ''}>ថ្នាក់ទី ៩A</option>
-                <option value="៩B" ${this.savedClass === '៩B' ? 'selected' : ''}>ថ្នាក់ទី ៩B</option>
-                <option value="១០A" ${this.savedClass === '១០A' ? 'selected' : ''}>ថ្នាក់ទី ១០A</option>
-                <option value="១០B" ${this.savedClass === '១០B' ? 'selected' : ''}>ថ្នាក់ទី ១០B</option>
-                <option value="១១A" ${this.savedClass === '១១A' ? 'selected' : ''}>ថ្នាក់ទី ១១A (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="១១B" ${this.savedClass === '១១B' ? 'selected' : ''}>ថ្នាក់ទី ១១B (វិទ្យាសាស្ត្រសង្គម)</option>
-                <option value="១២A" ${(!this.savedClass || this.savedClass === '១២A') ? 'selected' : ''}>ថ្នាក់ទី ១២A (វិទ្យាសាស្ត្រពិត)</option>
-                <option value="១២B" ${this.savedClass === '១២B' ? 'selected' : ''}>ថ្នាក់ទី ១២B (វិទ្យាសាស្ត្រសង្គម)</option>
-                <option value="១២C" ${this.savedClass === '១២C' ? 'selected' : ''}>ថ្នាក់ទី ១២C</option>
-                <option value="១២D" ${this.savedClass === '១២D' ? 'selected' : ''}>ថ្នាក់ទី ១២D</option>
-              </select>
+              <!-- Apply Button -->
+              <div>
+                <button onclick="window.lessonPlansManager.applyBatchSchedule()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ
+                </button>
+              </div>
             </div>
 
-            <!-- Start Date Picker (Cover) -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
-                📅 ថ្ងៃចាប់ផ្តើមបង្រៀន (ក្បាលកិច្ច - លើ):
-              </label>
-              <input type="date" id="batchStartDate" value="${this.savedStartDate || '2026-11-05'}"
-                onchange="window.lessonPlansManager.onStartDateChange(this.value)"
-                class="w-full px-3 py-1.5 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-            </div>
-
-            <!-- Signature Date Picker (Bottom - identical for all) -->
-            <div>
-              <label class="block text-[11px] font-bold text-purple-700 dark:text-purple-300 mb-1">
-                ✍️ ថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម - ដូចគ្នាទាំងអស់):
-              </label>
-              <input type="date" id="batchSigDate" value="${this.savedSigDate || '2026-11-04'}" class="w-full px-3 py-1.5 rounded-xl border border-purple-300 dark:border-slate-600 bg-purple-50/50 dark:bg-slate-700 text-xs font-bold text-purple-900 dark:text-purple-200 shadow-sm focus:outline-none focus:border-purple-500" title="កាលបរិច្ឆេទធ្វើកិច្ច ឬចុះហត្ថលេខា (១ សប្តាហ៍មុនបង្រៀន) ដូចគ្នាគ្រប់មេរៀន">
-            </div>
-
-            <!-- Cadence Step -->
-            <div>
-              <label class="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
-                ⏱️ គម្លាតថ្ងៃបង្រៀន (Cadence):
-              </label>
-              <select id="batchStepDays" class="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs font-bold text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-                <option value="2" ${this.savedCadence === '2' ? 'selected' : ''}>រៀងរាល់ ២ ថ្ងៃម្តង (លើកលែងថ្ងៃអាទិត្យ)</option>
-                <option value="mon_wed_fri" ${this.savedCadence === 'mon_wed_fri' ? 'selected' : ''}>ចន្ទ - ពុធ - សុក្រ (៣ ថ្ងៃ/សប្តាហ៍)</option>
-                <option value="tue_thu_sat" ${this.savedCadence === 'tue_thu_sat' ? 'selected' : ''}>អង្គារ - ព្រហស្បតិ៍ - សៅរ៍ (៣ ថ្ងៃ/សប្តាហ៍)</option>
-                <option value="daily" ${this.savedCadence === 'daily' ? 'selected' : ''}>រាល់ថ្ងៃសិក្សា (ចន្ទ ដល់ សៅរ៍ - គ្មានថ្ងៃអាទិត្យ)</option>
-                <option value="7" ${this.savedCadence === '7' ? 'selected' : ''}>រៀងរាល់ ១ សប្តាហ៍ម្តង (+៧ ថ្ងៃ)</option>
-              </select>
-            </div>
-
-            <!-- Apply Button -->
-            <div>
-              <button onclick="window.lessonPlansManager.applyBatchSchedule()" class="w-full px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ
-              </button>
+            <!-- Helpful Information Badge -->
+            <div class="mt-2 pt-2 border-t border-purple-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 gap-2">
+              <span>💡 <strong>របៀបគណនា៖</strong> លើកលែងថ្ងៃសៅរ៍ និងអាទិត្យដោយស្វ័យប្រវត្តិ (ថ្ងៃសុក្រ នឹងរំលងទៅថ្ងៃចន្ទវិញ រួចទៅពុធ...)។ ឈ្មោះគ្រូ៖ <strong>${this.savedTeacher}</strong>។</span>
+              ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 ចាប់ផ្តើម៖ ${formatKhmerDate(this.savedStartDate)} · ចុះហត្ថលេខា៖ ${formatKhmerDate(this.savedSigDate || '2026-10-29', false)}</span>` : ''}
             </div>
           </div>
 
-          <!-- Helpful Instructions & Current Active Schedule Indicator -->
-          <div class="mt-3 pt-2.5 border-t border-purple-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 gap-2">
-            <span>💡 <strong>របៀបកំណត់៖</strong> ជ្រើសរើសថ្ងៃចាប់ផ្តើមបង្រៀន (ផ្នែកលើក្បាលកិច្ច ប្រែប្រួលតាមម៉ោងបង្រៀន) និងថ្ងៃចុះហត្ថលេខា (ផ្នែកក្រោម ១ សប្តាហ៍មុនបង្រៀន ដូចគ្នាគ្រប់មេរៀន) រួចចុច <strong>«បំពេញស្វ័យប្រវត្តិតាមកាលវិភាគ»</strong>។</span>
-            ${this.savedStartDate ? `<span class="bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold px-2.5 py-0.5 rounded-lg border border-purple-200">📌 ចាប់ផ្តើមបង្រៀន៖ ${formatKhmerDate(this.savedStartDate)} · ចុះហត្ថលេខា៖ ${formatKhmerDate(this.savedSigDate || '2026-11-04', false)}</span>` : ''}
+          <!-- Search Bar -->
+          <div class="relative">
+            <input type="text"
+              oninput="window.lessonPlansManager.setSearchQuery(this.value)"
+              placeholder="🔍 ស្វែងរកកិច្ចតែងការ ${currentGrade} តាមចំណងជើង ខ្លឹមសារ ឬជំពូក..."
+              class="w-full px-4 py-2.5 pl-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
           </div>
-        </div>
 
-        <!-- Search Bar -->
-        <div class="relative">
-          <input type="text"
-            oninput="window.lessonPlansManager.setSearchQuery(this.value)"
-            placeholder="🔍 ស្វែងរកកិច្ចតែងការ តាមចំណងជើង ខ្លឹមសារ ឬជំពូក..."
-            class="w-full px-4 py-2.5 pl-10 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white shadow-sm focus:outline-none focus:border-purple-500">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-        </div>
-
-        <!-- Lesson Plans Cards Container -->
-        <div id="lessonPlansListContainer" class="space-y-4">
-          <!-- Populated by renderPlansList -->
-        </div>
+          <!-- Lesson Plans Cards Container -->
+          <div id="lessonPlansListContainer" class="space-y-4">
+            <!-- Populated by renderPlansList -->
+          </div>
+        `}
 
         <!-- Modal Viewer for Lesson Plan -->
         <div id="lessonPlanModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-3 md:p-6 overflow-y-auto">
@@ -746,7 +957,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <button id="modalBtnCustomPdf" onclick="window.lessonPlansManager.downloadCurrentModalPdf()" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs transition flex items-center gap-1.5 shadow">
-                  <i class="fa-solid fa-file-arrow-down"></i> ទាញយក PDF ថ្មី
+                  <i class="fa-solid fa-file-arrow-down"></i> ទាញយក PDF
                 </button>
                 <button id="modalBtnPrint" onclick="window.lessonPlansManager.printCurrentPlan()" class="px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition flex items-center gap-1.5">
                   <i class="fa-solid fa-print"></i> បោះពុម្ព
@@ -765,7 +976,9 @@
         </div>
       `;
 
-      this.renderPlansList();
+      if (totalGradePlans > 0) {
+        this.renderPlansList();
+      }
     }
 
     renderPlansList() {
@@ -786,18 +999,18 @@
       }
 
       container.innerHTML = filtered.map(p => {
-        const chColor = p.chapter_code === 'ch1' ? 'purple' : p.chapter_code === 'ch2' ? 'indigo' : 'emerald';
+        const chColor = 'purple';
         return `
-          <div class="card-soft p-5 border-l-4 border-l-${chColor}-500 hover:shadow-md transition space-y-3">
+          <div class="card-soft p-5 border-l-4 border-l-purple-500 hover:shadow-md transition space-y-3">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
               <!-- Left Info -->
               <div class="flex items-start gap-3.5">
-                <div class="w-12 h-12 rounded-2xl bg-${chColor}-100 dark:bg-${chColor}-900/40 text-${chColor}-700 dark:text-${chColor}-300 flex items-center justify-center text-lg font-black shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 flex items-center justify-center text-lg font-black shrink-0">
                   ${toKhmerNum(p.ch_lesson_num)}
                 </div>
                 <div>
                   <div class="flex flex-wrap items-center gap-2 mb-1">
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-${chColor}-100 dark:bg-${chColor}-900/50 text-${chColor}-700 dark:text-${chColor}-300">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
                       ${p.chapter}
                     </span>
                     <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-700">
@@ -829,11 +1042,11 @@
                 </button>
                 ` : ''}
                 <button onclick="window.lessonPlansManager.downloadCustomPdf('${p.id}')"
-                  class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm" title="ទាញយក PDF ជាមួយកាលបរិច្ឆេទ & ថ្នាក់ថ្មី">
+                  class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm" title="ទាញយក PDF">
                   <i class="fa-solid fa-file-arrow-down"></i> <span class="hidden sm:inline">ទាញយក PDF</span>
                 </button>
                 <a href="${p.docx_file}" download
-                  class="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold transition flex items-center gap-1" title="ទាញយក Word ជំពូក">
+                  class="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold transition flex items-center gap-1" title="ទាញយកឯកសារ Word">
                   <i class="fa-solid fa-file-word"></i>
                 </a>
               </div>
@@ -842,18 +1055,12 @@
             <!-- Inline Editable Date & Class Row -->
             <div class="pt-2 border-t border-slate-100 dark:border-slate-700/60 flex flex-wrap items-center justify-between gap-3 text-xs bg-slate-50/60 dark:bg-slate-800/40 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl">
               <div class="flex flex-wrap items-center gap-4">
-                <!-- Editable Class Dropdown -->
+                <!-- Editable Class Field -->
                 <div class="flex items-center gap-1.5">
                   <span class="font-bold text-slate-600 dark:text-slate-400">🎓 ថ្នាក់៖</span>
-                  <select onchange="window.lessonPlansManager.updateClass('${p.id}', this.value)"
-                    class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 font-extrabold text-purple-700 dark:text-purple-300 text-xs focus:outline-none focus:border-purple-500">
-                    <option value="១២A" ${p.class_name === '១២A' ? 'selected' : ''}>១២A</option>
-                    <option value="១២B" ${p.class_name === '១២B' ? 'selected' : ''}>១២B</option>
-                    <option value="១២C" ${p.class_name === '១២C' ? 'selected' : ''}>១២C</option>
-                    <option value="១២D" ${p.class_name === '១២D' ? 'selected' : ''}>១២D</option>
-                    <option value="១២E" ${p.class_name === '១២E' ? 'selected' : ''}>១២E</option>
-                    <option value="១២F" ${p.class_name === '១២F' ? 'selected' : ''}>១២F</option>
-                  </select>
+                  <input type="text" value="${p.class_name}"
+                    onchange="window.lessonPlansManager.updateClass('${p.id}', this.value)"
+                    class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 font-extrabold text-purple-700 dark:text-purple-300 text-xs focus:outline-none focus:border-purple-500 w-36 sm:w-44">
                 </div>
 
                 <!-- Editable Date Input -->
@@ -868,7 +1075,7 @@
                 </div>
               </div>
 
-              <!-- Teacher Badge -->
+              <!-- Teacher Display & Switcher -->
               <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                 <i class="fa-solid fa-user-tie text-purple-600"></i>
                 <span>គ្រូបង្រៀន៖ <strong class="text-slate-800 dark:text-slate-200">${p.teacher}</strong></span>
@@ -881,19 +1088,19 @@
 
     hasMatchingSlide(plan) {
       if (!window.NGS_TEACHING_SLIDES_DATA) return false;
-      return (plan && (plan.chapter === 1 || plan.chapter === 2));
+      return (plan && (plan.grade === 'ថ្នាក់ទី ១២' || plan.grade === 'ថ្នាក់ទី 12') && (plan.chapter_code === 'ch1' || plan.chapter_code === 'ch2'));
     }
 
     openSlideForPlan(planId) {
       const plan = this.plans.find(p => p.id === planId);
       if (!plan) return;
       let targetSlideId = 'ch1_l1';
-      if (plan.chapter === 1) {
-        if (plan.lesson_num <= 4) targetSlideId = 'ch1_l1';
-        else if (plan.lesson_num <= 8) targetSlideId = 'ch1_l2';
+      if (plan.chapter_code === 'ch1') {
+        if (plan.ch_lesson_num <= 4) targetSlideId = 'ch1_l1';
+        else if (plan.ch_lesson_num <= 8) targetSlideId = 'ch1_l2';
         else targetSlideId = 'ch1_l3';
-      } else if (plan.chapter === 2) {
-        if (plan.lesson_num <= 6) targetSlideId = 'ch2_l1';
+      } else if (plan.chapter_code === 'ch2') {
+        if (plan.ch_lesson_num <= 6) targetSlideId = 'ch2_l1';
         else targetSlideId = 'ch2_l2';
       }
       if (window.teachingSlidesManager) {
@@ -914,8 +1121,10 @@
 
       if (!modal || !bodyEl) return;
 
+      const teacherTitle = p.teacher.includes('សុភារី') ? 'អ្នកគ្រូ' : 'លោកគ្រូ';
+
       titleEl.innerText = `${p.chapter} ៖ ${p.lesson_title}`;
-      subEl.innerText = `ថ្នាក់ទី ${p.class_name} · ${p.date_khmer} · គ្រូបង្រៀន៖ ${p.teacher} · វិទ្យាល័យព្រះយុគន្ធរ NGS`;
+      subEl.innerText = `${p.grade} · ថ្នាក់ ${p.class_name} · ${p.date_khmer} · គ្រូបង្រៀន៖ ${teacherTitle} ${p.teacher} · វិទ្យាល័យព្រះយុគន្ធរ NGS`;
 
       bodyEl.innerHTML = `
         <!-- Official Document Header Box -->
@@ -931,7 +1140,7 @@
               <p class="font-bold text-xs uppercase tracking-wider text-slate-500">ព្រះរាជាណាចក្រកម្ពុជា · ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
               <p class="font-bold text-xs text-purple-800 dark:text-purple-300">ក្រសួងអប់រំ យុវជន និងកីឡា · វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)</p>
               <h2 class="text-base md:text-lg font-extrabold text-slate-900 dark:text-white pt-1">
-                កិច្ចតែងការបង្រៀនគណិតវិទ្យា (ស្តង់ដារ ៥ ជំហាន NGS)
+                កិច្ចតែងការបង្រៀនគណិតវិទ្យា (${p.grade} · ស្តង់ដារ ៥ ជំហាន NGS)
               </h2>
             </div>
 
@@ -962,7 +1171,7 @@
             </div>
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600 md:col-span-2">
               <span class="block text-slate-400 font-bold">គ្រូបង្រៀនទទួលបន្ទុក៖</span>
-              <strong class="text-slate-800 dark:text-slate-200">លោកគ្រូ ${p.teacher}</strong>
+              <strong class="text-slate-800 dark:text-slate-200">${teacherTitle} ${p.teacher}</strong>
             </div>
           </div>
         </div>
@@ -1061,7 +1270,7 @@
           </div>
         </div>
 
-        <!-- Official Signatures Block with safe bottom margin -->
+        <!-- Official Signatures Block -->
         <div class="border-t-2 border-dashed border-slate-300 dark:border-slate-600 pt-5 pb-4 space-y-4">
           <div class="flex justify-end text-xs font-bold text-slate-700 dark:text-slate-300">
             <span>រាជធានីភ្នំពេញ, ${p.date_khmer}</span>
@@ -1086,14 +1295,14 @@
               <div class="text-slate-400 font-mono text-[11px]">[ ហត្ថលេខា ]</div>
             </div>
 
-            <!-- Right: Teacher Bonorng -->
+            <!-- Right: Assigned Teacher -->
             <div class="space-y-10 col-span-2 md:col-span-1">
               <div>
                 <p class="font-extrabold text-slate-800 dark:text-white">គ្រូបង្រៀនគណិតវិទ្យា</p>
                 <p class="text-purple-600 font-bold">វិទ្យាល័យព្រះយុគន្ធរ NGS</p>
               </div>
               <div>
-                <strong class="text-purple-800 dark:text-purple-300 text-sm">${p.teacher}</strong>
+                <strong class="text-purple-800 dark:text-purple-300 text-sm">${teacherTitle} ${p.teacher}</strong>
               </div>
             </div>
           </div>
@@ -1103,7 +1312,7 @@
         <div class="pt-4 border-t border-slate-200 dark:border-slate-700">
           <details class="group bg-slate-50 dark:bg-slate-700/40 rounded-2xl p-3 border border-slate-200 dark:border-slate-600">
             <summary class="font-bold text-xs text-purple-700 dark:text-purple-300 cursor-pointer flex items-center justify-between">
-              <span>📄 មើលឯកសារ PDF ពេញលេញនៃជំពូកនេះ (${p.pdf_file})</span>
+              <span>📄 មើលឯកសារ PDF ដើម (${p.pdf_file})</span>
               <i class="fa-solid fa-chevron-down text-xs group-open:rotate-180 transition"></i>
             </summary>
             <div class="mt-3 h-[500px] w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 bg-white">
