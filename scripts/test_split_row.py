@@ -72,3 +72,4 @@ for i in range(len(pdf_doc)):
     print(f'Page {i+1}: {first_l[:40]} (length: {len(txt)})')
     if 'ចូររៀប' in txt or 'បានឃើញ' in txt:
         print(f'   -> Found keywords on Page {i+1}!')
+

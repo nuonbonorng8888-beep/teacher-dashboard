@@ -57,3 +57,4 @@ print('Successfully created scratch/test_item3_moved.pdf!')
 doc[3].get_pixmap(dpi=150).save('scratch/preview_p3_moved.png')
 doc[4].get_pixmap(dpi=150).save('scratch/preview_p4_moved.png')
 print('Rendered scratch/preview_p3_moved.png and scratch/preview_p4_moved.png')
+

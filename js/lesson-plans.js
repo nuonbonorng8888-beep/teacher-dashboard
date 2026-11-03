@@ -875,7 +875,8 @@
           return;
         }
 
-        const existingPdfBytes = await fetch(plan.pdf_file).then(res => {
+        const pdfFileUrl = plan.pdf_file.startsWith('/') ? plan.pdf_file : ('/' + plan.pdf_file);
+        const existingPdfBytes = await fetch(encodeURI(pdfFileUrl) + '?v=7.8&t=' + Date.now()).then(res => {
           if (!res.ok) throw new Error('Network error loading PDF');
           return res.arrayBuffer();
         });
@@ -2152,10 +2153,57 @@
         const mergedPdf = await PDFLib.PDFDocument.create();
         let successfulCount = 0;
 
+        // Auto-sequence dates (2 school days, strictly skipping Sat & Sun) and apply selected class & teacher
+        const currentTeacher = this.savedTeacher || (this.selectedTeacher ? this.selectedTeacher : (plans[0].teacher || 'នួន បូណង'));
+        const currentClass = this.savedClass || plans[0].class_name || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_B2' : '១២A');
+        const startDateStr = this.savedStartDate || plans[0].date || '2026-11-05';
+        const cadenceMode = this.savedCadence || '2_days_skip_weekend';
+        const selectedSigDate = this.savedSigDate || plans[0].sig_date || '2026-10-29';
+
+        const parts = startDateStr.split('-');
+        let curDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+        else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
+
+        let stepToggle = 0;
+
         for (let i = 0; i < plans.length; i++) {
           const plan = plans[i];
+          plan.teacher = currentTeacher;
+          plan.class_name = currentClass;
+
+          const y = curDate.getFullYear();
+          const m = String(curDate.getMonth() + 1).padStart(2, '0');
+          const d = String(curDate.getDate()).padStart(2, '0');
+          plan.date = `${y}-${m}-${d}`;
+          plan.date_khmer = formatKhmerDate(plan.date, true);
+          plan.sig_date = selectedSigDate;
+          plan.sig_date_khmer = formatKhmerDate(selectedSigDate, false);
+
+          // Advance date for next plan
+          if (cadenceMode === '2_days_skip_weekend') {
+            curDate.setDate(curDate.getDate() + 2);
+            if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+            else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
+          } else if (cadenceMode === 'alt_1_2_days') {
+            const step = (stepToggle % 2 === 0) ? 1 : 2;
+            stepToggle++;
+            curDate.setDate(curDate.getDate() + step);
+            if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+            else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
+          } else if (cadenceMode === 'daily_weekdays') {
+            curDate.setDate(curDate.getDate() + 1);
+            if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+            else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
+          } else {
+            curDate.setDate(curDate.getDate() + 2);
+            if (curDate.getDay() === 6) curDate.setDate(curDate.getDate() + 2);
+            else if (curDate.getDay() === 0) curDate.setDate(curDate.getDate() + 1);
+          }
+
           try {
-            const res = await fetch(plan.pdf_file);
+            const pdfFileUrl = plan.pdf_file.startsWith('/') ? plan.pdf_file : ('/' + plan.pdf_file);
+            const res = await fetch(encodeURI(pdfFileUrl) + '?v=7.8&t=' + Date.now());
             if (!res.ok) {
               console.warn(`Could not load ${plan.pdf_file} (${res.status})`);
               continue;

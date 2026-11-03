@@ -93,3 +93,4 @@ p4.insert_image(fitz.Rect(65.0, pageH - 30.0, 547.0, pageH - 14.0), filename='sc
 doc.save('scratch/final_preview_p4.pdf')
 p4.get_pixmap(dpi=150).save('scratch/final_preview_p4.png')
 print('Rendered scratch/final_preview_p4.png successfully!')
+

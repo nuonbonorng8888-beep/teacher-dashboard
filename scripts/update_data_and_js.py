@@ -206,3 +206,4 @@ else:
 with open('js/lesson-plans.js', 'w', encoding='utf-8') as f:
     f.write(js_text_norm)
 print('Successfully saved js/lesson-plans.js')
+

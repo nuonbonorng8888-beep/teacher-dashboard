@@ -45,3 +45,4 @@ if target_norm in text_norm:
     print('Added test_stamp handler to js/lesson-plans.js')
 else:
     print('Target not found')
+

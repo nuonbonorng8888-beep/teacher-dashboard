@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Moul&family=Poppins:wght@300;400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Khmer OS Siemreap';
+  src: local('Khmer OS Siemreap'), local('KhmerOSsiemreap');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Khmer OS Muol Light';
+  src: local('Khmer OS Muol Light'), local('KhmerOSmuollight');
+  font-display: swap;
+}
+
 :root {
   --primary: #7c3aed;
   --primary-hover: #6d28d9;

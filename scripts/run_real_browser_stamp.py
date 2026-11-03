@@ -91,3 +91,4 @@ if os.path.exists(saved_pdf_path):
     pix1_footer.save('scratch/browser_footer_crop.png')
 
     print("Successfully generated all inspection crops in scratch/!")
+
