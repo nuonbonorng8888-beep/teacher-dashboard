@@ -102,3 +102,4 @@ vdoc = fitz.open(pdf_path)
 vdoc[3].get_pixmap(dpi=150).save('scratch/verified_baked_p4.png')
 vdoc[4].get_pixmap(dpi=150).save('scratch/verified_baked_p5.png')
 print("Rendered scratch/verified_baked_p4.png and scratch/verified_baked_p5.png")
+

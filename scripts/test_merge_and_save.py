@@ -107,3 +107,4 @@ if os.path.exists(saved_pdf):
     doc[3].get_pixmap(dpi=150).save('scratch/merged_p4_verified.png')
     doc[4].get_pixmap(dpi=150).save('scratch/merged_p5_verified.png')
     print("Saved merged_p4_verified.png and merged_p5_verified.png!")
+

@@ -67,3 +67,4 @@ stdout, stderr = proc.communicate(timeout=10)
 server.terminate()
 print("DOM output:")
 print(stdout.decode('utf-8', errors='ignore'))
+

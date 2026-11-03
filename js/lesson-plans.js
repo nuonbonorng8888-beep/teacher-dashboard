@@ -860,7 +860,7 @@
     }
 
     // Dynamic Client-side PDF Generation with custom Date and Class
-    async downloadCustomPdf(planId) {
+    async downloadCustomPdf(planId, openInNewTab = false) {
       const plan = this.plans.find(item => item.id === planId);
       if (!plan) return;
 
@@ -875,11 +875,17 @@
           return;
         }
 
-        const pdfFileUrl = plan.pdf_file.startsWith('/') ? plan.pdf_file : ('/' + plan.pdf_file);
-        const existingPdfBytes = await fetch(encodeURI(pdfFileUrl) + '?v=7.8&t=' + Date.now()).then(res => {
-          if (!res.ok) throw new Error('Network error loading PDF');
-          return res.arrayBuffer();
-        });
+        let res = null;
+        try {
+          res = await fetch(encodeURI(plan.pdf_file));
+        } catch (e1) {
+          try { res = await fetch(plan.pdf_file); } catch (e2) {}
+        }
+        if (!res || !res.ok) {
+          try { res = await fetch(plan.pdf_file); } catch (e3) {}
+        }
+        if (!res || !res.ok) throw new Error('Network error loading PDF: ' + plan.pdf_file);
+        const existingPdfBytes = await res.arrayBuffer();
 
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes, { ignoreEncryption: true });
         
@@ -888,15 +894,33 @@
 
         const modifiedBytes = await pdfDoc.save();
         const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `កិច្ចតែងការ_${plan.lesson_title}_ថ្នាក់_${plan.class_name}_${plan.date}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const blobUrl = URL.createObjectURL(blob);
+        const filename = `កិច្ចតែងការ_${plan.lesson_title}_ថ្នាក់_${plan.class_name}_${plan.date}.pdf`;
 
-        if (window.showToast) {
-          window.showToast(`ទាញយក PDF ជោគជ័យ៖ ថ្នាក់ ${plan.class_name} · ${plan.date_khmer}! 🎉`, 'success');
+        if (openInNewTab) {
+          const win = window.open(blobUrl, '_blank');
+          if (!win) {
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+          if (window.showToast) {
+            window.showToast(`បានបើក PDF ថ្នាក់ ${plan.class_name} · ${plan.date_khmer} រួចរាល់សម្រាប់បោះពុម្ព! 🖨️`, 'success');
+          }
+        } else {
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          if (window.showToast) {
+            window.showToast(`ទាញយក PDF ជោគជ័យ៖ ថ្នាក់ ${plan.class_name} · ${plan.date_khmer}! 🎉`, 'success');
+          }
         }
       } catch (err) {
         console.warn('PDF modification error, opening directly:', err);
@@ -1782,7 +1806,7 @@
     printCurrentPlan() {
       const p = this.currentModalPlan;
       if (!p) return;
-      this.printPlans([p], p.lesson_title);
+      this.downloadCustomPdf(p.id, true);
     }
 
     getGradeChapters() {
@@ -1883,15 +1907,21 @@
         alert('សូមជ្រើសរើសមេរៀនយ៉ាងហោចណាស់ ១!');
         return;
       }
-      let title = `កិច្ចតែងការ_${this.selectedGrade}`;
+      let filename = `កិច្ចតែងការ_${this.selectedGrade.replace(/\s+/g, '')}`;
       if (scope === 'single') {
-        title += `_${plans[0].chapter}`;
+        const chClean = plans[0].chapter.replace(/[^a-zA-Z0-9\u1780-\u17D2]/g, '_').replace(/_+/g, '_').substring(0, 45);
+        filename += `_${chClean}_(${toKhmerNum(plans.length)}ម៉ោង)`;
       } else if (scope === 'multiple') {
-        title += `_ជ្រើសរើស_${toKhmerNum(plans.length)}ម៉ោង`;
-      } else if (scope === 'grade') {
-        title += `_ពេញលេញ_${toKhmerNum(plans.length)}ម៉ោង`;
+        filename += `_មេរៀនជ្រើសរើស_${toKhmerNum(plans.length)}ម៉ោង`;
+      } else {
+        filename += `_ពេញលេញ_${toKhmerNum(plans.length)}ម៉ោង`;
       }
-      this.printPlans(plans, title);
+      if (this.savedClass) {
+        const classClean = this.savedClass.replace(/[^a-zA-Z0-9\u1780-\u17D2]/g, '_');
+        filename += `_${classClean}`;
+      }
+      filename += '.pdf';
+      this.downloadMergedPdf(plans, filename, true);
     }
 
     executeMergedPdf(scope, targetCode = null) {
@@ -2111,31 +2141,13 @@
       }).join('');
     }
 
-    printPlans(plans, title) {
+    async printPlans(plans, title) {
       if (!plans || plans.length === 0) return;
-      const printArea = document.getElementById('printableLessonPlansArea');
-      if (!printArea) {
-        console.error('Printable area element #printableLessonPlansArea not found!');
-        return;
-      }
-
-      printArea.innerHTML = this.generatePrintableHtml(plans);
-      document.body.classList.add('printing-lesson-plans');
-
-      const cleanup = () => {
-        document.body.classList.remove('printing-lesson-plans');
-        printArea.innerHTML = '';
-        window.removeEventListener('afterprint', cleanup);
-      };
-
-      window.addEventListener('afterprint', cleanup);
-      setTimeout(() => {
-        window.print();
-        setTimeout(cleanup, 2500);
-      }, 100);
+      const filename = (title.endsWith('.pdf') ? title : `${title}.pdf`).replace(/\s+/g, '_');
+      await this.downloadMergedPdf(plans, filename, true);
     }
 
-    async downloadMergedPdf(plans, filename) {
+    async downloadMergedPdf(plans, filename, openInNewTab = false) {
       if (!plans || plans.length === 0) return;
       if (typeof PDFLib === 'undefined') {
         alert('PDFLib មិនទាន់ត្រូវបាន Load រួចរាល់ឡើយ។ សូមប្រើមុខងារ Print / Save as PDF ជំនួសវិញ!');
@@ -2202,10 +2214,17 @@
           }
 
           try {
-            const pdfFileUrl = plan.pdf_file.startsWith('/') ? plan.pdf_file : ('/' + plan.pdf_file);
-            const res = await fetch(encodeURI(pdfFileUrl) + '?v=7.8&t=' + Date.now());
-            if (!res.ok) {
-              console.warn(`Could not load ${plan.pdf_file} (${res.status})`);
+            let res = null;
+            try {
+              res = await fetch(encodeURI(plan.pdf_file));
+            } catch (e1) {
+              try { res = await fetch(plan.pdf_file); } catch (e2) {}
+            }
+            if (!res || !res.ok) {
+              try { res = await fetch(plan.pdf_file); } catch (e3) {}
+            }
+            if (!res || !res.ok) {
+              console.warn(`Could not load ${plan.pdf_file}`);
               continue;
             }
             const pdfBytes = await res.arrayBuffer();
@@ -2238,25 +2257,37 @@
         }
 
         if (successfulCount === 0) {
-          progressToast('មិនអាចទាញយក PDF ដើមបានទេ។ កំពុងបើកមុខងារ Print / Save as PDF ជំនួសវិញ...', 'warning');
-          this.printPlans(plans, filename);
+          progressToast('មិនអាចទាញយក PDF ដើមបានឡើយ។ សូមពិនិត្យមើលការតភ្ជាប់អ៊ីនធឺណិត!', 'error');
           return;
         }
 
         const mergedBytes = await mergedPdf.save();
         const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename.endsWith('.pdf') ? filename : `${filename}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const blobUrl = URL.createObjectURL(blob);
 
-        progressToast(`ទាញយកបានជោគជ័យចំនួន ${toKhmerNum(successfulCount)} កិច្ចតែងការ (រៀបចំទំព័រសេសរួចរាល់)! 🎉`, 'success');
+        if (openInNewTab) {
+          const win = window.open(blobUrl, '_blank');
+          if (!win) {
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = filename.endsWith('.pdf') ? filename : `${filename}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+          progressToast(`បានបើកឯកសារ PDF រួមចំនួន ${toKhmerNum(successfulCount)} កិច្ចតែងការ រួចរាល់សម្រាប់បោះពុម្ព (Print) និងរក្សាទុក! 🖨️`, 'success');
+        } else {
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = filename.endsWith('.pdf') ? filename : `${filename}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          progressToast(`ទាញយកបានជោគជ័យចំនួន ${toKhmerNum(successfulCount)} កិច្ចតែងការ (រៀបចំទំព័រសេសរួចរាល់)! 🎉`, 'success');
+        }
       } catch (err) {
         console.error('Merged PDF generation error:', err);
-        progressToast('មានបញ្ហាក្នុងការ Save PDF បញ្ចូលគ្នា។ កំពុងបើកមុខងារ Print ជំនួសវិញ...', 'warning');
-        this.printPlans(plans, filename);
+        progressToast('មានបញ្ហាក្នុងការបង្កើត PDF រួមបញ្ចូលគ្នា។ សូមសាកល្បងម្តងទៀត!', 'error');
       }
     }
 

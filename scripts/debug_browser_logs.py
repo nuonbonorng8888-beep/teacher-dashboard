@@ -81,3 +81,4 @@ done_event.wait(timeout=10)
 proc.terminate()
 server.shutdown()
 print("Done. Total logs:", len(logs))
+

@@ -67,3 +67,4 @@ for i in range(1, 6):
     d_m = re.search(r'"date":\s*"([^"]*)"', sub)
     dk_m = re.search(r'"date_khmer":\s*"([^"]*)"', sub)
     print(f"Plan {i}: {d_m.group(1) if d_m else 'N/A'} -> {dk_m.group(1) if dk_m else 'N/A'}")
+
