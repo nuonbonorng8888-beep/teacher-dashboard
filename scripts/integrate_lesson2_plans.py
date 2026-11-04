@@ -415,3 +415,4 @@ with open('js/lesson-plans-data.js', 'w', encoding='utf-8') as f:
     f.write(new_js)
 
 print(f"Successfully saved {len(final_data)} total plans ({len(g12_plans)} G12 + {len(full_g8)} G8) to js/lesson-plans-data.js!")
+

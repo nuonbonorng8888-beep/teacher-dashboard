@@ -67,3 +67,4 @@ proc.terminate()
 if os.path.exists('debug_load.html'):
     try: os.remove('debug_load.html')
     except: pass
+

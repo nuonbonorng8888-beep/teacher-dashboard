@@ -62,7 +62,7 @@
       this.activeChapter = 'all';
       this.searchQuery = '';
       this.plans = [];
-      this.storageKey = 'ngs_custom_lesson_plans_v6';
+      this.storageKey = 'ngs_custom_lesson_plans_v8_2';
 
       // Co-teaching support: Nuon Bonorng or Thaong Sophary
       this.savedTeacher = localStorage.getItem('ngs_custom_teacher') || 'នួន បូណង';
@@ -73,7 +73,13 @@
       this.savedEndDate = localStorage.getItem('ngs_custom_end_date') || '2027-02-20';
       const rawSig = localStorage.getItem('ngs_custom_sig_date');
       this.savedSigDate = (!rawSig || rawSig === '2026-10-29') ? '2026-10-12' : rawSig;
-      this.savedClass = localStorage.getItem('ngs_custom_class') || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A');
+      const defaultClassForGrade = (g) => {
+        if (g === 'ថ្នាក់ទី ៨') return '8NGS_B2';
+        if (g === 'ថ្នាក់ទី ១១') return '11NGS_P1 & 11NGS_C2';
+        return '១២A & ១២B';
+      };
+      const gradeClassKey = 'ngs_custom_class_' + (this.selectedGrade === 'ថ្នាក់ទី ៨' ? 'g8' : (this.selectedGrade === 'ថ្នាក់ទី ១១' ? 'g11' : 'g12'));
+      this.savedClass = localStorage.getItem(gradeClassKey) || localStorage.getItem('ngs_custom_class') || defaultClassForGrade(this.selectedGrade);
       this.savedCadence = localStorage.getItem('ngs_custom_cadence') || 'auto_fit_range';
       this.selectedWeekdays = JSON.parse(localStorage.getItem('ngs_custom_weekdays') || '[1, 3, 5]'); // Mon, Wed, Fri
 
@@ -97,7 +103,13 @@
         this.savedEndDate = localStorage.getItem('ngs_custom_end_date') || '2027-02-20';
         const rawSig = localStorage.getItem('ngs_custom_sig_date');
         this.savedSigDate = (!rawSig || rawSig === '2026-10-29') ? '2026-10-12' : rawSig;
-        this.savedClass = localStorage.getItem('ngs_custom_class') || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A');
+        const defaultClassForGrade = (g) => {
+        if (g === 'ថ្នាក់ទី ៨') return '8NGS_B2';
+        if (g === 'ថ្នាក់ទី ១១') return '11NGS_P1 & 11NGS_C2';
+        return '១២A & ១២B';
+      };
+      const gradeClassKey = 'ngs_custom_class_' + (this.selectedGrade === 'ថ្នាក់ទី ៨' ? 'g8' : (this.selectedGrade === 'ថ្នាក់ទី ១១' ? 'g11' : 'g12'));
+      this.savedClass = localStorage.getItem(gradeClassKey) || localStorage.getItem('ngs_custom_class') || defaultClassForGrade(this.selectedGrade);
         this.savedCadence = localStorage.getItem('ngs_custom_cadence') || 'auto_fit_range';
 
         const saved = localStorage.getItem(this.storageKey);
@@ -170,9 +182,11 @@
       
       // Update default class based on grade
       if (grade === 'ថ្នាក់ទី ៨') {
-        this.savedClass = localStorage.getItem('ngs_custom_class_g8') || '8NGS_C1 & 8NGS_C2';
+        this.savedClass = localStorage.getItem('ngs_custom_class_g8') || '8NGS_B2';
+      } else if (grade === 'ថ្នាក់ទី ១១') {
+        this.savedClass = localStorage.getItem('ngs_custom_class_g11') || '11NGS_P1 & 11NGS_C2';
       } else if (grade === 'ថ្នាក់ទី ១២') {
-        this.savedClass = localStorage.getItem('ngs_custom_class_g12') || '១២A';
+        this.savedClass = localStorage.getItem('ngs_custom_class_g12') || '១២A & ១២B';
       } else {
         this.savedClass = grade.replace('ថ្នាក់ទី ', '') + 'A';
       }
@@ -655,6 +669,8 @@
       if (!pages || pages.length === 0) return;
 
       const isGrade8 = (plan.grade === 'ថ្នាក់ទី ៨' || plan.grade === 'ថ្នាក់ទី 8');
+      const isGrade11 = (plan.grade === 'ថ្នាក់ទី ១១' || plan.grade === 'ថ្នាក់ទី 11');
+      const isGrade12 = (plan.grade === 'ថ្នាក់ទី ១២' || plan.grade === 'ថ្នាក់ទី 12');
       const teacherFullName = this.getTeacherFullTitle(plan.teacher);
       const teacherPhone = this.getTeacherPhone(plan.teacher);
 
@@ -709,11 +725,13 @@
 
         // --- A. RUNNING HEADER ---
         // Redact / Whiteout old header zone at top
+        const headerWhiteoutY = (isGrade11 || isGrade12) ? (pageH - 82.0) : (pageH - 49.0);
+        const headerWhiteoutH = (isGrade11 || isGrade12) ? 62.0 : 44.0;
         p.drawRectangle({
           x: 60.0,
-          y: pageH - 49.0,
+          y: headerWhiteoutY,
           width: 495.0,
-          height: 44.0,
+          height: headerWhiteoutH,
           color: PDFLib.rgb(1, 1, 1),
         });
 
@@ -746,6 +764,17 @@
         });
 
         // --- B. RUNNING FOOTER ---
+        // In Grade 11, redact old Sisowath teacher line at bottom y=60..98
+        if (isGrade11) {
+          p.drawRectangle({
+            x: 60.0,
+            y: 60.0,
+            width: 495.0,
+            height: 38.0,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+        }
+
         // Redact / Whiteout old footer zone at bottom
         p.drawRectangle({
           x: 60.0,
@@ -808,39 +837,39 @@
       if (coverPage) {
         const pageH = coverPage.getHeight();
 
-        // A. Class Name (Line 1: ថ្នាក់ទី : <value>)
+        // A. Class Name
         if (plan.class_name) {
           const classImg = await makeTextImg(plan.class_name, 'bold 32px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 400, 70);
-          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : 99.2);
+          const class_x = plan.class_x || (isGrade11 ? 210.0 : 238.0);
+          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : (isGrade11 ? 195.0 : 99.2));
           const class_h = 20.0;
           const class_y_bottom = pageH - class_y_top - class_h;
-          const class_x = 238.0;
 
-          // Whiteout only the value slot after the colon (x >= 238.0)
+          // Whiteout only the value slot after the colon
           coverPage.drawRectangle({
             x: class_x,
             y: class_y_bottom,
-            width: 200.0,
+            width: 240.0,
             height: class_h,
             color: PDFLib.rgb(1, 1, 1),
           });
           coverPage.drawImage(classImg, {
             x: class_x,
             y: class_y_bottom,
-            width: 140.0,
+            width: 160.0,
             height: class_h,
           });
         }
 
-        // B. Date (Line 4: កាលបរិច្ឆេទ : <value>)
+        // B. Date
         if (plan.date_khmer) {
           const dateImg = await makeTextImg(plan.date_khmer, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
-          const date_y_top = plan.box_y0 || (isGrade8 ? 141.1 : 172.0);
+          const date_x = plan.date_x || (isGrade11 ? 210.0 : 238.0);
+          const date_y_top = plan.box_y0 || (isGrade8 ? 141.1 : (isGrade11 ? 239.0 : 172.0));
           const date_h = 20.0;
           const date_y_bottom = pageH - date_y_top - date_h;
-          const date_x = 238.0;
 
-          // Whiteout old date dots after the colon (x >= 238.0)
+          // Whiteout old date dots after the colon
           coverPage.drawRectangle({
             x: date_x,
             y: date_y_bottom,
@@ -856,13 +885,13 @@
           });
         }
 
-        // C. Teacher Name (Line 5: បង្រៀនដោយ : <value>)
+        // C. Teacher Name
         if (plan.teacher) {
           const teacherImg = await makeTextImg(teacherFullName, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
-          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : 190.5);
+          const teacher_x = plan.teacher_x || (isGrade11 ? 210.0 : 238.0);
+          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : (isGrade11 ? 217.0 : 190.5));
           const teacher_h = 20.0;
           const teacher_y_bottom = pageH - teacher_y_top - teacher_h;
-          const teacher_x = 238.0;
 
           // Whiteout old dots after the colon (x >= 238.0)
           coverPage.drawRectangle({
@@ -1053,21 +1082,27 @@
       const gradeChapters = Object.values(chapterMap);
 
       // Define grades for navigation
+      const g8Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ៨' || p.grade === 'ថ្នាក់ទី 8').length || 78;
+      const g11Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ១១' || p.grade === 'ថ្នាក់ទី 11').length || 10;
+      const g12Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ១២' || p.grade === 'ថ្នាក់ទី 12').length || 113;
+
       const gradesList = [
         { id: 'ថ្នាក់ទី ៧', label: 'ថ្នាក់ទី ៧', count: 0, status: 'coming_soon' },
-        { id: 'ថ្នាក់ទី ៨', label: 'ថ្នាក់ទី ៨', count: 72, status: 'active', icon: '⚡' },
+        { id: 'ថ្នាក់ទី ៨', label: 'ថ្នាក់ទី ៨', count: g8Count, status: 'active', icon: '⚡' },
         { id: 'ថ្នាក់ទី ៩', label: 'ថ្នាក់ទី ៩', count: 0, status: 'coming_soon' },
         { id: 'ថ្នាក់ទី ១០', label: 'ថ្នាក់ទី ១០', count: 0, status: 'coming_soon' },
-        { id: 'ថ្នាក់ទី ១១', label: 'ថ្នាក់ទី ១១', count: 0, status: 'coming_soon' },
-        { id: 'ថ្នាក់ទី ១២', label: 'ថ្នាក់ទី ១២', count: 37, status: 'active', icon: '⭐' }
+        { id: 'ថ្នាក់ទី ១១', label: 'ថ្នាក់ទី ១១', count: g11Count, status: 'active', icon: '⭐' },
+        { id: 'ថ្នាក់ទី ១២', label: 'ថ្នាក់ទី ១២', count: g12Count, status: 'active', icon: '⭐' }
       ];
 
       // Available classes and terminology based on grade
       const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
-      const unitLabel = isGrade8 ? 'មេរៀន' : 'ជំពូក';
+      const isGrade11 = currentGrade === 'ថ្នាក់ទី ១១';
+      const isGrade12 = currentGrade === 'ថ្នាក់ទី ១២';
+      const unitLabel = isGrade12 ? 'ជំពូក' : 'មេរៀន';
       const defaultClasses = isGrade8
-        ? ['8NGS_C1', '8NGS_C2', '8NGS_B']
-        : ['១២A', '១២B', '១២C', '១២D'];
+        ? ['8NGS_C1', '8NGS_C2', '8NGS_B', '8NGS_B2']
+        : (isGrade11 ? ['11NGS_P1', '11NGS_C2', '11NGS_P1 & 11NGS_C2', '១១A', '១១B'] : ['១២A', '១២B', '១២A & ១២B', '12NGS_1', '12NGS_2']);
 
       container.innerHTML = `
         <!-- Grade Navigation Selector Bar -->
@@ -1365,35 +1400,25 @@
                 <div class="flex flex-wrap items-center gap-1.5 text-xs">
                   <span class="font-bold text-slate-500 dark:text-slate-400 text-[11px]">ថ្នាក់រហ័ស៖</span>
                   ${isGrade8 ? `
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      8NGS_C1
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      8NGS_C2
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      8NGS_B
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      8NGS_B2
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1 & 8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
-                      8NGS_C1 & 8NGS_C2 (២ ថ្នាក់)
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1, 8NGS_C2 & 8NGS_B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
-                      8NGS_C1, 8NGS_C2 & 8NGS_B (៣ ថ្នាក់)
-                    </button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">8NGS_C1</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">8NGS_C2</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">8NGS_B</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">8NGS_B2</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1 & 8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">8NGS_C1 & 8NGS_C2 (២ ថ្នាក់)</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1, 8NGS_C2 & 8NGS_B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">8NGS_C1, 8NGS_C2 & 8NGS_B (៣ ថ្នាក់)</button>
+                  ` : (isGrade11 ? `
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('11NGS_P1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">11NGS_P1</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('11NGS_C2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">11NGS_C2</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('11NGS_P1 & 11NGS_C2')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">11NGS_P1 & 11NGS_C2 (២ ថ្នាក់)</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១១A')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">១១A</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១១B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">១១B</button>
                   ` : `
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      ១២A
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">
-                      ១២B
-                    </button>
-                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A & ១២B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">
-                      ១២A & ១២B (២ ថ្នាក់)
-                    </button>
-                  `}
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">១២A</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">១២B</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('១២A & ១២B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">១២A & ១២B (២ ថ្នាក់)</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('12NGS_1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">12NGS_1</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('12NGS_2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">12NGS_2</button>
+                  `)}
                 </div>
 
                 <!-- Apply Button -->

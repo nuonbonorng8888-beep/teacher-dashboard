@@ -25,3 +25,4 @@ for fname in missing_files:
     print(f"\n==================== {fname} (Total Pages: {len(doc)}) ====================")
     for l in lines0[:12]:
         print("  ", l)
+

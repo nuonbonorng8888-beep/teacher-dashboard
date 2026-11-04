@@ -31,3 +31,4 @@ for fname, num in missing_files:
         t = b[4].strip().replace('\n', ' ')
         if 'ហត្ថ' in t or 'បាន' in t or 'គ្រូ' in t or 'នាយក' in t or 'រាជធានី' in t or 'ថ្ងៃ' in t:
             print(f"  [{b[0]:.1f}, {b[1]:.1f}, {b[2]:.1f}, {b[3]:.1f}]: {t[:90]}")
+

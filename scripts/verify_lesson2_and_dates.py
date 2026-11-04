@@ -183,3 +183,4 @@ if results.get('hasLesson2') and results.get('allPlansStartOnOddPage') and resul
     print("\n>>> ALL TESTS PASSED! Lesson 2 is verified, start/end date scheduler works flawlessly with 0 weekends! <<<")
 else:
     print("\n>>> Some tests failed or incomplete! <<<")
+

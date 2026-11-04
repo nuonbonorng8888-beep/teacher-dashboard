@@ -42,3 +42,4 @@ dates_5 = distribute_dates(datetime.date(2026, 10, 19), datetime.date(2026, 10, 
 print("\n=== Lesson 1 (5 plans in 2 weeks: 19 Oct to 30 Oct 2026) ===")
 for i, d in enumerate(dates_5):
     print(f"Plan {i+1}: {d.strftime('%a %d %b %Y')}")
+

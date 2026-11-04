@@ -26,3 +26,4 @@ for fname in missing_files:
                 if any(k in t for k in ['បាន', 'គ្រូ', 'នាយក', 'រាជធានី', 'ថ្ងៃ']):
                     print(f"    [{b[0]:.1f}, {b[1]:.1f}, {b[2]:.1f}, {b[3]:.1f}]: {t[:80]}")
             break
+

@@ -83,3 +83,4 @@ if os.path.exists('ui_preview.html'):
     except: pass
 
 print("Screenshot captured successfully!")
+

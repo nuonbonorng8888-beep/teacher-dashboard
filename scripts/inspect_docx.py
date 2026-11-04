@@ -19,3 +19,4 @@ for fname in missing:
     paras = [para.text.strip() for para in doc.paragraphs if para.text.strip()]
     for para in paras[:20]:
         print("  ", para)
+

@@ -21,3 +21,4 @@ for fname, num in missing_files:
     lines = [l.strip() for l in text0.split('\n') if l.strip()]
     for i, l in enumerate(lines[:35]):
         print(f"  {i}: {l}")
+
