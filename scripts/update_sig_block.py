@@ -162,3 +162,4 @@ else:
     # Debug snippet
     idx = text_norm.find('if (sigPage && typeof plan.sig_y0 ===')
     print("Found around idx:", repr(text_norm[idx:idx+200]))
+

@@ -24,3 +24,4 @@ for name in ['verified_merged_p5.png', 'verified_merged_p11.png', 'verified_merg
     # Check if there are any non-white pixels
     dark_pixels = [crop.getpixel((x, y)) for x in range(crop.size[0]) for y in range(crop.size[1]) if crop.getpixel((x, y)) < 220]
     print(f"{name}: crop size {crop.size}, dark pixels in left margin [0..{x_max}]: {len(dark_pixels)}")
+

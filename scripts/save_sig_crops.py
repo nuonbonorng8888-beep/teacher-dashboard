@@ -24,3 +24,4 @@ for name in ['verified_merged_p5.png', 'verified_merged_p11.png', 'verified_merg
     crop_path = os.path.join(artifacts_dir, f"sig_crop_{name}")
     crop.save(crop_path)
     print(f"Saved {crop_path}")
+

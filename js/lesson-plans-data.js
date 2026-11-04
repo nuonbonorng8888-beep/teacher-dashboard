@@ -74,17 +74,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 4,
     "sig_y0": 145.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
+    "teacher_y0": 163.1,
     "sig_teacher_y0": 114.1,
     "sig_teacher_x0": 436.8,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_2",
@@ -158,17 +161,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 2,
     "sig_y0": 534.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
+    "teacher_y0": 163.1,
     "sig_teacher_y0": 615.5,
     "sig_teacher_x0": 452.3,
-    "total_pages": 4
+    "total_pages": 4,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_3",
@@ -242,17 +248,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 3,
     "sig_y0": 581.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
+    "teacher_y0": 163.1,
     "sig_teacher_y0": 662.6,
     "sig_teacher_x0": 454.3,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_4",
@@ -328,17 +337,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 2,
     "sig_y0": 243.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
+    "teacher_y0": 163.1,
     "sig_teacher_y0": 325.0,
     "sig_teacher_x0": 454.7,
-    "total_pages": 4
+    "total_pages": 4,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_5",
@@ -413,17 +425,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 2,
     "sig_y0": 333.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
+    "teacher_y0": 163.1,
     "sig_teacher_y0": 415.0,
     "sig_teacher_x0": 458.5,
-    "total_pages": 4
+    "total_pages": 4,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_l2_1",
@@ -476,15 +491,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 2,
     "sig_y0": 510.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
-    "total_pages": 4
+    "teacher_y0": 163.1,
+    "total_pages": 4,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_l2_2",
@@ -537,15 +555,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 2,
     "sig_y0": 625.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
-    "total_pages": 4
+    "teacher_y0": 163.1,
+    "total_pages": 4,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_l2_3",
@@ -598,15 +619,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 3,
     "sig_y0": 320.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
-    "total_pages": 5
+    "teacher_y0": 163.1,
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_l2_4",
@@ -658,15 +682,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 129.4,
+    "class_y0": 66.4,
     "sig_page_index": 2,
     "sig_y0": 570.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
-    "total_pages": 4
+    "teacher_y0": 150.4,
+    "total_pages": 4,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_l2_5",
@@ -721,15 +748,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 141.1,
-    "class_y0": 78.1,
+    "box_y0": 142.1,
+    "class_y0": 79.1,
     "sig_page_index": 3,
     "sig_y0": 360.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 162.1,
-    "total_pages": 5
+    "teacher_y0": 163.1,
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_l3_1",
@@ -783,15 +813,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 109.2,
-    "class_y0": 54.4,
+    "box_y0": 110.2,
+    "class_y0": 55.4,
     "sig_page_index": 4,
     "sig_y0": 640.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 127.4,
-    "total_pages": 6
+    "teacher_y0": 128.4,
+    "total_pages": 6,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_6",
@@ -859,17 +892,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 640.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 110.0,
     "sig_teacher_x0": 440.0,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_7",
@@ -937,17 +973,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 527.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 432.4,
     "sig_teacher_x0": 208.1,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_8",
@@ -1016,17 +1055,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 284.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 264.3,
     "sig_teacher_x0": 231.0,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_9",
@@ -1095,17 +1137,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 227.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 208.1,
     "sig_teacher_x0": 407.4,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_10",
@@ -1173,17 +1218,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 357.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 337.9,
     "sig_teacher_x0": 407.4,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_11",
@@ -1253,17 +1301,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 440.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 109.0,
     "sig_teacher_x0": 208.1,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_12",
@@ -1331,17 +1382,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 349.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 102.4,
     "sig_teacher_x0": 451.1,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_13",
@@ -1410,17 +1464,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 403.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 483.7,
     "sig_teacher_x0": 411.2,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_14",
@@ -1488,17 +1545,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 410.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 490.2,
     "sig_teacher_x0": 411.2,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_15",
@@ -1564,17 +1624,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 426.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 506.9,
     "sig_teacher_x0": 411.2,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_16",
@@ -1643,17 +1706,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 565.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 645.4,
     "sig_teacher_x0": 411.2,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_17",
@@ -1721,17 +1787,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 351.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 432.3,
     "sig_teacher_x0": 411.2,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_18",
@@ -1800,17 +1869,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 518.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 193.7,
     "sig_teacher_x0": 453.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_19",
@@ -1878,17 +1950,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 358.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 338.2,
     "sig_teacher_x0": 446.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_20",
@@ -1957,17 +2032,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 506.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 157.2,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_21",
@@ -2036,17 +2114,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 650.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 322.0,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_22",
@@ -2115,17 +2196,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 570.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 211.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_23",
@@ -2193,17 +2277,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 579.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 322.0,
     "sig_teacher_x0": 453.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_24",
@@ -2270,17 +2357,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 592.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 102.4,
     "sig_teacher_x0": 453.5,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_25",
@@ -2346,17 +2436,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 577.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 193.7,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_26",
@@ -2423,17 +2516,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 643.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 211.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_27",
@@ -2501,17 +2597,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 436.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 416.0,
     "sig_teacher_x0": 409.8,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_28",
@@ -2579,17 +2678,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 619.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 193.7,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_29",
@@ -2655,17 +2757,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 403.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 138.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_30",
@@ -2733,17 +2838,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 330.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 311.4,
     "sig_teacher_x0": 395.7,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_31",
@@ -2811,17 +2919,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 573.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 303.6,
     "sig_teacher_x0": 453.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_32",
@@ -2888,17 +2999,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 567.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 138.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_33",
@@ -2966,17 +3080,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 587.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 567.7,
     "sig_teacher_x0": 446.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_34",
@@ -3044,17 +3161,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 607.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 120.7,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_35",
@@ -3122,17 +3242,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 6,
     "sig_y0": 215.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 110.0,
     "sig_teacher_x0": 440.0,
-    "total_pages": 8
+    "total_pages": 8,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_36",
@@ -3200,17 +3323,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 631.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 102.4,
     "sig_teacher_x0": 172.1,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_37",
@@ -3278,17 +3404,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 6,
     "sig_y0": 369.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 165.5,
     "sig_teacher_x0": 221.8,
-    "total_pages": 8
+    "total_pages": 8,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_38",
@@ -3359,17 +3488,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 130.0,
-    "class_y0": 75.2,
+    "box_y0": 138.7,
+    "class_y0": 62.7,
     "sig_page_index": 4,
     "sig_y0": 161.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 150.0,
+    "teacher_y0": 164.2,
     "sig_teacher_y0": 221.8,
     "sig_teacher_x0": 440.0,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_39",
@@ -3439,17 +3571,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 130.0,
-    "class_y0": 75.2,
+    "box_y0": 138.7,
+    "class_y0": 62.7,
     "sig_page_index": 4,
     "sig_y0": 362.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 150.0,
+    "teacher_y0": 164.2,
     "sig_teacher_y0": 124.4,
     "sig_teacher_x0": 178.9,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_40",
@@ -3518,17 +3653,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 130.0,
-    "class_y0": 75.2,
+    "box_y0": 138.7,
+    "class_y0": 62.7,
     "sig_page_index": 4,
     "sig_y0": 139.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 150.0,
+    "teacher_y0": 164.2,
     "sig_teacher_y0": 199.3,
     "sig_teacher_x0": 440.0,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_41",
@@ -3597,17 +3735,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 120.1,
-    "class_y0": 57.2,
+    "box_y0": 121.1,
+    "class_y0": 58.2,
     "sig_page_index": 4,
     "sig_y0": 321.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 141.1,
+    "teacher_y0": 142.1,
     "sig_teacher_y0": 317.3,
     "sig_teacher_x0": 286.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_42",
@@ -3676,17 +3817,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 120.1,
-    "class_y0": 57.2,
+    "box_y0": 121.1,
+    "class_y0": 58.2,
     "sig_page_index": 3,
     "sig_y0": 339.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 141.1,
+    "teacher_y0": 142.1,
     "sig_teacher_y0": 322.8,
     "sig_teacher_x0": 412.7,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_43",
@@ -3753,17 +3897,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 120.1,
-    "class_y0": 57.2,
+    "box_y0": 121.1,
+    "class_y0": 58.2,
     "sig_page_index": 2,
     "sig_y0": 582.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 141.1,
+    "teacher_y0": 142.1,
     "sig_teacher_y0": 283.4,
     "sig_teacher_x0": 172.0,
-    "total_pages": 4
+    "total_pages": 4,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_44",
@@ -3833,17 +3980,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 126.7,
-    "class_y0": 63.7,
+    "box_y0": 127.7,
+    "class_y0": 64.7,
     "sig_page_index": 3,
     "sig_y0": 427.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 147.7,
+    "teacher_y0": 148.7,
     "sig_teacher_y0": 211.7,
     "sig_teacher_x0": 197.9,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_45",
@@ -3912,17 +4062,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 350.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 330.8,
     "sig_teacher_x0": 444.3,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_46",
@@ -3990,17 +4143,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 424.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 404.3,
     "sig_teacher_x0": 430.1,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_47",
@@ -4069,17 +4225,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 467.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 102.4,
     "sig_teacher_x0": 465.3,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_48",
@@ -4148,17 +4307,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 582.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 120.7,
     "sig_teacher_x0": 463.2,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_49",
@@ -4227,17 +4389,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 557.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 138.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_50",
@@ -4306,17 +4471,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 554.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 138.9,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_51",
@@ -4385,17 +4553,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 440.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 420.6,
     "sig_teacher_x0": 432.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_52",
@@ -4465,17 +4636,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 109.2,
-    "class_y0": 54.4,
+    "box_y0": 110.2,
+    "class_y0": 55.4,
     "sig_page_index": 4,
     "sig_y0": 606.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 127.4,
+    "teacher_y0": 128.4,
     "sig_teacher_y0": 138.7,
     "sig_teacher_x0": 79.3,
-    "total_pages": 8
+    "total_pages": 8,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_53",
@@ -4545,17 +4719,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 6,
     "sig_y0": 450.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 172.7,
     "sig_teacher_x0": 250.5,
-    "total_pages": 8
+    "total_pages": 8,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_54",
@@ -4623,17 +4800,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 109.2,
-    "class_y0": 54.4,
+    "box_y0": 110.2,
+    "class_y0": 55.4,
     "sig_page_index": 4,
     "sig_y0": 470.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 127.4,
+    "teacher_y0": 128.4,
     "sig_teacher_y0": 148.1,
     "sig_teacher_x0": 339.6,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g8_55",
@@ -4702,17 +4882,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 422.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 403.2,
     "sig_teacher_x0": 432.5,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_56",
@@ -4780,17 +4963,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 371.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 352.6,
     "sig_teacher_x0": 432.5,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_57",
@@ -4858,17 +5044,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 541.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 120.7,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_58",
@@ -4937,17 +5126,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 501.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 120.7,
     "sig_teacher_x0": 462.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_59",
@@ -5016,17 +5208,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 392.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 372.7,
     "sig_teacher_x0": 224.2,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_60",
@@ -5095,17 +5290,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 388.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 368.2,
     "sig_teacher_x0": 238.4,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_61",
@@ -5174,17 +5372,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 517.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 498.9,
     "sig_teacher_x0": 441.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_62",
@@ -5253,17 +5454,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 3,
     "sig_y0": 608.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 589.2,
     "sig_teacher_x0": 441.5,
-    "total_pages": 5
+    "total_pages": 5,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_63",
@@ -5330,17 +5534,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 319.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 296.2,
     "sig_teacher_x0": 441.5,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_64",
@@ -5410,17 +5617,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 406.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 364.6,
     "sig_teacher_x0": 455.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_65",
@@ -5490,17 +5700,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 384.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 360.4,
     "sig_teacher_x0": 455.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_66",
@@ -5569,17 +5782,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 645.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 102.4,
     "sig_teacher_x0": 467.7,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_67",
@@ -5648,17 +5864,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 6,
     "sig_y0": 632.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 130.2,
     "sig_teacher_x0": 183.4,
-    "total_pages": 8
+    "total_pages": 8,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_68",
@@ -5726,17 +5945,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 431.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 414.4,
     "sig_teacher_x0": 206.2,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_69",
@@ -5805,17 +6027,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 682.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 183.6,
     "sig_teacher_x0": 201.4,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_70",
@@ -5884,17 +6109,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 5,
     "sig_y0": 453.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 439.2,
     "sig_teacher_x0": 206.2,
-    "total_pages": 7
+    "total_pages": 7,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_71",
@@ -5963,17 +6191,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 129.9,
-    "class_y0": 75.2,
+    "box_y0": 130.9,
+    "class_y0": 76.2,
     "sig_page_index": 4,
     "sig_y0": 647.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 148.2,
+    "teacher_y0": 149.2,
     "sig_teacher_y0": 120.7,
     "sig_teacher_x0": 195.9,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 238.0,
+    "date_x": 238.0,
+    "teacher_x": 238.0
   },
   {
     "id": "plan_g8_72",
@@ -6032,17 +6263,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "កិច្ចការផ្ទះ & បណ្តាំផ្ញើ (៣ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំលឹកមេរៀន និងស្វ័យសិក្សា។"
     },
     "cover_page_index": 0,
-    "box_y0": 109.2,
-    "class_y0": 54.4,
+    "box_y0": 110.2,
+    "class_y0": 55.4,
     "sig_page_index": 3,
     "sig_y0": 389.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
-    "teacher_y0": 127.4,
+    "teacher_y0": 128.4,
     "sig_teacher_y0": 363.0,
     "sig_teacher_x0": 296.4,
-    "total_pages": 6
+    "total_pages": 6,
+    "class_x": 185.0,
+    "date_x": 185.0,
+    "teacher_x": 185.0
   },
   {
     "id": "plan_g11_1_1",

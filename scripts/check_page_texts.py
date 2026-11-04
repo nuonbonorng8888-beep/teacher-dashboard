@@ -20,3 +20,4 @@ print(p11.get_text())
 print("\nPage 5 text:")
 p5 = doc[4]
 print(p5.get_text())
+

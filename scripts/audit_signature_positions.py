@@ -95,3 +95,4 @@ for p in plan_sig_info:
         diff = abs((p['curr_sig_y0'] or 0) - info['min_y'])
         if p['curr_sig_p'] != best_p or diff > 40:
             print(f"{p['id']}: curr_p={p['curr_sig_p']}, best_p={best_p} | curr_y0={p['curr_sig_y0']}, det_min_y={info['min_y']:.1f}, min_x={info['min_x']:.1f} ({p['pdf']})")
+

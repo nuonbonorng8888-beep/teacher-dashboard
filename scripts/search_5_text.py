@@ -10,3 +10,4 @@ for f in glob.glob('កិច្ចការតែងការទី៨/*.pdf'):
             line_s = line.strip()
             if any(line_s.startswith(k) for k in ['៥.', '5.', '៤.', '4.']) and any(w in line_s for w in ['គណៈ', 'នាយ', 'កាល', 'បាល']):
                 print(f"{f} p.{i+1}: '{line_s}'")
+

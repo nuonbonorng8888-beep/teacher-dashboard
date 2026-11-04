@@ -38,3 +38,4 @@ p6 = next(d for d in data if d['id'] == 'plan_g8_6')
 p35 = next(d for d in data if d['id'] == 'plan_g8_35')
 print(f"plan_g8_6 sig_page_index={p6['sig_page_index']}, sig_y0={p6['sig_y0']}")
 print(f"plan_g8_35 sig_page_index={p35['sig_page_index']}, sig_y0={p35['sig_y0']}")
+

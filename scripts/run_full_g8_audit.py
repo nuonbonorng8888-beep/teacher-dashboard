@@ -116,3 +116,4 @@ for r in audit_results:
         print(f"{r['id']:15} | {str(curr_p):9} | {str(det_p):8} | {str(curr_y):7} | {str(det_y):7} | {diff:6.1f} | {status}")
 
 print(f"\nTotal Discrepancies in Grade 8: {len(discrepancies)}")
+

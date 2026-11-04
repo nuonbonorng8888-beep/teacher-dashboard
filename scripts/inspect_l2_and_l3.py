@@ -21,3 +21,4 @@ for fn in [
         last_y = max(b[3] for b in blocks) if blocks else 0
         first_y = min(b[1] for b in blocks) if blocks else 0
         print(f"Page {p_no}: blocks={len(blocks)}, y=[{first_y:.1f} - {last_y:.1f}], has_sig={has_sig}")
+

@@ -18,3 +18,4 @@ for name in ['verified_merged_p5.png', 'verified_merged_p19.png']:
             if im.getpixel((x, y)) < 200:
                 print(f"Dark pixel at pt x={x/scale:.1f}, y={y/scale:.1f}: val={im.getpixel((x, y))}")
                 break
+

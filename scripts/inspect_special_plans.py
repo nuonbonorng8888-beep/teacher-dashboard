@@ -37,3 +37,4 @@ for pid, path in no_sig_ids:
             print(f"  Max y1 on page: {last_y:.1f} (Page Height: {page.rect.height:.1f})")
         else:
             print("  (Empty page)")
+

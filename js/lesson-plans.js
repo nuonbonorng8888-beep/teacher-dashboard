@@ -721,47 +721,51 @@
       for (let pIdx = 0; pIdx < pages.length; pIdx++) {
         const p = pages[pIdx];
         const pageH = p.getHeight();
-        const pageW = p.getWidth();
+        const pageW = p.getWidth();        // --- A. RUNNING HEADER ---
+        // In Grade 8, only stamp running header on Page 0 (Cover page) because pages 1..N
+        // start their table/lesson content immediately at y = 35..45 pt!
+        const shouldStampHeader = (pIdx === 0) || (isGrade11 || isGrade12);
 
-        // --- A. RUNNING HEADER ---
-        // Redact / Whiteout old header zone at top
-        const headerWhiteoutY = (isGrade11 || isGrade12) ? (pageH - 82.0) : (pageH - 49.0);
-        const headerWhiteoutH = (isGrade11 || isGrade12) ? 62.0 : 44.0;
-        p.drawRectangle({
-          x: 60.0,
-          y: headerWhiteoutY,
-          width: 495.0,
-          height: headerWhiteoutH,
-          color: PDFLib.rgb(1, 1, 1),
-        });
+        if (shouldStampHeader) {
+          // Redact / Whiteout old header zone at top
+          const headerWhiteoutY = (isGrade11 || isGrade12) ? (pageH - 82.0) : (pageH - 62.0);
+          const headerWhiteoutH = (isGrade11 || isGrade12) ? 62.0 : 56.0;
+          p.drawRectangle({
+            x: 50.0,
+            y: headerWhiteoutY,
+            width: 515.0,
+            height: headerWhiteoutH,
+            color: PDFLib.rgb(1, 1, 1),
+          });
 
-        // Yukunthor Logo
-        if (logoImg) {
-          p.drawImage(logoImg, {
-            x: 65.0,
-            y: pageH - 43.0,
-            width: 27.0,
-            height: 27.0,
+          // Yukunthor Logo
+          if (logoImg) {
+            p.drawImage(logoImg, {
+              x: 65.0,
+              y: pageH - 43.0,
+              width: 27.0,
+              height: 27.0,
+            });
+          }
+
+          // Yukunthor School Title
+          if (headerTextImg) {
+            p.drawImage(headerTextImg, {
+              x: logoImg ? 98.0 : 65.0,
+              y: pageH - 40.0,
+              width: 250.0,
+              height: 20.0,
+            });
+          }
+
+          // Horizontal Line below Header
+          p.drawLine({
+            start: { x: 65.0, y: pageH - 47.0 },
+            end: { x: 547.0, y: pageH - 47.0 },
+            thickness: 0.8,
+            color: PDFLib.rgb(0, 0, 0),
           });
         }
-
-        // Yukunthor School Title
-        if (headerTextImg) {
-          p.drawImage(headerTextImg, {
-            x: logoImg ? 98.0 : 65.0,
-            y: pageH - 40.0,
-            width: 250.0,
-            height: 20.0,
-          });
-        }
-
-        // Horizontal Line below Header
-        p.drawLine({
-          start: { x: 65.0, y: pageH - 47.0 },
-          end: { x: 547.0, y: pageH - 47.0 },
-          thickness: 0.8,
-          color: PDFLib.rgb(0, 0, 0),
-        });
 
         // --- B. RUNNING FOOTER ---
         // In Grade 11, redact old Sisowath teacher line at bottom y=60..98
@@ -937,7 +941,7 @@
 
         // 2. Render dynamic high-res 3-column signature block via Canvas
         const sigCanvas = document.createElement('canvas');
-        sigCanvas.width = 1200;
+        sigCanvas.width = 1500;
         sigCanvas.height = 360;
         const sctx = sigCanvas.getContext('2d');
         sctx.fillStyle = '#ffffff';
@@ -945,15 +949,15 @@
 
         // Date text
         const cleanSigDate = plan.sig_date_khmer
-          ? plan.sig_date_khmer.replace(/^(\u179a\u17b6\u1787\u1792\u17b6\u1793\u17b8\u1797\u17d2\u1793\u17c6\u1796\u17c1\u1789[\s,]*)?/, '')
+          ? plan.sig_date_khmer.replace(/^(រាជធានីភ្នំពេញ[\s,]*)?/, '')
           : (plan.date_khmer ? plan.date_khmer : '');
         const sigDateText = cleanSigDate.startsWith('ថ្ងៃទី')
           ? `រាជធានីភ្នំពេញ ${cleanSigDate}`
           : `រាជធានីភ្នំពេញ ថ្ងៃទី ${cleanSigDate}`;
 
-        const colLeft = 200;
-        const colMid = 600;
-        const colRight = 1000;
+        const colLeft = 250;
+        const colMid = 750;
+        const colRight = 1250;
 
         // A. Date above teacher signature (Right column)
         sctx.fillStyle = '#000000';

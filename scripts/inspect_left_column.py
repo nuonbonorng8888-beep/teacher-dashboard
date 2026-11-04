@@ -15,3 +15,4 @@ scale = w / 595.3
 crop_col_left = im.crop((int(20 * scale), 0, int(220 * scale), h))
 crop_col_left.save(os.path.join(artifacts_dir, 'crop_p19_left_column.png'))
 print(f"Saved crop_p19_left_column.png (size={crop_col_left.size})")
+

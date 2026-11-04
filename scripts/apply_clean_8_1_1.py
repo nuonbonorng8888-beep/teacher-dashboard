@@ -74,3 +74,4 @@ vdoc = pymupdf.open(pdf_path)
 vdoc[3].get_pixmap(dpi=150).save('C:/Users/LENOVO/.gemini/antigravity/brain/f1e067a4-40af-4458-9768-938ce551f866/verified_8_1_1_p3.png')
 vdoc[4].get_pixmap(dpi=150).save('C:/Users/LENOVO/.gemini/antigravity/brain/f1e067a4-40af-4458-9768-938ce551f866/verified_8_1_1_p4.png')
 print("Rendered verified_8_1_1_p3.png and verified_8_1_1_p4.png")
+

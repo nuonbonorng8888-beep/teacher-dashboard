@@ -13,3 +13,4 @@ for f in sorted(glob.glob('កិច្ចការតែងការទី៨/*
                     if any(line.strip().startswith(x) for x in ['៥.', '5.', '៥ .', '5 .', '៥', '5']):
                         if any(k in line for k in ['បាន', 'គណៈ', 'នាយ', 'គ្រូ', 'ហត្ថ', 'ពិនិត្យ', 'ឯកភាព', 'កាល', 'រដ្ឋ']):
                             print(f"{f} p.{p_no+1}: {b[1]:.1f}-{b[3]:.1f} x={b[0]:.1f} -> '{line.strip()}'")
+

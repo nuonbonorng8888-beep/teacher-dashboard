@@ -91,3 +91,4 @@ for r in no_sigs:
 print(f"\nPDFs with MISMATCHED signature page: {len(mismatched_page)}")
 for item in mismatched_page:
     print(f"  PAGE MISMATCH: {item[0]} curr={item[2]} detected={item[3]} ({item[1]})")
+

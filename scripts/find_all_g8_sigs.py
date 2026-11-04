@@ -15,3 +15,4 @@ for f in sorted(glob.glob('កិច្ចការតែងការទី៨/*
                 if b[1] >= rects[0].y0 - 30:
                     print(f"      block y=[{b[1]:.1f}-{b[3]:.1f}], x=[{b[0]:.1f}-{b[2]:.1f}]: {b[4][:60].replace(chr(10), ' ')}")
             break
+
