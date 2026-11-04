@@ -92,3 +92,4 @@ server.shutdown()
 if os.path.exists('test_exec_print.html'):
     os.remove('test_exec_print.html')
 print("Finished test. Total logs:", len(logs))
+

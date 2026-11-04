@@ -9,3 +9,4 @@ with open('js/lesson-plans.js', 'r', encoding='utf-8') as f:
 for line in text.splitlines():
     if any(k in line for k in ['printPlans', 'downloadCustomPdf', 'downloadMergedPdf', 'window.print']):
         print(line.strip())
+
