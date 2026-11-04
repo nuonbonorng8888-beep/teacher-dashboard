@@ -722,14 +722,15 @@
         const p = pages[pIdx];
         const pageH = p.getHeight();
         const pageW = p.getWidth();        // --- A. RUNNING HEADER ---
-        // In Grade 8, only stamp running header on Page 0 (Cover page) because pages 1..N
-        // start their table/lesson content immediately at y = 35..45 pt!
-        const shouldStampHeader = (pIdx === 0) || (isGrade11 || isGrade12);
+        // Running header is ONLY for Grade 11 & Grade 12 to replace the old Sisowath header.
+        // Grade 8 plans are original Ministry curriculum plans with their own clean title "កិច្ចតែងការបង្រៀន" (Lesson Plan);
+        // stamping an artificial running header on Grade 8 cuts off the title ("ដាច់ក្បាល") and causes printer margin clipping.
+        const shouldStampHeader = (isGrade11 || isGrade12);
 
         if (shouldStampHeader) {
-          // Redact / Whiteout old header zone at top
-          const headerWhiteoutY = (isGrade11 || isGrade12) ? (pageH - 82.0) : (pageH - 62.0);
-          const headerWhiteoutH = (isGrade11 || isGrade12) ? 62.0 : 56.0;
+          // Redact / Whiteout old Sisowath header zone at top (y = 20..78 pt from top)
+          const headerWhiteoutY = pageH - 78.0;
+          const headerWhiteoutH = 58.0;
           p.drawRectangle({
             x: 50.0,
             y: headerWhiteoutY,
@@ -738,21 +739,21 @@
             color: PDFLib.rgb(1, 1, 1),
           });
 
-          // Yukunthor Logo
+          // Yukunthor Logo (safe 28pt top margin prevents "ដាច់ក្បាល")
           if (logoImg) {
             p.drawImage(logoImg, {
               x: 65.0,
-              y: pageH - 43.0,
-              width: 27.0,
-              height: 27.0,
+              y: pageH - 52.0,
+              width: 24.0,
+              height: 24.0,
             });
           }
 
-          // Yukunthor School Title
+          // Yukunthor School Title (safe 30pt top margin prevents "ដាច់ក្បាល")
           if (headerTextImg) {
             p.drawImage(headerTextImg, {
-              x: logoImg ? 98.0 : 65.0,
-              y: pageH - 40.0,
+              x: logoImg ? 95.0 : 65.0,
+              y: pageH - 50.0,
               width: 250.0,
               height: 20.0,
             });
@@ -760,8 +761,8 @@
 
           // Horizontal Line below Header
           p.drawLine({
-            start: { x: 65.0, y: pageH - 47.0 },
-            end: { x: 547.0, y: pageH - 47.0 },
+            start: { x: 65.0, y: pageH - 56.0 },
+            end: { x: 547.0, y: pageH - 56.0 },
             thickness: 0.8,
             color: PDFLib.rgb(0, 0, 0),
           });
@@ -844,8 +845,8 @@
         // A. Class Name
         if (plan.class_name) {
           const classImg = await makeTextImg(plan.class_name, 'bold 32px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 400, 70);
-          const class_x = plan.class_x || (isGrade11 ? 210.0 : 238.0);
-          const class_y_top = plan.class_y0 || (isGrade8 ? 78.1 : (isGrade11 ? 195.0 : 99.2));
+          const class_x = (typeof plan.class_x === 'number') ? plan.class_x : (isGrade11 ? 210.0 : 238.0);
+          const class_y_top = (typeof plan.class_y0 === 'number') ? plan.class_y0 : (isGrade8 ? 77.1 : (isGrade11 ? 195.0 : 99.2));
           const class_h = 20.0;
           const class_y_bottom = pageH - class_y_top - class_h;
 
@@ -868,8 +869,8 @@
         // B. Date
         if (plan.date_khmer) {
           const dateImg = await makeTextImg(plan.date_khmer, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
-          const date_x = plan.date_x || (isGrade11 ? 210.0 : 238.0);
-          const date_y_top = plan.box_y0 || (isGrade8 ? 141.1 : (isGrade11 ? 239.0 : 172.0));
+          const date_x = (typeof plan.date_x === 'number') ? plan.date_x : (isGrade11 ? 210.0 : 238.0);
+          const date_y_top = (typeof plan.box_y0 === 'number') ? plan.box_y0 : (isGrade8 ? 140.1 : (isGrade11 ? 239.0 : 172.0));
           const date_h = 20.0;
           const date_y_bottom = pageH - date_y_top - date_h;
 
@@ -892,8 +893,8 @@
         // C. Teacher Name
         if (plan.teacher) {
           const teacherImg = await makeTextImg(teacherFullName, '30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif', 900, 70);
-          const teacher_x = plan.teacher_x || (isGrade11 ? 210.0 : 238.0);
-          const teacher_y_top = plan.teacher_y0 || (isGrade8 ? 162.1 : (isGrade11 ? 217.0 : 190.5));
+          const teacher_x = (typeof plan.teacher_x === 'number') ? plan.teacher_x : (isGrade11 ? 210.0 : 238.0);
+          const teacher_y_top = (typeof plan.teacher_y0 === 'number') ? plan.teacher_y0 : (isGrade8 ? 161.1 : (isGrade11 ? 217.0 : 190.5));
           const teacher_h = 20.0;
           const teacher_y_bottom = pageH - teacher_y_top - teacher_h;
 
