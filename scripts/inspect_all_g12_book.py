@@ -43,3 +43,4 @@ for ch, plans in chapters_found.items():
         print(f"   Page {pno}: {ltitle} | {top[:60]}")
     if len(plans) > 5:
         print(f"   ... and {len(plans)-5} more plans")
+

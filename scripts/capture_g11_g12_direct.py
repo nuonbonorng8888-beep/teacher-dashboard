@@ -70,3 +70,4 @@ if os.path.exists('scratch/temp_loader.html'):
     except: pass
 
 print("Direct captures done!")
+

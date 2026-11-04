@@ -165,3 +165,4 @@ with open('js/lesson-plans-data.js', 'w', encoding='utf-8') as f:
     f.write(output_js)
 
 print("Successfully wrote js/lesson-plans-data.js!")
+

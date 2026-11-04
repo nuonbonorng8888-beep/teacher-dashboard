@@ -58,3 +58,4 @@ for p in g12_book_plans[:15]:
 
 with open('scripts/g12_book_mapped_plans.json', 'w', encoding='utf-8') as f:
     json.dump(g12_book_plans, f, indent=2, ensure_ascii=False)
+

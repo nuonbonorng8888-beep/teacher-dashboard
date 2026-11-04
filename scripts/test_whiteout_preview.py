@@ -46,3 +46,4 @@ p12.draw_rect(fitz.Rect(235, 190, 450, 208), color=(1,1,1), fill=(1,1,1))
 pix12 = p12.get_pixmap(dpi=150)
 pix12.save('C:/Users/LENOVO/.gemini/antigravity/brain/f1e067a4-40af-4458-9768-938ce551f866/test_g12_p0_whiteout.png')
 print("Saved test_g12_p0_whiteout.png")
+

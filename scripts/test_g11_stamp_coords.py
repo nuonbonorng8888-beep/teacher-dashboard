@@ -16,3 +16,4 @@ for b in p.get_text("blocks"):
         print(f"Text: '{b[4][:50].replace(chr(10), ' ')}'")
         print(f"   from top: [{y_top:.1f} - {y_bottom_from_top:.1f}]")
         print(f"   pdf-lib (from bottom): [{pdf_y0:.1f} - {pdf_y1:.1f}]")
+

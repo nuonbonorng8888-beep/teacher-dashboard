@@ -13,3 +13,4 @@ for p in g12:
     else:
         no_sig += 1
 print(f"G12: {has_sig} have signatures, {no_sig} don't have explicit signature text on last page")
+

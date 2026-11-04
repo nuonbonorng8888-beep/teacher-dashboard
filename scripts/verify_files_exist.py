@@ -13,3 +13,4 @@ if missing_g11:
     print("Missing G11:", missing_g11)
 if missing_g12:
     print("Missing G12:", missing_g12)
+

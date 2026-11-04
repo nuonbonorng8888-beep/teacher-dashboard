@@ -24,3 +24,4 @@ for i in [0, 13, 30, 37, 52, 63, 79, 89, 98, 105]:
     print("  Knowledge:", k[:60])
     print("  Skills:", s[:60])
     print("  Attitude:", a[:60])
+

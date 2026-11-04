@@ -23,3 +23,4 @@ for pno, h in plans[:30]:
     print(f"Page {pno}: {h[:100]}...")
 if len(plans) > 30:
     print(f"... and {len(plans) - 30} more")
+

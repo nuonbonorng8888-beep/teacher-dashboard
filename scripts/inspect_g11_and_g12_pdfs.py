@@ -27,3 +27,4 @@ for pno in range(min(15, len(doc12))):
     if any(k in txt for k in ['មាតិកា', 'កិច្ចតែងការ', 'ជំពូក', 'មេរៀន']):
         first_line = txt.split('\n')[0] if txt else ''
         print(f"Page {pno+1}: {first_line} | {txt[:200].replace(chr(10), ' ')}")
+

@@ -88,3 +88,4 @@ for fname, ch_code, ch_title, les_title in files:
 print(f"\nTotal Grade 11 plans extracted: {len(g11_plans)}")
 with open('scripts/g11_extracted_plans.json', 'w', encoding='utf-8') as f:
     json.dump(g11_plans, f, indent=2, ensure_ascii=False)
+

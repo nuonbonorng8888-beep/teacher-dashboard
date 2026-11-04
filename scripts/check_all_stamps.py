@@ -17,3 +17,4 @@ for path, label in [
         pdf_y1 = h - y0 # from bottom
         if any(k in txt for k in ['វិទ្យាល័យ', 'Facebook', 'បង្រៀនដោយ', 'បរព្រៀនរោយ', 'ចាយ សុភា', 'Email', 'Tel', 'www', 'ថ្នាក់']):
             print(f"  [{txt[:40]}] -> top:[{y0:.1f}-{y1:.1f}], from bottom:[{pdf_y0:.1f}-{pdf_y1:.1f}]")
+

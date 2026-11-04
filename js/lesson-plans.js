@@ -920,13 +920,13 @@
 
       if (sigPage && typeof plan.sig_y0 === 'number') {
         const pageH = sigPage.getHeight();
-        const min_y = Math.max(plan.sig_y0, 52.0);
-        const sig_w = 500.0;
+        const min_y = Math.max(plan.sig_y0, 30.0);
+        const sig_w = 545.0;
         const sig_h = 145.0;
-        const sig_y_bottom = pageH - min_y - sig_h;
-        const sig_x = 65.0;
+        const sig_y_bottom = Math.max(pageH - min_y - sig_h, 38.0);
+        const sig_x = 28.0;
 
-        // 1. Redact / Whiteout the ENTIRE old signature region cleanly
+        // 1. Redact / Whiteout the ENTIRE old signature region cleanly across the page (covers x=28..573)
         sigPage.drawRectangle({
           x: sig_x,
           y: sig_y_bottom,
@@ -953,7 +953,7 @@
 
         const colLeft = 200;
         const colMid = 600;
-        const colRight = 980;
+        const colRight = 1000;
 
         // A. Date above teacher signature (Right column)
         sctx.fillStyle = '#000000';

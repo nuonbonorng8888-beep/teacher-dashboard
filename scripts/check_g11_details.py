@@ -10,3 +10,4 @@ for name in ['ស្វ៊ីតនព្វន្ត.pdf', 'ស្វ៊ីត�
             print(f"  p.{i}: Starts new plan: {t[:60].replace(chr(10), ' ')}")
         elif len(t.strip()) == 0:
             print(f"  p.{i}: BLANK PAGE")
+

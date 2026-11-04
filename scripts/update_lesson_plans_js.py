@@ -339,3 +339,4 @@ with open('js/lesson-plans.js', 'w', encoding='utf-8') as f:
     f.write(content)
 
 print("Updated js/lesson-plans.js successfully!")
+

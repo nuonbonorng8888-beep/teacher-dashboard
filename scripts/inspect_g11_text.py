@@ -10,3 +10,4 @@ for idx, p in enumerate(g11):
     for l in lines:
         if any(k in l for k in ['វត្ថុបំណង', 'វិជ្ជា', 'បំណិន', 'ចរិយា', 'ខ្លឹមសារ', 'សកម្មភាព', 'វិធីសាស្ត្រ']):
             print("  ", l)
+

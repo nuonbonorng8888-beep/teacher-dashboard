@@ -33,3 +33,4 @@ for idx, p in enumerate(plans):
 with open('scripts/g11_sliced_metadata.json', 'w', encoding='utf-8') as f:
     json.dump(sliced_plans, f, indent=2, ensure_ascii=False)
 print("Grade 11 slicing complete!")
+

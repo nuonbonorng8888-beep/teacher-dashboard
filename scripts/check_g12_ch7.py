@@ -19,3 +19,4 @@ starts = [7, 11, 16, 21, 26, 31, 37, 42, 46, 51, 56, 62, 66, 71, 75, 79, 83, 87,
 for i in range(60, 95):
     txt = doc[starts[i]-1].get_text().replace('\n', ' ')
     print(f"[{i}] p.{starts[i]}: {txt[:120]}")
+

@@ -16,3 +16,4 @@ for p in g8:
 
 for l, c in lessons.items():
     print(f"  {l}: {c} plans")
+

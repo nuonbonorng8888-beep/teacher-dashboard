@@ -33,3 +33,4 @@ for g, chs in grades.items():
     print(f"\nGrade: {g} (Total: {total_g} plans)")
     for ch, count in chs.items():
         print(f"  - {ch}: {count} plans")
+

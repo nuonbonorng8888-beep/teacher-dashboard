@@ -27,3 +27,4 @@ for fname, title in g11_files:
     print(f"Found {len(plan_starts)} lesson plan starts:")
     for pno, snippet in plan_starts:
         print(f"  Page {pno}: {snippet[:120]}...")
+

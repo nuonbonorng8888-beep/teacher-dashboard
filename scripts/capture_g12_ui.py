@@ -51,3 +51,4 @@ proc.terminate()
 server.shutdown()
 
 print("Grade 12 captured:", os.path.exists(out_file))
+

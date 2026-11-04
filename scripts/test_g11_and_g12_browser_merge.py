@@ -160,3 +160,4 @@ if os.path.exists(saved_g12_pdf):
     pix = p0.get_pixmap(dpi=150)
     pix.save(os.path.join(artifacts_dir, "browser_stamped_g12_p0.png"))
     print("Saved browser_stamped_g12_p0.png")
+

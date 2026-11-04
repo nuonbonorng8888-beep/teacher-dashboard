@@ -9,3 +9,4 @@ for p in g11:
     # search for text
     matches = last_page.search_for('បានឃើញ') or last_page.search_for('គ្រូបង្រៀន') or last_page.search_for('ហត្ថលេខា') or last_page.search_for('ថ្ងៃទី')
     print(f"{p['les_title']} H{p['hour']} (pages={len(doc)}): matches={matches}")
+

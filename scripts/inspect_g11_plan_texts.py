@@ -17,3 +17,4 @@ with fitz.open("កិច្ចការតែងការទី១១/ស្វ
     for p in [0, 6, 14, 20]:
         print(f"=== ស្វ៊ីតធរណីមាត្រ Page {p+1} ===")
         print(d[p].get_text()[:600])
+

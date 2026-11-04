@@ -84,3 +84,4 @@ if os.path.exists('scratch/temp_capture_frame.html'):
     except: pass
 
 print("All real UI screenshots captured successfully!")
+

@@ -19,3 +19,4 @@ for path, name in [
     print("Page 0 footer rects:")
     for b in p0.get_text("blocks")[-3:]:
         print(f"  y=[{b[1]:.1f}-{b[3]:.1f}], x=[{b[0]:.1f}-{b[2]:.1f}] : {b[4][:60].replace(chr(10), ' ')}")
+

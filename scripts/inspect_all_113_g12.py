@@ -45,3 +45,4 @@ for i, pno in enumerate(pages):
 print(f"Total Chapters: {len(chapters)}")
 for ch, pl in chapters.items():
     print(f"  {ch}: {len(pl)} plans (Pages {pl[0]} to {pl[-1]})")
+

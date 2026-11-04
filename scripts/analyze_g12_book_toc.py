@@ -26,3 +26,4 @@ for pno in range(len(doc)):
 print(f"\nFound {len(plan_pages)} individual lesson plans with 'វត្ថុបំណង':")
 for pno, h in plan_pages:
     print(f"Page {pno:3d}: {h[:120]}")
+

@@ -100,3 +100,4 @@ if os.path.exists('test_capture_temp.html'):
     except: pass
 
 print("All screenshots captured successfully!")
+
