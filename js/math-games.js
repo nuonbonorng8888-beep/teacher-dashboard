@@ -986,9 +986,40 @@ class MathGamesEngine {
     if (!text) return '';
     if (typeof katex === 'undefined') return text;
 
-    // Render explicit $...$
-    if (text.includes('$')) {
-      return text.replace(/\$([^\$]+)\$/g, (match, formula) => {
+    let str = String(text);
+
+    // 1. Render display math $$...$$
+    str = str.replace(/\$\$([^\$]+)\$\$/g, (match, formula) => {
+      try {
+        const clean = this.cleanLatexFormula(formula);
+        return katex.renderToString(clean, { throwOnError: false, displayMode: true });
+      } catch (e) {
+        return formula;
+      }
+    });
+
+    // 2. Auto-repair odd number of $ (missing or unclosed $)
+    const dollarMatches = str.match(/(?<!\\)\$/g);
+    if (dollarMatches && dollarMatches.length % 2 !== 0) {
+      const lastDollar = str.lastIndexOf('$');
+      if (lastDollar !== -1) {
+        const after = str.slice(lastDollar + 1);
+        if (/\\(frac|dfrac|sqrt|lim|int|pm|times|alpha|beta|theta|pi|sum|vec|overline|cdot|[a-zA-Z0-9\+\-\=\/\^\_])/.test(after)) {
+          const matchEnd = after.search(/[\s,៖:\?។]$/);
+          if (matchEnd !== -1) {
+            str = str.slice(0, lastDollar + 1 + matchEnd) + '$' + str.slice(lastDollar + 1 + matchEnd);
+          } else {
+            str = str + '$';
+          }
+        } else {
+          str = str.slice(0, lastDollar) + str.slice(lastDollar + 1);
+        }
+      }
+    }
+
+    // 3. Render inline math $...$
+    if (str.includes('$')) {
+      str = str.replace(/\$([^\$]+)\$/g, (match, formula) => {
         try {
           const clean = this.cleanLatexFormula(formula);
           return katex.renderToString(clean, { throwOnError: false, displayMode: false });
@@ -996,36 +1027,66 @@ class MathGamesEngine {
           return formula;
         }
       });
+      return str;
     }
 
-    // Auto-detect math formulas or LaTeX commands without $
-    const hasMathMacro = /\\(frac|lim|sqrt|sin|cos|tan|log|ln|int|pm|times|div|le|ge|neq|alpha|beta|theta|pi|infty|vec|sum|to|bar|cdot|overline|Delta)/.test(text);
-    if (hasMathMacro || /^[0-9a-zA-Z\s\+\-\*\/\^\(\)\=\,\.\_\<\>\|\\]+$/.test(text)) {
-      try {
-        const clean = this.cleanLatexFormula(text);
-        return katex.renderToString(clean, { throwOnError: false, displayMode: false });
-      } catch (e) {}
+    // 4. Auto-detect raw LaTeX commands without $ (e.g. \frac{1}{2}, \sqrt{3})
+    if (/\\(frac|dfrac|lim|sqrt|sin|cos|tan|cot|log|ln|int|pm|times|div|le|ge|neq|alpha|beta|theta|pi|infty|vec|sum|to|bar|cdot|overline|Delta)\b/.test(str)) {
+      if (!/[\u1780-\u17FF]/.test(str) && !str.includes('<span class="katex">')) {
+        try {
+          const clean = this.cleanLatexFormula(str);
+          return katex.renderToString(clean, { throwOnError: false, displayMode: false });
+        } catch (e) {}
+      } else {
+        str = str.replace(/(\\(?:frac|dfrac|sqrt|lim|int|sum)\{[^\}]+\}(?:\{[^\}]+\})?|\\[a-zA-Z]+(?:\^\{[^\}]+\}|_[^\s]+)?)/g, (m) => {
+          try {
+            const clean = this.cleanLatexFormula(m);
+            return katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          } catch (e) {
+            return m;
+          }
+        });
+      }
     }
 
-    return text;
+    return str;
   }
 
   renderLatex(formula, displayMode = false) {
     if (!formula) return '';
-    let trimmed = formula.trim();
+    let trimmed = String(formula).trim();
 
-    // 1. Pure Khmer text without LaTeX math symbols
+    // 1. Strip outer $...$ or $$...$$ if whole string is math
+    if (/^\$\$[\s\S]+\$\$$/.test(trimmed)) {
+      trimmed = trimmed.slice(2, -2).trim();
+    } else if (/^\$[\s\S]+\$$/.test(trimmed) && trimmed.indexOf('$', 1) === trimmed.length - 1) {
+      trimmed = trimmed.slice(1, -1).trim();
+    }
+
+    // 2. Pure Khmer text without LaTeX math symbols
     if (/^[\u1780-\u17FF\s0-9\(\)\,\.\+\-\=\:\/\%\–\—\?]+$/.test(trimmed) && !/[\\\$_\^\{\}]/.test(trimmed)) {
       return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base leading-snug">${trimmed}</span>`;
     }
 
-    // 2. If formula contains \text{Khmer label}
+    // 3. If formula contains mixed Khmer and math with explicit $...$
+    if (trimmed.includes('$')) {
+      return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">${this.formatMath(trimmed)}</div>`;
+    }
+
+    // 4. If formula contains \text{Khmer label}
     const textLabelMatch = trimmed.match(/^(.*?)\\text\{([^\}]+)\}(.*?)$/);
     if (textLabelMatch) {
-      const mathPrefix = (textLabelMatch[1] || '').trim();
-      const khmerLabel = (textLabelMatch[2] || '').trim();
-      const mathSuffix = (textLabelMatch[3] || '').trim();
-      const mathCombined = (mathPrefix + ' ' + mathSuffix).trim();
+      let mathPrefix = (textLabelMatch[1] || '').trim();
+      let khmerLabel = (textLabelMatch[2] || '').trim();
+      let mathSuffix = (textLabelMatch[3] || '').trim();
+
+      // Repair legacy misplaced closing parenthesis: if label started with '(' and suffix ends with ')'
+      if (mathSuffix.endsWith(')') && !mathSuffix.includes('(') && khmerLabel.startsWith('(')) {
+        khmerLabel = khmerLabel + ' ' + mathSuffix;
+        mathSuffix = '';
+      }
+
+      const mathCombined = (mathPrefix + (mathSuffix ? ' ' + mathSuffix : '')).trim();
 
       let renderedMath = '';
       if (mathCombined && typeof katex !== 'undefined') {
@@ -1037,21 +1098,32 @@ class MathGamesEngine {
         }
       }
 
-      if (renderedMath && khmerLabel) {
-        return `<div class="flex flex-col items-center justify-center gap-1 leading-snug">
+      let displayLabel = khmerLabel.replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+
+      if (renderedMath && displayLabel) {
+        return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">
                   <span class="text-base md:text-lg font-bold">${renderedMath}</span>
-                  <span class="text-[11px] md:text-xs text-purple-700 dark:text-purple-300 font-battambang font-medium">${khmerLabel}</span>
+                  <span class="text-[11px] md:text-xs text-purple-700 dark:text-purple-300 font-battambang font-medium">(${displayLabel})</span>
                 </div>`;
-      } else if (khmerLabel) {
-        return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base">${khmerLabel}</span>`;
+      } else if (displayLabel) {
+        return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base text-center">(${displayLabel})</span>`;
       }
     }
 
-    // 3. Render pure LaTeX math with KaTeX
-    if (typeof katex === 'undefined') return formula;
-    const cleanFormula = this.cleanLatexFormula(formula);
+    // 5. Mixed Khmer text and raw LaTeX commands without $ (e.g. "តម្លៃនៃ \sqrt{25}")
+    if (/[\u1780-\u17FF]/.test(trimmed) && /\\(frac|dfrac|sqrt|lim|int|pm|times|alpha|beta|theta|pi|sum)/.test(trimmed)) {
+      return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">${this.formatMath(trimmed)}</div>`;
+    }
+
+    // 6. Pure LaTeX math with KaTeX
+    if (typeof katex === 'undefined') return trimmed;
+    const cleanFormula = this.cleanLatexFormula(trimmed);
     try {
-      return katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
+      const rendered = katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
+      if (rendered.includes('katex-error')) {
+        return `<span class="font-mono text-sm">${trimmed}</span>`;
+      }
+      return rendered;
     } catch (e) {
       return cleanFormula;
     }
@@ -1507,12 +1579,35 @@ class MathGamesEngine {
         const usedL = new Set();
         const usedR = new Set();
         for (const q of filteredQ) {
-          let left = (q.q || '').replace(/^(គណនា|រក|ដោះស្រាយសមីការ|សម្រួល|ពង្រាយកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង)\s*/g, '')
-                                .replace(/(\s*ស្មើនឹង៖?|\s*គឺ\s*៖?|\s*៖?)$/g, '').trim();
-          const right = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
+          const rawQ = (q.q || '').trim();
+          let left = '';
+          const mathMatches = rawQ.match(/\$([^\$]+)\$/g);
+          if (mathMatches && mathMatches.length === 1) {
+            // Exactly 1 math formula in question: extract pure math expression
+            left = mathMatches[0].replace(/^\$+|\$+$/g, '').trim();
+          } else if (mathMatches && mathMatches.length > 1) {
+            // Multiple math formulas: e.g. $A = 4x - 2$ ត្រង់ $x = 6$
+            const mParts = mathMatches.map(m => m.replace(/^\$+|\$+$/g, '').trim());
+            const evalPt = mParts.find(m => /^[a-zA-Z]\s*=\s*-?\d+/.test(m));
+            const mainEx = mParts.find(m => m !== evalPt);
+            if (mainEx && evalPt) {
+              left = `${mainEx}\\text{ (ត្រង់ }${evalPt}\\text{)}`;
+            } else {
+              left = mParts.join(' ');
+            }
+          } else {
+            // No $ in question: clean Khmer prompt verbs cleanly
+            left = rawQ.replace(/^(គណនាតម្លៃនៃកន្សោម|គណនាតម្លៃនៃ|គណនា|រកតម្លៃនៃកន្សោម|រកតម្លៃនៃ|រក|ដោះស្រាយសមីការ|សម្រួលកន្សោម|សម្រួល|ពង្រាយកន្សោម|ពង្រាយ|តម្លៃនៃកន្សោម|តម្លៃនៃ|តាមនិយមន័យនៃ|បំប្លែង|តើតម្លៃនៃ)\s*[:៖]?\s*/g, '')
+                       .replace(/(\s*ស្មើនឹងប៉ុន្មាន\??|\s*ស្មើនឹង[:៖]?|\s*គឺ\s*[:៖]?|\s*[:៖]\s*|\?)$/g, '').trim();
+          }
+          left = left.replace(/^\$+|\$+$/g, '').trim();
+
+          const rawRight = (q.o && q.o[q.a]) ? q.o[q.a].trim() : '';
+          const right = rawRight.replace(/^\$+|\$+$/g, '').trim();
+
           // Strictly exclude any Euler formula references
           if (left.includes('e^{i') || right.includes('e^{i') || left.includes('Euler') || right.includes('Euler') || left.includes('អយល័រ')) continue;
-          if (left && right && left.length <= 45 && right.length <= 35 && left !== right && !usedL.has(left) && !usedR.has(right)) {
+          if (left && right && left.length <= 50 && right.length <= 40 && left !== right && !usedL.has(left) && !usedR.has(right)) {
             dynPairs.push({ id: `dyn_${dynPairs.length + 1}`, left, right });
             usedL.add(left);
             usedR.add(right);

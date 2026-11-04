@@ -33,3 +33,4 @@ crop_sig_top = im3.crop((int(50 * scale3), 0, int(550 * scale3), int(150 * scale
 crop_sig_top.save(os.path.join(artifacts_dir, 'check_crop_8_12_1_sig_page_top.png'))
 
 print("All check crops saved to artifacts successfully!")
+

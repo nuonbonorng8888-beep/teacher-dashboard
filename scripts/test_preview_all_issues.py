@@ -160,3 +160,4 @@ for p_no in range(len(doc)):
         print(f"Rendered verified_fixed_8_3_2_page.png (Page {p_no+1})")
 
 print("\nAll verification pages successfully rendered!")
+

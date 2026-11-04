@@ -36,3 +36,4 @@ with open('scratch/render_khmer_text.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
 print("Saved scratch/render_khmer_text.html")
+

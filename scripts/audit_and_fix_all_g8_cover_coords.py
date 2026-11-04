@@ -85,3 +85,4 @@ for p in g8_plans:
 for pid in ['plan_g8_38', 'plan_g8_39', 'plan_g8_40', 'plan_g8_41', 'plan_g8_42', 'plan_g8_43', 'plan_g8_44']:
     if pid in updated_coords:
         print(pid, updated_coords[pid])
+

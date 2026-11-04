@@ -145,3 +145,4 @@ for i, page in enumerate(doc):
 
 print(f"Found {len(cover_indices)} covers in total.")
 httpd.shutdown()
+

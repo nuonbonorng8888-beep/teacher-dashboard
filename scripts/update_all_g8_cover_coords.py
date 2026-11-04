@@ -74,3 +74,4 @@ with open('js/lesson-plans-data.js', 'w', encoding='utf-8') as f:
     f.write(new_js)
 
 print(f"Successfully updated {count_fixed} Grade 8 plans with verified coordinates in js/lesson-plans-data.js!")
+

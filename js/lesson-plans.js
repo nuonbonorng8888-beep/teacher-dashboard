@@ -948,10 +948,11 @@
         sctx.fillStyle = '#ffffff';
         sctx.fillRect(0, 0, sigCanvas.width, sigCanvas.height);
 
-        // Date text
-        const cleanSigDate = plan.sig_date_khmer
+        // Date text (thoroughly clean stray parentheses and trailing dots)
+        const rawDate = plan.sig_date_khmer
           ? plan.sig_date_khmer.replace(/^(រាជធានីភ្នំពេញ[\s,]*)?/, '')
           : (plan.date_khmer ? plan.date_khmer : '');
+        const cleanSigDate = rawDate.replace(/[\)\.\…\s]+$/g, '').trim();
         const sigDateText = cleanSigDate.startsWith('ថ្ងៃទី')
           ? `រាជធានីភ្នំពេញ ${cleanSigDate}`
           : `រាជធានីភ្នំពេញ ថ្ងៃទី ${cleanSigDate}`;
@@ -966,16 +967,16 @@
         sctx.font = '24px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
         sctx.fillText(sigDateText, colRight, 38);
 
-        // B. Column Titles (Khmer OS Muol Light)
+        // B. Column Titles (Stepped Administrative Alignment: គ្រូបង្រៀន top, ពិនិត្យ stepped down, ឯកភាព stepped lower)
         sctx.font = 'bold 26px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
-        sctx.fillText('បានឃើញ និងឯកភាព', colLeft, 80);
-        sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, 80);
-        sctx.fillText(isGrade8 ? 'គ្រូបង្រៀន' : 'គ្រូបង្រៀនគណិតវិទ្យា', colRight, 80);
+        sctx.fillText(isGrade8 ? 'គ្រូបង្រៀន' : 'គ្រូបង្រៀនគណិតវិទ្យា', colRight, 74);
+        sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, 86);
+        sctx.fillText('បានឃើញ និងឯកភាព', colLeft, 98);
 
-        // C. Roles & Subtitles
+        // C. Roles & Subtitles (Aligned with respective column stepped positions)
         sctx.font = '22px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        sctx.fillText(isGrade8 ? 'ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី' : 'នាយករងទទួលបន្ទុកសាលារៀនជំនាន់ថ្មី', colLeft, 118);
-        sctx.fillText('ប្រធានក្រុមបច្ចេកទេស', colMid, 118);
+        sctx.fillText('ប្រធានក្រុមបច្ចេកទេស', colMid, 124);
+        sctx.fillText(isGrade8 ? 'ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី' : 'នាយករងទទួលបន្ទុកសាលារៀនជំនាន់ថ្មី', colLeft, 136);
 
         // D. Teacher Name (Under signature space)
         if (plan.teacher) {

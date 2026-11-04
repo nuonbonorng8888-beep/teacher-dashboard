@@ -139,3 +139,4 @@ if not ok or not os.path.exists(rendered_png):
     sys.exit(1)
 
 print(f"Rendered perfect Item 3 image to {rendered_png} (size: {os.path.getsize(rendered_png)} bytes)")
+

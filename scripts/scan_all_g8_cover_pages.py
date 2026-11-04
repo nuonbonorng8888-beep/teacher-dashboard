@@ -32,3 +32,4 @@ for f in sorted(glob.glob('កិច្ចការតែងការទី៨/8
     top_y = f"{title_b[0][1]:.1f}" if title_b else "N/A"
     
     print(f"{fname[:35]:35} | Title_y={top_y:5} | Class: y={c_y:11} x={c_x:5} | Date: y={d_y:11} | Teacher: y={t_y:11}")
+

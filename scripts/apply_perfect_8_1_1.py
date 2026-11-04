@@ -39,3 +39,4 @@ pix = vdoc[4].get_pixmap(dpi=150)
 artifacts_dir = r"C:\Users\LENOVO\.gemini\antigravity\brain\f1e067a4-40af-4458-9768-938ce551f866"
 pix.save(os.path.join(artifacts_dir, "preview_fixed_item3_p5.png"))
 print("Rendered preview_fixed_item3_p5.png")
+
