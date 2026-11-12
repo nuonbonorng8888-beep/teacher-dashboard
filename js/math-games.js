@@ -1817,6 +1817,136 @@ class MathGamesEngine {
     this.updateMatchMultiplayerUI();
   }
 
+  toKhmerNum(n) {
+    const d = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
+    return String(n).replace(/\d/g, x => d[parseInt(x, 10)]);
+  }
+
+  getGeometricShapes() {
+    return [
+      {
+        name: "ត្រីកោណ",
+        gradient: "from-rose-500 via-pink-600 to-red-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 21h22L12 2z"/></svg>`
+      },
+      {
+        name: "រង្វង់",
+        gradient: "from-blue-500 via-indigo-600 to-sky-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>`
+      },
+      {
+        name: "ការេ",
+        gradient: "from-emerald-500 via-teal-600 to-green-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`
+      },
+      {
+        name: "ពេជ្រ",
+        gradient: "from-amber-500 via-orange-600 to-amber-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>`
+      },
+      {
+        name: "ផ្កាយ",
+        gradient: "from-yellow-400 via-amber-500 to-orange-500",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`
+      },
+      {
+        name: "ឆកោន",
+        gradient: "from-purple-600 via-violet-600 to-indigo-800",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8.66 5v10L12 22l-8.66-5V7L12 2z"/></svg>`
+      },
+      {
+        name: "បញ្ចកោណ",
+        gradient: "from-cyan-500 via-teal-600 to-blue-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l9.5 6.9-3.6 11.1H6.1L2.5 9.4 12 2.5z"/></svg>`
+      },
+      {
+        name: "ត្រីកោណកែង",
+        gradient: "from-fuchsia-500 via-pink-600 to-purple-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M4 20V4l16 16H4z"/></svg>`
+      },
+      {
+        name: "ពងក្រពើ",
+        gradient: "from-indigo-600 via-blue-700 to-slate-900",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="12" rx="10" ry="6"/></svg>`
+      },
+      {
+        name: "ប្រលេឡូក្រាម",
+        gradient: "from-teal-500 via-emerald-600 to-cyan-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h14l-4 16H3l4-16z"/></svg>`
+      },
+      {
+        name: "ចតុកោណព្នាយ",
+        gradient: "from-orange-500 via-red-600 to-amber-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h12l4 14H2L6 5z"/></svg>`
+      },
+      {
+        name: "អដ្ឋកោណ",
+        gradient: "from-lime-500 via-green-600 to-emerald-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M8 2h8l6 6v8l-6 6H8l-6-6V8l6-6z"/></svg>`
+      },
+      {
+        name: "ចតុកោណកែង",
+        gradient: "from-violet-600 via-purple-700 to-slate-900",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="20" height="12" rx="2"/></svg>`
+      },
+      {
+        name: "គូប",
+        gradient: "from-blue-600 via-indigo-700 to-violet-900",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`
+      },
+      {
+        name: "ស៊ីឡាំង",
+        gradient: "from-pink-500 via-rose-600 to-red-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/></svg>`
+      },
+      {
+        name: "កោន",
+        gradient: "from-red-500 via-amber-600 to-orange-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="18" rx="8" ry="3"/><path d="M4 18L12 3l8 15"/></svg>`
+      },
+      {
+        name: "ស្វ៊ែរ",
+        gradient: "from-sky-500 via-blue-600 to-indigo-800",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="9" ry="4"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>`
+      },
+      {
+        name: "ចន្ទ្រាវង់",
+        gradient: "from-purple-500 via-indigo-600 to-blue-800",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
+      },
+      {
+        name: "ពីរ៉ាមីត",
+        gradient: "from-amber-600 via-yellow-600 to-orange-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 19h20L12 2z"/><line x1="12" y1="2" x2="12" y2="19"/></svg>`
+      },
+      {
+        name: "ត្រីកោណបាតស្មើ",
+        gradient: "from-emerald-600 via-teal-700 to-slate-900",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 21h16L12 3z"/></svg>`
+      },
+      {
+        name: "កាកបាទ",
+        gradient: "from-violet-500 via-fuchsia-600 to-pink-700",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7V2z"/></svg>`
+      },
+      {
+        name: "ធ្នូរង្វង់",
+        gradient: "from-cyan-600 via-blue-700 to-indigo-900",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16A16 16 0 0 0 4 4v16z"/></svg>`
+      },
+      {
+        name: "បេះដូង",
+        gradient: "from-rose-600 via-red-600 to-pink-800",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+      },
+      {
+        name: "ព្រីស",
+        gradient: "from-teal-600 via-cyan-700 to-blue-800",
+        svg: `<svg class="w-10 h-10 drop-shadow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L3 19h18L12 3z"/><path d="M12 3v16"/><path d="M3 19l9-6 9 6"/></svg>`
+      }
+    ];
+  }
+
   initFormulaMatch() {
     const container = document.getElementById('formulaMatchGrid');
     if (!container) return;
@@ -1852,18 +1982,27 @@ class MathGamesEngine {
 
     cards.sort(() => Math.random() - 0.5);
 
+        const shapes = this.getGeometricShapes();
     container.innerHTML = cards.map((c, idx) => {
       const renderedLatex = this.renderLatex(c.latex, true);
+      const shape = shapes[idx % shapes.length];
       return `
-        <div class="match-card group relative h-32 cursor-pointer rounded-2xl border-2 border-purple-200 dark:border-purple-800 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-all duration-200 select-none overflow-hidden" 
+        <div class="match-card group relative h-32 cursor-pointer rounded-2xl border-2 border-white/20 dark:border-white/10 bg-white dark:bg-slate-800 shadow-md hover:shadow-xl transition-all duration-200 select-none overflow-hidden hover:-translate-y-0.5" 
              data-id="${c.id}" 
              data-type="${c.type}"
              data-val="${encodeURIComponent(c.latex)}" 
              data-target="${encodeURIComponent(c.target)}"
              data-idx="${idx}">
-          <div class="card-front absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-800 flex flex-col items-center justify-center text-white transition-all">
-            <span class="text-3xl font-extrabold filter drop-shadow">❓</span>
-            <span class="text-[11px] font-bold text-purple-200 mt-1 uppercase tracking-wider font-battambang">រូបមន្ត</span>
+          <div class="card-front absolute inset-0 bg-gradient-to-br ${shape.gradient} flex flex-col items-center justify-center text-white transition-all shadow-inner p-2">
+            <div class="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-lg bg-black/25 backdrop-blur-sm text-[11px] font-black text-white/95">
+              <span>#${this.toKhmerNum(idx + 1)}</span>
+            </div>
+            <div class="transform group-hover:scale-110 transition-transform duration-200 text-white drop-shadow-md">
+              ${shape.svg}
+            </div>
+            <span class="text-xs font-black text-white mt-1.5 tracking-wide font-battambang filter drop-shadow">
+              ${shape.name}
+            </span>
           </div>
           <div class="card-back absolute inset-0 hidden bg-white dark:bg-slate-800 flex items-center justify-center p-3 text-center text-purple-950 dark:text-purple-100 font-extrabold text-base md:text-lg">
             <div class="latex-wrapper transform scale-110">${renderedLatex}</div>
