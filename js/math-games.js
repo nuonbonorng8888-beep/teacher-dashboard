@@ -10,6 +10,7 @@ class MathGamesEngine {
     this.audioCtx = null;
     this.selectedGrade = 'all';
     this.selectedLesson = 'all';
+    this.selectedPoint = 'all';
 
     // Blitz State
     this.blitzDuration = 15;
@@ -807,7 +808,18 @@ class MathGamesEngine {
         list = list.filter(q => q.lesId === this.selectedLesson || q.l === this.selectedLesson);
       }
     }
-    return list.length > 0 ? list : this.fallbackQuestions;
+    if (this.selectedPoint && this.selectedPoint !== 'all') {
+      list = list.filter(q => q.p === this.selectedPoint);
+    }
+
+    // Strict pedagogical isolation:
+    // When a lesson or point is selected, strictly return matching questions
+    if (list.length > 0) return list;
+    if (this.selectedLesson && this.selectedLesson !== 'all') {
+      const lessonQuestions = window.MATH_DATABASE.questions.filter(q => q.lesId === this.selectedLesson || q.l === this.selectedLesson);
+      if (lessonQuestions.length > 0) return lessonQuestions;
+    }
+    return this.fallbackQuestions;
   }
 
   getLessonDisplayName(lesVal) {
@@ -880,6 +892,14 @@ class MathGamesEngine {
         this.loadMillionaireQuestion();
       }
     }
+
+    // 6. If currently in Heaven & Hell
+    if (this.activeMode === 'heaven') {
+      const gameView = document.getElementById('heavenGameView');
+      if (gameView && !gameView.classList.contains('hidden')) {
+        this.nextHeavenQuestion();
+      }
+    }
   }
 
   updateLessonDropdown() {
@@ -888,6 +908,7 @@ class MathGamesEngine {
 
     if (!window.MATH_DATABASE || !window.MATH_DATABASE.chaptersByGrade) {
       lessonSelect.innerHTML = `<option value="all">📚 គ្រប់ជំពូក និងមេរៀនទាំងអស់</option>`;
+      this.updatePointDropdown();
       return;
     }
 
@@ -922,26 +943,72 @@ class MathGamesEngine {
 
     lessonSelect.innerHTML = optionsHtml;
     this.selectedLesson = 'all';
+    this.updatePointDropdown();
     this.updateQuestionCountBadge();
     this.updateActiveTopicLabels();
+  }
+
+  updatePointDropdown() {
+    const pointSelect = document.getElementById('filterGamePoint');
+    if (!pointSelect) return;
+
+    if (!window.MATH_DATABASE || !window.MATH_DATABASE.questions) {
+      pointSelect.innerHTML = `<option value="all">🌟 គ្រប់ចំណុចទាំងអស់</option>`;
+      this.selectedPoint = 'all';
+      return;
+    }
+
+    if (!this.selectedLesson || this.selectedLesson === 'all') {
+      pointSelect.innerHTML = `<option value="all">🌟 គ្រប់ចំណុចទាំងអស់</option>`;
+      this.selectedPoint = 'all';
+      return;
+    }
+
+    // Filter questions by grade & selected lesson
+    let pool = window.MATH_DATABASE.questions;
+    if (this.selectedGrade && this.selectedGrade !== 'all') {
+      pool = pool.filter(q => q.g === this.selectedGrade || (q.gradeLabel && q.gradeLabel.includes(this.selectedGrade)));
+    }
+    if (this.selectedLesson.startsWith('chapter:')) {
+      const chId = this.selectedLesson.replace('chapter:', '');
+      pool = pool.filter(q => q.chId === chId || q.ch === chId);
+    } else {
+      pool = pool.filter(q => q.lesId === this.selectedLesson || q.l === this.selectedLesson);
+    }
+
+    const pointMap = new Map();
+    pool.forEach(q => {
+      const pt = (q.p || '').trim();
+      if (pt) {
+        pointMap.set(pt, (pointMap.get(pt) || 0) + 1);
+      }
+    });
+
+    let opts = `<option value="all">🌟 គ្រប់ចំណុចទាំងអស់ក្នុងមេរៀននេះ (${pool.length} សំណួរ)</option>`;
+    pointMap.forEach((count, pt) => {
+      opts += `<option value="${pt.replace(/"/g, '&quot;')}">🎯 ${pt} (${count} សំណួរ)</option>`;
+    });
+
+    pointSelect.innerHTML = opts;
+    this.selectedPoint = 'all';
   }
 
   updateActiveTopicLabels() {
     const gText = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់ (៧ ដល់ ១២)' : this.selectedGrade;
     const lText = this.getLessonDisplayName(this.selectedLesson);
+    const pText = (this.selectedPoint && this.selectedPoint !== 'all') ? ` • 🎯 ${this.selectedPoint}` : '';
+    const fullText = `${gText} • ${lText}${pText}`;
 
     const lbl = document.getElementById('defenderActiveTopicLabel');
-    if (lbl) {
-      lbl.textContent = `${gText} • ${lText}`;
-    }
+    if (lbl) lbl.textContent = fullText;
     const sub = document.getElementById('defenderGameLessonSub');
-    if (sub) {
-      sub.textContent = `${gText} • ${lText}`;
-    }
+    if (sub) sub.textContent = fullText;
     const matchBadge = document.getElementById('matchGradeBadge');
-    if (matchBadge) {
-      matchBadge.textContent = `${this.selectedGrade === 'all' ? 'គ្រប់ថ្នាក់' : this.selectedGrade} • ${lText}`;
-    }
+    if (matchBadge) matchBadge.textContent = fullText;
+    const heavenTopic = document.getElementById('heavenTopicBadge');
+    if (heavenTopic) heavenTopic.textContent = `${lText}${pText}`;
+    const heavenGrade = document.getElementById('heavenGradeBadge');
+    if (heavenGrade) heavenGrade.textContent = gText;
   }
 
   updateQuestionCountBadge() {
@@ -1402,7 +1469,8 @@ class MathGamesEngine {
     const timeDisplay = document.getElementById('blitzTimerText');
 
     if (questionEl) questionEl.innerHTML = this.formatMath(this.currentBlitzQ.q);
-    if (topicEl) topicEl.textContent = (this.currentBlitzQ.ch ? this.currentBlitzQ.ch + ' ➔ ' : '') + this.currentBlitzQ.l;
+    const bPt = this.currentBlitzQ.p ? ` • 🎯 ${this.currentBlitzQ.p}` : '';
+    if (topicEl) topicEl.textContent = (this.currentBlitzQ.ch ? this.currentBlitzQ.ch + ' ➔ ' : '') + this.currentBlitzQ.l + bPt;
     if (gradeEl) gradeEl.textContent = this.currentBlitzQ.g;
     if (timeDisplay) timeDisplay.textContent = `${this.blitzTimeLeft}s`;
     if (timerBar) {
@@ -1630,12 +1698,18 @@ class MathGamesEngine {
 
       // Grade 12 Lessons:
       // Lesson 1: ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (Algebraic Form ONLY - strictly algebraic MoEYS curriculum)
-      if (les === 'les-g12a-1-1' || (lesName.includes('កុំផ្លិច') && lesName.includes('ពីជគណិត'))) {
+      if (les === 'les-g12b-1-1' || les === 'les-g12a-1-1' || (lesName.includes('កុំផ្លិច') && lesName.includes('ពីជគណិត'))) {
         return [...this.formulaPacks.complex_algebraic];
       }
       // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form ONLY - strictly MoEYS curriculum)
-      if (les === 'les-g12a-1-2' || (lesName.includes('កុំផ្លិច') && lesName.includes('ត្រីកោណមាត្រ'))) {
+      if (les === 'les-g12b-1-2' || les === 'les-g12a-1-2' || (lesName.includes('កុំផ្លិច') && lesName.includes('ត្រីកោណមាត្រ'))) {
         return [...this.formulaPacks.complex_trigonometric];
+      }
+      if (les === 'les-g12b-2-1' || les === 'les-g12a-2-1') {
+        return [...this.formulaPacks.limits];
+      }
+      if (les === 'les-g12b-2-2' || les === 'les-g12a-2-2') {
+        return [...this.formulaPacks.limits];
       }
 
       // Calculus Lessons
@@ -2357,7 +2431,8 @@ class MathGamesEngine {
 
     if (qEl) {
       const infoEl = document.getElementById('battleQuestionInfo');
-      if (infoEl) infoEl.textContent = `${q.g} • ${q.ch ? q.ch + ' ➔ ' : ''}${q.l}`;
+      const batPt = q.p ? ` • 🎯 ${q.p}` : '';
+      if (infoEl) infoEl.textContent = `${q.g} • ${q.ch ? q.ch + ' ➔ ' : ''}${q.l}${batPt}`;
       qEl.innerHTML = this.formatMath(q.q);
     }
 
@@ -2622,7 +2697,8 @@ class MathGamesEngine {
     if (lvlText) lvlText.textContent = `សំណួរទី ${this.millionaireLevel} (ប្រជែងយក ${this.millionaireLevel} ពិន្ទុ)`;
     if (qEl) {
       const infoEl = document.getElementById('millionaireQuestionInfo');
-      if (infoEl) infoEl.textContent = `${this.currentMillionaireQ.g} • ${this.currentMillionaireQ.ch ? this.currentMillionaireQ.ch + ' ➔ ' : ''}${this.currentMillionaireQ.l}`;
+      const mPt = this.currentMillionaireQ.p ? ` • 🎯 ${this.currentMillionaireQ.p}` : '';
+      if (infoEl) infoEl.textContent = `${this.currentMillionaireQ.g} • ${this.currentMillionaireQ.ch ? this.currentMillionaireQ.ch + ' ➔ ' : ''}${this.currentMillionaireQ.l}${mPt}`;
       qEl.innerHTML = this.formatMath(this.currentMillionaireQ.q);
     }
 
@@ -2990,7 +3066,8 @@ class MathGamesEngine {
     const optionsGrid = document.getElementById('defenderOptionsGrid');
 
     if (qTextEl) {
-      const metaHtml = `<div class="text-[11px] font-bold text-amber-200 mb-1 opacity-90">${this.currentDefenderQ.ch ? this.currentDefenderQ.ch + ' ➔ ' : ''}${this.currentDefenderQ.l}</div>`;
+      const dPt = this.currentDefenderQ.p ? ` • 🎯 ${this.currentDefenderQ.p}` : '';
+      const metaHtml = `<div class="text-[11px] font-bold text-amber-200 mb-1 opacity-90">${this.currentDefenderQ.ch ? this.currentDefenderQ.ch + ' ➔ ' : ''}${this.currentDefenderQ.l}${dPt}</div>`;
       qTextEl.innerHTML = metaHtml + this.formatMath(this.currentDefenderQ.q);
     }
 
@@ -3454,7 +3531,8 @@ class MathGamesEngine {
       const modePrefix = this.heavenMode === 'versus'
         ? `<span class="px-2 py-0.5 rounded-lg ${this.heavenTeamTurn === 'A' ? 'bg-amber-500 text-slate-950' : 'bg-blue-500 text-white'} font-black mr-2">វេនក្រុម ${this.heavenTeamTurn === 'A' ? 'A (មាស)' : 'B (ខៀវ)'}</span>`
         : '';
-      metaEl.innerHTML = `${modePrefix}សំណួរទី ${this.toKhmerNum(this.heavenQuestionsAnswered + 1)} • ${this.currentHeavenQ.g}`;
+      const hPt = this.currentHeavenQ.p ? ` • 🎯 ${this.currentHeavenQ.p}` : '';
+      metaEl.innerHTML = `${modePrefix}សំណួរទី ${this.toKhmerNum(this.heavenQuestionsAnswered + 1)} • ${this.currentHeavenQ.g} • ${this.currentHeavenQ.l || ''}${hPt}`;
     }
 
     if (altitudeBadge && altitudeText) {
@@ -3845,11 +3923,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const gradeSelect = document.getElementById('filterGameGrade');
   const lessonSelect = document.getElementById('filterGameLesson');
 
+  const pointSelect = document.getElementById('filterGamePoint');
+
   if (gradeSelect) {
     gradeSelect.addEventListener('change', (e) => {
       window.mathGames.selectedGrade = e.target.value;
       window.mathGames.updateLessonDropdown();
+      window.mathGames.updatePointDropdown();
       window.mathGames.updateQuestionCountBadge();
+      window.mathGames.updateActiveTopicLabels();
       window.mathGames.onFilterChanged();
     });
   }
@@ -3857,6 +3939,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lessonSelect) {
     lessonSelect.addEventListener('change', (e) => {
       window.mathGames.selectedLesson = e.target.value;
+      window.mathGames.updatePointDropdown();
+      window.mathGames.updateQuestionCountBadge();
+      window.mathGames.updateActiveTopicLabels();
+      window.mathGames.onFilterChanged();
+    });
+  }
+
+  if (pointSelect) {
+    pointSelect.addEventListener('change', (e) => {
+      window.mathGames.selectedPoint = e.target.value;
       window.mathGames.updateQuestionCountBadge();
       window.mathGames.updateActiveTopicLabels();
       window.mathGames.onFilterChanged();
