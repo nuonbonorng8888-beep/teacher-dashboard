@@ -184,17 +184,17 @@ class MathGamesEngine {
         { id: 'g7_geo_3', left: "\\text{មុំកែង}", right: "90^\\circ" },
         { id: 'g7_geo_4', left: "\\text{មុំរាប}", right: "180^\\circ\\text{ (មុំកន្លះរង្វង់)}" },
         { id: 'g7_geo_5', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'g7_geo_6', left: "P_{\\text{ការេ}}", right: "4a" },
-        { id: 'g7_geo_7', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'g7_geo_8', left: "P_{\\text{ចតុកោណកែង}}", right: "2(a + b)" },
-        { id: 'g7_geo_9', left: "S_{\\text{ចតុកោណកែង}}", right: "a \\times b" },
+        { id: 'g7_geo_6', left: "P\\text{ (បរិមាត្រការេ)}", right: "4a" },
+        { id: 'g7_geo_7', left: "S\\text{ (ផ្ទៃក្រឡាការេ)}", right: "a^2" },
+        { id: 'g7_geo_8', left: "P\\text{ (បរិមាត្រចតុកោណកែង)}", right: "2(a + b)" },
+        { id: 'g7_geo_9', left: "S\\text{ (ផ្ទៃក្រឡាចតុកោណកែង)}", right: "a \\times b" },
         { id: 'g7_geo_10', left: "P_\\circ", right: "2\\pi R" },
         { id: 'g7_geo_11', left: "S_\\circ", right: "\\pi R^2" },
-        { id: 'g7_geo_12', left: "V_{\\text{គូប}}", right: "a^3" },
-        { id: 'g7_geo_13', left: "V_{\\text{ប្រលេឡូពីប៉ែត}}", right: "a \\times b \\times c" },
-        { id: 'g7_geo_14', left: "S_{\\text{ចតុកោណព្នាយ}}", right: "\\frac{(a+b)h}{2}" },
-        { id: 'g7_geo_15', left: "S_{\\text{ប្រលេឡូក្រាម}}", right: "b \\times h" },
-        { id: 'g7_geo_16', left: "d_{\\text{រង្វង់}}", right: "2R" }
+        { id: 'g7_geo_12', left: "V\\text{ (មាឌគូប)}", right: "a^3" },
+        { id: 'g7_geo_13', left: "V\\text{ (មាឌប្រលេឡូពីប៉ែត)}", right: "a \\times b \\times c" },
+        { id: 'g7_geo_14', left: "S\\text{ (ផ្ទៃចតុកោណព្នាយ)}", right: "\\frac{(a+b)h}{2}" },
+        { id: 'g7_geo_15', left: "S\\text{ (ផ្ទៃប្រលេឡូក្រាម)}", right: "b \\times h" },
+        { id: 'g7_geo_16', left: "d\\text{ (អង្កត់ផ្ចិតរង្វង់)}", right: "2R" }
       ],
 
       // Grade 7 Comprehensive Fallback
@@ -212,8 +212,8 @@ class MathGamesEngine {
         { id: 'g7_all_11', left: "\\frac{2}{3} \\times \\frac{3}{4}", right: "\\frac{1}{2}" },
         { id: 'g7_all_12', left: "50\\%", right: "\\frac{1}{2}\\text{ (ពាក់កណ្តាល)}" },
         { id: 'g7_all_13', left: "25\\%", right: "\\frac{1}{4}\\text{ (មួយភាគបួន)}" },
-        { id: 'g7_all_14', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'g7_all_15', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'g7_all_14', left: "S\\text{ (ផ្ទៃក្រឡាការេ)}", right: "a^2" },
+        { id: 'g7_all_15', left: "P\\text{ (បរិមាត្រការេ)}", right: "4a" },
         { id: 'g7_all_16', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
         { id: 'g7_all_17', left: "P_\\circ", right: "2\\pi R" },
         { id: 'g7_all_18', left: "S_\\circ", right: "\\pi R^2" }
@@ -274,8 +274,8 @@ class MathGamesEngine {
         { id: 'g8_all_10', left: "3^3", right: "27" },
         { id: 'g8_all_11', left: "5^3", right: "125" },
         { id: 'g8_all_12', left: "S_\\triangle", right: "\\frac{1}{2} b h" },
-        { id: 'g8_all_13', left: "S_{\\text{ការេ}}", right: "a^2" },
-        { id: 'g8_all_14', left: "P_{\\text{ការេ}}", right: "4a" },
+        { id: 'g8_all_13', left: "S\\text{ (ផ្ទៃក្រឡាការេ)}", right: "a^2" },
+        { id: 'g8_all_14', left: "P\\text{ (បរិមាត្រការេ)}", right: "4a" },
         { id: 'g8_all_15', left: "P_\\circ", right: "2\\pi R" },
         { id: 'g8_all_16', left: "S_\\circ", right: "\\pi R^2" }
       ],
@@ -323,22 +323,22 @@ class MathGamesEngine {
 
       // Solids (សូលីត)
       g9_solids: [
-        { id: 'g9_s_1', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
-        { id: 'g9_s_2', left: "S_{L\\text{ (ស៊ីឡាំង)}}", right: "2\\pi R h" },
-        { id: 'g9_s_3', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
-        { id: 'g9_s_4', left: "S_{L\\text{ (កោន)}}", right: "\\pi R l" },
-        { id: 'g9_s_5', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
-        { id: 'g9_s_6', left: "S_{\\text{ស្វ៊ែរ}}", right: "4\\pi R^2" },
-        { id: 'g9_s_7', left: "V_{\\text{គូប}}", right: "a^3" },
-        { id: 'g9_s_8', left: "S_{T\\text{ (គូប)}}", right: "6a^2" },
-        { id: 'g9_s_9', left: "V_{\\text{ប្រលេឡូពីប៉ែត}}", right: "l \\times w \\times h" },
+        { id: 'g9_s_1', left: "V\\text{ (មាឌស៊ីឡាំង)}", right: "\\pi R^2 h" },
+        { id: 'g9_s_2', left: "S_L\\text{ (ផ្ទៃខាងស៊ីឡាំង)}", right: "2\\pi R h" },
+        { id: 'g9_s_3', left: "V\\text{ (មាឌកោន)}", right: "\\frac{1}{3}\\pi R^2 h" },
+        { id: 'g9_s_4', left: "S_L\\text{ (ផ្ទៃខាងកោន)}", right: "\\pi R l" },
+        { id: 'g9_s_5', left: "V\\text{ (មាឌស្វ៊ែរ)}", right: "\\frac{4}{3}\\pi R^3" },
+        { id: 'g9_s_6', left: "S\\text{ (ផ្ទៃស្វ៊ែរ)}", right: "4\\pi R^2" },
+        { id: 'g9_s_7', left: "V\\text{ (មាឌគូប)}", right: "a^3" },
+        { id: 'g9_s_8', left: "S_T\\text{ (ផ្ទៃសរុបគូប)}", right: "6a^2" },
+        { id: 'g9_s_9', left: "V\\text{ (មាឌប្រលេឡូពីប៉ែត)}", right: "l \\times w \\times h" },
         { id: 'g9_s_10', left: "\\frac{S_1}{S_2}\\text{ (ដូចគ្នា)}", right: "k^2" },
         { id: 'g9_s_11', left: "\\frac{V_1}{V_2}\\text{ (ដូចគ្នា)}", right: "k^3" },
         { id: 'g9_s_12', left: "l^2\\text{ (កោន)}", right: "R^2 + h^2" },
-        { id: 'g9_s_13', left: "S_T\\text{ (ស៊ីឡាំង)}", right: "2\\pi R(R + h)" },
-        { id: 'g9_s_14', left: "S_T\\text{ (កោន)}", right: "\\pi R(R + l)" },
-        { id: 'g9_s_15', left: "V_{\\text{ព្រីស}}", right: "B \\times h" },
-        { id: 'g9_s_16', left: "V_{\\text{ពីរ៉ាមីត}}", right: "\\frac{1}{3} B \\times h" }
+        { id: 'g9_s_13', left: "S_T\\text{ (ផ្ទៃសរុបស៊ីឡាំង)}", right: "2\\pi R(R + h)" },
+        { id: 'g9_s_14', left: "S_T\\text{ (ផ្ទៃសរុបកោន)}", right: "\\pi R(R + l)" },
+        { id: 'g9_s_15', left: "V\\text{ (មាឌព្រីស)}", right: "B \\times h" },
+        { id: 'g9_s_16', left: "V\\text{ (មាឌពីរ៉ាមីត)}", right: "\\frac{1}{3} B \\times h" }
       ],
 
       // Grade 9 Fallback
@@ -349,9 +349,9 @@ class MathGamesEngine {
         { id: 'g9_all_4', left: "(a+b)^2", right: "a^2 + 2ab + b^2" },
         { id: 'g9_all_5', left: "(a-b)^2", right: "a^2 - 2ab + b^2" },
         { id: 'g9_all_6', left: "a^2 - b^2", right: "(a-b)(a+b)" },
-        { id: 'g9_all_7', left: "V_{\\text{ស៊ីឡាំង}}", right: "\\pi R^2 h" },
-        { id: 'g9_all_8', left: "V_{\\text{កោន}}", right: "\\frac{1}{3}\\pi R^2 h" },
-        { id: 'g9_all_9', left: "V_{\\text{ស្វ៊ែរ}}", right: "\\frac{4}{3}\\pi R^3" },
+        { id: 'g9_all_7', left: "V\\text{ (មាឌស៊ីឡាំង)}", right: "\\pi R^2 h" },
+        { id: 'g9_all_8', left: "V\\text{ (មាឌកោន)}", right: "\\frac{1}{3}\\pi R^2 h" },
+        { id: 'g9_all_9', left: "V\\text{ (មាឌស្វ៊ែរ)}", right: "\\frac{4}{3}\\pi R^3" },
         { id: 'g9_all_10', left: "\\sqrt{16}", right: "4" },
         { id: 'g9_all_11', left: "\\sqrt{25}", right: "5" },
         { id: 'g9_all_12', left: "\\sqrt{36}", right: "6" },
@@ -387,10 +387,10 @@ class MathGamesEngine {
       // Lesson 2: ស្វ៊ីតនព្វន្ត (Arithmetic Sequences ONLY - strictly no geometric)
       sequences_arithmetic: [
         { id: 'sa_1', left: "d\\text{ (ផលសងរួម)}", right: "u_n - u_{n-1}" },
-        { id: 'sa_2', left: "u_n\\text{ (តួទី }n\\text{ នព្វន្ត)}", right: "u_1 + (n-1)d" },
-        { id: 'sa_3', left: "S_n\\text{ (ផលបូក }n\\text{ តួនព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
+        { id: 'sa_2', left: "u_n\\text{ (តួទី n នៃស្វ៊ីតនព្វន្ត)}", right: "u_1 + (n-1)d" },
+        { id: 'sa_3', left: "S_n\\text{ (ផលបូក n តួដំបូងនព្វន្ត)}", right: "\\frac{n(u_1 + u_n)}{2}" },
         { id: 'sa_4', left: "S_n\\text{ (រូបមន្តទី ២)}", right: "\\frac{n[2u_1 + (n-1)d]}{2}" },
-        { id: 'sa_5', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
+        { id: 'sa_5', left: "b\\text{ (មធ្យមនព្វន្តនៃ a, c)}", right: "\\frac{a + c}{2}" },
         { id: 'sa_6', left: "2b\\text{ (លក្ខខណ្ឌ ៣ តួតគ្នានព្វន្ត)}", right: "a + c" },
         { id: 'sa_7', left: "1 + 2 + 3 + \\dots + n", right: "\\frac{n(n+1)}{2}" },
         { id: 'sa_8', left: "1 + 2 + 3 + \\dots + 10", right: "55" },
@@ -407,10 +407,10 @@ class MathGamesEngine {
       // Lesson 3: ស្វ៊ីតធរណីមាត្រ (Geometric Sequences ONLY - strictly no arithmetic)
       sequences_geometric: [
         { id: 'sg_1', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
-        { id: 'sg_2', left: "u_n\\text{ (តួទី }n\\text{ ធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
-        { id: 'sg_3', left: "S_n\\text{ (ផលបូក }n\\text{ តួធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
+        { id: 'sg_2', left: "u_n\\text{ (តួទី n នៃស្វ៊ីតធរណីមាត្រ)}", right: "u_1 \\cdot q^{n-1}" },
+        { id: 'sg_3', left: "S_n\\text{ (ផលបូក n តួដំបូងធរណីមាត្រ)}", right: "\\frac{u_1(1 - q^n)}{1 - q}" },
         { id: 'sg_4', left: "b^2\\text{ (លក្ខខណ្ឌ ៣ តួតគ្នាធរណីមាត្រ)}", right: "ac" },
-        { id: 'sg_5', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'sg_5', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ a, c)}", right: "\\sqrt{ac}" },
         { id: 'sg_6', left: "S_\\infty\\text{ (ផលបូកអនន្ត, }|q|<1)", right: "\\frac{u_1}{1 - q}" },
         { id: 'sg_7', left: "\\frac{u_n}{u_p}", right: "q^{n-p}" },
         { id: 'sg_8', left: "u_1 = 2,\\, q = 3 \\implies u_2", right: "6" },
@@ -434,8 +434,8 @@ class MathGamesEngine {
         { id: 'seq_6', left: "S_\\infty\\text{ (|q|<1)}", right: "\\frac{u_1}{1 - q}" },
         { id: 'seq_7', left: "d\\text{ (ផលសងរួម)}", right: "u_{n} - u_{n-1}" },
         { id: 'seq_8', left: "q\\text{ (ផលធៀបរួម)}", right: "\\frac{u_n}{u_{n-1}}" },
-        { id: 'seq_9', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
-        { id: 'seq_10', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'seq_9', left: "b\\text{ (មធ្យមនព្វន្តនៃ a, c)}", right: "\\frac{a + c}{2}" },
+        { id: 'seq_10', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ a, c)}", right: "\\sqrt{ac}" },
         { id: 'seq_11', left: "\\sum_{k=1}^n 1", right: "n" },
         { id: 'seq_12', left: "1 + 2 + 3 + \\dots + 10", right: "55" },
         { id: 'seq_13', left: "2 + 4 + 6 + \\dots + 2n", right: "n(n+1)" },
@@ -453,8 +453,8 @@ class MathGamesEngine {
         { id: 'g10_all_5', left: "\\cos(2x)", right: "\\cos^2(x) - \\sin^2(x)" },
         { id: 'g10_all_6', left: "\\vec{u} \\cdot \\vec{v}", right: "xx' + yy'" },
         { id: 'g10_all_7', left: "|\\vec{u}|", right: "\\sqrt{x^2 + y^2}" },
-        { id: 'g10_all_8', left: "A \\cap B", right: "\\{x \\mid x \\in A \\text{ និង } x \\in B\\}" },
-        { id: 'g10_all_9', left: "A \\cup B", right: "\\{x \\mid x \\in A \\text{ ឬ } x \\in B\\}" },
+        { id: 'g10_all_8', left: "A \\cap B", right: "\\{x \\mid x \\in A \\land x \\in B\\}" },
+        { id: 'g10_all_9', left: "A \\cup B", right: "\\{x \\mid x \\in A \\lor x \\in B\\}" },
         { id: 'g10_all_10', left: "\\Delta", right: "b^2 - 4ac" },
         { id: 'g10_all_11', left: "\\sin(\\frac{\\pi}{6})", right: "\\frac{1}{2}" },
         { id: 'g10_all_12', left: "\\cos(\\frac{\\pi}{6})", right: "\\frac{\\sqrt{3}}{2}" },
@@ -474,8 +474,8 @@ class MathGamesEngine {
         { id: 'g11_all_9', left: "\\vec{u} \\perp \\vec{v} \\iff", right: "\\vec{u} \\cdot \\vec{v} = 0" },
         { id: 'g11_all_10', left: "P(A \\cup B)", right: "P(A) + P(B) - P(A \\cap B)" },
         { id: 'g11_all_11', left: "P(\\bar{A})", right: "1 - P(A)" },
-        { id: 'g11_all_12', left: "b\\text{ (មធ្យមនព្វន្តនៃ }a, c)", right: "\\frac{a + c}{2}" },
-        { id: 'g11_all_13', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ }a, c)", right: "\\sqrt{ac}" },
+        { id: 'g11_all_12', left: "b\\text{ (មធ្យមនព្វន្តនៃ a, c)}", right: "\\frac{a + c}{2}" },
+        { id: 'g11_all_13', left: "b\\text{ (មធ្យមធរណីមាត្រនៃ a, c)}", right: "\\sqrt{ac}" },
         { id: 'g11_all_14', left: "S_\\infty\\text{ (|q|<1)}", right: "\\frac{u_1}{1 - q}" }
       ],
 
@@ -505,7 +505,7 @@ class MathGamesEngine {
       // Lesson 2: ចំនួនកុំផ្លិចទម្រង់ត្រីកោណមាត្រ (Trigonometric Form - Strictly MoEYS Curriculum)
       complex_trigonometric: [
         { id: 'ct_1', left: "z\\text{ (ទម្រង់ត្រីកោណមាត្រ)}", right: "r(\\cos\\theta + i\\sin\\theta)" },
-        { id: 'ct_2', left: "r\\text{ (ម៉ូឌុលនៃ }z)", right: "\\sqrt{a^2 + b^2}" },
+        { id: 'ct_2', left: "r = |z|\\text{ (ម៉ូឌុល)}", right: "\\sqrt{a^2 + b^2}" },
         { id: 'ct_3', left: "\\cos\\theta", right: "\\frac{a}{r}" },
         { id: 'ct_4', left: "\\sin\\theta", right: "\\frac{b}{r}" },
         { id: 'ct_5', left: "(\\cos\\theta + i\\sin\\theta)^n", right: "\\cos(n\\theta) + i\\sin(n\\theta)" },
@@ -952,13 +952,13 @@ class MathGamesEngine {
     f = f.replace(/\x0crac/g, '\\frac');
     f = f.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
 
-    // 2. Eliminate stray control codes and fix malformed text macros
-    f = f.replace(/\\t\\text/g, '\\text');
-    f = f.replace(/\\t(?=ext)/g, '\\');
+    // 2. Eliminate stray control codes and repair text / ext macros
+    f = f.replace(/\\ext\{/g, '\\text{');
+    f = f.replace(/\\ext\(/g, '\\text{(');
+    f = f.replace(/\\t+\\text/g, '\\text');
     f = f.replace(/\\text\s*\(([^)]+)\)/g, '\\text{($1)}');
-    f = f.replace(/(^|[^\\])ext\{/g, '$1\\text{');
-    f = f.replace(/(^|[^\\])ext\(/g, '$1\\text{(');
-    f = f.replace(/\\t(?![a-zA-Z])/g, ' ');
+    f = f.replace(/(^|[^a-zA-Z\\])ext\{/g, '$1\\text{');
+    f = f.replace(/(^|[^a-zA-Z\\])ext\(/g, '$1\\text{(');
 
     // 3. Repair missing backslashes on standard LaTeX math macros
     const macros = [
@@ -1022,7 +1022,11 @@ class MathGamesEngine {
       str = str.replace(/\$([^\$]+)\$/g, (match, formula) => {
         try {
           const clean = this.cleanLatexFormula(formula);
-          return katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          const rendered = katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          if (rendered.includes('katex-error')) {
+            return `<span class="font-mono font-bold text-slate-800 dark:text-slate-200">${formula}</span>`;
+          }
+          return rendered;
         } catch (e) {
           return formula;
         }
@@ -1035,13 +1039,21 @@ class MathGamesEngine {
       if (!/[\u1780-\u17FF]/.test(str) && !str.includes('<span class="katex">')) {
         try {
           const clean = this.cleanLatexFormula(str);
-          return katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          const rendered = katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          if (rendered.includes('katex-error')) {
+            return `<span class="font-mono font-medium">${str}</span>`;
+          }
+          return rendered;
         } catch (e) {}
       } else {
         str = str.replace(/(\\(?:frac|dfrac|sqrt|lim|int|sum)\{[^\}]+\}(?:\{[^\}]+\})?|\\[a-zA-Z]+(?:\^\{[^\}]+\}|_[^\s]+)?)/g, (m) => {
           try {
             const clean = this.cleanLatexFormula(m);
-            return katex.renderToString(clean, { throwOnError: false, displayMode: false });
+            const rendered = katex.renderToString(clean, { throwOnError: false, displayMode: false });
+            if (rendered.includes('katex-error')) {
+              return `<span class="font-mono font-medium">${m}</span>`;
+            }
+            return rendered;
           } catch (e) {
             return m;
           }
@@ -1052,76 +1064,139 @@ class MathGamesEngine {
     return str;
   }
 
-  renderLatex(formula, displayMode = false) {
-    if (!formula) return '';
-    let trimmed = String(formula).trim();
+  parseMathAndKhmerLabel(raw) {
+    let trimmed = String(raw || '').trim();
 
-    // 1. Strip outer $...$ or $$...$$ if whole string is math
-    if (/^\$\$[\s\S]+\$\$$/.test(trimmed)) {
+    // 0. Strip outer $$...$$ or $...$
+    if (trimmed.startsWith('$$') && trimmed.endsWith('$$')) {
       trimmed = trimmed.slice(2, -2).trim();
-    } else if (/^\$[\s\S]+\$$/.test(trimmed) && trimmed.indexOf('$', 1) === trimmed.length - 1) {
+    } else if (trimmed.startsWith('$') && trimmed.endsWith('$') && trimmed.indexOf('$', 1) === trimmed.length - 1) {
       trimmed = trimmed.slice(1, -1).trim();
     }
 
-    // 2. Pure Khmer text without LaTeX math symbols
-    if (/^[\u1780-\u17FF\s0-9\(\)\,\.\+\-\=\:\/\%\–\—\?]+$/.test(trimmed) && !/[\\\$_\^\{\}]/.test(trimmed)) {
-      return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base leading-snug">${trimmed}</span>`;
+    // 1. Pure math (no Khmer characters at all)
+    if (!/[\u1780-\u17FF]/.test(trimmed)) {
+      const cleanM = trimmed.replace(/\$/g, '').trim();
+      return { math: cleanM, label: '' };
     }
 
-    // 3. If formula contains mixed Khmer and math with explicit $...$
+    // 2. Pure Khmer text without math symbols
+    if (!/[\\_\^\{\}\=\+\*\/]/.test(trimmed) && !trimmed.includes('$')) {
+      return { math: '', label: trimmed };
+    }
+
+    // 3. Handle mixed Khmer and explicit $...$ (e.g. "គណនាតម្លៃនៃកន្សោម ៖ $\sqrt[3]{...}$" or "$A = 4x$ ត្រង់ $x = 2$")
     if (trimmed.includes('$')) {
-      return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">${this.formatMath(trimmed)}</div>`;
+      const dollarMaths = trimmed.match(/\$([^\$]+)\$/g);
+      if (dollarMaths && dollarMaths.length === 1) {
+        const mathPart = dollarMaths[0].replace(/^\$+|\$+$/g, '').trim();
+        const textOutside = trimmed.replace(/\$[^\$]+\$/g, '').trim();
+        let cleanOutside = textOutside.replace(/^(គណនាតម្លៃនៃកន្សោម|គណនាតម្លៃនៃ|គណនា|រកតម្លៃនៃកន្សោម|រកតម្លៃនៃ|រក|ដោះស្រាយសមីការ|សម្រួលកន្សោម|សម្រួល|តម្លៃនៃកន្សោម|តម្លៃនៃ)\s*[:៖]?\s*/g, '').trim();
+        cleanOutside = cleanOutside.replace(/[:៖\s]+$/g, '').trim().replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+        return { math: mathPart, label: cleanOutside };
+      } else if (dollarMaths && dollarMaths.length > 1) {
+        const mathPart = dollarMaths[0].replace(/^\$+|\$+$/g, '').trim();
+        const textOutside = trimmed.replace(/^\$[^\$]+\$\s*/, '').trim();
+        const cleanLbl = textOutside.replace(/\$/g, '').trim().replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+        return { math: mathPart, label: cleanLbl };
+      }
     }
 
-    // 4. If formula contains \text{Khmer label}
-    const textLabelMatch = trimmed.match(/^(.*?)\\text\{([^\}]+)\}(.*?)$/);
-    if (textLabelMatch) {
-      let mathPrefix = (textLabelMatch[1] || '').trim();
-      let khmerLabel = (textLabelMatch[2] || '').trim();
-      let mathSuffix = (textLabelMatch[3] || '').trim();
+    // 4. Handle subscripts with Khmer inside like P_{\text{...}} or S_{L\text{...}}
+    const subMatch = trimmed.match(/^([A-Za-z]+)(?:_\{?([A-Za-z0-9]*)\\+text\{([^}]+)\}\}?)?$/);
+    if (subMatch && subMatch[3]) {
+      const varName = subMatch[1];
+      const sub = subMatch[2];
+      let lbl = subMatch[3].trim().replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+      const mathPart = sub ? `${varName}_{${sub}}` : varName;
+      return { math: mathPart, label: lbl };
+    }
 
-      // Repair legacy misplaced closing parenthesis: if label started with '(' and suffix ends with ')'
-      if (mathSuffix.endsWith(')') && !mathSuffix.includes('(') && khmerLabel.startsWith('(')) {
-        khmerLabel = khmerLabel + ' ' + mathSuffix;
-        mathSuffix = '';
-      }
-
-      const mathCombined = (mathPrefix + (mathSuffix ? ' ' + mathSuffix : '')).trim();
-
-      let renderedMath = '';
-      if (mathCombined && typeof katex !== 'undefined') {
-        try {
-          const clean = this.cleanLatexFormula(mathCombined);
-          renderedMath = katex.renderToString(clean, { throwOnError: false, displayMode: false });
-        } catch (e) {
-          renderedMath = mathCombined;
+    // 5. Handle math formula with Khmer label in \text{...}
+    const textKhmerIdx = trimmed.search(/\\+text\{\s*\(?[\u1780-\u17FF]/);
+    if (textKhmerIdx !== -1) {
+      let mathPart = trimmed.slice(0, textKhmerIdx).trim();
+      const labelPart = trimmed.slice(textKhmerIdx);
+      let cleanLbl = labelPart.replace(/\\+text\{([^}]*)\}/g, '$1')
+                              .replace(/[\\\{\}]/g, '')
+                              .trim();
+      if (cleanLbl.startsWith('(') && cleanLbl.endsWith(')')) {
+        const inner = cleanLbl.slice(1, -1).trim();
+        if ((inner.match(/\(/g) || []).length === (inner.match(/\)/g) || []).length) {
+          cleanLbl = inner;
         }
       }
+      mathPart = mathPart.replace(/(_\{?|\\+text\{?)$/, '').trim();
+      return { math: mathPart, label: cleanLbl };
+    }
 
-      let displayLabel = khmerLabel.replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
-
-      if (renderedMath && displayLabel) {
-        return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">
-                  <span class="text-base md:text-lg font-bold">${renderedMath}</span>
-                  <span class="text-[11px] md:text-xs text-purple-700 dark:text-purple-300 font-battambang font-medium">(${displayLabel})</span>
-                </div>`;
-      } else if (displayLabel) {
-        return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base text-center">(${displayLabel})</span>`;
+    // 6. If formula has \text{...} anywhere
+    if (trimmed.includes('\\text{')) {
+      const fullText = trimmed.match(/^\\+text\{([^}]+)\}$/);
+      if (fullText) {
+        return { math: '', label: fullText[1].trim() };
+      }
+      const endText = trimmed.match(/^(.*?)\\+text\{([^}]+)\}$/);
+      if (endText) {
+        let cleanLbl = endText[2].trim().replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+        let mathPart = endText[1].trim().replace(/(_\{?|\\+text\{?)$/, '').trim();
+        return { math: mathPart, label: cleanLbl };
       }
     }
 
-    // 5. Mixed Khmer text and raw LaTeX commands without $ (e.g. "តម្លៃនៃ \sqrt{25}")
-    if (/[\u1780-\u17FF]/.test(trimmed) && /\\(frac|dfrac|sqrt|lim|int|pm|times|alpha|beta|theta|pi|sum)/.test(trimmed)) {
-      return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">${this.formatMath(trimmed)}</div>`;
+    // 7. Trailing Khmer text
+    const trailKhmer = trimmed.match(/[\u1780-\u17FF][\u1780-\u17FF\s0-9\(\)\,\.\:\-]*$/);
+    if (trailKhmer) {
+      let lbl = trailKhmer[0].trim().replace(/^\s*\(\s*/, '').replace(/\s*\)\s*$/, '').trim();
+      let mathPart = trimmed.slice(0, trailKhmer.index).trim().replace(/(_\{?|\\+text\{?|[\{_\^\(\s]+)$/, '').trim();
+      return { math: mathPart, label: lbl };
     }
 
-    // 6. Pure LaTeX math with KaTeX
-    if (typeof katex === 'undefined') return trimmed;
-    const cleanFormula = this.cleanLatexFormula(trimmed);
+    return { math: trimmed, label: '' };
+  }
+
+  renderLatex(raw, displayMode = false) {
+    if (!raw) return '';
+    const trimmed = String(raw).trim();
+
+    // Parse into clean math and clean Khmer label
+    const parsed = this.parseMathAndKhmerLabel(trimmed);
+
+    // If both math and Khmer label exist: render math on top, Khmer label on bottom
+    if (parsed.math && parsed.label) {
+      let renderedMath = '';
+      if (typeof katex !== 'undefined') {
+        try {
+          const clean = this.cleanLatexFormula(parsed.math);
+          renderedMath = katex.renderToString(clean, { throwOnError: false, displayMode: false });
+          if (renderedMath.includes('katex-error')) {
+            renderedMath = `<span class="font-mono font-bold">${parsed.math}</span>`;
+          }
+        } catch (e) {
+          renderedMath = `<span class="font-mono font-bold">${parsed.math}</span>`;
+        }
+      } else {
+        renderedMath = `<span class="font-mono font-bold">${parsed.math}</span>`;
+      }
+
+      return `<div class="flex flex-col items-center justify-center gap-1 leading-snug text-center">
+                <span class="text-base md:text-lg font-bold">${renderedMath}</span>
+                <span class="text-[11px] md:text-xs text-purple-700 dark:text-purple-300 font-battambang font-medium">(${parsed.label})</span>
+              </div>`;
+    }
+
+    // If only Khmer label (no math)
+    if (!parsed.math && parsed.label) {
+      return `<span class="khmer-card-text font-battambang font-bold text-sm md:text-base text-center leading-snug">${parsed.label}</span>`;
+    }
+
+    // Pure math formula
+    if (typeof katex === 'undefined') return parsed.math;
+    const cleanFormula = this.cleanLatexFormula(parsed.math);
     try {
       const rendered = katex.renderToString(cleanFormula, { throwOnError: false, displayMode: displayMode });
       if (rendered.includes('katex-error')) {
-        return `<span class="font-mono text-sm">${trimmed}</span>`;
+        return `<span class="font-mono font-bold">${parsed.math}</span>`;
       }
       return rendered;
     } catch (e) {
