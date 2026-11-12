@@ -68,6 +68,24 @@ class MathGamesEngine {
     this.defenderPaused = false;
     this.currentDefenderQ = null;
 
+    // Heaven & Hell Stairway State (ឡើងឋានសួគ៌ ឬ ធ្លាក់នរក)
+    this.heavenTargetSteps = 7;
+    this.hellLimitSteps = 5;
+    this.heavenStep = 0;
+    this.heavenDuration = 20;
+    this.heavenTimeRemaining = 20;
+    this.heavenTimer = null;
+    this.heavenPaused = false;
+    this.heavenStreak = 0;
+    this.heavenScore = 0;
+    this.heavenQuestionsAnswered = 0;
+    this.heavenCorrectCount = 0;
+    this.heavenMode = 'single';
+    this.heavenTeamTurn = 'A';
+    this.heavenTeamAStep = 0;
+    this.heavenTeamBStep = 0;
+    this.currentHeavenQ = null;
+
     // Comprehensive Grade & Topic-Specific Formula Packs (100% Unique Left & Right, Strictly MoEYS Curriculum)
     this.formulaPacks = {
       // ================== GRADE 7 FORMULA PACKS ==================
@@ -1274,6 +1292,7 @@ class MathGamesEngine {
     else if (mode === 'battle') this.showBattleStart();
     else if (mode === 'millionaire') this.showMillionaireStart();
     else if (mode === 'defender') this.showDefenderStart();
+    else if (mode === 'heaven') this.showHeavenStart();
   }
 
   clearAllTimers() {
@@ -1282,6 +1301,7 @@ class MathGamesEngine {
     clearInterval(this.battleTimer);
     clearInterval(this.millionaireTimer);
     clearInterval(this.defenderTimer);
+    clearInterval(this.heavenTimer);
   }
 
   /* ================== GAME 1: MATH SPEED BLITZ ================== */
@@ -3143,6 +3163,679 @@ class MathGamesEngine {
       });
     }
   }
+
+/* ================== MODE 6: HEAVEN & HELL STAIRWAY (ឡើងឋានសួគ៌ ឬ ធ្លាក់នរក) ================== */
+
+  playHeavenClimbSound() {
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, idx) => {
+      setTimeout(() => this.playTone(freq, 'triangle', 0.22), idx * 80);
+    });
+  }
+
+  playHellFallSound() {
+    const notes = [220, 164.81, 110, 65.41];
+    notes.forEach((freq, idx) => {
+      setTimeout(() => this.playTone(freq, 'sawtooth', 0.32), idx * 90);
+    });
+  }
+
+  playHeavenVictoryFanfare() {
+    const melody = [
+      { f: 523.25, d: 0.15 },
+      { f: 659.25, d: 0.15 },
+      { f: 783.99, d: 0.15 },
+      { f: 1046.5, d: 0.35 },
+      { f: 880, d: 0.15 },
+      { f: 1046.5, d: 0.55 }
+    ];
+    let time = 0;
+    melody.forEach(item => {
+      setTimeout(() => this.playTone(item.f, 'triangle', item.d), time);
+      time += item.d * 1000 * 0.85;
+    });
+  }
+
+  playHellDefeatSound() {
+    const notes = [130.81, 98, 73.42, 48.99];
+    notes.forEach((freq, idx) => {
+      setTimeout(() => this.playTone(freq, 'sawtooth', 0.45), idx * 140);
+    });
+  }
+
+  showHeavenStart() {
+    this.clearAllTimers();
+    const startView = document.getElementById('heavenStartView');
+    const gameView = document.getElementById('heavenGameView');
+    if (startView) startView.classList.remove('hidden');
+    if (gameView) gameView.classList.add('hidden');
+  }
+
+  initHeavenControls() {
+    // 1. Target Steps Buttons (5, 7, 10)
+    document.querySelectorAll('.heaven-target-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.heaven-target-btn').forEach(b => {
+          b.classList.remove('bg-sky-600', 'text-white', 'border-sky-400', 'shadow');
+          b.classList.add('border-sky-700', 'bg-sky-900/50', 'text-sky-200');
+        });
+        btn.classList.add('bg-sky-600', 'text-white', 'border-sky-400', 'shadow');
+        btn.classList.remove('border-sky-700', 'bg-sky-900/50', 'text-sky-200');
+
+        this.heavenTargetSteps = parseInt(btn.dataset.target, 10) || 7;
+        const badge = document.getElementById('heavenTargetBadge');
+        if (badge) badge.textContent = `${this.toKhmerNum(this.heavenTargetSteps)} កាំ`;
+        this.playTone(550, 'sine', 0.08);
+      });
+    });
+
+    // 2. Hell Limit Buttons (3, 5, 8)
+    document.querySelectorAll('.hell-limit-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.hell-limit-btn').forEach(b => {
+          b.classList.remove('bg-red-600', 'text-white', 'border-red-400', 'shadow');
+          b.classList.add('border-red-700', 'bg-red-900/50', 'text-red-200');
+        });
+        btn.classList.add('bg-red-600', 'text-white', 'border-red-400', 'shadow');
+        btn.classList.remove('border-red-700', 'bg-red-900/50', 'text-red-200');
+
+        this.hellLimitSteps = parseInt(btn.dataset.limit, 10) || 5;
+        const badge = document.getElementById('hellLimitBadge');
+        if (badge) badge.textContent = `${this.toKhmerNum(this.hellLimitSteps)} កាំ`;
+        this.playTone(440, 'sine', 0.08);
+      });
+    });
+
+    // 3. Time Limit Buttons (15, 20, 30, 0)
+    document.querySelectorAll('.heaven-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.heaven-time-btn').forEach(b => {
+          b.classList.remove('bg-amber-600', 'text-white', 'border-amber-400', 'shadow');
+          b.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
+        });
+        btn.classList.add('bg-amber-600', 'text-white', 'border-amber-400', 'shadow');
+        btn.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-300');
+
+        this.heavenDuration = parseInt(btn.dataset.time, 10) || 0;
+        const badge = document.getElementById('heavenTimerBadge');
+        if (badge) badge.textContent = this.heavenDuration === 0 ? 'គ្មានពេល' : `${this.toKhmerNum(this.heavenDuration)} វិនាទី`;
+        this.playTone(600, 'sine', 0.08);
+      });
+    });
+
+    // 4. Mode Selection Buttons (single vs versus)
+    document.querySelectorAll('.heaven-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.heaven-mode-btn').forEach(b => {
+          b.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-400', 'shadow');
+          b.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-300');
+        });
+        btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-400', 'shadow');
+        btn.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-300');
+
+        this.heavenMode = btn.dataset.mode || 'single';
+        const badge = document.getElementById('heavenModeBadge');
+        if (badge) badge.textContent = this.heavenMode === 'single' ? 'លេងទោល / ថ្នាក់' : 'ប្រកួត ២ ក្រុម';
+        this.playTone(650, 'sine', 0.08);
+      });
+    });
+  }
+
+  startHeavenGame() {
+    this.clearAllTimers();
+    this.heavenStep = 0;
+    this.heavenTeamAStep = 0;
+    this.heavenTeamBStep = 0;
+    this.heavenTeamTurn = 'A';
+    this.heavenStreak = 0;
+    this.heavenScore = 0;
+    this.heavenQuestionsAnswered = 0;
+    this.heavenCorrectCount = 0;
+    this.heavenPaused = false;
+
+    const startView = document.getElementById('heavenStartView');
+    const gameView = document.getElementById('heavenGameView');
+    if (startView) startView.classList.add('hidden');
+    if (gameView) gameView.classList.remove('hidden');
+
+    const topicBadge = document.getElementById('heavenTopicBadge');
+    const gradeBadge = document.getElementById('heavenGradeBadge');
+    if (topicBadge) topicBadge.textContent = this.getLessonDisplayName(this.selectedLesson);
+    if (gradeBadge) gradeBadge.textContent = this.selectedGrade === 'all' ? 'គ្រប់កម្រិតថ្នាក់' : this.selectedGrade;
+
+    this.playTone(523.25, 'triangle', 0.2);
+    setTimeout(() => this.playTone(783.99, 'triangle', 0.3), 150);
+
+    this.nextHeavenQuestion();
+  }
+
+  toggleHeavenPause() {
+    this.heavenPaused = !this.heavenPaused;
+    const btn = document.getElementById('btnPauseHeaven');
+    if (btn) {
+      btn.innerHTML = this.heavenPaused
+        ? `<i class="fa-solid fa-play"></i> <span class="hidden sm:inline">បន្ត</span>`
+        : `<i class="fa-solid fa-pause"></i> <span class="hidden sm:inline">ផ្អាក</span>`;
+    }
+  }
+
+  updateHeavenTimerDisplay() {
+    const timerText = document.getElementById('heavenTimerText');
+    const timerContainer = document.getElementById('heavenTimerContainer');
+    if (!timerText || !timerContainer) return;
+
+    if (this.heavenDuration === 0) {
+      timerContainer.classList.add('hidden');
+      return;
+    }
+
+    timerContainer.classList.remove('hidden');
+    timerText.textContent = `${this.heavenTimeRemaining}s`;
+
+    if (this.heavenTimeRemaining <= 5) {
+      timerText.classList.remove('text-amber-400');
+      timerText.classList.add('text-red-400', 'animate-pulse');
+    } else {
+      timerText.classList.remove('text-red-400', 'animate-pulse');
+      timerText.classList.add('text-amber-400');
+    }
+  }
+
+  runHeavenTimer() {
+    clearInterval(this.heavenTimer);
+    if (this.heavenDuration === 0) {
+      this.updateHeavenTimerDisplay();
+      return;
+    }
+
+    this.heavenTimeRemaining = this.heavenDuration;
+    this.updateHeavenTimerDisplay();
+
+    this.heavenTimer = setInterval(() => {
+      if (this.heavenPaused) return;
+
+      this.heavenTimeRemaining--;
+      this.updateHeavenTimerDisplay();
+
+      if (this.heavenTimeRemaining <= 3 && this.heavenTimeRemaining > 0) {
+        this.playTone(800, 'sine', 0.05);
+      }
+
+      if (this.heavenTimeRemaining <= 0) {
+        clearInterval(this.heavenTimer);
+        this.handleHeavenTimeout();
+      }
+    }, 1000);
+  }
+
+  handleHeavenTimeout() {
+    this.playHellFallSound();
+    this.heavenQuestionsAnswered++;
+    this.heavenStreak = 0;
+
+    // Apply fall penalty
+    if (this.heavenMode === 'versus') {
+      if (this.heavenTeamTurn === 'A') this.heavenTeamAStep = Math.max(-this.hellLimitSteps, this.heavenTeamAStep - 1);
+      else this.heavenTeamBStep = Math.max(-this.hellLimitSteps, this.heavenTeamBStep - 1);
+    } else {
+      this.heavenStep = Math.max(-this.hellLimitSteps, this.heavenStep - 1);
+    }
+
+    this.renderHeavenLadder();
+
+    const isGameOver = (this.heavenMode === 'versus')
+      ? (this.heavenTeamAStep <= -this.hellLimitSteps || this.heavenTeamBStep <= -this.hellLimitSteps)
+      : (this.heavenStep <= -this.hellLimitSteps);
+
+    if (isGameOver) {
+      this.endHeavenGame(false, 'timeout');
+      return;
+    }
+
+    const correctText = this.currentHeavenQ ? this.formatMath(this.currentHeavenQ.o[this.currentHeavenQ.a]) : '';
+    const expText = this.currentHeavenQ && this.currentHeavenQ.e ? this.formatMath(this.currentHeavenQ.e) : '';
+
+    window.showStandardDialog({
+      title: '⏱️ អស់ពេលហើយ! ធ្លាក់ចុះ ១ កាំទៅកាន់នរក!',
+      html: `
+        <div class="py-2 text-center font-battambang">
+          <div class="w-20 h-20 mx-auto mb-3 bg-red-950/50 rounded-full border-2 border-red-500 flex items-center justify-center text-4xl shadow-inner animate-bounce">
+            😱
+          </div>
+          <h4 class="text-base font-extrabold text-red-500 mb-1">មិនបានឆ្លើយទាន់ពេលវេលា!</h4>
+          <p class="text-xs text-slate-400 mb-3">អ្នកបានធ្លាក់ចុះ ១ កាំឆ្ពោះទៅកាន់រណ្ដៅនរក!</p>
+
+          <div class="p-3 my-2 rounded-2xl bg-red-950/40 border border-red-800 text-xs text-left">
+            <div class="font-bold text-red-300">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-emerald-400 font-extrabold">${correctText}</span></div>
+            ${expText ? `<div class="mt-1 pt-1 border-t border-red-800/60 text-[11px] text-slate-300">${expText}</div>` : ''}
+          </div>
+        </div>
+      `,
+      icon: 'warning',
+      confirmText: '👉 បន្តសំណួរបន្ទាប់',
+      onConfirm: () => {
+        if (this.heavenMode === 'versus') {
+          this.heavenTeamTurn = this.heavenTeamTurn === 'A' ? 'B' : 'A';
+        }
+        this.nextHeavenQuestion();
+      }
+    });
+  }
+
+  nextHeavenQuestion() {
+    clearInterval(this.heavenTimer);
+    const feedback = document.getElementById('heavenFeedbackBanner');
+    if (feedback) feedback.classList.add('hidden');
+
+    const pool = this.getFilteredQuestions();
+    this.currentHeavenQ = pool[Math.floor(Math.random() * pool.length)];
+
+    if (!this.currentHeavenQ) {
+      this.currentHeavenQ = this.fallbackQuestions[0];
+    }
+
+    // Update Ladder UI
+    this.renderHeavenLadder();
+
+    // Update Meta and Altitude Badge
+    const metaEl = document.getElementById('heavenQuestionMeta');
+    const altitudeBadge = document.getElementById('heavenAltitudeBadge');
+    const altitudeIcon = document.getElementById('heavenAltitudeIcon');
+    const altitudeText = document.getElementById('heavenAltitudeText');
+    const streakText = document.getElementById('heavenStreakText');
+
+    if (streakText) streakText.textContent = this.heavenStreak;
+
+    const currentStep = (this.heavenMode === 'versus')
+      ? (this.heavenTeamTurn === 'A' ? this.heavenTeamAStep : this.heavenTeamBStep)
+      : this.heavenStep;
+
+    if (metaEl) {
+      const modePrefix = this.heavenMode === 'versus'
+        ? `<span class="px-2 py-0.5 rounded-lg ${this.heavenTeamTurn === 'A' ? 'bg-amber-500 text-slate-950' : 'bg-blue-500 text-white'} font-black mr-2">វេនក្រុម ${this.heavenTeamTurn === 'A' ? 'A (មាស)' : 'B (ខៀវ)'}</span>`
+        : '';
+      metaEl.innerHTML = `${modePrefix}សំណួរទី ${this.toKhmerNum(this.heavenQuestionsAnswered + 1)} • ${this.currentHeavenQ.g}`;
+    }
+
+    if (altitudeBadge && altitudeText) {
+      if (currentStep > 0) {
+        altitudeBadge.className = 'px-4 py-1.5 rounded-2xl bg-sky-950/90 border-2 border-sky-400 font-black text-xs md:text-sm text-sky-300 shadow flex items-center gap-2';
+        if (altitudeIcon) altitudeIcon.textContent = '☁️';
+        altitudeText.textContent = `ឋានសួគ៌ (កម្រិត +${this.toKhmerNum(currentStep)} ➔ នៅសល់ ${this.toKhmerNum(this.heavenTargetSteps - currentStep)} កាំដល់វិមាន)`;
+      } else if (currentStep === 0) {
+        altitudeBadge.className = 'px-4 py-1.5 rounded-2xl bg-emerald-950/90 border-2 border-emerald-400 font-black text-xs md:text-sm text-emerald-300 shadow flex items-center gap-2';
+        if (altitudeIcon) altitudeIcon.textContent = '🌍';
+        altitudeText.textContent = 'ឋានមនុស្សលោក (កម្រិត ០ - ចំណុចចាប់ផ្ដើម)';
+      } else {
+        const remainingToHell = this.hellLimitSteps + currentStep;
+        altitudeBadge.className = 'px-4 py-1.5 rounded-2xl bg-red-950/90 border-2 border-red-500 font-black text-xs md:text-sm text-red-300 shadow flex items-center gap-2 animate-pulse';
+        if (altitudeIcon) altitudeIcon.textContent = '🔥';
+        altitudeText.textContent = `ប្រយ័ត្ន! ធ្លាក់ចុះ (កម្រិត -${this.toKhmerNum(Math.abs(currentStep))} ➔ នៅសល់ ${this.toKhmerNum(remainingToHell)} កាំធ្លាក់ដល់នរក)`;
+      }
+    }
+
+    // Render Question Text
+    const qTextEl = document.getElementById('heavenQuestionText');
+    if (qTextEl) {
+      qTextEl.innerHTML = this.formatMath(this.currentHeavenQ.q);
+    }
+
+    // Render 4 Options
+    const optionsGrid = document.getElementById('heavenOptionsGrid');
+    if (optionsGrid) {
+      const letters = ['A', 'B', 'C', 'D'];
+      const styles = [
+        { border: 'border-blue-500/40 hover:border-blue-400 bg-slate-900/80 hover:bg-blue-950/40', badge: 'bg-blue-500/20 text-blue-300 border-blue-400/40' },
+        { border: 'border-purple-500/40 hover:border-purple-400 bg-slate-900/80 hover:bg-purple-950/40', badge: 'bg-purple-500/20 text-purple-300 border-purple-400/40' },
+        { border: 'border-amber-500/40 hover:border-amber-400 bg-slate-900/80 hover:bg-amber-950/40', badge: 'bg-amber-500/20 text-amber-300 border-amber-400/40' },
+        { border: 'border-emerald-500/40 hover:border-emerald-400 bg-slate-900/80 hover:bg-emerald-950/40', badge: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40' }
+      ];
+
+      optionsGrid.innerHTML = this.currentHeavenQ.o.map((opt, idx) => `
+        <button class="heaven-opt-btn w-full p-4 rounded-2xl border-2 ${styles[idx].border} text-white font-bold text-base md:text-lg transition transform active:scale-95 shadow-md flex items-center gap-3 text-left" data-idx="${idx}">
+          <span class="w-9 h-9 rounded-xl ${styles[idx].badge} border flex items-center justify-center font-extrabold text-sm shrink-0">
+            ${letters[idx]}
+          </span>
+          <span class="flex-1 text-center font-battambang leading-relaxed">${this.formatMath(opt)}</span>
+        </button>
+      `).join('');
+
+      document.querySelectorAll('.heaven-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sel = parseInt(btn.dataset.idx, 10);
+          this.handleHeavenAnswer(sel, btn);
+        });
+      });
+    }
+
+    this.runHeavenTimer();
+  }
+
+  renderHeavenLadder() {
+    const track = document.getElementById('heavenLadderTrack');
+    if (!track) return;
+
+    const target = this.heavenTargetSteps;
+    const limit = this.hellLimitSteps;
+    const currentStep = this.heavenStep;
+
+    const heavenNames = ['ជំហានពពកស', 'សមុទ្រពពកមាស', 'ស្ពានឥន្ទធនូ', 'ច្រកទ្វារទេវតា', 'ឧទ្យានសួគ៌', 'ពន្លឺត្រាស់ដឹង', 'កំពូលឋានសួគ៌'];
+    const heavenIcons = ['☁️', '🌤️', '🌈', '✨', '🕊️', '🌟', '👑'];
+
+    const hellNames = ['ជ្រោះថ្មភ្នំភ្លើង', 'ផ្សែងអ័ព្ទខ្មៅ', 'ច្រវាក់ដែកនរក', 'ទន្លេកម្អែភ្លើង', 'រណ្ដៅភ្លើងអវចី'];
+    const hellIcons = ['⛰️', '💨', '⛓️', '🌋', '💀'];
+
+    let html = '';
+
+    for (let s = target; s >= -limit; s--) {
+      let label = '';
+      let icon = '';
+      let rowStyle = '';
+      let isPeak = (s === target);
+      let isAbyss = (s === -limit);
+      let isGround = (s === 0);
+
+      if (isPeak) {
+        label = 'កំពូលឋានសួគ៌ (វិមានទេវតា)';
+        icon = '👑';
+        rowStyle = 'bg-gradient-to-r from-amber-500/30 via-yellow-400/20 to-amber-500/30 border-amber-400 text-amber-200';
+      } else if (s > 0) {
+        const idx = (s - 1) % heavenNames.length;
+        label = heavenNames[idx];
+        icon = heavenIcons[idx % heavenIcons.length];
+        rowStyle = 'bg-sky-950/40 border-sky-600/30 text-sky-200';
+      } else if (isGround) {
+        label = 'ឋានមនុស្សលោក (ចំណុចចាប់ផ្ដើម)';
+        icon = '🌍';
+        rowStyle = 'bg-emerald-950/60 border-emerald-500/60 text-emerald-200';
+      } else if (isAbyss) {
+        label = 'បាតរណ្ដៅនរក (អវចី)';
+        icon = '💀';
+        rowStyle = 'bg-gradient-to-r from-red-950/60 via-red-900/40 to-black border-red-600 text-red-300';
+      } else {
+        const idx = (Math.abs(s) - 1) % hellNames.length;
+        label = hellNames[idx];
+        icon = hellIcons[idx % hellIcons.length];
+        rowStyle = 'bg-red-950/30 border-red-800/30 text-red-300';
+      }
+
+      // Determine avatar presence
+      let avatarHtml = '';
+      let isCurrentRow = false;
+
+      if (this.heavenMode === 'versus') {
+        const hasA = (this.heavenTeamAStep === s);
+        const hasB = (this.heavenTeamBStep === s);
+        if (hasA || hasB) {
+          isCurrentRow = true;
+          avatarHtml = `
+            <div class="flex items-center gap-1.5 shrink-0 animate-bounce">
+              ${hasA ? '<span class="px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 font-black text-[11px] shadow">🔵 A</span>' : ''}
+              ${hasB ? '<span class="px-2 py-0.5 rounded-lg bg-blue-500 text-white font-black text-[11px] shadow">🔴 B</span>' : ''}
+            </div>
+          `;
+        }
+      } else {
+        if (currentStep === s) {
+          isCurrentRow = true;
+          let playerMoodIcon = '🧑‍🎓';
+          if (s >= 7) playerMoodIcon = '👼';
+          else if (s >= 4) playerMoodIcon = '😇';
+          else if (s >= 1) playerMoodIcon = '✨';
+          else if (s === 0) playerMoodIcon = '🧑‍🎓';
+          else if (s >= -2) playerMoodIcon = '😨';
+          else if (s >= -4) playerMoodIcon = '😱';
+          else playerMoodIcon = '😈';
+
+          avatarHtml = `
+            <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-black text-[11px] shadow-lg animate-bounce border border-white">
+              <span>${playerMoodIcon}</span>
+              <span>អ្នកនៅទីនេះ!</span>
+            </div>
+          `;
+        }
+      }
+
+      const activeBorder = isCurrentRow
+        ? (s >= 0 ? 'ring-2 ring-amber-400 border-amber-300 font-black shadow-lg scale-[1.02]' : 'ring-2 ring-red-500 border-red-400 font-black shadow-lg scale-[1.02]')
+        : 'border';
+
+      const sign = s > 0 ? `+${this.toKhmerNum(s)}` : (s === 0 ? '០' : `-${this.toKhmerNum(Math.abs(s))}`);
+
+      html += `
+        <div class="flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-battambang transition-all duration-300 ${rowStyle} ${activeBorder}">
+          <div class="flex items-center gap-2 truncate">
+            <span class="w-6 text-center font-mono font-black shrink-0 ${s > 0 ? 'text-amber-400' : (s === 0 ? 'text-emerald-400' : 'text-red-400')}">
+              ${sign}
+            </span>
+            <span class="text-sm shrink-0">${icon}</span>
+            <span class="truncate text-[11px] font-medium">${label}</span>
+          </div>
+          ${avatarHtml}
+        </div>
+      `;
+    }
+
+    track.innerHTML = html;
+  }
+
+  handleHeavenAnswer(selectedIdx, btn) {
+    clearInterval(this.heavenTimer);
+
+    // Disable all options to prevent double clicks
+    document.querySelectorAll('.heaven-opt-btn').forEach(b => {
+      b.disabled = true;
+      b.classList.add('cursor-not-allowed', 'opacity-70');
+    });
+
+    this.heavenQuestionsAnswered++;
+    const isCorrect = (selectedIdx === this.currentHeavenQ.a);
+    const feedback = document.getElementById('heavenFeedbackBanner');
+
+    if (isCorrect) {
+      this.playHeavenClimbSound();
+      this.heavenCorrectCount++;
+      this.heavenStreak++;
+
+      // Streak Bonus: 3 correct in a row ascends 2 steps!
+      const stepGain = (this.heavenStreak >= 3) ? 2 : 1;
+
+      btn.classList.remove('border-blue-500/40', 'border-purple-500/40', 'border-amber-500/40', 'border-emerald-500/40', 'bg-slate-900/80');
+      btn.classList.add('bg-emerald-600', 'border-emerald-300', 'text-white', 'ring-4', 'ring-emerald-400/50', 'scale-[1.02]');
+
+      if (this.heavenMode === 'versus') {
+        if (this.heavenTeamTurn === 'A') this.heavenTeamAStep = Math.min(this.heavenTargetSteps, this.heavenTeamAStep + stepGain);
+        else this.heavenTeamBStep = Math.min(this.heavenTargetSteps, this.heavenTeamBStep + stepGain);
+      } else {
+        this.heavenStep = Math.min(this.heavenTargetSteps, this.heavenStep + stepGain);
+      }
+
+      this.renderHeavenLadder();
+
+      if (feedback) {
+        feedback.className = 'p-2.5 rounded-xl text-xs font-bold font-battambang bg-emerald-950/80 border border-emerald-500 text-emerald-200 shadow flex items-center justify-center gap-2';
+        feedback.innerHTML = stepGain > 1
+          ? `<span>⚡</span> <span>ពរជ័យទេវតា! ត្រូវ ៣ ដងជាប់គ្នា ឡើងបាន ២ កាំភ្លាមៗ! (+២ កាំ)</span> <span>✨</span>`
+          : `<span>🎉</span> <span>ត្រឹមត្រូវណាស់! ឡើងទៅកាន់ឋានសួគ៌ ១ កាំ (+១ កាំ)</span> <span>✨</span>`;
+        feedback.classList.remove('hidden');
+      }
+
+      // Check Victory
+      const isWin = (this.heavenMode === 'versus')
+        ? (this.heavenTeamAStep >= this.heavenTargetSteps || this.heavenTeamBStep >= this.heavenTargetSteps)
+        : (this.heavenStep >= this.heavenTargetSteps);
+
+      if (isWin) {
+        setTimeout(() => this.endHeavenGame(true, 'ascended'), 700);
+        return;
+      }
+
+      setTimeout(() => {
+        if (this.heavenMode === 'versus') {
+          this.heavenTeamTurn = this.heavenTeamTurn === 'A' ? 'B' : 'A';
+        }
+        this.nextHeavenQuestion();
+      }, 1000);
+
+    } else {
+      this.playHellFallSound();
+      this.heavenStreak = 0;
+
+      btn.classList.remove('border-blue-500/40', 'border-purple-500/40', 'border-amber-500/40', 'border-emerald-500/40', 'bg-slate-900/80');
+      btn.classList.add('bg-red-600', 'border-red-300', 'text-white', 'ring-4', 'ring-red-400/50');
+
+      // Highlight the correct option
+      const correctBtn = document.querySelector(`.heaven-opt-btn[data-idx="${this.currentHeavenQ.a}"]`);
+      if (correctBtn) {
+        correctBtn.classList.add('bg-emerald-700/90', 'border-emerald-400', 'text-white');
+      }
+
+      if (this.heavenMode === 'versus') {
+        if (this.heavenTeamTurn === 'A') this.heavenTeamAStep = Math.max(-this.hellLimitSteps, this.heavenTeamAStep - 1);
+        else this.heavenTeamBStep = Math.max(-this.hellLimitSteps, this.heavenTeamBStep - 1);
+      } else {
+        this.heavenStep = Math.max(-this.hellLimitSteps, this.heavenStep - 1);
+      }
+
+      this.renderHeavenLadder();
+
+      if (feedback) {
+        feedback.className = 'p-2.5 rounded-xl text-xs font-bold font-battambang bg-red-950/80 border border-red-500 text-red-200 shadow flex items-center justify-center gap-2';
+        feedback.innerHTML = `<span>💥</span> <span>មិនត្រឹមត្រូវទេ! ធ្លាក់ចុះទៅកាន់នរក ១ កាំ (-១ កាំ)</span> <span>🔥</span>`;
+        feedback.classList.remove('hidden');
+      }
+
+      // Check Defeat (Fell into Hell)
+      const isFellIntoHell = (this.heavenMode === 'versus')
+        ? (this.heavenTeamAStep <= -this.hellLimitSteps || this.heavenTeamBStep <= -this.hellLimitSteps)
+        : (this.heavenStep <= -this.hellLimitSteps);
+
+      if (isFellIntoHell) {
+        setTimeout(() => this.endHeavenGame(false, 'fallen'), 800);
+        return;
+      }
+
+      // Show explanation dialog
+      const correctText = this.currentHeavenQ ? this.formatMath(this.currentHeavenQ.o[this.currentHeavenQ.a]) : '';
+      const expText = this.currentHeavenQ && this.currentHeavenQ.e ? this.formatMath(this.currentHeavenQ.e) : '';
+
+      setTimeout(() => {
+        window.showStandardDialog({
+          title: '💥 ឆ្លើយខុសហើយ! ធ្លាក់ចុះ ១ កាំទៅកាន់នរក!',
+          html: `
+            <div class="py-2 text-center font-battambang">
+              <div class="w-20 h-20 mx-auto mb-3 bg-red-950/50 rounded-full border-2 border-red-500 flex items-center justify-center text-4xl shadow-inner animate-bounce">
+                😱
+              </div>
+              <h4 class="text-base font-extrabold text-red-500 mb-1">ឆ្លើយខុសហើយ! បាត់បង់កម្ពស់ ១ កាំ</h4>
+              <p class="text-xs text-slate-400 mb-3">
+                កម្រិតបច្ចុប្បន្ន ៖ <span class="font-bold text-red-400">${this.heavenStep >= 0 ? '+' + this.toKhmerNum(this.heavenStep) : '-' + this.toKhmerNum(Math.abs(this.heavenStep))}</span>
+                (នៅសល់ ${this.toKhmerNum(this.hellLimitSteps + this.heavenStep)} កាំធ្លាក់ដល់នរក)
+              </p>
+
+              <div class="p-3 my-2 rounded-2xl bg-red-950/40 border border-red-800 text-xs text-left">
+                <div class="font-bold text-red-300">✅ ចម្លើយត្រឹមត្រូវគឺ៖ <span class="text-emerald-400 font-extrabold">${correctText}</span></div>
+                ${expText ? `<div class="mt-1.5 pt-1.5 border-t border-red-800/60 text-[11px] text-slate-300">${expText}</div>` : ''}
+              </div>
+            </div>
+          `,
+          icon: 'error',
+          confirmText: '👉 បន្តសំណួរបន្ទាប់',
+          onConfirm: () => {
+            if (this.heavenMode === 'versus') {
+              this.heavenTeamTurn = this.heavenTeamTurn === 'A' ? 'B' : 'A';
+            }
+            this.nextHeavenQuestion();
+          }
+        });
+      }, 700);
+    }
+  }
+
+  endHeavenGame(isWin, reason) {
+    this.clearAllTimers();
+
+    if (isWin) {
+      this.playHeavenVictoryFanfare();
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.4 } });
+        setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.3 } }), 400);
+      }
+
+      const winnerTitle = (this.heavenMode === 'versus')
+        ? (this.heavenTeamAStep >= this.heavenTargetSteps ? '🎉 ក្រុម A (ទេវតាមាស) ឈ្នះ!' : '🎉 ក្រុម B (ទេវតាខៀវ) ឈ្នះ!')
+        : '👑 អបអរសាទរ! បានឡើងដល់កំពូលឋានសួគ៌ហើយ!';
+
+      window.showStandardDialog({
+        title: winnerTitle,
+        html: `
+          <div class="py-2 text-center font-battambang">
+            <div class="w-24 h-24 mx-auto mb-3 bg-gradient-to-br from-amber-400 via-yellow-300 to-amber-500 rounded-3xl border-2 border-yellow-200 flex items-center justify-center text-5xl shadow-xl animate-bounce">
+              🏰
+            </div>
+            <h4 class="text-lg font-black text-amber-500 font-moul mb-1">
+              វិមានទេវតាគណិតវិទ្យា
+            </h4>
+            <p class="text-xs text-slate-400 mb-4">
+              អ្នកបានឆ្លងកាត់ការកាត់ក្ដីគណិតវិទ្យា និងឡើងដល់កំពូលឋានសួគ៌ដោយជោគជ័យ!
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-slate-800/80 border border-amber-400/40 text-center my-3">
+              <div class="p-2 rounded-xl bg-slate-900/60">
+                <div class="text-[10px] text-slate-400 font-bold">ឡើងដល់កម្រិត</div>
+                <div class="text-base font-black text-amber-400">+${this.toKhmerNum(this.heavenTargetSteps)} 👑</div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/60">
+                <div class="text-[10px] text-slate-400 font-bold">ឆ្លើយត្រូវ</div>
+                <div class="text-base font-black text-emerald-400">${this.toKhmerNum(this.heavenCorrectCount)} / ${this.toKhmerNum(this.heavenQuestionsAnswered)}</div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/60">
+                <div class="text-[10px] text-slate-400 font-bold">Streak អតិបរមា</div>
+                <div class="text-base font-black text-orange-400">🔥 ${this.toKhmerNum(this.heavenStreak)}</div>
+              </div>
+            </div>
+          </div>
+        `,
+        icon: 'success',
+        confirmText: '🔄 លេងការសាកល្បងម្ដងទៀត',
+        onConfirm: () => this.startHeavenGame()
+      });
+
+    } else {
+      this.playHellDefeatSound();
+
+      window.showStandardDialog({
+        title: '💀 អូយ! ធ្លាក់ដល់បាតរណ្ដៅនរកហើយ!',
+        html: `
+          <div class="py-2 text-center font-battambang">
+            <div class="w-24 h-24 mx-auto mb-3 bg-gradient-to-br from-red-600 via-red-800 to-black rounded-3xl border-2 border-red-500 flex items-center justify-center text-5xl shadow-xl animate-bounce">
+              🔥
+            </div>
+            <h4 class="text-base font-black text-red-500 font-moul mb-1">
+              ធ្លាក់ចូលរណ្ដៅភ្លើងនរក
+            </h4>
+            <p class="text-xs text-slate-400 mb-4">
+              ឆ្លើយខុសច្រើនដងពេក រអិលធ្លាក់ចុះដល់បាតរណ្ដៅនរក! កុំទាន់អស់សង្ឃឹម ចូរក្រោកឡើងវិញ និងហ្វឹកហាត់គណិតវិទ្យាដើម្បីរំដោះខ្លួនឡើងឋានសួគ៌!
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-red-950/40 border border-red-800 text-center my-3">
+              <div class="p-2 rounded-xl bg-slate-900/60">
+                <div class="text-[10px] text-slate-400 font-bold">ធ្លាក់ដល់កម្រិត</div>
+                <div class="text-base font-black text-red-500">-${this.toKhmerNum(this.hellLimitSteps)} 💀</div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/60">
+                <div class="text-[10px] text-slate-400 font-bold">ឆ្លើយត្រូវសរុប</div>
+                <div class="text-base font-black text-emerald-400">${this.toKhmerNum(this.heavenCorrectCount)} / ${this.toKhmerNum(this.heavenQuestionsAnswered)}</div>
+              </div>
+            </div>
+          </div>
+        `,
+        icon: 'error',
+        confirmText: '⚡ រំដោះខ្លួនឡើងវិញ (លេងម្ដងទៀត)',
+        onConfirm: () => this.startHeavenGame()
+      });
+    }
+  }
 }
 
 window.mathGames = new MathGamesEngine();
@@ -3176,6 +3869,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.mathGames.initBattleControls();
   window.mathGames.initMillionaireControls();
   window.mathGames.initDefenderControls();
+  window.mathGames.initHeavenControls();
 
   // Populate initial dropdowns
   window.mathGames.updateLessonDropdown();

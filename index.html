@@ -834,6 +834,9 @@
             <button id="tabBtn-defender" onclick="window.mathGames.switchGameMode('defender')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
               🚀 បាញ់អាចម៍ផ្កាយ
             </button>
+            <button id="tabBtn-heaven" onclick="window.mathGames.switchGameMode('heaven')" class="game-tab-btn px-3 py-1.5 rounded-xl font-bold text-xs hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
+              ☁️🔥 ឋានសួគ៌-នរក
+            </button>
           </div>
         </div>
 
@@ -1571,6 +1574,201 @@
           </div>
         </div>
 
+        <!-- MODE 6: HEAVEN & HELL STAIRWAY (ឡើងឋានសួគ៌ ឬ ធ្លាក់នរក) -->
+        <div id="panel-heaven" class="game-mode-panel hidden space-y-6">
+          <!-- 1. HEAVEN START & SETTINGS VIEW -->
+          <div id="heavenStartView" class="card-soft p-6 md:p-10 bg-gradient-to-b from-sky-950 via-slate-900 to-red-950 text-white relative overflow-hidden border-2 border-amber-400 shadow-2xl space-y-6">
+            <!-- Background Atmospheric Glows -->
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Header -->
+            <div class="text-center space-y-2 relative z-10">
+              <div class="inline-flex items-center justify-center gap-3 p-3 rounded-3xl bg-slate-800/80 border border-amber-400/50 shadow-inner mb-2">
+                <span class="text-4xl animate-bounce">☁️</span>
+                <span class="text-3xl text-amber-300 font-black">✨</span>
+                <span class="text-4xl animate-pulse">🔥</span>
+              </div>
+              <h3 class="text-2xl md:text-3xl font-extrabold font-moul text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-400 filter drop-shadow">
+                ជណ្ដើរឋានសួគ៌ និង នរក
+              </h3>
+              <p class="text-xs md:text-sm text-slate-300 max-w-lg mx-auto font-battambang leading-relaxed">
+                «ឆ្លើយត្រូវឡើងទៅកាន់ឋានសួគ៌ • ឆ្លើយខុសធ្លាក់ចុះទៅកាន់រណ្ដៅនរក!»<br>
+                សាកល្បងសមត្ថភាពគណិតវិទ្យាដើម្បីឡើងដល់វិមានកំពូលឋានសួគ៌!
+              </p>
+            </div>
+
+            <!-- Settings Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto relative z-10 text-xs font-battambang">
+              <!-- Setting 1: Heaven Target Steps -->
+              <div class="p-4 rounded-2xl bg-sky-950/60 border border-sky-600/50 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between text-sky-300 font-bold">
+                  <span class="flex items-center gap-1.5"><span class="text-lg">☁️</span> កម្ពស់ឋានសួគ៌ (Steps to Heaven)</span>
+                  <span id="heavenTargetBadge" class="px-2 py-0.5 rounded-lg bg-sky-600 text-white font-black">៧ កាំ</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <button type="button" class="heaven-target-btn px-2.5 py-2 rounded-xl border border-sky-700 bg-sky-900/50 text-sky-200 hover:bg-sky-800 font-bold transition" data-target="5">៥ កាំ (រហ័ស)</button>
+                  <button type="button" class="heaven-target-btn px-2.5 py-2 rounded-xl border border-sky-400 bg-sky-600 text-white font-bold transition shadow" data-target="7">៧ កាំ (ស្ដង់ដារ)</button>
+                  <button type="button" class="heaven-target-btn px-2.5 py-2 rounded-xl border border-sky-700 bg-sky-900/50 text-sky-200 hover:bg-sky-800 font-bold transition" data-target="10">១០ កាំ (ពិបាក)</button>
+                </div>
+                <p class="text-[11px] text-sky-300/80">ចំនួនកាំជណ្ដើរត្រូវឆ្លើយត្រូវ ដើម្បីឡើងដល់វិមានទេវតា</p>
+              </div>
+
+              <!-- Setting 2: Hell Fall Limit -->
+              <div class="p-4 rounded-2xl bg-red-950/60 border border-red-600/50 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between text-red-300 font-bold">
+                  <span class="flex items-center gap-1.5"><span class="text-lg">🔥</span> ជម្រៅនរក (Strikes to Hell)</span>
+                  <span id="hellLimitBadge" class="px-2 py-0.5 rounded-lg bg-red-600 text-white font-black">៥ កាំ</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <button type="button" class="hell-limit-btn px-2.5 py-2 rounded-xl border border-red-700 bg-red-900/50 text-red-200 hover:bg-red-800 font-bold transition" data-limit="3">៣ កាំ (តឹងរ៉ឹង)</button>
+                  <button type="button" class="hell-limit-btn px-2.5 py-2 rounded-xl border border-red-400 bg-red-600 text-white font-bold transition shadow" data-limit="5">៥ កាំ (ស្ដង់ដារ)</button>
+                  <button type="button" class="hell-limit-btn px-2.5 py-2 rounded-xl border border-red-700 bg-red-900/50 text-red-200 hover:bg-red-800 font-bold transition" data-limit="8">៨ កាំ (ធូររលុង)</button>
+                </div>
+                <p class="text-[11px] text-red-300/80">បើឆ្លើយខុសធ្លាក់ចុះដល់កម្រិតនេះ នឹងធ្លាក់ចូលរណ្ដៅនរក</p>
+              </div>
+
+              <!-- Setting 3: Timer per question -->
+              <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-700 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between text-amber-300 font-bold">
+                  <span class="flex items-center gap-1.5"><span class="text-lg">⏱️</span> ថិរវេលាក្នុងមួយសំណួរ</span>
+                  <span id="heavenTimerBadge" class="px-2 py-0.5 rounded-lg bg-amber-600 text-white font-black">២០ វិនាទី</span>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <button type="button" class="heaven-time-btn px-2 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold transition" data-time="15">១៥s</button>
+                  <button type="button" class="heaven-time-btn px-2 py-2 rounded-xl border border-amber-400 bg-amber-600 text-white font-bold transition shadow" data-time="20">២០s</button>
+                  <button type="button" class="heaven-time-btn px-2 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold transition" data-time="30">៣០s</button>
+                  <button type="button" class="heaven-time-btn px-2 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold transition" data-time="0">គ្មានពេល</button>
+                </div>
+                <p class="text-[11px] text-slate-400">ជ្រើស «គ្មានពេល» សម្រាប់គ្រូដឹកនាំពិភាក្សាក្នុងថ្នាក់</p>
+              </div>
+
+              <!-- Setting 4: Mode Selection (Solo vs Team) -->
+              <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-700 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between text-emerald-300 font-bold">
+                  <span class="flex items-center gap-1.5"><span class="text-lg">👥</span> ទម្រង់នៃការលេង</span>
+                  <span id="heavenModeBadge" class="px-2 py-0.5 rounded-lg bg-emerald-600 text-white font-black">លេងទោល / ថ្នាក់</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" class="heaven-mode-btn px-3 py-2 rounded-xl border border-emerald-400 bg-emerald-600 text-white font-bold transition shadow flex items-center justify-center gap-1.5" data-mode="single">
+                    <span>👤</span> <span>លេងទោល / រួមគ្នា</span>
+                  </button>
+                  <button type="button" class="heaven-mode-btn px-3 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold transition flex items-center justify-center gap-1.5" data-mode="versus">
+                    <span>⚔️</span> <span>ប្រកួត ២ ក្រុម</span>
+                  </button>
+                </div>
+                <p class="text-[11px] text-slate-400">ប្រកួត ២ ក្រុម៖ ទេវតា (ក្រុម A) VS អារក្ស (ក្រុម B) ប្រជែងគ្នា!</p>
+              </div>
+            </div>
+
+            <!-- Start Button -->
+            <div class="pt-4 text-center relative z-10">
+              <button id="btnStartHeaven" onclick="window.mathGames.startHeavenGame()" class="w-full max-w-md mx-auto py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-lg md:text-xl shadow-xl transition transform active:scale-95 flex items-center justify-center gap-3 font-moul">
+                <span>🚀</span> <span>ចាប់ផ្ដើមឡើងឋានសួគ៌</span> <span>✨</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. HEAVEN ACTIVE GAMEPLAY VIEW -->
+          <div id="heavenGameView" class="card-soft p-4 md:p-6 bg-gradient-to-b from-sky-950 via-slate-900 to-red-950 text-white relative overflow-hidden border-2 border-amber-400/80 shadow-2xl hidden">
+            <!-- Header Status -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 mb-4 border-b border-slate-700/80">
+              <!-- Left: Topic / Grade -->
+              <div class="flex items-center gap-2">
+                <span id="heavenTopicBadge" class="px-3 py-1 rounded-xl text-xs font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40">គណិតវិទ្យា</span>
+                <span id="heavenGradeBadge" class="text-xs text-slate-400">ថ្នាក់ទី ៧-១២</span>
+              </div>
+
+              <!-- Center: Altitude Meter Badge -->
+              <div id="heavenAltitudeBadge" class="px-4 py-1.5 rounded-2xl bg-slate-800/90 border-2 border-amber-400 font-black text-xs md:text-sm text-amber-300 shadow flex items-center gap-2">
+                <span class="text-base">🌍</span>
+                <span id="heavenAltitudeText">ឋានមនុស្សលោក (កម្រិត ០)</span>
+              </div>
+
+              <!-- Right: Streak, Timer, Controls -->
+              <div class="flex items-center gap-2 md:gap-3">
+                <!-- Streak -->
+                <div class="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-orange-950/60 border border-orange-500/50 text-orange-300 text-xs font-bold">
+                  <span>🔥</span>
+                  <span>Streak:</span>
+                  <span id="heavenStreakText" class="font-black text-amber-400 text-sm">0</span>
+                </div>
+
+                <!-- Timer Bar/Text -->
+                <div id="heavenTimerContainer" class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold">
+                  <span>⏱️</span>
+                  <span id="heavenTimerText" class="font-mono text-amber-400 font-black">20s</span>
+                </div>
+
+                <!-- Pause / Reset Buttons -->
+                <button id="btnPauseHeaven" onclick="window.mathGames.toggleHeavenPause()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1" title="ផ្អាក">
+                  <i class="fa-solid fa-pause"></i> <span class="hidden sm:inline">ផ្អាក</span>
+                </button>
+                <button onclick="window.mathGames.showHeavenStart()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1" title="កំណត់ឡើងវិញ">
+                  <i class="fa-solid fa-gear"></i> <span class="hidden sm:inline">កំណត់</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Main Interactive Area: 2 Columns (Ladder on Left, Question on Right) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+              <!-- Left Column: The Vertical Stairway to Heaven & Hell (4 cols) -->
+              <div class="lg:col-span-4 rounded-2xl bg-slate-950/80 border border-slate-800 p-3 flex flex-col justify-between relative overflow-hidden shadow-inner min-h-[460px]">
+                <!-- Top Heaven Crown Banner -->
+                <div class="text-center p-2 rounded-xl bg-gradient-to-r from-sky-600 via-amber-400 to-yellow-300 text-slate-950 font-black text-xs md:text-sm shadow-md flex items-center justify-center gap-1.5 border border-yellow-200">
+                  <span class="text-base">🏰</span>
+                  <span class="font-moul text-[11px]">កំពូលឋានសួគ៌</span>
+                  <span class="text-base">👑</span>
+                </div>
+
+                <!-- Vertical Ladder Track -->
+                <div id="heavenLadderTrack" class="my-2 flex-1 flex flex-col justify-between py-1 relative">
+                  <!-- Steps are injected dynamically by JS -->
+                </div>
+
+                <!-- Bottom Hell Abyss Banner -->
+                <div class="text-center p-2 rounded-xl bg-gradient-to-r from-black via-red-900 to-black text-red-400 font-black text-xs md:text-sm shadow-md flex items-center justify-center gap-1.5 border border-red-600/60">
+                  <span class="text-base">💀</span>
+                  <span class="font-moul text-[11px] text-red-300">រណ្ដៅភ្លើងនរក</span>
+                  <span class="text-base">🔥</span>
+                </div>
+              </div>
+
+              <!-- Right Column: Question Card & Options Grid (8 cols) -->
+              <div class="lg:col-span-8 flex flex-col justify-between space-y-4">
+                <!-- Question Box -->
+                <div class="flex-1 p-5 md:p-7 rounded-2xl bg-slate-900/90 border-2 border-amber-400/60 shadow-xl flex flex-col justify-between text-center relative overflow-hidden">
+                  <!-- Ambient background icons -->
+                  <div class="absolute top-2 left-3 text-3xl opacity-10 pointer-events-none">☁️</div>
+                  <div class="absolute bottom-2 right-3 text-3xl opacity-10 pointer-events-none">🔥</div>
+
+                  <div class="mb-2">
+                    <span id="heavenQuestionMeta" class="text-[11px] font-bold text-amber-300/90 font-battambang uppercase tracking-wider">
+                      សំណួរទី ១ • ថ្នាក់ទី ១០
+                    </span>
+                  </div>
+
+                  <!-- Question Text (with KaTeX rendering) -->
+                  <div class="my-auto py-4">
+                    <h3 id="heavenQuestionText" class="text-lg md:text-2xl font-black text-white leading-relaxed font-battambang">
+                      កំពុងទាញយកសំណួរ...
+                    </h3>
+                  </div>
+
+                  <!-- Streak & Feedback Alert Banner -->
+                  <div id="heavenFeedbackBanner" class="hidden p-2.5 rounded-xl text-xs font-bold font-battambang transition-all duration-300">
+                    <!-- Feedback message injected dynamically -->
+                  </div>
+                </div>
+
+                <!-- 4 Options Grid -->
+                <div id="heavenOptionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                  <!-- Options injected dynamically by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ==================== TAB: QUESTION BANK (ធនាគារសំណួរ 5,470 សំណួរ) ==================== -->
@@ -1966,7 +2164,7 @@
   <script src="js/tools.js?v=5.7"></script>
   <script src="js/grades.js?v=5.1"></script>
   <script src="js/curriculum-questions.js?v=8.7"></script>
-  <script src="js/math-games.js?v=8.9"></script>
+  <script src="js/math-games.js?v=9.0"></script>
   <script src="js/question-bank.js?v=5.1"></script>
   <script src="js/pdf-lib.min.js"></script>
   <script src="js/lesson-plans-data.js?v=8.7"></script>
