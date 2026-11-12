@@ -6,12 +6,13 @@
 
 class GroupGeneratorEngine {
   constructor() {
-    this.students = []; // { id, name, sex, isSpecial: boolean, class: string }
+    this.students = []; // { id, name, sex, isSpecial: boolean, isAnchor: boolean, class: string, totalScore: number, note: string }
     this.numGroups = 4;
     this.specialNeedsGroup = 1; // 1-based index (default Group 1: front row)
     this.groupSpecialTogether = true;
+    this.distributeAnchors = true; // disperse top / anchor students across different groups
     this.namingStyle = 'numbers'; // 'numbers' | 'letters' | 'creative' | 'colors'
-    this.groups = []; // { id, name, theme, members: [], leader: null, isSpecialGroup: boolean }
+    this.groups = []; // { id, name, theme, members: [], leader: null, isSpecialGroup: boolean, hasAnchor: boolean }
     
     // Canvas & Animation State
     this.canvasId = 'groupSpinCanvas';
@@ -84,13 +85,19 @@ class GroupGeneratorEngine {
     if (window.DATA && window.DATA.students && Array.isArray(window.DATA.students)) {
       const filtered = window.DATA.students.filter(s => s.class === className);
       if (filtered.length > 0) {
-        list = filtered.map((s, idx) => ({
-          id: s.id || `st_${idx + 1}`,
-          name: s.name,
-          sex: s.sex || 'ប្រុស',
-          class: className,
-          isSpecial: false
-        }));
+        list = filtered.map((s, idx) => {
+          const totalScore = (s.q1 || 0) + (s.q2 || 0) + (s.midterm || 0) + (s.final || 0);
+          return {
+            id: s.id || `st_${idx + 1}`,
+            name: s.name,
+            sex: s.sex || 'ប្រុស',
+            class: className,
+            isSpecial: false,
+            isAnchor: false,
+            totalScore: totalScore,
+            note: s.note || ''
+          };
+        });
       }
     }
 
@@ -115,11 +122,15 @@ class GroupGeneratorEngine {
         name: item.name,
         sex: item.sex,
         class: className,
-        isSpecial: (idx === 0 || idx === 2) // pre-mark 2 students as demo special needs
+        isSpecial: (idx === 0 || idx === 1), // pre-mark 2 students as demo special needs (front row)
+        isAnchor: false,
+        totalScore: 70 + (idx % 25),
+        note: (idx === 3 || idx === 4 || idx === 8 || idx === 12) ? 'ឆ្នើម' : ''
       }));
     }
 
     this.students = list;
+    this.autoSelectAnchors(false); // auto-select top students initially
     this.renderStudentChips();
     this.updateStatsBadge();
     this.drawWheel();
@@ -129,17 +140,24 @@ class GroupGeneratorEngine {
     if (!namesText || !namesText.trim()) return;
     const lines = namesText.split(/[\n,;]+/).map(s => s.trim()).filter(s => s.length > 0);
     
-    // Preserve existing special flags if names match
+    // Preserve existing flags if names match
     const existingSpecial = new Set(this.students.filter(s => s.isSpecial).map(s => s.name));
+    const existingAnchor = new Set(this.students.filter(s => s.isAnchor).map(s => s.name));
 
     this.students = lines.map((name, idx) => ({
       id: `custom_${idx + 1}`,
       name: name,
       sex: 'ទូទៅ',
       class: 'ផ្ទាល់ខ្លួន',
-      isSpecial: existingSpecial.has(name)
+      isSpecial: existingSpecial.has(name),
+      isAnchor: existingAnchor.has(name),
+      totalScore: 75,
+      note: ''
     }));
 
+    if (this.students.filter(s => s.isAnchor).length === 0) {
+      this.autoSelectAnchors(false);
+    }
     this.renderStudentChips();
     this.updateStatsBadge();
     this.drawWheel();
@@ -152,6 +170,47 @@ class GroupGeneratorEngine {
       this.beep(st.isSpecial ? 880 : 440, 0.08, 'triangle');
       this.renderStudentChips();
       this.updateStatsBadge();
+    }
+  }
+
+  toggleAnchor(studentId) {
+    const st = this.students.find(s => s.id === studentId);
+    if (st) {
+      st.isAnchor = !st.isAnchor;
+      this.beep(st.isAnchor ? 784 : 392, 0.08, 'sine');
+      this.renderStudentChips();
+      this.updateStatsBadge();
+    }
+  }
+
+  autoSelectAnchors(showNotification = true) {
+    if (!this.students || this.students.length === 0) return;
+    const targetCount = this.numGroups; // 1 top student per group
+    // Sort descending by score, honor note, or name
+    const sorted = [...this.students].sort((a, b) => {
+      const scoreA = (a.note === 'ឆ្នើម' ? 100 : 0) + (a.totalScore || 0);
+      const scoreB = (b.note === 'ឆ្នើម' ? 100 : 0) + (b.totalScore || 0);
+      return scoreB - scoreA;
+    });
+
+    const topIds = new Set(sorted.slice(0, targetCount).map(s => s.id));
+    this.students.forEach(s => {
+      s.isAnchor = topIds.has(s.id);
+    });
+
+    this.renderStudentChips();
+    this.updateStatsBadge();
+    if (showNotification && typeof window.showToast === 'function') {
+      window.showToast(`✨ បានជ្រើសរើសសិស្សពូកែ ${this.toKhmerNum(targetCount)} នាក់ ជាសិស្សបង្គោល!`, 'success');
+    }
+  }
+
+  clearAnchors() {
+    this.students.forEach(s => { s.isAnchor = false; });
+    this.renderStudentChips();
+    this.updateStatsBadge();
+    if (typeof window.showToast === 'function') {
+      window.showToast('បានកំណត់សិស្សបង្គោលឡើងវិញ!', 'info');
     }
   }
 
@@ -213,9 +272,8 @@ class GroupGeneratorEngine {
       const theme = this.getGroupTheme(i);
       const isTargetSpecialGroup = this.groupSpecialTogether && (i === targetSpecialIdx);
       const baseName = this.getGroupBaseName(i);
-      const displayName = isTargetSpecialGroup
-        ? `${baseName} (ជួរមុខក្បែរក្ដារខៀន)`
-        : baseName;
+      // Neutral, dignified group title without public labeling
+      const displayName = baseName;
 
       groups.push({
         id: i + 1,
@@ -223,63 +281,125 @@ class GroupGeneratorEngine {
         name: displayName,
         baseName: baseName,
         isSpecialGroup: isTargetSpecialGroup,
+        hasAnchor: false,
         theme: theme,
         members: [],
         leader: null
       });
     }
 
-    // Separate special needs vs regular
-    const specialStudents = this.students.filter(s => s.isSpecial);
-    const regularStudents = this.students.filter(s => !s.isSpecial);
+    // Partition students into categories
+    const both = [];
+    const onlySpecial = [];
+    const onlyAnchor = [];
+    const regular = [];
 
-    // Shuffle regular students randomly (Fisher-Yates)
-    const shuffledRegular = [...regularStudents];
+    this.students.forEach(st => {
+      const isSpec = !!st.isSpecial;
+      const isAnc = !!st.isAnchor;
+      if (isSpec && isAnc) {
+        both.push({ ...st });
+      } else if (isSpec) {
+        onlySpecial.push({ ...st });
+      } else if (isAnc) {
+        onlyAnchor.push({ ...st });
+      } else {
+        regular.push({ ...st });
+      }
+    });
+
+    // 1. Assign students who have BOTH Special Needs & Anchor (Front row + anchor)
+    if (this.groupSpecialTogether && both.length > 0) {
+      both.forEach(st => {
+        let currentIdx = targetSpecialIdx;
+        if (groups[currentIdx].members.length >= targetSizes[currentIdx] && currentIdx + 1 < this.numGroups) {
+          currentIdx++;
+        }
+        groups[currentIdx].members.push(st);
+        groups[currentIdx].hasAnchor = true;
+      });
+    } else {
+      both.forEach(st => onlyAnchor.push(st));
+    }
+
+    // 2. Assign ONLY SPECIAL needs students (Eyesight / Front row)
+    if (this.groupSpecialTogether && onlySpecial.length > 0) {
+      let currentIdx = targetSpecialIdx;
+      onlySpecial.forEach(st => {
+        if (groups[currentIdx].members.length >= targetSizes[currentIdx] && currentIdx + 1 < this.numGroups) {
+          currentIdx++;
+        }
+        groups[currentIdx].members.push(st);
+      });
+    } else {
+      onlySpecial.forEach(st => regular.push(st));
+    }
+
+    // 3. Assign ONLY ANCHOR students (Top students dispersed across distinct groups)
+    if (this.distributeAnchors && onlyAnchor.length > 0) {
+      // Shuffle anchor students so assignment to groups is randomized
+      const shuffledAnchors = [...onlyAnchor];
+      for (let i = shuffledAnchors.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledAnchors[i], shuffledAnchors[j]] = [shuffledAnchors[j], shuffledAnchors[i]];
+      }
+
+      shuffledAnchors.forEach(st => {
+        // Find groups that DO NOT yet have an anchor and have room
+        const candidates = groups.filter(g => !g.hasAnchor && g.members.length < targetSizes[g.index]);
+        if (candidates.length > 0) {
+          // Pick randomly among candidate groups
+          const picked = candidates[Math.floor(Math.random() * candidates.length)];
+          picked.members.push(st);
+          picked.hasAnchor = true;
+        } else {
+          // If all available groups already have an anchor (i.e. anchors > numGroups)
+          // Find group with remaining capacity and fewest members
+          const available = groups.filter(g => g.members.length < targetSizes[g.index]);
+          if (available.length > 0) {
+            available.sort((a, b) => a.members.length - b.members.length);
+            available[0].members.push(st);
+          } else {
+            // Overflow fallback
+            groups[groups.length - 1].members.push(st);
+          }
+        }
+      });
+    } else {
+      onlyAnchor.forEach(st => regular.push(st));
+    }
+
+    // 4. Assign REGULAR students (Fisher-Yates shuffle + balanced distribution)
+    const shuffledRegular = [...regular];
     for (let i = shuffledRegular.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledRegular[i], shuffledRegular[j]] = [shuffledRegular[j], shuffledRegular[i]];
     }
 
-    if (this.groupSpecialTogether && specialStudents.length > 0) {
-      let currentIdx = targetSpecialIdx;
-      // 1. Pack all special needs students into the target group
-      specialStudents.forEach(st => {
-        // If target group capacity reached, overflow to next group
-        if (groups[currentIdx].members.length >= targetSizes[currentIdx] && currentIdx + 1 < this.numGroups) {
-          currentIdx++;
-          groups[currentIdx].isSpecialGroup = true;
-          groups[currentIdx].name = `${groups[currentIdx].baseName} (ជួរមុខទី ២)`;
+    shuffledRegular.forEach(st => {
+      // Find group with the most room remaining: (targetSizes[i] - members.length)
+      let bestGroup = null;
+      let maxRemaining = -Infinity;
+      for (let i = 0; i < groups.length; i++) {
+        const remaining = targetSizes[i] - groups[i].members.length;
+        if (remaining > maxRemaining) {
+          maxRemaining = remaining;
+          bestGroup = groups[i];
         }
-        groups[currentIdx].members.push({ ...st });
-      });
-
-      // 2. Fill the remaining slots across all groups with shuffled regular students
-      shuffledRegular.forEach(st => {
-        // Find group with largest negative capacity difference (most empty)
-        let bestGroup = null;
-        let minDiff = Infinity;
-        for (let i = 0; i < groups.length; i++) {
-          const diff = groups[i].members.length - targetSizes[i];
-          if (diff < minDiff) {
-            minDiff = diff;
-            bestGroup = groups[i];
-          }
-        }
-        if (bestGroup) {
-          bestGroup.members.push({ ...st });
-        }
-      });
-    } else {
-      // Regular balanced shuffle across all groups
-      const allShuffled = [...this.students];
-      for (let i = allShuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [allShuffled[i], allShuffled[j]] = [allShuffled[j], allShuffled[i]];
       }
-      allShuffled.forEach((st, idx) => {
-        groups[idx % this.numGroups].members.push({ ...st });
-      });
-    }
+      if (bestGroup) {
+        bestGroup.members.push(st);
+      }
+    });
+
+    // 5. INTERNAL SHUFFLE (Confidentiality & Equality Shield)
+    // Randomize member display order inside each group so top/special students are not always at index 0
+    groups.forEach(g => {
+      for (let i = g.members.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [g.members[i], g.members[j]] = [g.members[j], g.members[i]];
+      }
+    });
 
     this.groups = groups;
     return groups;
@@ -427,12 +547,8 @@ class GroupGeneratorEngine {
         }
 
         if (banner) {
-          const specialCount = this.students.filter(s => s.isSpecial).length;
-          const specialMsg = (this.groupSpecialTogether && specialCount > 0)
-            ? ` • 👓 សិស្សករណីពិសេស ${this.toKhmerNum(specialCount)} នាក់ ត្រូវបានដាក់ក្នុង ${this.groups[this.specialNeedsGroup - 1].name}!`
-            : '';
           banner.className = 'p-3 rounded-2xl bg-emerald-600 text-white font-bold text-center text-sm shadow';
-          banner.innerHTML = `🎉 បែងចែកក្រុមបានជោគជ័យ ១០០%! មាន ${this.toKhmerNum(this.numGroups)} ក្រុម${specialMsg}`;
+          banner.innerHTML = `🎉 បែងចែកក្រុមបានជោគជ័យ ១០០%! មាន ${this.toKhmerNum(this.numGroups)} ក្រុម (បែងចែកដោយសមធម៌ និងតម្លាភាព)`;
         }
       }
     };
@@ -456,7 +572,6 @@ class GroupGeneratorEngine {
     });
 
     // Shuffle sequence so students are called in exciting order
-    // But preserve special needs students first or naturally
     this.oneByOneQueue = assignments.sort(() => Math.random() - 0.5);
     this.currentStudentIdx = 0;
     this.oneByOneActive = true;
@@ -481,24 +596,10 @@ class GroupGeneratorEngine {
     const banner = document.getElementById('groupSpinStatusBanner');
     if (banner) {
       banner.className = 'p-3 rounded-2xl bg-indigo-600 text-white font-bold text-center text-sm shadow';
-      banner.innerHTML = `👤 វេនសិស្ស ៖ <span class="text-amber-300 font-extrabold text-base">${student.name}</span> ${student.isSpecial ? '👓 (ករណីពិសេស)' : ''} (នៅសល់ ${this.toKhmerNum(this.oneByOneQueue.length - this.currentStudentIdx)} នាក់)`;
+      banner.innerHTML = `👤 វេនសិស្ស ៖ <span class="text-amber-300 font-extrabold text-base">${student.name}</span> (នៅសល់ ${this.toKhmerNum(this.oneByOneQueue.length - this.currentStudentIdx)} នាក់)`;
     }
 
-    // If student is special needs, place directly with celestial chime
-    if (student.isSpecial && this.groupSpecialTogether) {
-      this.playSpecialPlacementSound();
-      targetGroup.displayedMembers = targetGroup.displayedMembers || [];
-      targetGroup.displayedMembers.push(student);
-      this.currentStudentIdx++;
-      this.renderGroupResults(true);
-
-      setTimeout(() => {
-        this.spinNextStudent();
-      }, 1000);
-      return;
-    }
-
-    // Regular student: Spin wheel to land on targetGroup.index
+    // All students spin through the wheel uniformly without bias
     this.isSpinning = true;
     const count = this.numGroups;
     const sliceAngle = (2 * Math.PI) / count;
@@ -602,22 +703,40 @@ class GroupGeneratorEngine {
       return;
     }
 
-    container.innerHTML = this.students.map(st => `
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition shadow-xs ${
-        st.isSpecial
-          ? 'bg-amber-100 dark:bg-amber-950/70 border-amber-400 text-amber-900 dark:text-amber-200 ring-2 ring-amber-400'
-          : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
-      }">
-        <span class="truncate max-w-[130px]">${st.name}</span>
-        <button type="button" onclick="window.groupGen.toggleSpecialNeeds('${st.id}')" class="px-1.5 py-0.5 rounded-md text-[10px] transition ${
-          st.isSpecial
-            ? 'bg-amber-500 text-slate-950 font-black'
-            : 'bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-amber-600 hover:bg-amber-50'
-        }" title="ចុចដើម្បីកំណត់/ដកចេញ សិស្សភ្នែកពិបាកមើល ឬករណីពិសេស">
-          ${st.isSpecial ? '👓 ករណីពិសេស' : '👓'}
-        </button>
-      </div>
-    `).join('');
+    container.innerHTML = this.students.map(st => {
+      let borderClass = 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+      if (st.isSpecial && st.isAnchor) {
+        borderClass = 'border-purple-400 bg-purple-50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 ring-2 ring-purple-300';
+      } else if (st.isSpecial) {
+        borderClass = 'border-amber-400 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 ring-1 ring-amber-400';
+      } else if (st.isAnchor) {
+        borderClass = 'border-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 ring-1 ring-indigo-400';
+      }
+
+      return `
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition shadow-xs ${borderClass}">
+          <span class="truncate max-w-[120px]">${st.name}</span>
+          <div class="inline-flex items-center gap-1 shrink-0">
+            <!-- Eyesight / Front Row Toggle -->
+            <button type="button" onclick="window.groupGen.toggleSpecialNeeds('${st.id}')" class="px-1.5 py-0.5 rounded-md text-[10px] transition ${
+              st.isSpecial
+                ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                : 'bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-amber-600 hover:bg-amber-50'
+            }" title="ចុចដើម្បីកំណត់សិស្សភ្នែកពិបាកមើល (ឱ្យនៅក្រុមជួរមុខ)">
+              👓 ជួរមុខ
+            </button>
+            <!-- Top / Anchor Student Toggle -->
+            <button type="button" onclick="window.groupGen.toggleAnchor('${st.id}')" class="px-1.5 py-0.5 rounded-md text-[10px] transition ${
+              st.isAnchor
+                ? 'bg-indigo-600 text-white font-black shadow-xs'
+                : 'bg-slate-100 dark:bg-slate-700 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50'
+            }" title="ចុចដើម្បីកំណត់សិស្សពូកែ/បង្គោល (ឱ្យនៅបែកក្រុមគ្នា ដើម្បីជួយគ្រប់គ្រងក្រុម)">
+              ⭐ បង្គោល
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   renderGroupResults(useDisplayed = false) {
@@ -634,13 +753,12 @@ class GroupGeneratorEngine {
       const theme = g.theme;
       return `
         <div class="card-soft p-4 border-2 ${theme.border} bg-white dark:bg-slate-800 shadow-md flex flex-col justify-between space-y-3 transition transform hover:-translate-y-1">
-          <!-- Card Header -->
+          <!-- Card Header (Neutral, dignified, no public stigma/labeling) -->
           <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-2.5">
             <div class="flex items-center gap-2 truncate">
               <span class="text-xl">${theme.icon}</span>
               <div>
                 <h4 class="font-extrabold text-sm text-slate-900 dark:text-white truncate">${g.name}</h4>
-                ${g.isSpecialGroup ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400"><i class="fa-solid fa-eye"></i> ក្រុមជួរមុខក្បែរក្ដារខៀន</span>` : ''}
               </div>
             </div>
             <span class="px-2 py-0.5 rounded-lg text-xs font-black ${theme.badge} shrink-0">
@@ -648,23 +766,18 @@ class GroupGeneratorEngine {
             </span>
           </div>
 
-          <!-- Members List -->
+          <!-- Members List: 100% UNIFORM, ZERO STIGMATIZING/DIVISIVE TAGS OR BADGES -->
           <div class="space-y-1.5 min-h-[140px] max-h-[220px] overflow-y-auto pr-1">
             ${members.length === 0 ? `<p class="text-xs text-slate-400 italic text-center py-6">កំពុងរង់ចាំសិស្ស...</p>` : ''}
             ${members.map((m, idx) => {
               const isLeader = g.leader === m.id;
               return `
-                <div class="flex items-center justify-between p-2 rounded-xl text-xs font-bold ${
-                  m.isSpecial
-                    ? 'bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200'
-                    : 'bg-slate-50 dark:bg-slate-900/60 text-slate-800 dark:text-slate-200'
-                }">
+                <div class="flex items-center justify-between p-2 rounded-xl text-xs font-bold bg-slate-50 dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-800/80">
                   <div class="flex items-center gap-2 truncate">
                     <span class="text-slate-400 font-mono text-[10px] w-4 shrink-0">${idx + 1}.</span>
                     <span class="truncate">${m.name}</span>
-                    ${isLeader ? `<span class="px-1.5 py-0.5 rounded bg-amber-400 text-slate-950 text-[10px] font-black shrink-0">👑 ប្រធាន</span>` : ''}
                   </div>
-                  ${m.isSpecial ? `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 shrink-0">👓 ជួរមុខ</span>` : ''}
+                  ${isLeader ? `<span class="px-1.5 py-0.5 rounded bg-amber-400 text-slate-950 text-[10px] font-black shrink-0">👑 ប្រធាន</span>` : ''}
                 </div>
               `;
             }).join('')}
@@ -685,21 +798,24 @@ class GroupGeneratorEngine {
   updateStatsBadge() {
     const totalEl = document.getElementById('groupTotalStudentsBadge');
     const specialEl = document.getElementById('groupSpecialCountBadge');
+    const anchorEl = document.getElementById('groupAnchorCountBadge');
     const sizeEl = document.getElementById('groupTargetSizeBadge');
 
     const total = this.students.length;
     const specialCount = this.students.filter(s => s.isSpecial).length;
+    const anchorCount = this.students.filter(s => s.isAnchor).length;
     const perGroup = total > 0 ? Math.ceil(total / this.numGroups) : 0;
 
     if (totalEl) totalEl.textContent = this.toKhmerNum(total);
     if (specialEl) specialEl.textContent = this.toKhmerNum(specialCount);
+    if (anchorEl) anchorEl.textContent = this.toKhmerNum(anchorCount);
     if (sizeEl) sizeEl.textContent = this.toKhmerNum(perGroup);
   }
 
   /* ================== EXPORT & PRINT ================== */
   copyGroupsToClipboard() {
     if (!this.groups || this.groups.length === 0) {
-      window.showToast('សូមបែងចែកក្រុមជាមុនសិន!', 'warning');
+      if (typeof window.showToast === 'function') window.showToast('សូមបែងចែកក្រុមជាមុនសិន!', 'warning');
       return;
     }
 
@@ -708,25 +824,24 @@ class GroupGeneratorEngine {
     text += `==========================================\n\n`;
 
     this.groups.forEach(g => {
-      text += `🌟 ${g.name} (ចំនួន ${g.members.length} នាក់) ៖\n`;
+      text += `🌟 ${g.name} (ចំនួន ${this.toKhmerNum(g.members.length)} នាក់) ៖\n`;
       g.members.forEach((m, idx) => {
         const leaderMark = g.leader === m.id ? ' [👑 ប្រធានក្រុម]' : '';
-        const specialMark = m.isSpecial ? ' [👓 ករណីពិសេស/ជួរមុខ]' : '';
-        text += `  ${idx + 1}. ${m.name}${leaderMark}${specialMark}\n`;
+        text += `  ${idx + 1}. ${m.name}${leaderMark}\n`;
       });
       text += `\n`;
     });
 
     navigator.clipboard.writeText(text).then(() => {
-      window.showToast('📋 បានចម្លងបញ្ជីក្រុមទាំងអស់រួចរាល់!', 'success');
+      if (typeof window.showToast === 'function') window.showToast('📋 បានចម្លងបញ្ជីក្រុមទាំងអស់រួចរាល់!', 'success');
     }).catch(() => {
-      window.showToast('មិនអាចចម្លងបានទេ សូមចម្លងដោយដៃ', 'error');
+      if (typeof window.showToast === 'function') window.showToast('មិនអាចចម្លងបានទេ សូមចម្លងដោយដៃ', 'error');
     });
   }
 
   printGroups() {
     if (!this.groups || this.groups.length === 0) {
-      window.showToast('សូមបែងចែកក្រុមជាមុនសិន!', 'warning');
+      if (typeof window.showToast === 'function') window.showToast('សូមបែងចែកក្រុមជាមុនសិន!', 'warning');
       return;
     }
 
@@ -742,20 +857,23 @@ class GroupGeneratorEngine {
         <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <style>
           body { font-family: 'Kantumruy Pro', sans-serif; padding: 24px; color: #1e293b; }
-          .header { text-align: center; margin-bottom: 24px; border-bottom: 2px solid #7c3aed; padding-bottom: 12px; }
+          .header { text-align: center; margin-bottom: 24px; border-bottom: 2px solid #10b981; padding-bottom: 12px; }
+          .header h2 { margin: 0 0 4px 0; font-size: 18px; color: #047857; }
+          .header h3 { margin: 0 0 4px 0; font-size: 15px; color: #334155; }
+          .header p { margin: 0; font-size: 11px; color: #64748b; }
           .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
           .card { border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; page-break-inside: avoid; }
-          .card-title { font-weight: bold; font-size: 14px; color: #7c3aed; margin-bottom: 8px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px; }
-          .member-row { font-size: 12px; padding: 3px 0; display: flex; justify-content: space-between; }
-          .tag { font-size: 10px; background: #fef3c7; color: #92400e; padding: 1px 4px; border-radius: 4px; }
+          .card-title { font-weight: bold; font-size: 14px; color: #047857; margin-bottom: 8px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px; display: flex; justify-content: space-between; }
+          .member-row { font-size: 13px; padding: 4px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; }
+          .leader-tag { font-size: 11px; background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 4px; font-weight: bold; }
           @media print { .no-print { display: none; } }
         </style>
       </head>
       <body>
         <div class="header">
-          <h2 style="margin: 0; font-size: 18px;">វិទ្យាល័យព្រះយុគន្ធរ · សាលារៀនជំនាន់ថ្មី (NGS)</h2>
-          <h3 style="margin: 4px 0; color: #7c3aed; font-size: 16px;">តារាងបែងចែកក្រុមសិស្ស · ថ្នាក់ ${this.selectedClass}</h3>
-          <p style="margin: 0; font-size: 11px; color: #64748b;">កាលបរិច្ឆេទ ៖ ${new Date().toLocaleDateString('km-KH')}</p>
+          <h2>វិទ្យាល័យព្រះយុគន្ធរ · សាលារៀនជំនាន់ថ្មី (NGS)</h2>
+          <h3>តារាងបែងចែកក្រុមសិស្ស · ថ្នាក់ ${this.selectedClass}</h3>
+          <p>សរុប ${this.toKhmerNum(this.numGroups)} ក្រុម • កាលបរិច្ឆេទ ៖ ${new Date().toLocaleDateString('km-KH')}</p>
         </div>
         <div class="grid">
     `;
@@ -763,15 +881,18 @@ class GroupGeneratorEngine {
     this.groups.forEach(g => {
       html += `
         <div class="card">
-          <div class="card-title">${g.name} (${g.members.length} នាក់)</div>
+          <div class="card-title">
+            <span>${g.name}</span>
+            <span style="font-size: 11px; color: #64748b;">${this.toKhmerNum(g.members.length)} នាក់</span>
+          </div>
           <div>
       `;
       g.members.forEach((m, idx) => {
         const isLeader = g.leader === m.id;
         html += `
           <div class="member-row">
-            <span>${idx + 1}. ${m.name} ${isLeader ? '<b>(👑 ប្រធាន)</b>' : ''}</span>
-            ${m.isSpecial ? '<span class="tag">👓 ជួរមុខ</span>' : ''}
+            <span>${idx + 1}. ${m.name}</span>
+            ${isLeader ? '<span class="leader-tag">👑 ប្រធានក្រុម</span>' : ''}
           </div>
         `;
       });
@@ -842,6 +963,28 @@ class GroupGeneratorEngine {
       specialGroupSelect.addEventListener('change', (e) => {
         this.specialNeedsGroup = parseInt(e.target.value, 10);
         this.drawWheel();
+      });
+    }
+
+    // 5b. Anchor / Top Students Disperse Toggle & Buttons
+    const anchorToggle = document.getElementById('groupDistributeAnchorsToggle');
+    if (anchorToggle) {
+      anchorToggle.addEventListener('change', (e) => {
+        this.distributeAnchors = e.target.checked;
+      });
+    }
+
+    const btnAutoAnchors = document.getElementById('btnGroupAutoSelectAnchors');
+    if (btnAutoAnchors) {
+      btnAutoAnchors.addEventListener('click', () => {
+        this.autoSelectAnchors(true);
+      });
+    }
+
+    const btnClearAnchors = document.getElementById('btnGroupClearAnchors');
+    if (btnClearAnchors) {
+      btnClearAnchors.addEventListener('click', () => {
+        this.clearAnchors();
       });
     }
 

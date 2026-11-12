@@ -2113,15 +2113,15 @@
             <div class="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 space-y-3">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
-                  <span class="text-base">👓</span> ២. លក្ខខណ្ឌសិស្សភ្នែកពិបាកមើល / ករណីពិសេស
+                  <span class="text-base">👓</span> ២. លក្ខខណ្ឌសិស្សភ្នែកពិបាកមើល (អង្គុយជួរមុខ)
                 </span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200 font-bold">សំខាន់</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200 font-bold">ជួរមុខ</span>
               </div>
 
               <div class="flex items-start gap-2.5">
                 <input type="checkbox" id="groupSpecialTogetherToggle" checked class="mt-0.5 h-4 w-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300 cursor-pointer">
                 <label for="groupSpecialTogetherToggle" class="text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
-                  <strong class="font-bold text-amber-900 dark:text-amber-200">ដាក់សិស្សករណីពិសេសទាំងអស់ចូលក្រុមតែមួយ</strong>
+                  <strong class="font-bold text-amber-900 dark:text-amber-200">ដាក់សិស្សភ្នែកពិបាកមើលទាំងអស់ចូលក្រុមតែមួយ</strong>
                   <span class="block text-[11px] text-slate-500 mt-0.5">ដើម្បីងាយស្រួលឱ្យពួកគាត់អង្គុយជួរមុខក្បែរក្ដារខៀន និងជួយគ្នាបានល្អ</span>
                 </label>
               </div>
@@ -2135,9 +2135,33 @@
                   <option value="4">ក្រុមទី 4</option>
                 </select>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 italic">
-                * ចុចលើសញ្ញា <span class="px-1 py-0.5 bg-amber-100 dark:bg-amber-900 rounded font-bold">👓 ករណីពិសេស</span> នៅលើឈ្មោះសិស្សខាងក្រោម ដើម្បីកំណត់។
-              </p>
+            </div>
+
+            <!-- Top / Anchor Students Rule Configuration -->
+            <div class="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800/40 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-900 dark:text-indigo-300 flex items-center gap-1.5">
+                  <span class="text-base">⭐</span> ៣. បែងចែកសិស្សពូកែ / សិស្សបង្គោល
+                </span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 font-bold">គ្រប់គ្រងក្រុម</span>
+              </div>
+
+              <div class="flex items-start gap-2.5">
+                <input type="checkbox" id="groupDistributeAnchorsToggle" checked class="mt-0.5 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer">
+                <label for="groupDistributeAnchorsToggle" class="text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+                  <strong class="font-bold text-indigo-950 dark:text-indigo-200">បំបែកសិស្សពូកែឱ្យនៅក្រុមផ្សេងៗគ្នា (១ នាក់/ក្រុម)</strong>
+                  <span class="block text-[11px] text-slate-500 mt-0.5">ធានាថាសិស្សពូកែមិននៅជុំក្រុមជាមួយគ្នា ដើម្បីជួយដឹកនាំ និងគ្រប់គ្រងសមាជិកក្នុងក្រុមនីមួយៗ</span>
+                </label>
+              </div>
+
+              <div class="flex items-center justify-between gap-2 pt-1 border-t border-indigo-100 dark:border-indigo-900/40">
+                <button type="button" id="btnGroupAutoSelectAnchors" class="px-2.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] transition shadow-xs flex items-center gap-1.5">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> រើសសិស្សពូកែស្វ័យប្រវត្តិតាមពិន្ទុ
+                </button>
+                <button type="button" id="btnGroupClearAnchors" class="text-[11px] text-slate-400 hover:text-indigo-600 underline">
+                  កំណត់ឡើងវិញ
+                </button>
+              </div>
             </div>
           </div>
 
@@ -2146,7 +2170,7 @@
             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-3">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <i class="fa-solid fa-layer-group text-emerald-500"></i> ៣. កំណត់ចំនួនក្រុម និងរចនាប័ទ្ម
+                  <i class="fa-solid fa-layer-group text-emerald-500"></i> ៤. កំណត់ចំនួនក្រុម និងរចនាប័ទ្ម
                 </span>
                 <div class="flex items-center gap-1.5">
                   <label class="text-xs text-slate-500">រចនាប័ទ្មឈ្មោះ៖</label>
@@ -2178,8 +2202,11 @@
                 <span class="px-2.5 py-1 rounded-lg bg-slate-200/80 dark:bg-slate-700/60 font-medium">
                   សិស្សសរុប៖ <strong id="groupTotalStudentsBadge" class="text-emerald-600 dark:text-emerald-400 font-bold">22</strong> នាក់
                 </span>
-                <span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 font-medium">
-                  ករណីពិសេស៖ <strong id="groupSpecialCountBadge" class="font-bold">0</strong> នាក់
+                <span class="px-2.5 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 font-medium" title="សិស្សភ្នែកពិបាកមើល/ជួរមុខ">
+                  ភ្នែកពិបាកមើល៖ <strong id="groupSpecialCountBadge" class="font-bold">0</strong> នាក់
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 font-medium" title="សិស្សពូកែ/បង្គោល">
+                  សិស្សបង្គោល៖ <strong id="groupAnchorCountBadge" class="font-bold">0</strong> នាក់
                 </span>
                 <span class="px-2.5 py-1 rounded-lg bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-300 font-medium">
                   មធ្យមភាគ៖ <strong id="groupTargetSizeBadge" class="font-bold">5-6</strong> នាក់/ក្រុម
@@ -2222,13 +2249,15 @@
           </div>
         </div>
 
-        <!-- Student Chips Container (Allows marking 👓 Special Needs) -->
+        <!-- Student Chips Container (Allows marking 👓 ជួរមុខ and ⭐ បង្គោល for teacher) -->
         <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-2">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-              <i class="fa-solid fa-user-tag text-emerald-500"></i> បញ្ជីសិស្សក្នុងថ្នាក់ (ចុចប៊ូតុង 👓 ដើម្បីកំណត់ករណីពិសេស/ភ្នែកពិបាកមើល)
+              <i class="fa-solid fa-user-tag text-emerald-500"></i> បញ្ជីសិស្សក្នុងថ្នាក់ (កំណត់ 👓 ជួរមុខ ឬ ⭐ បង្គោល សម្រាប់លោកគ្រូរៀបចំ)
             </span>
-            <span class="text-[11px] text-slate-400">ចុចបិទ/បើកបានរហ័ស</span>
+            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+              🔒 សម្ងាត់ & សមធម៌៖ លើ Slide លទ្ធផល មិនមានដាក់រូបវ៉ែនតា ឬរូបផ្កាយឡើយ
+            </span>
           </div>
           <div id="groupStudentChipsList" class="flex flex-wrap gap-2 max-h-48 overflow-y-auto p-1">
             <!-- Populated dynamically by group-generator.js -->
