@@ -707,19 +707,28 @@
         console.warn('Error embedding base64 logo:', err);
       }
 
-      // Pre-render Running Header Text (Khmer OS Muol Light)
+      // Pre-render Running Header Text (Khmer OS Muol Light) with dynamic width measurement
       let headerTextImg = null;
+      let headerTextAspect = 12.0;
       try {
         const hCanvas = document.createElement('canvas');
-        hCanvas.width = 1200;
-        hCanvas.height = 90;
         const hctx = hCanvas.getContext('2d');
+        const fontStr = 'bold 32px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
+        hctx.font = fontStr;
+        const textStr = 'វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)';
+        const m = hctx.measureText(textStr);
+        const tw = Math.ceil(m.width) + 20;
+        const th = 60;
+        hCanvas.width = tw;
+        hCanvas.height = th;
         hctx.fillStyle = '#ffffff';
-        hctx.fillRect(0, 0, hCanvas.width, hCanvas.height);
+        hctx.fillRect(0, 0, tw, th);
         hctx.fillStyle = '#000000';
-        hctx.font = 'bold 34px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
-        hctx.fillText('វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS)', 5, 60);
+        hctx.font = fontStr;
+        hctx.textBaseline = 'middle';
+        hctx.fillText(textStr, 10, th / 2);
         headerTextImg = await doc.embedPng(b64ToUint8(hCanvas.toDataURL('image/png')));
+        headerTextAspect = tw / th;
       } catch (e) {
         console.warn('Error pre-rendering header text:', e);
       }
@@ -730,49 +739,92 @@
       for (let pIdx = 0; pIdx < pages.length; pIdx++) {
         const p = pages[pIdx];
         const pageH = p.getHeight();
-        const pageW = p.getWidth();        // --- A. RUNNING HEADER ---
+        const pageW = p.getWidth();
+
+        // --- A. RUNNING HEADER ---
         // Running header is ONLY for Grade 11 & Grade 12 to replace the old Sisowath header.
         // Grade 8 plans are original Ministry curriculum plans with their own clean title "កិច្ចតែងការបង្រៀន" (Lesson Plan);
         // stamping an artificial running header on Grade 8 cuts off the title ("ដាច់ក្បាល") and causes printer margin clipping.
         const shouldStampHeader = (isGrade11 || isGrade12);
 
         if (shouldStampHeader) {
-          // Redact / Whiteout old Sisowath header zone at top (y = 20..78 pt from top)
-          const headerWhiteoutY = pageH - 78.0;
-          const headerWhiteoutH = 58.0;
+          // Determine page geometry & paper format (A4 vs Letter)
+          const isA4 = pageH > 800; // A4 is ~841.9pt, Letter is 792pt
+
+          let whiteoutH = 49.0;
+          let logoY = pageH - 36.0;
+          let logoH = 20.0;
+          let textY = pageH - 33.0;
+          let textH = 15.0;
+          let lineY = pageH - 43.5;
+
+          if (isGrade11) {
+            // Grade 11: Sisowath header extends down to y0=69.86pt; content starts at y0>=72.3pt
+            whiteoutH = 71.0;
+            logoY = pageH - 52.0;
+            logoH = 22.0;
+            textY = pageH - 49.0;
+            textH = 16.0;
+            lineY = pageH - 65.0;
+          } else if (isGrade12) {
+            if (isA4) {
+              // Grade 12 A4: Sisowath header is in top 47.3pt; content/table starts at y0>=56.6pt (cover title at y0>=55.5pt)
+              // Whiteout covers y0=0..49.0pt, completely covering top of old logo (starts at y0=11.2pt)
+              whiteoutH = 49.0;
+              logoY = pageH - 36.0;
+              logoH = 20.0;
+              textY = pageH - 33.0;
+              textH = 15.0;
+              lineY = pageH - 43.5;
+            } else {
+              // Grade 12 Letter: Sisowath header is in top 60.5pt; table top border starts at y0=61.08pt
+              // Whiteout MUST stop at y0=59.0pt to preserve table top border line and math formulas!
+              whiteoutH = 59.0;
+              logoY = pageH - 42.0;
+              logoH = 20.0;
+              textY = pageH - 39.0;
+              textH = 15.0;
+              lineY = pageH - 52.0;
+            }
+          }
+
+          // 1. Redact / Whiteout old Sisowath header from the very top page edge (y0=0 down to whiteoutH)
+          // Starting at pageH - whiteoutH ensures y0=0..whiteoutH is 100% whited out, eliminating old logo top arc.
           p.drawRectangle({
-            x: 50.0,
-            y: headerWhiteoutY,
-            width: 515.0,
-            height: headerWhiteoutH,
+            x: 45.0,
+            y: pageH - whiteoutH,
+            width: pageW - 90.0,
+            height: whiteoutH,
             color: PDFLib.rgb(1, 1, 1),
           });
 
-          // Yukunthor Logo (safe 28pt top margin prevents "ដាច់ក្បាល")
+          // 2. Yukunthor Logo
+          const logoX = 65.0;
           if (logoImg) {
             p.drawImage(logoImg, {
-              x: 65.0,
-              y: pageH - 52.0,
-              width: 24.0,
-              height: 24.0,
+              x: logoX,
+              y: logoY,
+              width: logoH,
+              height: logoH,
             });
           }
 
-          // Yukunthor School Title (safe 30pt top margin prevents "ដាច់ក្បាល")
+          // 3. Yukunthor School Title (Natural aspect ratio, zero font squishing)
           if (headerTextImg) {
+            const finalTw = textH * headerTextAspect;
             p.drawImage(headerTextImg, {
-              x: logoImg ? 95.0 : 65.0,
-              y: pageH - 50.0,
-              width: 250.0,
-              height: 20.0,
+              x: logoImg ? (logoX + logoH + 8.0) : logoX,
+              y: textY,
+              width: finalTw,
+              height: textH,
             });
           }
 
-          // Horizontal Line below Header
+          // 4. Horizontal Separator Line below Header
           p.drawLine({
-            start: { x: 65.0, y: pageH - 56.0 },
-            end: { x: 547.0, y: pageH - 56.0 },
-            thickness: 0.8,
+            start: { x: 65.0, y: lineY },
+            end: { x: pageW - 65.0, y: lineY },
+            thickness: 0.6,
             color: PDFLib.rgb(0, 0, 0),
           });
         }
