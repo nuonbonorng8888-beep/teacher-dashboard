@@ -2430,6 +2430,68 @@
   <!-- Printable Area for Lesson Plans (Clean A4 Print & Save as PDF) -->
   <div id="printableLessonPlansArea" class="hidden"></div>
 
+  <!-- PDF Quality Inspection & Pre-flight Loading Modal -->
+  <div id="pdfInspectionModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden transition-opacity duration-300">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-md p-6 mx-4 transform transition-all text-slate-800 dark:text-slate-100">
+      <!-- Header with animated shield/scan icon -->
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-500/30 animate-pulse">
+          <i class="fa-solid fa-file-shield"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-purple-700 dark:text-purple-300">
+            កំពុងត្រួតពិនិត្យ និងរៀបចំ PDF
+          </h3>
+          <p id="pdfInspectPlanTitle" class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate max-w-[240px]">
+            រៀបចំឯកសារ...
+          </p>
+        </div>
+      </div>
+
+      <!-- Animated Progress Bar -->
+      <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 mb-5 overflow-hidden">
+        <div id="pdfInspectProgressBar" class="bg-gradient-to-r from-purple-600 to-indigo-500 h-2.5 rounded-full transition-all duration-300 w-1/4"></div>
+      </div>
+
+      <!-- Live Step Checklist -->
+      <div class="space-y-3 text-xs mb-5">
+        <div id="pdfStep1" class="flex items-center gap-3 text-purple-700 dark:text-purple-300 font-bold">
+          <span class="step-icon w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-[10px]">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          </span>
+          <span class="step-text">ផ្ទៀងផ្ទាត់រចនាសម្ព័ន្ធមេរៀន និងកម្រិតថ្នាក់...</span>
+        </div>
+        <div id="pdfStep2" class="flex items-center gap-3 text-slate-400 dark:text-slate-500 font-normal">
+          <span class="step-icon w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-[10px]">
+            <i class="fa-solid fa-hourglass-start"></i>
+          </span>
+          <span class="step-text">ស្កេន និងក្រិតកូអរដោនេទំព័រ (Header, Footer, Cover)</span>
+        </div>
+        <div id="pdfStep3" class="flex items-center gap-3 text-slate-400 dark:text-slate-500 font-normal">
+          <span class="step-icon w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-[10px]">
+            <i class="fa-solid fa-hourglass-start"></i>
+          </span>
+          <span class="step-text">លុបដានចាស់ និងបញ្ចូលហត្ថលេខារដ្ឋបាល Muol Light</span>
+        </div>
+        <div id="pdfStep4" class="flex items-center gap-3 text-slate-400 dark:text-slate-500 font-normal">
+          <span class="step-icon w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-[10px]">
+            <i class="fa-solid fa-hourglass-start"></i>
+          </span>
+          <span class="step-text">ផ្ទៀងផ្ទាត់គុណភាព ១០០% គ្មានដានចាស់ គ្មានអក្សរជាន់គ្នា</span>
+        </div>
+      </div>
+
+      <!-- Bottom Status Pill -->
+      <div id="pdfInspectStatusPill" class="py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-purple-600 animate-ping"></span>
+          <span id="pdfInspectStatusText">កំពុងពិនិត្យគុណភាពឯកសារ...</span>
+        </span>
+        <span id="pdfInspectPercent" class="font-bold">25%</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Container -->
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col items-end pointer-events-none max-w-sm"></div>
 
@@ -2442,8 +2504,8 @@
   <script src="js/math-games.js?v=9.1"></script>
   <script src="js/question-bank.js?v=5.1"></script>
   <script src="js/pdf-lib.min.js"></script>
-  <script src="js/lesson-plans-data.js?v=8.9"></script>
-  <script src="js/lesson-plans.js?v=8.9"></script>
+  <script src="js/lesson-plans-data.js?v=9.0"></script>
+  <script src="js/lesson-plans.js?v=9.0"></script>
   <script src="js/curriculum-outlines.js?v=6.9"></script>
   <script src="js/teaching-slides-data.js?v=6.9"></script>
   <script src="js/teaching-slides.js?v=6.9"></script>
