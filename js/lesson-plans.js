@@ -806,12 +806,12 @@
               height: 57.0,
               color: PDFLib.rgb(1, 1, 1),
             });
-            // Zone 2: Left column extension covering old logo (x=45..115) down to y0=59.2pt
+            // Zone 2: Left column extension covering old logo (x=45..130) down to y0=61.0pt
             p.drawRectangle({
               x: 45.0,
-              y: pageH - 59.2,
-              width: 70.0,
-              height: 2.2,
+              y: pageH - 61.0,
+              width: 85.0,
+              height: 4.0,
               color: PDFLib.rgb(1, 1, 1),
             });
             // Zone 3: Right column extension covering Facebook text (x=340..pageW-45) down to y0=60.5pt
@@ -998,29 +998,48 @@
       const sigPage = pages[sigPageIdx];
       if (sigPage) {
         const pageH = sigPage.getHeight();
+        const pageW = sigPage.getWidth();
         const min_y = (typeof plan.sig_y0 === 'number')
-          ? Math.max(plan.sig_y0, 30.0)
+          ? plan.sig_y0
           : (isGrade12 ? 480.0 : (isGrade11 ? 400.0 : 450.0));
-        const sig_w = 545.0;
-        const sig_h = (typeof plan.sig_h === 'number') ? plan.sig_h : 140.0;
-        const isMiddle = (pageH - min_y) > 220.0;
-        const sig_y_bottom = isMiddle
-          ? Math.max(pageH - min_y - sig_h, 30.0)
-          : Math.max(pageH - Math.max(min_y, pageH - 172.0) - sig_h, 30.0);
         const sig_x = 28.0;
+        const sig_w = pageW - 56.0; // covers full printable width edge-to-edge
+        const isBottom = (pageH - min_y) <= 245.0;
 
-        // 1. Redact / Whiteout the ENTIRE old signature region cleanly across the page (covers x=28..573)
+        let whiteout_y = 30.0;
+        let whiteout_h = 160.0;
+        let sig_y_bottom = 32.0;
+        let sig_h = 150.0;
+
+        if (isBottom) {
+          // Signature is in the bottom section of page:
+          // Redact completely from y=30.0 (footer line) all the way up to min_y - 8.0pt (erasing all old date dots/lines)
+          const whiteout_top = Math.min(pageH - 30.0, pageH - (min_y - 8.0));
+          whiteout_y = 30.0;
+          whiteout_h = Math.max(150.0, whiteout_top - whiteout_y);
+          sig_y_bottom = 32.0;
+          sig_h = Math.min(150.0, whiteout_h - 4.0);
+        } else {
+          // Signature is in middle of page (e.g. following overflowed steps above):
+          sig_h = (typeof plan.sig_h === 'number') ? plan.sig_h : 150.0;
+          const whiteout_top = pageH - (min_y - 8.0);
+          whiteout_h = sig_h + 16.0;
+          whiteout_y = Math.max(30.0, whiteout_top - whiteout_h);
+          sig_y_bottom = whiteout_y + 4.0;
+        }
+
+        // 1. Redact / Whiteout the ENTIRE old signature envelope cleanly across the page
         sigPage.drawRectangle({
           x: sig_x,
-          y: sig_y_bottom,
+          y: whiteout_y,
           width: sig_w,
-          height: sig_h,
+          height: whiteout_h,
           color: PDFLib.rgb(1, 1, 1),
         });
 
         // 2. Render dynamic high-res 3-column signature block via Canvas (1:1 aspect ratio with sig_w/sig_h)
         const sigCanvas = document.createElement('canvas');
-        sigCanvas.width = 1635; // 3x 545.0
+        sigCanvas.width = 1635; // 3x sig_w
         sigCanvas.height = Math.round(sig_h * 3); // 3x sig_h
         const sctx = sigCanvas.getContext('2d');
         sctx.fillStyle = '#ffffff';
@@ -1058,8 +1077,8 @@
         sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, Math.round(sigCanvas.height * 0.25));
         sctx.fillText('បានឃើញ និងឯកភាព', colLeft, Math.round(sigCanvas.height * 0.28));
 
-        // C. Roles & Subtitles (Aligned with respective column stepped positions)
-        sctx.font = '26px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
+        // C. Roles & Subtitles (Uniform Khmer OS Muol Light font matching administrative approval titles)
+        sctx.font = 'bold 24px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
         sctx.fillText(isGrade8 ? 'ប្រធានក្រុមបច្ចេកទេស' : 'ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា', colMid, Math.round(sigCanvas.height * 0.38));
         sctx.fillText('ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី', colLeft, Math.round(sigCanvas.height * 0.41));
 
