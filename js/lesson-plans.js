@@ -754,6 +754,7 @@
             /^plan_g12_4_/.test(plan.id)
           );
 
+          const hasHighTable = (plan.high_table_pages && plan.high_table_pages.includes(pIdx)) || (pIdx > 0);
           if (isGrade11) {
             // Grade 11: Sisowath header extends down to y0=69.86pt; content starts at y0>=72.3pt
             p.drawRectangle({
@@ -769,12 +770,14 @@
             if (headerTextImg) {
               p.drawImage(headerTextImg, { x: logoImg ? 95.0 : 65.0, y: pageH - 49.0, width: 16.0 * headerTextAspect, height: 16.0 });
             }
-            p.drawLine({
-              start: { x: 65.0, y: pageH - 65.0 },
-              end: { x: pageW - 65.0, y: pageH - 65.0 },
-              thickness: 0.6,
-              color: PDFLib.rgb(0, 0, 0),
-            });
+            if (!hasHighTable) {
+              p.drawLine({
+                start: { x: 65.0, y: pageH - 65.0 },
+                end: { x: pageW - 65.0, y: pageH - 65.0 },
+                thickness: 0.6,
+                color: PDFLib.rgb(0, 0, 0),
+              });
+            }
           } else if (isCompactG12) {
             // Grade 12 Type 1 (Compact Header - Chapters 2 & 4): logo 11.2..44.2pt, line 47.3pt, content >= 55.5pt
             p.drawRectangle({
@@ -790,12 +793,14 @@
             if (headerTextImg) {
               p.drawImage(headerTextImg, { x: logoImg ? 92.0 : 65.0, y: pageH - 33.0, width: 15.0 * headerTextAspect, height: 15.0 });
             }
-            p.drawLine({
-              start: { x: 65.0, y: pageH - 43.5 },
-              end: { x: pageW - 65.0, y: pageH - 43.5 },
-              thickness: 0.6,
-              color: PDFLib.rgb(0, 0, 0),
-            });
+            if (!hasHighTable) {
+              p.drawLine({
+                start: { x: 65.0, y: pageH - 43.5 },
+                end: { x: pageW - 65.0, y: pageH - 43.5 },
+                thickness: 0.6,
+                color: PDFLib.rgb(0, 0, 0),
+              });
+            }
           } else {
             // Grade 12 Type 2 (Standard Header - 88 plans): 3-Zone Smart Whiteout
             // Zone 1: Full-width base whiteout down to y0=57.0pt (preserves OM vector arrows and formulas at y0>=57.8pt)
@@ -829,18 +834,26 @@
             if (headerTextImg) {
               p.drawImage(headerTextImg, { x: logoImg ? 92.0 : 65.0, y: pageH - 39.0, width: 15.0 * headerTextAspect, height: 15.0 });
             }
-            p.drawLine({
-              start: { x: 65.0, y: pageH - 52.0 },
-              end: { x: pageW - 65.0, y: pageH - 52.0 },
-              thickness: 0.6,
-              color: PDFLib.rgb(0, 0, 0),
-            });
+            // Anti-Overlap Protection: Do not draw header separator line if page already begins with a table border!
+            if (!hasHighTable) {
+              p.drawLine({
+                start: { x: 65.0, y: pageH - 52.0 },
+                end: { x: pageW - 65.0, y: pageH - 52.0 },
+                thickness: 0.6,
+                color: PDFLib.rgb(0, 0, 0),
+              });
+            }
           }
         }
 
         // --- B. RUNNING FOOTER ---
-        // In Grade 11, redact old Sisowath teacher line at bottom y=60..98
-        if (isGrade11) {
+        const hasBottomOverflow = (plan.bottom_overflow_pages && plan.bottom_overflow_pages.includes(pIdx)) ||
+                                  (plan.id === 'plan_g12_2_4' && pIdx === 1) || 
+                                  (plan.id === 'plan_g12_10_7' && pIdx === 3) || 
+                                  (plan.id === 'plan_g12_10_8' && pIdx === 2);
+
+        // In Grade 11, only redact old Sisowath teacher line if page does NOT have content/table reaching bottom!
+        if (isGrade11 && !hasBottomOverflow) {
           p.drawRectangle({
             x: 60.0,
             y: 60.0,
@@ -850,8 +863,7 @@
           });
         }
 
-        // Safe Horizontal Line above Footer
-        const hasBottomOverflow = (plan.id === 'plan_g12_2_4' && pIdx === 1) || (plan.id === 'plan_g12_10_7' && pIdx === 3) || (plan.id === 'plan_g12_10_8' && pIdx === 2);
+        // Safe Horizontal Line above Footer - skip if page has bottom overflow to prevent cutting tables/text
         if (!hasBottomOverflow) {
           p.drawLine({
             start: { x: 65.0, y: 30.0 },
@@ -867,8 +879,7 @@
           fCanvas.width = 1446;
           fCanvas.height = 48;
           const fctx = fCanvas.getContext('2d');
-          fctx.fillStyle = '#ffffff';
-          fctx.fillRect(0, 0, fCanvas.width, fCanvas.height);
+          fctx.clearRect(0, 0, fCanvas.width, fCanvas.height);
           fctx.fillStyle = '#000000';
           fctx.font = '24px "Khmer OS Siemreap", "Khmer OS", "Noto Sans Khmer", "Kantumruy Pro", sans-serif';
           fctx.textBaseline = 'middle';
@@ -1006,6 +1017,12 @@
         const sig_w = pageW - 56.0; // covers full printable width edge-to-edge
         const isBottom = (pageH - min_y) <= 245.0;
 
+        // Safe Whiteout Top Boundary (top-down y0): must stay strictly below any table bottom border!
+        const safe_wo_top_y0 = (typeof plan.table_bottom_y0 === 'number' && plan.table_bottom_y0 > 0)
+          ? Math.max(plan.table_bottom_y0 + 1.2, min_y - 2.5)
+          : (min_y - 2.5);
+        const whiteout_top = Math.min(pageH - 30.0, pageH - safe_wo_top_y0);
+
         let whiteout_y = 30.0;
         let whiteout_h = 160.0;
         let sig_y_bottom = 32.0;
@@ -1013,19 +1030,18 @@
 
         if (isBottom) {
           // Signature is in the bottom section of page:
-          // Redact completely from y=30.0 (footer line) all the way up to min_y - 8.0pt (erasing all old date dots/lines)
-          const whiteout_top = Math.min(pageH - 30.0, pageH - (min_y - 8.0));
+          // Redact from y=30.0 up to whiteout_top (strictly below table border to avoid cutting boxes/text)
           whiteout_y = 30.0;
           whiteout_h = Math.max(150.0, whiteout_top - whiteout_y);
-          sig_y_bottom = 32.0;
           sig_h = Math.min(150.0, whiteout_h - 4.0);
+          // Align signature canvas directly under whiteout_top so new date stamps right where old date was
+          sig_y_bottom = Math.max(32.0, whiteout_top - sig_h - 2.0);
         } else {
-          // Signature is in middle of page (e.g. following overflowed steps above):
+          // Signature is in middle of page (following overflowed steps above):
           sig_h = (typeof plan.sig_h === 'number') ? plan.sig_h : 150.0;
-          const whiteout_top = pageH - (min_y - 8.0);
           whiteout_h = sig_h + 16.0;
           whiteout_y = Math.max(30.0, whiteout_top - whiteout_h);
-          sig_y_bottom = whiteout_y + 4.0;
+          sig_y_bottom = whiteout_top - sig_h - 2.0;
         }
 
         // 1. Redact / Whiteout the ENTIRE old signature envelope cleanly across the page
@@ -1130,7 +1146,7 @@
       if (titleEl) {
         titleEl.textContent = gradeText ? `${gradeText} · ${planTitle}` : planTitle;
       }
-      this.updateInspectStep(1, 'កំពុងផ្ទៀងផ្ទាត់រចនាសម្ព័ន្ធមេរៀន...', 25);
+      this.updateInspectStep(1, 'កំពុងផ្ទៀងផ្ទាត់រចនាសម្ព័ន្ធកម្រិតថ្នាក់ និងទិន្នន័យមេរៀន...', 15);
       modal.classList.remove('hidden');
     }
 
@@ -1142,7 +1158,7 @@
       if (textEl) textEl.textContent = statusText;
       if (percentEl) percentEl.textContent = `${percent}%`;
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 6; i++) {
         const stepEl = document.getElementById(`pdfStep${i}`);
         if (!stepEl) continue;
         const iconEl = stepEl.querySelector('.step-icon');
@@ -1192,8 +1208,8 @@
         }
 
         // Step 1: Loading & Structural Verification
-        this.updateInspectStep(1, `កំពុងផ្ទៀងផ្ទាត់ឯកសារ (${plan.grade || 'កិច្ចតែងការ'})...`, 25);
-        await sleep(250);
+        this.updateInspectStep(1, `កំពុងផ្ទៀងផ្ទាត់រចនាសម្ព័ន្ធកម្រិតថ្នាក់ និងទិន្នន័យ (${plan.grade || 'កិច្ចតែងការ'})...`, 15);
+        await sleep(220);
 
         let res = null;
         try {
@@ -1209,17 +1225,25 @@
 
         const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes, { ignoreEncryption: true });
 
-        // Step 2: Coordinate & Layout Scanning
-        this.updateInspectStep(2, 'កំពុងស្កេន និងក្រិតកូអរដោនេទំព័រ (Header, Footer, Margins)...', 55);
-        await sleep(250);
+        // Step 2: Header Clearance & Line Overlap Protection
+        this.updateInspectStep(2, 'កំពុងស្កេនគម្លាតក្បាលទំព័រ និងការពារកុំឱ្យជាន់បន្ទាត់លើតារាង...', 35);
+        await sleep(220);
 
-        // Step 3: Redacting old traces & applying authentic Khmer OS Muol Light signatures
-        this.updateInspectStep(3, 'កំពុងលុបដានចាស់ និងបញ្ចូលហត្ថលេខារដ្ឋបាល Muol Light...', 80);
+        // Step 3: Page Margin & Table Box Clipping Protection
+        this.updateInspectStep(3, 'កំពុងត្រួតពិនិត្យផ្ទៃបាតទំព័រ ការពារកុំឱ្យដាច់ប្រអប់ ឬដាច់អក្សរ...', 55);
+        await sleep(220);
+
+        // Step 4: Redacting Old Traces & Envelope Calibration
+        this.updateInspectStep(4, 'កំពុងលុបបំបាត់ដានអក្សរចាស់ និងក្រិតផ្ទៃ Envelope ហត្ថលេខា...', 75);
         await this.applyPdfCustomStamps(pdfDoc, plan);
+        await sleep(220);
+
+        // Step 5: Applying Standard Administrative Signatures
+        this.updateInspectStep(5, 'កំពុងបញ្ចូលហត្ថលេខារដ្ឋបាល (Khmer OS Muol Light & ជ.គណៈគ្រប់គ្រង)...', 90);
         await sleep(200);
 
-        // Step 4: Quality & Pre-flight verification completed
-        this.updateInspectStep(4, 'ផ្ទៀងផ្ទាត់គុណភាពជោគជ័យ ១០០% (ស្អាតបាត គ្មានអក្សរជាន់គ្នា)!', 100);
+        // Step 6: Final Quality Verification
+        this.updateInspectStep(6, 'ផ្ទៀងផ្ទាត់គុណភាពជោគជ័យ ១០០% (ស្អាតបាត គ្មានកាត់ដាច់ គ្មានជាន់បន្ទាត់)!', 100);
         await sleep(350);
 
         const modifiedBytes = await pdfDoc.save();

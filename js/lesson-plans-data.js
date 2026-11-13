@@ -75,7 +75,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 140.6,
     "class_y0": 77.6,
     "sig_page_index": 4,
-    "sig_y0": 32.6,
+    "sig_y0": 28.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -85,7 +85,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "old_sig_y0_text": 32.6,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_2",
@@ -162,7 +172,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 140.6,
     "class_y0": 77.6,
     "sig_page_index": 2,
-    "sig_y0": 534.0,
+    "sig_y0": 530.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -172,7 +182,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "old_sig_y0_text": 534.0,
+    "table_bottom_y0": 522.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_3",
@@ -249,7 +267,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 140.6,
     "class_y0": 77.6,
     "sig_page_index": 3,
-    "sig_y0": 581.0,
+    "sig_y0": 578.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -259,7 +277,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "old_sig_y0_text": 581.0,
+    "table_bottom_y0": 576.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_4",
@@ -338,7 +364,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 140.6,
     "class_y0": 77.6,
     "sig_page_index": 2,
-    "sig_y0": 243.5,
+    "sig_y0": 239.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -348,7 +374,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "old_sig_y0_text": 243.5,
+    "table_bottom_y0": 230.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_5",
@@ -426,7 +460,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 140.6,
     "class_y0": 77.6,
     "sig_page_index": 2,
-    "sig_y0": 333.5,
+    "sig_y0": 329.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -436,7 +470,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "old_sig_y0_text": 333.5,
+    "table_bottom_y0": 322.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_l2_1",
@@ -500,7 +542,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "bottom_overflow_pages": [
+      1
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_l2_2",
@@ -564,7 +614,13 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_l2_3",
@@ -628,7 +684,14 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.7
+    "teacher_x": 233.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_l2_4",
@@ -691,7 +754,13 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 191.6,
     "date_x": 191.6,
-    "teacher_x": 191.9
+    "teacher_x": 191.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_l2_5",
@@ -757,7 +826,14 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.4,
     "date_x": 233.4,
-    "teacher_x": 233.0
+    "teacher_x": 233.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_l3_1",
@@ -822,7 +898,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 198.8,
     "date_x": 198.8,
-    "teacher_x": 198.8
+    "teacher_x": 198.8,
+    "bottom_overflow_pages": [
+      0,
+      2
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_6",
@@ -903,7 +990,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "bottom_overflow_pages": [
+      4
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_7",
@@ -974,7 +1071,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 527.4,
+    "sig_y0": 529.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -984,7 +1081,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 527.4,
+    "table_bottom_y0": 527.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_8",
@@ -1056,7 +1163,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 284.3,
+    "sig_y0": 285.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1066,7 +1173,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 284.3,
+    "table_bottom_y0": 284.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_9",
@@ -1138,7 +1256,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 227.9,
+    "sig_y0": 229.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1148,7 +1266,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 227.9,
+    "table_bottom_y0": 228.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_10",
@@ -1219,7 +1347,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 357.7,
+    "sig_y0": 359.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1229,7 +1357,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 357.7,
+    "table_bottom_y0": 357.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_11",
@@ -1302,7 +1440,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 440.2,
+    "sig_y0": 441.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1312,7 +1450,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 440.2,
+    "table_bottom_y0": 440.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_12",
@@ -1383,7 +1531,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 349.9,
+    "sig_y0": 351.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1393,7 +1541,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 349.9,
+    "table_bottom_y0": 350.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_13",
@@ -1465,7 +1622,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 403.5,
+    "sig_y0": 405.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1475,7 +1632,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 403.5,
+    "table_bottom_y0": 403.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_14",
@@ -1546,7 +1713,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 410.0,
+    "sig_y0": 411.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1556,7 +1723,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 410.0,
+    "table_bottom_y0": 409.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_15",
@@ -1625,7 +1802,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 426.5,
+    "sig_y0": 428.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1635,7 +1812,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 426.5,
+    "table_bottom_y0": 426.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_16",
@@ -1707,7 +1894,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 565.0,
+    "sig_y0": 566.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1717,7 +1904,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 565.0,
+    "table_bottom_y0": 565.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_17",
@@ -1788,7 +1985,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 351.9,
+    "sig_y0": 353.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1798,7 +1995,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 351.9,
+    "table_bottom_y0": 352.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_18",
@@ -1870,7 +2077,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 518.3,
+    "sig_y0": 519.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1880,7 +2087,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 518.3,
+    "table_bottom_y0": 518.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_19",
@@ -1951,7 +2167,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 358.2,
+    "sig_y0": 359.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -1961,7 +2177,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 358.2,
+    "table_bottom_y0": 358.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_20",
@@ -2033,7 +2259,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 506.2,
+    "sig_y0": 507.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2043,7 +2269,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 506.2,
+    "table_bottom_y0": 506.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_21",
@@ -2115,7 +2351,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 650.8,
+    "sig_y0": 652.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2125,7 +2361,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 650.8,
+    "table_bottom_y0": 650.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_22",
@@ -2197,7 +2443,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 570.7,
+    "sig_y0": 566.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2207,7 +2453,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 570.7,
+    "table_bottom_y0": 561.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_23",
@@ -2278,7 +2534,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 579.9,
+    "sig_y0": 575.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2288,7 +2544,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 579.9,
+    "table_bottom_y0": 570.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_24",
@@ -2358,7 +2623,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 592.8,
+    "sig_y0": 594.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2368,7 +2633,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 592.8,
+    "table_bottom_y0": 592.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_25",
@@ -2437,7 +2713,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 577.6,
+    "sig_y0": 579.1,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2447,7 +2723,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 577.6,
+    "table_bottom_y0": 577.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_26",
@@ -2517,7 +2803,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 643.9,
+    "sig_y0": 645.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2527,7 +2813,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 643.9,
+    "table_bottom_y0": 643.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_27",
@@ -2598,7 +2894,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 436.1,
+    "sig_y0": 437.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2608,7 +2904,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 436.1,
+    "table_bottom_y0": 436.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_28",
@@ -2679,7 +2985,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 619.4,
+    "sig_y0": 621.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2689,7 +2995,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 619.4,
+    "table_bottom_y0": 619.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_29",
@@ -2758,7 +3074,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 403.8,
+    "sig_y0": 406.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2768,7 +3084,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 403.8,
+    "table_bottom_y0": 404.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_30",
@@ -2839,7 +3165,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 330.3,
+    "sig_y0": 332.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2849,7 +3175,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 330.3,
+    "table_bottom_y0": 331.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_31",
@@ -2920,7 +3257,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 573.2,
+    "sig_y0": 575.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -2930,7 +3267,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 573.2,
+    "table_bottom_y0": 574.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_32",
@@ -3000,7 +3346,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 567.6,
+    "sig_y0": 570.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3010,7 +3356,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 567.6,
+    "table_bottom_y0": 568.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      5
+    ]
   },
   {
     "id": "plan_g8_33",
@@ -3081,7 +3435,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 587.8,
+    "sig_y0": 589.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3091,7 +3445,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 587.8,
+    "table_bottom_y0": 587.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_34",
@@ -3162,7 +3526,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 607.8,
+    "sig_y0": 609.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3172,7 +3536,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 607.8,
+    "table_bottom_y0": 607.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_35",
@@ -3243,7 +3617,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 6,
-    "sig_y0": 222.1,
+    "sig_y0": 259.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3253,7 +3627,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 8,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 257.4,
+    "table_bottom_y0": 258.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "plan_g8_36",
@@ -3324,7 +3709,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 631.5,
+    "sig_y0": 634.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3334,7 +3719,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 631.5,
+    "table_bottom_y0": 632.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_37",
@@ -3405,7 +3801,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 6,
-    "sig_y0": 369.6,
+    "sig_y0": 365.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3415,7 +3811,19 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 8,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 369.6,
+    "table_bottom_y0": 358.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "plan_g8_38",
@@ -3488,8 +3896,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": null,
-    "sig_y0": 161.8,
+    "sig_page_index": 4,
+    "sig_y0": 157.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3499,7 +3907,21 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 196.6,
     "date_x": 199.3,
-    "teacher_x": 200.6
+    "teacher_x": 200.6,
+    "old_sig_y0_text": 161.8,
+    "table_bottom_y0": 145.7,
+    "bottom_overflow_pages": [
+      1,
+      2,
+      3
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_39",
@@ -3571,8 +3993,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": null,
-    "sig_y0": 362.7,
+    "sig_page_index": 4,
+    "sig_y0": 358.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3582,7 +4004,20 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 196.6,
     "date_x": 199.3,
-    "teacher_x": 200.6
+    "teacher_x": 200.6,
+    "old_sig_y0_text": 362.7,
+    "table_bottom_y0": 346.8,
+    "bottom_overflow_pages": [
+      1,
+      5
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_40",
@@ -3653,8 +4088,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": null,
-    "sig_y0": 139.3,
+    "sig_page_index": 4,
+    "sig_y0": 135.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3664,7 +4099,19 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 196.6,
     "date_x": 199.3,
-    "teacher_x": 200.6
+    "teacher_x": 200.6,
+    "old_sig_y0_text": 139.3,
+    "table_bottom_y0": 123.3,
+    "bottom_overflow_pages": [
+      2
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_41",
@@ -3736,7 +4183,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 119.6,
     "class_y0": 56.7,
     "sig_page_index": 4,
-    "sig_y0": 321.3,
+    "sig_y0": 317.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3746,7 +4193,19 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 183.1,
     "date_x": 198.8,
-    "teacher_x": 184.5
+    "teacher_x": 184.5,
+    "old_sig_y0_text": 321.3,
+    "table_bottom_y0": 310.0,
+    "bottom_overflow_pages": [
+      1
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_42",
@@ -3818,7 +4277,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 119.6,
     "class_y0": 56.7,
     "sig_page_index": 3,
-    "sig_y0": 339.1,
+    "sig_y0": 335.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3828,7 +4287,19 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 197.7,
     "date_x": 198.8,
-    "teacher_x": 198.5
+    "teacher_x": 198.5,
+    "old_sig_y0_text": 339.1,
+    "table_bottom_y0": 333.7,
+    "bottom_overflow_pages": [
+      1,
+      2
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_43",
@@ -3898,7 +4369,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 119.6,
     "class_y0": 56.7,
     "sig_page_index": 2,
-    "sig_y0": 582.2,
+    "sig_y0": 584.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3908,7 +4379,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 4,
     "class_x": 198.1,
     "date_x": 198.8,
-    "teacher_x": 198.5
+    "teacher_x": 198.5,
+    "old_sig_y0_text": 582.2,
+    "table_bottom_y0": 582.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g8_44",
@@ -3981,7 +4460,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 126.2,
     "class_y0": 63.2,
     "sig_page_index": 3,
-    "sig_y0": 427.5,
+    "sig_y0": 423.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -3991,7 +4470,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 219.5,
     "date_x": 219.5,
-    "teacher_x": 219.8
+    "teacher_x": 219.8,
+    "old_sig_y0_text": 427.5,
+    "table_bottom_y0": 420.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_45",
@@ -4063,7 +4551,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 350.7,
+    "sig_y0": 352.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4073,7 +4561,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 350.7,
+    "table_bottom_y0": 350.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_46",
@@ -4144,7 +4642,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 424.1,
+    "sig_y0": 425.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4154,7 +4652,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 424.1,
+    "table_bottom_y0": 424.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_47",
@@ -4226,7 +4735,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 467.6,
+    "sig_y0": 469.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4236,7 +4745,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 467.6,
+    "table_bottom_y0": 467.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_48",
@@ -4308,7 +4827,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 582.2,
+    "sig_y0": 583.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4318,7 +4837,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 582.2,
+    "table_bottom_y0": 582.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_49",
@@ -4390,7 +4918,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 557.5,
+    "sig_y0": 559.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4400,7 +4928,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 557.5,
+    "table_bottom_y0": 557.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_50",
@@ -4472,7 +5010,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 554.2,
+    "sig_y0": 555.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4482,7 +5020,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 554.2,
+    "table_bottom_y0": 554.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_51",
@@ -4554,7 +5102,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 440.6,
+    "sig_y0": 442.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4564,7 +5112,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 440.6,
+    "table_bottom_y0": 440.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_52",
@@ -4637,7 +5194,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 108.7,
     "class_y0": 53.9,
     "sig_page_index": 4,
-    "sig_y0": 606.6,
+    "sig_y0": 605.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4647,7 +5204,22 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 8,
     "class_x": 201.7,
     "date_x": 198.8,
-    "teacher_x": 198.5
+    "teacher_x": 198.5,
+    "old_sig_y0_text": 604.6,
+    "table_bottom_y0": 604.4,
+    "bottom_overflow_pages": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ]
   },
   {
     "id": "plan_g8_53",
@@ -4720,7 +5292,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 6,
-    "sig_y0": 450.5,
+    "sig_y0": 451.5,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4730,7 +5302,19 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 8,
     "class_x": 236.6,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 450.5,
+    "table_bottom_y0": 450.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "plan_g8_54",
@@ -4801,7 +5385,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 108.7,
     "class_y0": 53.9,
     "sig_page_index": 4,
-    "sig_y0": 464.8,
+    "sig_y0": 462.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4811,7 +5395,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 201.7,
     "date_x": 198.8,
-    "teacher_x": 198.5
+    "teacher_x": 198.5,
+    "old_sig_y0_text": 464.8,
+    "table_bottom_y0": 460.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_55",
@@ -4883,7 +5478,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 422.1,
+    "sig_y0": 424.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4893,7 +5488,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 422.1,
+    "table_bottom_y0": 423.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_56",
@@ -4964,7 +5569,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 371.4,
+    "sig_y0": 374.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -4974,7 +5579,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 371.4,
+    "table_bottom_y0": 372.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_57",
@@ -5045,7 +5661,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 541.5,
+    "sig_y0": 544.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5055,7 +5671,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 541.5,
+    "table_bottom_y0": 542.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      5
+    ]
   },
   {
     "id": "plan_g8_58",
@@ -5127,7 +5752,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 501.0,
+    "sig_y0": 503.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5137,7 +5762,14 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 501.0,
+    "table_bottom_y0": 502.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      4
+    ]
   },
   {
     "id": "plan_g8_59",
@@ -5209,7 +5841,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 392.6,
+    "sig_y0": 395.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5219,7 +5851,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 392.6,
+    "table_bottom_y0": 393.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_60",
@@ -5291,7 +5933,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 388.1,
+    "sig_y0": 390.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5301,7 +5943,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 388.1,
+    "table_bottom_y0": 389.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_61",
@@ -5373,7 +6024,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 517.8,
+    "sig_y0": 520.4,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5383,7 +6034,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 517.8,
+    "table_bottom_y0": 518.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_62",
@@ -5455,7 +6115,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 3,
-    "sig_y0": 608.1,
+    "sig_y0": 610.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5465,7 +6125,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 5,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 608.1,
+    "table_bottom_y0": 609.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g8_63",
@@ -5535,7 +6203,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 319.8,
+    "sig_y0": 317.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5545,7 +6213,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 319.8,
+    "table_bottom_y0": 316.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_64",
@@ -5618,7 +6296,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 388.2,
+    "sig_y0": 406.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5628,7 +6306,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 405.4,
+    "table_bottom_y0": 405.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_65",
@@ -5701,7 +6389,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 384.0,
+    "sig_y0": 381.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5711,7 +6399,15 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 384.0,
+    "table_bottom_y0": 380.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_66",
@@ -5783,7 +6479,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 645.0,
+    "sig_y0": 641.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5793,7 +6489,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 645.0,
+    "table_bottom_y0": 633.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_67",
@@ -5865,7 +6570,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 6,
-    "sig_y0": 632.0,
+    "sig_y0": 628.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5875,7 +6580,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 8,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 632.0,
+    "table_bottom_y0": 620.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "plan_g8_68",
@@ -5946,7 +6662,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 431.6,
+    "sig_y0": 427.6,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -5956,7 +6672,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 431.6,
+    "table_bottom_y0": 417.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_69",
@@ -6028,7 +6755,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 682.9,
+    "sig_y0": 678.9,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -6038,7 +6765,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 682.9,
+    "table_bottom_y0": 668.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_70",
@@ -6110,7 +6847,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 5,
-    "sig_y0": 453.2,
+    "sig_y0": 449.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -6120,7 +6857,17 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 7,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 453.2,
+    "table_bottom_y0": 441.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g8_71",
@@ -6192,7 +6939,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 129.4,
     "class_y0": 74.7,
     "sig_page_index": 4,
-    "sig_y0": 647.7,
+    "sig_y0": 643.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -6202,7 +6949,16 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 233.7,
     "date_x": 233.7,
-    "teacher_x": 233.4
+    "teacher_x": 233.4,
+    "old_sig_y0_text": 647.7,
+    "table_bottom_y0": 633.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g8_72",
@@ -6264,7 +7020,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "box_y0": 108.7,
     "class_y0": 53.9,
     "sig_page_index": 3,
-    "sig_y0": 389.2,
+    "sig_y0": 385.2,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
     "sig_date_khmer": "ថ្ងៃទី ១២ ខែ តុលា ឆ្នាំ ២០២៦",
@@ -6274,7 +7030,18 @@ window.NGS_LESSON_PLANS_DATA = [
     "total_pages": 6,
     "class_x": 198.8,
     "date_x": 198.8,
-    "teacher_x": 198.5
+    "teacher_x": 198.5,
+    "old_sig_y0_text": 389.2,
+    "table_bottom_y0": 383.0,
+    "bottom_overflow_pages": [
+      1
+    ],
+    "high_table_pages": [
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g11_1_1",
@@ -6327,7 +7094,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 7,
-    "sig_y0": 272.1
+    "sig_y0": 266.6,
+    "old_sig_y0_text": 270.6,
+    "table_bottom_y0": 264.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
   },
   {
     "id": "plan_g11_1_2",
@@ -6380,7 +7160,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 6,
-    "sig_y0": 261.9
+    "sig_y0": 256.4,
+    "old_sig_y0_text": 260.4,
+    "table_bottom_y0": 252.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
   },
   {
     "id": "plan_g11_1_3",
@@ -6433,7 +7226,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 263.1
+    "sig_y0": 260.2,
+    "old_sig_y0_text": 261.6,
+    "table_bottom_y0": 258.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
   },
   {
     "id": "plan_g11_2_1",
@@ -6486,7 +7292,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 428.8
+    "sig_y0": 428.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g11_2_2",
@@ -6539,7 +7354,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 580.9
+    "sig_y0": 580.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g11_2_3",
@@ -6592,7 +7416,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 440.6
+    "sig_y0": 440.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g11_3_1",
@@ -6645,7 +7478,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 671.9
+    "sig_y0": 671.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g11_3_2",
@@ -6698,7 +7539,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 439.3
+    "sig_y0": 439.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g11_3_3",
@@ -6751,7 +7601,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 661.5
+    "sig_y0": 661.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g11_3_4",
@@ -6804,7 +7662,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (៣-៥ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 688.1
+    "sig_y0": 688.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   },
   {
     "id": "plan_g12_1_1",
@@ -6857,7 +7725,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 565.9
+    "sig_y0": 567.0,
+    "old_sig_y0_text": 565.7,
+    "table_bottom_y0": 565.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_1_2",
@@ -6910,7 +7786,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 372.3
+    "sig_y0": 373.4,
+    "old_sig_y0_text": 372.1,
+    "table_bottom_y0": 371.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_3",
@@ -6963,7 +7848,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 526.3
+    "sig_y0": 527.4,
+    "old_sig_y0_text": 526.1,
+    "table_bottom_y0": 525.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_4",
@@ -7016,7 +7910,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 495.9
+    "sig_y0": 497.0,
+    "old_sig_y0_text": 495.7,
+    "table_bottom_y0": 495.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_5",
@@ -7069,7 +7972,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 306.9
+    "sig_y0": 308.0,
+    "old_sig_y0_text": 306.7,
+    "table_bottom_y0": 306.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_6",
@@ -7122,7 +8034,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 566.0
+    "sig_y0": 567.1,
+    "old_sig_y0_text": 565.9,
+    "table_bottom_y0": 565.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_1_7",
@@ -7175,7 +8097,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 514.0
+    "sig_y0": 515.2,
+    "old_sig_y0_text": 513.9,
+    "table_bottom_y0": 513.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_8",
@@ -7228,7 +8159,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 575.9
+    "sig_y0": 577.0,
+    "old_sig_y0_text": 575.7,
+    "table_bottom_y0": 575.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_1_9",
@@ -7281,7 +8220,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 393.1
+    "sig_y0": 393.1,
+    "old_sig_y0_text": 392.9,
+    "table_bottom_y0": 391.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_10",
@@ -7334,7 +8282,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 371.9
+    "sig_y0": 373.1,
+    "old_sig_y0_text": 371.8,
+    "table_bottom_y0": 371.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_1_11",
@@ -7387,7 +8344,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 279.9
+    "sig_y0": 281.0,
+    "old_sig_y0_text": 279.7,
+    "table_bottom_y0": 279.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_1_12",
@@ -7440,7 +8407,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 311.9
+    "sig_y0": 313.0,
+    "old_sig_y0_text": 311.8,
+    "table_bottom_y0": 311.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_1_13",
@@ -7493,7 +8468,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 154.2
+    "sig_y0": 155.4,
+    "old_sig_y0_text": 154.1,
+    "table_bottom_y0": 153.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_1",
@@ -7546,7 +8529,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 562.4
+    "sig_y0": 562.0,
+    "old_sig_y0_text": 562.3,
+    "table_bottom_y0": 560.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_2_2",
@@ -7599,7 +8589,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 437.1
+    "sig_y0": 436.8,
+    "old_sig_y0_text": 436.9,
+    "table_bottom_y0": 435.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_2_3",
@@ -7652,7 +8649,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 481.9
+    "sig_y0": 481.4,
+    "old_sig_y0_text": 481.7,
+    "table_bottom_y0": 479.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_2_4",
@@ -7705,7 +8709,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 628.2
+    "sig_y0": 629.3,
+    "old_sig_y0_text": 628.0,
+    "table_bottom_y0": 627.8,
+    "bottom_overflow_pages": [
+      1
+    ],
+    "high_table_pages": [
+      1,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_5",
@@ -7758,7 +8771,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 316.0
+    "sig_y0": 317.5,
+    "old_sig_y0_text": 315.8,
+    "table_bottom_y0": 316.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_6",
@@ -7811,7 +8832,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 272.0
+    "sig_y0": 271.6,
+    "old_sig_y0_text": 271.8,
+    "table_bottom_y0": 270.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_7",
@@ -7864,7 +8893,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 334.2
+    "sig_y0": 335.3,
+    "old_sig_y0_text": 334.1,
+    "table_bottom_y0": 333.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_8",
@@ -7917,7 +8954,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 316.6
+    "sig_y0": 317.8,
+    "old_sig_y0_text": 316.4,
+    "table_bottom_y0": 316.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_9",
@@ -7970,7 +9015,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 481.1
+    "sig_y0": 482.3,
+    "old_sig_y0_text": 481.0,
+    "table_bottom_y0": 480.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_10",
@@ -8023,7 +9076,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 335.3
+    "sig_y0": 336.5,
+    "old_sig_y0_text": 335.2,
+    "table_bottom_y0": 335.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_11",
@@ -8076,7 +9136,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 278.2
+    "sig_y0": 279.3,
+    "old_sig_y0_text": 278.0,
+    "table_bottom_y0": 277.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4
+    ]
   },
   {
     "id": "plan_g12_2_12",
@@ -8129,7 +9197,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 273.9
+    "sig_y0": 275.0,
+    "old_sig_y0_text": 273.7,
+    "table_bottom_y0": 273.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_13",
@@ -8182,7 +9258,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 388.8
+    "sig_y0": 390.1,
+    "old_sig_y0_text": 388.7,
+    "table_bottom_y0": 388.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_14",
@@ -8235,7 +9319,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 494.5
+    "sig_y0": 494.1,
+    "old_sig_y0_text": 494.3,
+    "table_bottom_y0": 492.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_3_1",
@@ -8287,8 +9378,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 1,
-    "sig_y0": 638.7
+    "sig_page_index": 2,
+    "sig_y0": 70.7,
+    "old_sig_y0_text": 74.7,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_2_1",
@@ -8341,7 +9440,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 562.4
+    "sig_y0": 562.0,
+    "old_sig_y0_text": 562.3,
+    "table_bottom_y0": 560.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_2_2",
@@ -8394,7 +9500,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 437.1
+    "sig_y0": 436.8,
+    "old_sig_y0_text": 436.9,
+    "table_bottom_y0": 435.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_2_3",
@@ -8447,7 +9560,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 481.9
+    "sig_y0": 481.4,
+    "old_sig_y0_text": 481.7,
+    "table_bottom_y0": 479.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_3_1",
@@ -8499,8 +9619,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 1,
-    "sig_y0": 638.7
+    "sig_page_index": 2,
+    "sig_y0": 70.7,
+    "old_sig_y0_text": 74.7,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_3_2",
@@ -8553,7 +9681,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 560.7
+    "sig_y0": 560.4,
+    "old_sig_y0_text": 560.6,
+    "table_bottom_y0": 558.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_3_3",
@@ -8605,8 +9742,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 1,
-    "sig_y0": 656.6
+    "sig_page_index": 2,
+    "sig_y0": 70.7,
+    "old_sig_y0_text": 74.7,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_3_4",
@@ -8659,7 +9803,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 474.8
+    "sig_y0": 474.4,
+    "old_sig_y0_text": 474.6,
+    "table_bottom_y0": 472.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_3_5",
@@ -8712,7 +9863,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 554.1
+    "sig_y0": 553.8,
+    "old_sig_y0_text": 553.9,
+    "table_bottom_y0": 552.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_3_6",
@@ -8765,7 +9923,13 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 605.9
+    "sig_y0": 605.5,
+    "old_sig_y0_text": 605.7,
+    "table_bottom_y0": 604.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1
+    ]
   },
   {
     "id": "plan_g12_4_1",
@@ -8818,7 +9982,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 559.9
+    "sig_y0": 561.0,
+    "old_sig_y0_text": 559.7,
+    "table_bottom_y0": 559.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_2",
@@ -8871,7 +10043,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 468.8
+    "sig_y0": 469.9,
+    "old_sig_y0_text": 468.6,
+    "table_bottom_y0": 468.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_3",
@@ -8924,7 +10104,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 329.4
+    "sig_y0": 330.6,
+    "old_sig_y0_text": 329.3,
+    "table_bottom_y0": 329.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_4",
@@ -8977,7 +10165,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 628.8
+    "sig_y0": 629.9,
+    "old_sig_y0_text": 628.6,
+    "table_bottom_y0": 628.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4
+    ]
   },
   {
     "id": "plan_g12_4_5",
@@ -9030,7 +10226,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 126.3
+    "sig_y0": 395.7,
+    "old_sig_y0_text": 394.4,
+    "table_bottom_y0": 394.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_4_6",
@@ -9083,7 +10288,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 255.3
+    "sig_y0": 256.4,
+    "old_sig_y0_text": 255.1,
+    "table_bottom_y0": 254.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_4_7",
@@ -9136,7 +10348,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 353.8
+    "sig_y0": 354.9,
+    "old_sig_y0_text": 353.6,
+    "table_bottom_y0": 353.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_8",
@@ -9189,7 +10409,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 304.7
+    "sig_y0": 305.9,
+    "old_sig_y0_text": 304.6,
+    "table_bottom_y0": 304.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_9",
@@ -9242,7 +10469,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 170.4
+    "sig_y0": 171.6,
+    "old_sig_y0_text": 170.3,
+    "table_bottom_y0": 170.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_10",
@@ -9295,7 +10530,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 115.0
+    "sig_y0": 116.1,
+    "old_sig_y0_text": 114.8,
+    "table_bottom_y0": 114.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_11",
@@ -9348,7 +10591,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 1,
-    "sig_y0": 615.1
+    "sig_y0": 616.2,
+    "old_sig_y0_text": 614.9,
+    "table_bottom_y0": 614.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_4_12",
@@ -9401,7 +10651,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 114.6
+    "sig_y0": 115.8,
+    "old_sig_y0_text": 114.5,
+    "table_bottom_y0": 114.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_4_13",
@@ -9454,7 +10713,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 226.8
+    "sig_y0": 228.0,
+    "old_sig_y0_text": 226.7,
+    "table_bottom_y0": 226.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_14",
@@ -9507,7 +10774,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 139.9
+    "sig_y0": 141.1,
+    "old_sig_y0_text": 139.8,
+    "table_bottom_y0": 139.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_4_15",
@@ -9560,7 +10835,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 608.1
+    "sig_y0": 609.2,
+    "old_sig_y0_text": 608.0,
+    "table_bottom_y0": 607.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2
+    ]
   },
   {
     "id": "plan_g12_5_1",
@@ -9613,7 +10895,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 179.4
+    "sig_y0": 180.6,
+    "old_sig_y0_text": 179.3,
+    "table_bottom_y0": 179.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_5_2",
@@ -9666,7 +10958,21 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 8,
-    "sig_y0": 249.0
+    "sig_y0": 250.2,
+    "old_sig_y0_text": 248.9,
+    "table_bottom_y0": 248.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
   },
   {
     "id": "plan_g12_5_3",
@@ -9719,7 +11025,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 6,
-    "sig_y0": 179.4
+    "sig_y0": 180.5,
+    "old_sig_y0_text": 179.3,
+    "table_bottom_y0": 179.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_5_4",
@@ -9772,7 +11089,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 407.7
+    "sig_y0": 408.8,
+    "old_sig_y0_text": 407.5,
+    "table_bottom_y0": 407.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_5_5",
@@ -9825,7 +11152,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 600.9
+    "sig_y0": 602.1,
+    "old_sig_y0_text": 600.8,
+    "table_bottom_y0": 600.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_5_6",
@@ -9878,7 +11213,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 401.7
+    "sig_y0": 402.8,
+    "old_sig_y0_text": 401.5,
+    "table_bottom_y0": 401.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_5_7",
@@ -9931,7 +11276,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 615.1
+    "sig_y0": 616.2,
+    "old_sig_y0_text": 614.9,
+    "table_bottom_y0": 614.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_5_8",
@@ -9984,7 +11338,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 233.1
+    "sig_y0": 234.2,
+    "old_sig_y0_text": 232.9,
+    "table_bottom_y0": 232.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_5_9",
@@ -10037,7 +11402,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 443.6
+    "sig_y0": 444.7,
+    "old_sig_y0_text": 443.4,
+    "table_bottom_y0": 443.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_5_10",
@@ -10090,7 +11463,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 327.4
+    "sig_y0": 328.5,
+    "old_sig_y0_text": 327.2,
+    "table_bottom_y0": 327.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_5_11",
@@ -10143,7 +11525,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 390.8
+    "sig_y0": 391.9,
+    "old_sig_y0_text": 390.6,
+    "table_bottom_y0": 390.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_6_1",
@@ -10196,7 +11587,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 152.6
+    "sig_y0": 190.5,
+    "old_sig_y0_text": 189.2,
+    "table_bottom_y0": 189.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_6_2",
@@ -10249,7 +11650,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 51.0
+    "sig_y0": 47.0,
+    "old_sig_y0_text": 51.0,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_6_3",
@@ -10302,7 +11714,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 395.3
+    "sig_y0": 433.0,
+    "old_sig_y0_text": 431.8,
+    "table_bottom_y0": 431.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_6_4",
@@ -10355,7 +11776,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 647.0
+    "sig_y0": 684.7,
+    "old_sig_y0_text": 683.5,
+    "table_bottom_y0": 683.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_6_5",
@@ -10408,7 +11839,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 51.0
+    "sig_y0": 47.0,
+    "old_sig_y0_text": 51.0,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_6_6",
@@ -10461,7 +11902,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 607.7
+    "sig_y0": 645.5,
+    "old_sig_y0_text": 644.3,
+    "table_bottom_y0": 644.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_6_7",
@@ -10514,7 +11964,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 626.7
+    "sig_y0": 664.4,
+    "old_sig_y0_text": 663.2,
+    "table_bottom_y0": 662.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_6_8",
@@ -10567,7 +12026,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 363.2
+    "sig_y0": 401.0,
+    "old_sig_y0_text": 399.9,
+    "table_bottom_y0": 399.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_6_9",
@@ -10620,7 +12087,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 233.9
+    "sig_y0": 271.6,
+    "old_sig_y0_text": 270.4,
+    "table_bottom_y0": 270.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_6_10",
@@ -10673,7 +12151,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 571.5
+    "sig_y0": 609.2,
+    "old_sig_y0_text": 608.0,
+    "table_bottom_y0": 607.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_6_11",
@@ -10726,7 +12215,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 527.1
+    "sig_y0": 564.8,
+    "old_sig_y0_text": 563.6,
+    "table_bottom_y0": 563.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_6_12",
@@ -10779,7 +12278,18 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 215.1
+    "sig_y0": 252.9,
+    "old_sig_y0_text": 251.6,
+    "table_bottom_y0": 251.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_6_13",
@@ -10832,7 +12342,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 427.8
+    "sig_y0": 465.6,
+    "old_sig_y0_text": 464.3,
+    "table_bottom_y0": 464.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_6_14",
@@ -10885,7 +12405,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 629.9
+    "sig_y0": 667.7,
+    "old_sig_y0_text": 666.4,
+    "table_bottom_y0": 666.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_6_15",
@@ -10938,8 +12466,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 324.0,
-    "sig_h": 148.0
+    "sig_y0": 362.1,
+    "sig_h": 148.0,
+    "old_sig_y0_text": 360.8,
+    "table_bottom_y0": 360.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_6_16",
@@ -10992,7 +12528,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 319.4
+    "sig_y0": 357.2,
+    "old_sig_y0_text": 355.9,
+    "table_bottom_y0": 355.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_7_1",
@@ -11045,7 +12590,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 74.8
+    "sig_y0": 70.6,
+    "old_sig_y0_text": 74.6,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_7_2",
@@ -11098,7 +12652,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 545.3
+    "sig_y0": 546.5,
+    "old_sig_y0_text": 545.2,
+    "table_bottom_y0": 545.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_7_3",
@@ -11151,7 +12714,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 148.8
+    "sig_y0": 150.0,
+    "old_sig_y0_text": 148.7,
+    "table_bottom_y0": 148.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_7_4",
@@ -11204,7 +12777,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 289.7
+    "sig_y0": 290.9,
+    "old_sig_y0_text": 289.6,
+    "table_bottom_y0": 289.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_7_5",
@@ -11257,7 +12840,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 515.5
+    "sig_y0": 516.6,
+    "old_sig_y0_text": 515.3,
+    "table_bottom_y0": 515.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_7_6",
@@ -11310,7 +12901,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 74.8
+    "sig_y0": 70.6,
+    "old_sig_y0_text": 74.6,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_7_7",
@@ -11363,7 +12963,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 551.6
+    "sig_y0": 552.7,
+    "old_sig_y0_text": 551.4,
+    "table_bottom_y0": 551.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_7_8",
@@ -11416,7 +13024,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 345.5
+    "sig_y0": 346.7,
+    "old_sig_y0_text": 345.4,
+    "table_bottom_y0": 345.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_7_9",
@@ -11469,7 +13085,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 314.1
+    "sig_y0": 315.2,
+    "old_sig_y0_text": 313.9,
+    "table_bottom_y0": 313.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_7_10",
@@ -11522,7 +13148,14 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": null,
-    "sig_y0": 450.0
+    "sig_y0": 450.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_8_1",
@@ -11575,7 +13208,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 619.2
+    "sig_y0": 620.3,
+    "old_sig_y0_text": 619.0,
+    "table_bottom_y0": 618.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_8_2",
@@ -11628,7 +13269,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 623.9
+    "sig_y0": 625.0,
+    "old_sig_y0_text": 623.7,
+    "table_bottom_y0": 623.5,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_8_3",
@@ -11681,7 +13331,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 607.3
+    "sig_y0": 608.4,
+    "old_sig_y0_text": 607.1,
+    "table_bottom_y0": 606.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_8_4",
@@ -11734,7 +13393,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 240.6
+    "sig_y0": 241.8,
+    "old_sig_y0_text": 240.5,
+    "table_bottom_y0": 240.3,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_8_5",
@@ -11787,7 +13456,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 428.2
+    "sig_y0": 429.4,
+    "old_sig_y0_text": 428.1,
+    "table_bottom_y0": 427.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_8_6",
@@ -11840,7 +13519,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 222.4
+    "sig_y0": 223.5,
+    "old_sig_y0_text": 222.2,
+    "table_bottom_y0": 222.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_8_7",
@@ -11893,7 +13582,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 393.8
+    "sig_y0": 394.9,
+    "old_sig_y0_text": 393.6,
+    "table_bottom_y0": 393.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_8_8",
@@ -11946,7 +13644,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 329.6
+    "sig_y0": 330.7,
+    "old_sig_y0_text": 329.4,
+    "table_bottom_y0": 329.2,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_8_9",
@@ -11999,7 +13707,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 538.0
+    "sig_y0": 539.2,
+    "old_sig_y0_text": 537.9,
+    "table_bottom_y0": 537.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_9_1",
@@ -12052,7 +13769,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 348.3
+    "sig_y0": 349.4,
+    "old_sig_y0_text": 348.1,
+    "table_bottom_y0": 347.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_9_2",
@@ -12105,7 +13831,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 585.1
+    "sig_y0": 586.2,
+    "old_sig_y0_text": 584.9,
+    "table_bottom_y0": 584.7,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_9_3",
@@ -12158,7 +13892,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 278.3
+    "sig_y0": 279.5,
+    "old_sig_y0_text": 278.2,
+    "table_bottom_y0": 278.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_9_4",
@@ -12211,7 +13955,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 271.5
+    "sig_y0": 272.6,
+    "old_sig_y0_text": 271.3,
+    "table_bottom_y0": 271.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_9_5",
@@ -12264,7 +14017,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 563.0
+    "sig_y0": 564.1,
+    "old_sig_y0_text": 562.9,
+    "table_bottom_y0": 562.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_9_6",
@@ -12317,7 +14079,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 355.0
+    "sig_y0": 356.1,
+    "old_sig_y0_text": 354.8,
+    "table_bottom_y0": 354.6,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_9_7",
@@ -12370,7 +14142,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 223.2
+    "sig_y0": 222.5,
+    "old_sig_y0_text": 223.1,
+    "table_bottom_y0": 221.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_10_1",
@@ -12423,7 +14204,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 415.3
+    "sig_y0": 416.4,
+    "old_sig_y0_text": 415.1,
+    "table_bottom_y0": 414.9,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_10_2",
@@ -12476,7 +14265,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 376.7
+    "sig_y0": 377.9,
+    "old_sig_y0_text": 376.6,
+    "table_bottom_y0": 376.4,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_10_3",
@@ -12529,7 +14327,17 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 488.5
+    "sig_y0": 489.6,
+    "old_sig_y0_text": 488.3,
+    "table_bottom_y0": 488.1,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   },
   {
     "id": "plan_g12_10_4",
@@ -12582,7 +14390,15 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 2,
-    "sig_y0": 450.5
+    "sig_y0": 451.5,
+    "old_sig_y0_text": 450.4,
+    "table_bottom_y0": 450.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_10_5",
@@ -12635,7 +14451,16 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 391.1
+    "sig_y0": 392.3,
+    "old_sig_y0_text": 391.0,
+    "table_bottom_y0": 390.8,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   {
     "id": "plan_g12_10_6",
@@ -12688,7 +14513,13 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": null,
-    "sig_y0": 480.0
+    "sig_y0": 480.0,
+    "bottom_overflow_pages": null,
+    "high_table_pages": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": "plan_g12_10_7",
@@ -12741,7 +14572,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 5,
-    "sig_y0": 98.5
+    "sig_y0": 94.4,
+    "old_sig_y0_text": 98.4,
+    "table_bottom_y0": null,
+    "bottom_overflow_pages": [
+      3
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
   },
   {
     "id": "plan_g12_10_8",
@@ -12794,6 +14638,20 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 4,
-    "sig_y0": 591.7
+    "sig_y0": 592.8,
+    "old_sig_y0_text": 591.5,
+    "table_bottom_y0": 591.3,
+    "bottom_overflow_pages": [
+      1,
+      2,
+      3
+    ],
+    "high_table_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
   }
 ];
