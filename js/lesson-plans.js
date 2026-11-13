@@ -975,8 +975,8 @@
 
         // C. Roles & Subtitles (Aligned with respective column stepped positions)
         sctx.font = '22px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        sctx.fillText('ប្រធានក្រុមបច្ចេកទេស', colMid, 124);
-        sctx.fillText(isGrade8 ? 'ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី' : 'នាយករងទទួលបន្ទុកសាលារៀនជំនាន់ថ្មី', colLeft, 136);
+        sctx.fillText(isGrade8 ? 'ប្រធានក្រុមបច្ចេកទេស' : 'ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា', colMid, 124);
+        sctx.fillText('ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី', colLeft, 136);
 
         // D. Teacher Name (Under signature space)
         if (plan.teacher) {
@@ -1927,20 +1927,20 @@
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-center text-xs pt-2">
-            <!-- Left: Technical Head -->
+            <!-- Left: School Management -->
             <div class="space-y-10">
               <div>
-                <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងពិនិត្យ</p>
-                <p class="text-slate-500 font-bold">ប្រធានក្រុមបច្ចេកទេស</p>
+                <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងឯកភាព</p>
+                <p class="text-slate-500 font-bold">ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី</p>
               </div>
               <div class="text-slate-400 font-mono text-[11px]">[ ហត្ថលេខា ]</div>
             </div>
 
-            <!-- Middle: Management Assistant -->
+            <!-- Middle: Technical Head -->
             <div class="space-y-10">
               <div>
-                <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងឯកភាព</p>
-                <p class="text-slate-500 font-bold">នាយករងទទួលបន្ទុក NGS / ជំនួយការគ្រប់គ្រង</p>
+                <p class="font-extrabold text-slate-800 dark:text-white">បានឃើញ និងពិនិត្យ</p>
+                <p class="text-slate-500 font-bold">ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា</p>
               </div>
               <div class="text-slate-400 font-mono text-[11px]">[ ហត្ថលេខា ]</div>
             </div>
@@ -2286,15 +2286,15 @@
               </div>
               <table style="width: 100%; border: none !important; border-collapse: collapse; font-size: 10.5px; text-align: center;">
                 <tr style="border: none !important;">
-                  <td style="border: none !important; width: 33%; vertical-align: top;">
-                    <div style="font-weight: 800; color: #0f172a;">បានឃើញ និងពិនិត្យ</div>
-                    <div style="color: #64748b; font-size: 9.5px; font-weight: 700;">ប្រធានក្រុមបច្ចេកទេស</div>
+                  <td style="border: none !important; width: 34%; vertical-align: top;">
+                    <div style="font-weight: 800; color: #0f172a;">បានឃើញ និងឯកភាព</div>
+                    <div style="color: #64748b; font-size: 9.5px; font-weight: 700;">ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី</div>
                     <div style="height: 44px;"></div>
                     <div style="color: #94a3b8; font-size: 9.5px;">[ ហត្ថលេខា ]</div>
                   </td>
-                  <td style="border: none !important; width: 34%; vertical-align: top;">
-                    <div style="font-weight: 800; color: #0f172a;">បានឃើញ និងឯកភាព</div>
-                    <div style="color: #64748b; font-size: 9.5px; font-weight: 700;">នាយករងទទួលបន្ទុក NGS</div>
+                  <td style="border: none !important; width: 33%; vertical-align: top;">
+                    <div style="font-weight: 800; color: #0f172a;">បានឃើញ និងពិនិត្យ</div>
+                    <div style="color: #64748b; font-size: 9.5px; font-weight: 700;">ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា</div>
                     <div style="height: 44px;"></div>
                     <div style="color: #94a3b8; font-size: 9.5px;">[ ហត្ថលេខា ]</div>
                   </td>
