@@ -1,5 +1,3 @@
-// NGS High School Lesson Plans Data (Grades 8, 11, and 12)
-// Auto-generated master dataset for Preah Yukunthor High School (NGS)
 window.NGS_LESSON_PLANS_DATA = [
   {
     "id": "plan_g8_1",
@@ -493,7 +491,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 140.6,
     "class_y0": 77.6,
-    "sig_page_index": 2,
+    "sig_page_index": null,
     "sig_y0": 510.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -557,7 +555,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 140.6,
     "class_y0": 77.6,
-    "sig_page_index": 2,
+    "sig_page_index": null,
     "sig_y0": 625.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -621,7 +619,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 140.6,
     "class_y0": 77.6,
-    "sig_page_index": 3,
+    "sig_page_index": null,
     "sig_y0": 320.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -684,7 +682,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 127.9,
     "class_y0": 64.9,
-    "sig_page_index": 2,
+    "sig_page_index": null,
     "sig_y0": 570.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -750,7 +748,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 140.6,
     "class_y0": 77.6,
-    "sig_page_index": 3,
+    "sig_page_index": null,
     "sig_y0": 360.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -815,7 +813,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 108.7,
     "class_y0": 53.9,
-    "sig_page_index": 4,
+    "sig_page_index": null,
     "sig_y0": 640.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -894,7 +892,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 129.4,
     "class_y0": 74.7,
-    "sig_page_index": 4,
+    "sig_page_index": null,
     "sig_y0": 640.0,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -3490,7 +3488,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": 4,
+    "sig_page_index": null,
     "sig_y0": 161.8,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -3573,7 +3571,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": 4,
+    "sig_page_index": null,
     "sig_y0": 362.7,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -3655,7 +3653,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "cover_page_index": 0,
     "box_y0": 137.2,
     "class_y0": 61.2,
-    "sig_page_index": 4,
+    "sig_page_index": null,
     "sig_y0": 139.3,
     "sig_h": 128.2,
     "sig_date": "2026-10-12",
@@ -8289,8 +8287,8 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 2,
-    "sig_y0": 74.9
+    "sig_page_index": 1,
+    "sig_y0": 605.0
   },
   {
     "id": "plan_g12_2_1",
@@ -8501,8 +8499,8 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 2,
-    "sig_y0": 74.9
+    "sig_page_index": 1,
+    "sig_y0": 605.0
   },
   {
     "id": "plan_g12_3_2",
@@ -8607,8 +8605,8 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 2,
-    "sig_y0": 74.9
+    "sig_page_index": 1,
+    "sig_y0": 615.0
   },
   {
     "id": "plan_g12_3_4",
@@ -10356,8 +10354,8 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 4,
-    "sig_y0": 68.3
+    "sig_page_index": 3,
+    "sig_y0": 640.0
   },
   {
     "id": "plan_g12_6_5",
@@ -10940,7 +10938,8 @@ window.NGS_LESSON_PLANS_DATA = [
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
     "sig_page_index": 3,
-    "sig_y0": 361.0
+    "sig_y0": 324.0,
+    "sig_h": 148.0
   },
   {
     "id": "plan_g12_6_16",
@@ -11522,7 +11521,7 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 2,
+    "sig_page_index": null,
     "sig_y0": 450.0
   },
   {
@@ -12688,7 +12687,7 @@ window.NGS_LESSON_PLANS_DATA = [
       "step4": "ពង្រឹងចំណេះដឹង (៨ នាទី)៖ ឱ្យសិស្សអនុវត្តលំហាត់ជាក្រុម និងបំពេញសន្លឹកកិច្ចការ។",
       "step5": "បណ្តាំផ្ញើ & កិច្ចការផ្ទះ (២ នាទី)៖ ដាក់កិច្ចការផ្ទះ ណែនាំរំឭកមេរៀន និងស្វ័យសិក្សា។"
     },
-    "sig_page_index": 2,
+    "sig_page_index": null,
     "sig_y0": 480.0
   },
   {

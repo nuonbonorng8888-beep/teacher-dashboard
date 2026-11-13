@@ -748,85 +748,94 @@
         const shouldStampHeader = (isGrade11 || isGrade12);
 
         if (shouldStampHeader) {
-          // Determine page geometry & paper format (A4 vs Letter)
-          const isA4 = pageH > 800; // A4 is ~841.9pt, Letter is 792pt
-
-          let whiteoutH = 49.0;
-          let logoY = pageH - 36.0;
-          let logoH = 20.0;
-          let textY = pageH - 33.0;
-          let textH = 15.0;
-          let lineY = pageH - 43.5;
+          const isCompactG12 = isGrade12 && (
+            plan.header_type === 'compact' ||
+            /^plan_g12_2_(4|5|6|7|8|9|10|11|12|13)$/.test(plan.id) ||
+            /^plan_g12_4_/.test(plan.id)
+          );
 
           if (isGrade11) {
             // Grade 11: Sisowath header extends down to y0=69.86pt; content starts at y0>=72.3pt
-            whiteoutH = 71.0;
-            logoY = pageH - 52.0;
-            logoH = 22.0;
-            textY = pageH - 49.0;
-            textH = 16.0;
-            lineY = pageH - 65.0;
-          } else if (isGrade12) {
-            if (isA4) {
-              // Grade 12 A4: Sisowath header is in top 47.3pt; content/table starts at y0>=56.6pt (cover title at y0>=55.5pt)
-              // Whiteout covers y0=0..49.0pt, completely covering top of old logo (starts at y0=11.2pt)
-              whiteoutH = 49.0;
-              logoY = pageH - 36.0;
-              logoH = 20.0;
-              textY = pageH - 33.0;
-              textH = 15.0;
-              lineY = pageH - 43.5;
-            } else {
-              // Grade 12 Letter: Sisowath header is in top 60.5pt; table top border starts at y0=61.08pt
-              // Whiteout MUST stop at y0=59.0pt to preserve table top border line and math formulas!
-              whiteoutH = 59.0;
-              logoY = pageH - 42.0;
-              logoH = 20.0;
-              textY = pageH - 39.0;
-              textH = 15.0;
-              lineY = pageH - 52.0;
+            p.drawRectangle({
+              x: 45.0,
+              y: pageH - 71.0,
+              width: pageW - 90.0,
+              height: 71.0,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+            if (logoImg) {
+              p.drawImage(logoImg, { x: 65.0, y: pageH - 52.0, width: 22.0, height: 22.0 });
             }
-          }
+            if (headerTextImg) {
+              p.drawImage(headerTextImg, { x: logoImg ? 95.0 : 65.0, y: pageH - 49.0, width: 16.0 * headerTextAspect, height: 16.0 });
+            }
+            p.drawLine({
+              start: { x: 65.0, y: pageH - 65.0 },
+              end: { x: pageW - 65.0, y: pageH - 65.0 },
+              thickness: 0.6,
+              color: PDFLib.rgb(0, 0, 0),
+            });
+          } else if (isCompactG12) {
+            // Grade 12 Type 1 (Compact Header - Chapters 2 & 4): logo 11.2..44.2pt, line 47.3pt, content >= 55.5pt
+            p.drawRectangle({
+              x: 45.0,
+              y: pageH - 49.0,
+              width: pageW - 90.0,
+              height: 49.0,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+            if (logoImg) {
+              p.drawImage(logoImg, { x: 65.0, y: pageH - 36.0, width: 20.0, height: 20.0 });
+            }
+            if (headerTextImg) {
+              p.drawImage(headerTextImg, { x: logoImg ? 92.0 : 65.0, y: pageH - 33.0, width: 15.0 * headerTextAspect, height: 15.0 });
+            }
+            p.drawLine({
+              start: { x: 65.0, y: pageH - 43.5 },
+              end: { x: pageW - 65.0, y: pageH - 43.5 },
+              thickness: 0.6,
+              color: PDFLib.rgb(0, 0, 0),
+            });
+          } else {
+            // Grade 12 Type 2 (Standard Header - 88 plans): 3-Zone Smart Whiteout
+            // Zone 1: Full-width base whiteout down to y0=57.0pt (preserves OM vector arrows and formulas at y0>=57.8pt)
+            p.drawRectangle({
+              x: 45.0,
+              y: pageH - 57.0,
+              width: pageW - 90.0,
+              height: 57.0,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+            // Zone 2: Left column extension covering old logo (x=45..115) down to y0=59.2pt
+            p.drawRectangle({
+              x: 45.0,
+              y: pageH - 59.2,
+              width: 70.0,
+              height: 2.2,
+              color: PDFLib.rgb(1, 1, 1),
+            });
+            // Zone 3: Right column extension covering Facebook text (x=340..pageW-45) down to y0=60.5pt
+            p.drawRectangle({
+              x: 340.0,
+              y: pageH - 60.5,
+              width: pageW - 385.0,
+              height: 3.5,
+              color: PDFLib.rgb(1, 1, 1),
+            });
 
-          // 1. Redact / Whiteout old Sisowath header from the very top page edge (y0=0 down to whiteoutH)
-          // Starting at pageH - whiteoutH ensures y0=0..whiteoutH is 100% whited out, eliminating old logo top arc.
-          p.drawRectangle({
-            x: 45.0,
-            y: pageH - whiteoutH,
-            width: pageW - 90.0,
-            height: whiteoutH,
-            color: PDFLib.rgb(1, 1, 1),
-          });
-
-          // 2. Yukunthor Logo
-          const logoX = 65.0;
-          if (logoImg) {
-            p.drawImage(logoImg, {
-              x: logoX,
-              y: logoY,
-              width: logoH,
-              height: logoH,
+            if (logoImg) {
+              p.drawImage(logoImg, { x: 65.0, y: pageH - 42.0, width: 20.0, height: 20.0 });
+            }
+            if (headerTextImg) {
+              p.drawImage(headerTextImg, { x: logoImg ? 92.0 : 65.0, y: pageH - 39.0, width: 15.0 * headerTextAspect, height: 15.0 });
+            }
+            p.drawLine({
+              start: { x: 65.0, y: pageH - 52.0 },
+              end: { x: pageW - 65.0, y: pageH - 52.0 },
+              thickness: 0.6,
+              color: PDFLib.rgb(0, 0, 0),
             });
           }
-
-          // 3. Yukunthor School Title (Natural aspect ratio, zero font squishing)
-          if (headerTextImg) {
-            const finalTw = textH * headerTextAspect;
-            p.drawImage(headerTextImg, {
-              x: logoImg ? (logoX + logoH + 8.0) : logoX,
-              y: textY,
-              width: finalTw,
-              height: textH,
-            });
-          }
-
-          // 4. Horizontal Separator Line below Header
-          p.drawLine({
-            start: { x: 65.0, y: lineY },
-            end: { x: pageW - 65.0, y: lineY },
-            thickness: 0.6,
-            color: PDFLib.rgb(0, 0, 0),
-          });
         }
 
         // --- B. RUNNING FOOTER ---
@@ -841,22 +850,16 @@
           });
         }
 
-        // Redact / Whiteout old footer zone at bottom
-        p.drawRectangle({
-          x: 60.0,
-          y: 8.0,
-          width: 495.0,
-          height: 25.0,
-          color: PDFLib.rgb(1, 1, 1),
-        });
-
-        // Horizontal Line above Footer
-        p.drawLine({
-          start: { x: 65.0, y: 34.0 },
-          end: { x: 547.0, y: 34.0 },
-          thickness: 0.8,
-          color: PDFLib.rgb(0, 0, 0),
-        });
+        // Safe Horizontal Line above Footer
+        const hasBottomOverflow = (plan.id === 'plan_g12_2_4' && pIdx === 1) || (plan.id === 'plan_g12_10_7' && pIdx === 3) || (plan.id === 'plan_g12_10_8' && pIdx === 2);
+        if (!hasBottomOverflow) {
+          p.drawLine({
+            start: { x: 65.0, y: 30.0 },
+            end: { x: pageW - 65.0, y: 30.0 },
+            thickness: 0.6,
+            color: PDFLib.rgb(0, 0, 0),
+          });
+        }
 
         // Render page-specific Footer Canvas (Left: Teacher, Center: Page Num, Right: Phone)
         try {
@@ -887,9 +890,9 @@
 
           p.drawImage(footerImg, {
             x: 65.0,
-            y: 15.0,
+            y: 12.0,
             width: 482.0,
-            height: 16.0,
+            height: 15.0,
           });
         } catch (fErr) {
           console.warn('Error stamping footer:', fErr);
@@ -979,6 +982,10 @@
       // ========================================================
       // 3. SIGNATURE PAGE (Authentic 3-Column Signature Block)
       // ========================================================
+      if (plan.sig_page_index === null || plan.has_signatures === false) {
+        return;
+      }
+
       let sigPageIdx = (typeof plan.sig_page_index === 'number' && plan.sig_page_index < pages.length)
         ? plan.sig_page_index
         : (pages.length - 1);
@@ -995,8 +1002,11 @@
           ? Math.max(plan.sig_y0, 30.0)
           : (isGrade12 ? 480.0 : (isGrade11 ? 400.0 : 450.0));
         const sig_w = 545.0;
-        const sig_h = 165.0; // Ample 165pt height cleanly covers the old 3-line management title & dots
-        const sig_y_bottom = Math.max(pageH - min_y - sig_h, 35.0);
+        const sig_h = (typeof plan.sig_h === 'number') ? plan.sig_h : 140.0;
+        const isMiddle = (pageH - min_y) > 220.0;
+        const sig_y_bottom = isMiddle
+          ? Math.max(pageH - min_y - sig_h, 30.0)
+          : Math.max(pageH - Math.max(min_y, pageH - 172.0) - sig_h, 30.0);
         const sig_x = 28.0;
 
         // 1. Redact / Whiteout the ENTIRE old signature region cleanly across the page (covers x=28..573)
@@ -1011,7 +1021,7 @@
         // 2. Render dynamic high-res 3-column signature block via Canvas (1:1 aspect ratio with sig_w/sig_h)
         const sigCanvas = document.createElement('canvas');
         sigCanvas.width = 1635; // 3x 545.0
-        sigCanvas.height = 495; // 3x 165.0
+        sigCanvas.height = Math.round(sig_h * 3); // 3x sig_h
         const sctx = sigCanvas.getContext('2d');
         sctx.fillStyle = '#ffffff';
         sctx.fillRect(0, 0, sigCanvas.width, sigCanvas.height);
@@ -1040,23 +1050,23 @@
         sctx.fillStyle = '#000000';
         sctx.textAlign = 'center';
         sctx.font = '28px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        sctx.fillText(sigDateText, colRight, 50);
+        sctx.fillText(sigDateText, colRight, Math.round(sigCanvas.height * 0.10));
 
         // B. Column Titles (Stepped Administrative Alignment: គ្រូបង្រៀន top, ពិនិត្យ stepped down, ឯកភាព stepped lower)
         sctx.font = 'bold 30px "Khmer OS Muol Light", "Khmer OS Muol", "Khmer OS Siemreap", sans-serif';
-        sctx.fillText(isGrade8 ? 'គ្រូបង្រៀន' : 'គ្រូបង្រៀនគណិតវិទ្យា', colRight, 102);
-        sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, 116);
-        sctx.fillText('បានឃើញ និងឯកភាព', colLeft, 130);
+        sctx.fillText(isGrade8 ? 'គ្រូបង្រៀន' : 'គ្រូបង្រៀនគណិតវិទ្យា', colRight, Math.round(sigCanvas.height * 0.22));
+        sctx.fillText('បានឃើញ និងពិនិត្យ', colMid, Math.round(sigCanvas.height * 0.25));
+        sctx.fillText('បានឃើញ និងឯកភាព', colLeft, Math.round(sigCanvas.height * 0.28));
 
         // C. Roles & Subtitles (Aligned with respective column stepped positions)
         sctx.font = '26px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-        sctx.fillText(isGrade8 ? 'ប្រធានក្រុមបច្ចេកទេស' : 'ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា', colMid, 168);
-        sctx.fillText('ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី', colLeft, 182);
+        sctx.fillText(isGrade8 ? 'ប្រធានក្រុមបច្ចេកទេស' : 'ប្រធានក្រុមបច្ចេកទេសគណិតវិទ្យា', colMid, Math.round(sigCanvas.height * 0.38));
+        sctx.fillText('ជ.គណៈគ្រប់គ្រងសាលារៀនជំនាន់ថ្មី', colLeft, Math.round(sigCanvas.height * 0.41));
 
         // D. Teacher Name (Under signature space)
         if (plan.teacher) {
           sctx.font = 'bold 30px "Khmer OS Siemreap", "Noto Sans Khmer", sans-serif';
-          sctx.fillText(teacherFullName, colRight, 435);
+          sctx.fillText(teacherFullName, colRight, Math.round(sigCanvas.height * 0.90));
         }
 
         const sigBlockImg = await doc.embedPng(b64ToUint8(sigCanvas.toDataURL('image/png')));
@@ -1068,6 +1078,28 @@
           width: sig_w,
           height: sig_h,
         });
+
+        // Clean up spillover text on secondary pages if present
+        if ((plan.id === 'plan_g12_3_1' || plan.id === 'plan_g12_3_3') && pages[2]) {
+          const p2 = pages[2];
+          p2.drawRectangle({
+            x: 28.0,
+            y: p2.getHeight() - 114.0,
+            width: 545.0,
+            height: 44.0,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+        }
+        if (plan.id === 'plan_g12_6_4' && pages[4]) {
+          const p4 = pages[4];
+          p4.drawRectangle({
+            x: 28.0,
+            y: p4.getHeight() - 115.0,
+            width: 545.0,
+            height: 50.0,
+            color: PDFLib.rgb(1, 1, 1),
+          });
+        }
       }
     }
 
