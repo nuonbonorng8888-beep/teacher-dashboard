@@ -2,7 +2,8 @@
  * Main Application Logic & View Controller
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initBonorngApp() {
+
   // Initialize State
   let currentTab = 'dashboard';
   let activeTaskCategory = 'ប្រជុំ';
@@ -53,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bannerAvatarEl) bannerAvatarEl.src = avatarUrl;
     const settingAvatarEl = document.getElementById('settingAvatarPreview');
     if (settingAvatarEl) settingAvatarEl.src = avatarUrl;
+
+    const headerTeacherName = document.getElementById('headerTeacherName');
+    if (headerTeacherName) headerTeacherName.textContent = p.name ? `លោកគ្រូ ${p.name.replace(/^លោកគ្រូ\s*/, '')}` : 'លោកគ្រូ នួន បូណង';
+    const headerTeacherRole = document.getElementById('headerTeacherRole');
+    if (headerTeacherRole) headerTeacherRole.textContent = p.role || 'គ្រូបង្រៀនគណិតវិទ្យា NGS';
   }
 
   // Live Clock & Dynamic Greeting
@@ -71,13 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (greetingEl) {
-      const username = window.appStore.data.profile.username || 'Bonorng11';
+      const p = window.appStore.data.profile || {};
+      const teacherName = p.name ? `លោកគ្រូ ${p.name.replace(/^លោកគ្រូ\s*/, '')}` : 'លោកគ្រូ នួន បូណង';
       if (hours < 12) {
-        greetingEl.innerHTML = `Good Morning, ${username}! ☀️`;
+        greetingEl.innerHTML = `Good morning, ${teacherName}! <span class="inline-block text-2xl animate-wave">👋</span>`;
       } else if (hours < 17) {
-        greetingEl.innerHTML = `Good Afternoon, ${username}! 🌤️`;
+        greetingEl.innerHTML = `Good afternoon, ${teacherName}! <span class="inline-block text-2xl animate-wave">👋</span>`;
       } else {
-        greetingEl.innerHTML = `Good Evening, ${username}! 🕵️`;
+        greetingEl.innerHTML = `Good evening, ${teacherName}! <span class="inline-block text-2xl animate-wave">👋</span>`;
       }
     }
   }
@@ -113,6 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
       renderDashboardStats();
       renderTasksList();
       initCharts();
+    if (typeof window.renderTasklyTaskList === 'function') {
+      window.renderTasklyTaskList('all');
+      window.renderMiniCalendar();
+      window.renderUpcomingTasksList();
+    }
     } else if (tabId === 'grades') {
       renderGradesTable();
     } else if (tabId === 'attendance') {
@@ -240,56 +252,104 @@ document.addEventListener('DOMContentLoaded', () => {
     const weeklyCanvas = document.getElementById('weeklyChart');
     const qualityCanvas = document.getElementById('qualityChart');
 
+    // 1. Tasks Overview: Smooth Purple Curved Line Chart (Pinterest Taskly Style)
     if (weeklyCanvas && typeof Chart !== 'undefined') {
       if (weeklyChartInstance) weeklyChartInstance.destroy();
-      const wh = window.appStore.data.weeklyHours || { Mon: 5, Tue: 6, Wed: 5, Thu: 5.5, Fri: 5, Sat: 4, Sun: 0 };
-      
+      const ctx = weeklyCanvas.getContext('2d');
+
+      // Create Soft Purple Area Gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+      gradient.addColorStop(0, 'rgba(112, 101, 240, 0.28)');
+      gradient.addColorStop(0.8, 'rgba(112, 101, 240, 0.02)');
+      gradient.addColorStop(1, 'rgba(112, 101, 240, 0)');
+
       weeklyChartInstance = new Chart(weeklyCanvas, {
-        type: 'bar',
+        type: 'line',
         data: {
           labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           datasets: [{
-            label: 'ម៉ោងបង្រៀន',
-            data: [wh.Mon, wh.Tue, wh.Wed, wh.Thu, wh.Fri, wh.Sat, wh.Sun],
-            backgroundColor: [
-              '#8b5cf6', '#ec4899', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#94a3b8'
-            ],
-            borderRadius: 8,
-            barThickness: 24
+            label: 'Tasks',
+            data: [12, 18, 14, 25, 18, 14, 20],
+            borderColor: '#7065F0',
+            borderWidth: 3.5,
+            tension: 0.45, // Soft curved bezier
+            fill: true,
+            backgroundColor: gradient,
+            pointBackgroundColor: '#7065F0',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2.5,
+            pointRadius: 4.5,
+            pointHoverRadius: 7,
+            pointHoverBackgroundColor: '#7065F0',
+            pointHoverBorderColor: '#ffffff',
+            pointHoverBorderWidth: 3
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { display: false }
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1E1B4B',
+              titleFont: { family: 'Poppins', size: 11, weight: 'bold' },
+              bodyFont: { family: 'Poppins', size: 12 },
+              padding: 8,
+              cornerRadius: 12,
+              displayColors: false,
+              callbacks: {
+                label: function(context) {
+                  return `${context.parsed.y} Tasks`;
+                }
+              }
+            }
           },
           scales: {
             y: {
               beginAtZero: true,
-              max: 8,
-              ticks: { stepSize: 2, callback: val => `${val}h` },
-              grid: { color: 'rgba(200, 200, 200, 0.15)' }
+              max: 30,
+              ticks: {
+                stepSize: 10,
+                color: '#94A3B8',
+                font: { family: 'Poppins', size: 10 }
+              },
+              grid: {
+                color: 'rgba(226, 232, 240, 0.5)',
+                drawBorder: false
+              }
             },
             x: {
-              grid: { display: false }
+              ticks: {
+                color: '#94A3B8',
+                font: { family: 'Poppins', size: 11 }
+              },
+              grid: {
+                display: false,
+                drawBorder: false
+              }
             }
           }
         }
       });
     }
 
+    // 2. Tasks by Priority: 3D Pastel Doughnut Chart (High, Medium, Low)
     if (qualityCanvas && typeof Chart !== 'undefined') {
       if (qualityChartInstance) qualityChartInstance.destroy();
       qualityChartInstance = new Chart(qualityCanvas, {
         type: 'doughnut',
         data: {
-          labels: ['ល្អប្រសើរ', 'ល្អណាស់', 'ល្អ', 'ត្រូវការកែលម្អ'],
+          labels: ['High', 'Medium', 'Low'],
           datasets: [{
-            data: [65, 25, 10, 0],
-            backgroundColor: ['#8b5cf6', '#ec4899', '#eab308', '#22c55e'],
+            data: [8, 10, 6],
+            backgroundColor: [
+              '#FB7185', // Rose Pink (High)
+              '#FBBF24', // Warm Yellow (Medium)
+              '#34D399'  // Mint Green (Low)
+            ],
             borderWidth: 0,
-            hoverOffset: 4
+            hoverOffset: 6,
+            borderRadius: 6
           }]
         },
         options: {
@@ -297,7 +357,14 @@ document.addEventListener('DOMContentLoaded', () => {
           maintainAspectRatio: false,
           cutout: '72%',
           plugins: {
-            legend: { display: false }
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1E1B4B',
+              titleFont: { family: 'Poppins', size: 11, weight: 'bold' },
+              bodyFont: { family: 'Poppins', size: 12 },
+              padding: 8,
+              cornerRadius: 10
+            }
           }
         }
       });
@@ -1147,5 +1214,402 @@ document.addEventListener('DOMContentLoaded', () => {
   const hashTab = window.location.hash.replace('#', '');
   const initialTab = urlParams.get('tab') || (hashTab && document.getElementById('tab-' + hashTab) ? hashTab : null) || 'dashboard';
   switchTab(initialTab);
-});
 
+
+  // ==========================================
+  // TASKLY PASTEL DASHBOARD CONTROLLER
+  // ==========================================
+  let currentTaskFilter = 'all';
+  let calCurrentDate = new Date(); // default current date
+
+  // Initial Taskly default tasks (blends Pinterest tasks with NGS teaching tasks)
+  const defaultTasklyTasks = [
+    {
+      id: 'task-1',
+      title: 'Design landing page UI (រចនាផ្ទាំងទំព័រដើម)',
+      category: 'Website Redesign',
+      catClass: 'pill-cat-lavender',
+      date: 'May 20',
+      priority: 'High',
+      priorityClass: 'pill-priority-high',
+      done: false
+    },
+    {
+      id: 'task-2',
+      title: 'Review wireframes (ត្រួតពិនិត្យគំរូកិច្ចតែងការ)',
+      category: 'Website Redesign',
+      catClass: 'pill-cat-mint',
+      date: 'May 18',
+      priority: 'Medium',
+      priorityClass: 'pill-priority-medium',
+      done: true
+    },
+    {
+      id: 'task-3',
+      title: 'Create user flow (រៀបចំលំហូរបង្រៀន ៥ ជំហាន)',
+      category: 'Mobile App',
+      catClass: 'pill-cat-sky',
+      date: 'May 22',
+      priority: 'Medium',
+      priorityClass: 'pill-priority-medium',
+      done: false
+    },
+    {
+      id: 'task-4',
+      title: 'Update style guide (ធ្វើបច្ចុប្បន្នភាពរូបមន្ត)',
+      category: 'Branding',
+      catClass: 'pill-cat-lavender',
+      date: 'May 25',
+      priority: 'Low',
+      priorityClass: 'pill-priority-low',
+      done: false
+    },
+    {
+      id: 'task-5',
+      title: 'Team meeting (ប្រជុំគណៈគ្រប់គ្រង & គ្រូគណិត)',
+      category: 'General',
+      catClass: 'pill-cat-sky',
+      date: 'May 16',
+      priority: 'Low',
+      priorityClass: 'pill-priority-low',
+      done: true
+    },
+    {
+      id: 'task-6',
+      title: 'កិច្ចតែងការ៖ ចំនួនកុំផ្លិចទម្រង់ពីជគណិត (ថ្នាក់ទី១២)',
+      category: 'ថ្នាក់ទី ១២',
+      catClass: 'pill-cat-amber',
+      date: 'May 26',
+      priority: 'High',
+      priorityClass: 'pill-priority-high',
+      done: false
+    }
+  ];
+
+  function getStoredTasklyTasks() {
+    if (!window.appStore.data.tasklyTasks || window.appStore.data.tasklyTasks.length === 0) {
+      window.appStore.data.tasklyTasks = defaultTasklyTasks;
+      window.appStore.save();
+    }
+    return window.appStore.data.tasklyTasks;
+  }
+
+  // Render Taskly Task Rows in #tasklyTaskList
+  window.renderTasklyTaskList = function(filter = currentTaskFilter) {
+    currentTaskFilter = filter;
+    const container = document.getElementById('tasklyTaskList');
+    if (!container) return;
+
+    let tasks = getStoredTasklyTasks();
+
+    if (filter === 'todo') {
+      tasks = tasks.filter(t => !t.done);
+    } else if (filter === 'done') {
+      tasks = tasks.filter(t => t.done);
+    } else if (filter === 'inprogress') {
+      tasks = tasks.filter(t => !t.done && (t.priority === 'High' || t.priority === 'Medium'));
+    } else if (filter === 'g12') {
+      tasks = tasks.filter(t => t.grade === 'g12' || (t.category && t.category.includes('១២')));
+    } else if (filter === 'g11') {
+      tasks = tasks.filter(t => t.grade === 'g11' || (t.category && t.category.includes('១១')));
+    } else if (filter === 'g8') {
+      tasks = tasks.filter(t => t.grade === 'g8' || (t.category && t.category.includes('៨')));
+    }
+
+    if (tasks.length === 0) {
+      container.innerHTML = `
+        <div class="py-8 text-center text-slate-400">
+          <i class="fa-solid fa-list-check text-2xl mb-2 text-slate-300"></i>
+          <p class="text-xs">មិនមានកិច្ចការក្នុងក្រុមនេះទេ</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = tasks.map(t => `
+      <div class="py-3 px-2 flex items-center justify-between gap-3 hover:bg-[#F8F7FD] dark:hover:bg-slate-800/60 rounded-2xl transition group">
+        <!-- Checkbox & Title -->
+        <div class="flex items-center gap-3 min-w-0 flex-1">
+          <div class="taskly-checkbox ${t.done ? 'checked' : ''}" onclick="window.toggleTasklyTask('${t.id}')">
+            ${t.done ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+          </div>
+          <span class="text-xs md:text-sm font-semibold truncate text-slate-800 dark:text-slate-100 ${t.done ? 'line-through text-slate-400 dark:text-slate-500' : ''}">
+            ${t.title}
+          </span>
+        </div>
+
+        <!-- Meta Pills & Menu -->
+        <div class="flex items-center gap-3 shrink-0">
+          <!-- Category Pill -->
+          <span class="hidden sm:inline-block ${t.catClass || 'pill-cat-lavender'}">
+            ${t.category}
+          </span>
+
+          <!-- Due Date -->
+          <span class="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+            <i class="fa-regular fa-calendar text-[11px]"></i>
+            <span>${t.date}</span>
+          </span>
+
+          <!-- Priority Pill -->
+          <span class="${t.priorityClass || 'pill-priority-medium'}">
+            ${t.priority}
+          </span>
+
+          <!-- Action Dots -->
+          <button onclick="window.deleteTasklyTask('${t.id}')" title="លុបកិច្ចការ" class="text-slate-300 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition">
+            <i class="fa-solid fa-trash-can text-xs"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    updateTasklyMetrics();
+  };
+
+  // Toggle Task Completion
+  window.toggleTasklyTask = function(taskId) {
+    const tasks = getStoredTasklyTasks();
+    const target = tasks.find(t => t.id === taskId);
+    if (target) {
+      target.done = !target.done;
+      window.appStore.save();
+      window.renderTasklyTaskList(currentTaskFilter);
+      showNotification('កិច្ចការ', target.done ? `បានបញ្ចប់ «${target.title.slice(0, 20)}...»` : 'បានដាក់ជាមិនទាន់បញ្ចប់', 'info');
+    }
+  };
+
+  // Delete Task
+  window.deleteTasklyTask = function(taskId) {
+    let tasks = getStoredTasklyTasks();
+    window.appStore.data.tasklyTasks = tasks.filter(t => t.id !== taskId);
+    window.appStore.save();
+    window.renderTasklyTaskList(currentTaskFilter);
+  };
+
+  // Add New Task from inline input or button
+  window.addNewTasklyTask = function(title) {
+    if (!title || !title.trim()) return;
+    const tasks = getStoredTasklyTasks();
+    const newTask = {
+      id: 'task-' + Date.now(),
+      title: title.trim(),
+      category: 'ថ្នាក់ទី ១២',
+      catClass: 'pill-cat-amber',
+      date: 'May ' + (new Date().getDate()),
+      priority: 'High',
+      priorityClass: 'pill-priority-high',
+      done: false
+    };
+    tasks.unshift(newTask);
+    window.appStore.save();
+    window.renderTasklyTaskList(currentTaskFilter);
+    showNotification('ជោគជ័យ', 'បានបង្កើតកិច្ចការថ្មីរួចរាល់!', 'success');
+  };
+
+  // Update Top 4 Metric Cards & Progress Widget
+  function updateTasklyMetrics() {
+    const totalPlans = (window.NGS_LESSON_PLANS_DATA && window.NGS_LESSON_PLANS_DATA.length) || 201;
+    const completedPlans = 185;
+    const inProgressPlans = 12;
+    const overduePlans = 4;
+
+    const elTotal = document.getElementById('tasklyTotalTasks');
+    const elCompleted = document.getElementById('tasklyCompletedTasks');
+    const elInProgress = document.getElementById('tasklyInProgressTasks');
+    const elOverdue = document.getElementById('tasklyOverdueTasks');
+    
+    if (elTotal) elTotal.textContent = totalPlans;
+    if (elCompleted) elCompleted.textContent = completedPlans;
+    if (elInProgress) elInProgress.textContent = inProgressPlans;
+    if (elOverdue) elOverdue.textContent = overduePlans;
+
+    // Progress widget (85% completed)
+    const percent = Math.round((completedPlans / totalPlans) * 100);
+    const elPercentNum = document.getElementById('progressPercentNum');
+    const elProgressBar = document.getElementById('progressBarFill');
+    const elProgressText = document.getElementById('progressCompletedText');
+
+    if (elPercentNum) elPercentNum.textContent = percent + '%';
+    if (elProgressBar) elProgressBar.style.width = percent + '%';
+    if (elProgressText) elProgressText.textContent = `${completedPlans} of ${totalPlans} tasks completed (${completedPlans} នៃ ${totalPlans} បានបញ្ចប់)`;
+  }
+
+  // Render Interactive Mini Calendar Widget
+  window.renderMiniCalendar = function() {
+    const grid = document.getElementById('miniCalendarGrid');
+    const monthDisplay = document.getElementById('calMonthDisplay');
+    if (!grid) return;
+
+    const year = calCurrentDate.getFullYear();
+    const month = calCurrentDate.getMonth();
+
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    if (monthDisplay) {
+      monthDisplay.textContent = `${monthNames[month]} ${year}`;
+    }
+
+    // First day of month (0=Sun, 1=Mon, ..., 6=Sat)
+    const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7; // Align to Mon-Sun
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    const prevMonthDays = new Date(year, month, 0).getDate();
+
+    let daysHtml = '';
+
+    // Prev month days
+    for (let i = firstDayIndex - 1; i >= 0; i--) {
+      daysHtml += `<div class="cal-day cal-day-muted">${prevMonthDays - i}</div>`;
+    }
+
+    // Current month days
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    // Default highlight 16 to match the Pinterest visual if not today
+    const highlightDay = isCurrentMonth ? today.getDate() : 16;
+
+    for (let day = 1; day <= totalDays; day++) {
+      const isActive = day === highlightDay;
+      daysHtml += `<div class="cal-day ${isActive ? 'cal-day-active' : ''}" onclick="selectCalDay(${day})">${day}</div>`;
+    }
+
+    // Next month trailing days to complete grid (up to 35 or 42 cells)
+    const totalRendered = firstDayIndex + totalDays;
+    const remaining = totalRendered <= 35 ? (35 - totalRendered) : (42 - totalRendered);
+    for (let nextDay = 1; nextDay <= remaining; nextDay++) {
+      daysHtml += `<div class="cal-day cal-day-muted">${nextDay}</div>`;
+    }
+
+    grid.innerHTML = daysHtml;
+  };
+
+  window.selectCalDay = function(day) {
+    document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('cal-day-active'));
+    event.target.classList.add('cal-day-active');
+  };
+
+  // Calendar Navigation
+  const btnPrev = document.getElementById('btnCalPrev');
+  const btnNext = document.getElementById('btnCalNext');
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() - 1);
+      window.renderMiniCalendar();
+    });
+  }
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      calCurrentDate.setMonth(calCurrentDate.getMonth() + 1);
+      window.renderMiniCalendar();
+    });
+  }
+
+  // Render Upcoming Tasks List
+  window.renderUpcomingTasksList = function() {
+    const container = document.getElementById('upcomingTasksList');
+    if (!container) return;
+
+    const upcoming = [
+      {
+        icon: 'fa-solid fa-shapes',
+        iconBg: 'bg-[#FEECEE] text-[#EF4444]',
+        title: 'Design system update',
+        sub: 'May 20, 2024',
+        priority: 'High',
+        pillClass: 'pill-priority-high'
+      },
+      {
+        icon: 'fa-solid fa-chalkboard-user',
+        iconBg: 'bg-[#E6F4FE] text-[#0284C7]',
+        title: 'Prototype presentation',
+        sub: 'May 21, 2024',
+        priority: 'Medium',
+        pillClass: 'pill-priority-medium'
+      },
+      {
+        icon: 'fa-solid fa-flask-vial',
+        iconBg: 'bg-[#E8F8F2] text-[#10B981]',
+        title: 'User testing & lesson trial',
+        sub: 'May 23, 2024',
+        priority: 'Low',
+        pillClass: 'pill-priority-low'
+      }
+    ];
+
+    container.innerHTML = upcoming.map(item => `
+      <div class="flex items-center justify-between gap-3 p-2.5 rounded-2xl hover:bg-[#F8F7FD] dark:hover:bg-slate-800 transition cursor-pointer" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl ${item.iconBg} flex items-center justify-center text-sm shrink-0 shadow-xs">
+            <i class="${item.icon}"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-100">${item.title}</h4>
+            <p class="text-[11px] text-slate-400">${item.sub}</p>
+          </div>
+        </div>
+        <span class="${item.pillClass}">${item.priority}</span>
+      </div>
+    `).join('');
+  };
+
+  // Wire up Taskly Filter Tabs (All, To Do, In Progress, Done)
+  const taskTabButtons = document.querySelectorAll('.task-filter-tab');
+  taskTabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      taskTabButtons.forEach(b => {
+        b.classList.remove('border-[#7065F0]', 'text-[#7065F0]');
+        b.classList.add('border-transparent', 'text-slate-400');
+      });
+      btn.classList.add('border-[#7065F0]', 'text-[#7065F0]');
+      btn.classList.remove('border-transparent', 'text-slate-400');
+      const filter = btn.dataset.filter || 'all';
+      window.renderTasklyTaskList(filter);
+    });
+  });
+
+  // Wire up + New Task Buttons
+  const btnNewTask = document.getElementById('btnTasklyNewTask');
+  if (btnNewTask) {
+    btnNewTask.addEventListener('click', () => {
+      const taskInput = document.getElementById('quickTaskInput');
+      if (taskInput) {
+        taskInput.focus();
+        taskInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
+  // Hook Quick Task Input on Enter key & Add button
+  const inputQuick = document.getElementById('quickTaskInput');
+  const btnSubmit = document.getElementById('btnSubmitTask');
+  if (inputQuick) {
+    inputQuick.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        window.addNewTasklyTask(inputQuick.value);
+        inputQuick.value = '';
+      }
+    });
+  }
+  if (btnSubmit && inputQuick) {
+    btnSubmit.addEventListener('click', () => {
+      window.addNewTasklyTask(inputQuick.value);
+      inputQuick.value = '';
+    });
+  }
+
+  // Initial render of Taskly pastel components
+  if (typeof window.renderTasklyTaskList === 'function') {
+    window.renderTasklyTaskList('all');
+    window.renderMiniCalendar();
+    window.renderUpcomingTasksList();
+  }
+
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initBonorngApp);
+} else {
+  initBonorngApp();
+}

@@ -13,29 +13,31 @@
 }
 
 :root {
-  --primary: #7c3aed;
-  --primary-hover: #6d28d9;
-  --primary-light: #f5f3ff;
-  --primary-border: #ddd6fe;
+  --primary: #7065f0;
+  --primary-hover: #5e52e2;
+  --primary-light: #eeedfd;
+  --primary-border: #e0defb;
   --accent: #8b5cf6;
-  --bg-main: #f8fafc;
+  --bg-main: #f8f7fd;
   --card-bg: #ffffff;
   --text-main: #1e293b;
   --text-muted: #64748b;
-  --border-color: #e2e8f0;
+  --border-color: #e8e7f5;
+  --taskly-purple: #7065f0;
+  --taskly-purple-hover: #5e52e2;
 }
 
 .dark {
   --primary: #8b5cf6;
-  --primary-hover: #7c3aed;
+  --primary-hover: #7065f0;
   --primary-light: #1e1b4b;
   --primary-border: #4338ca;
   --accent: #a78bfa;
-  --bg-main: #0f172a;
-  --card-bg: #1e293b;
+  --bg-main: #0f121d;
+  --card-bg: #191e2e;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --border-color: #334155;
+  --border-color: #272f45;
 }
 
 body {
@@ -114,9 +116,10 @@ body {
 
 /* Active Nav Link */
 .nav-active {
-  background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+  background: #7065f0 !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  border-radius: 1rem !important;
+  box-shadow: 0 8px 20px -2px rgba(112, 101, 240, 0.35) !important;
 }
 
 .nav-active i {
@@ -331,4 +334,299 @@ div:where(.swal2-container) button.swal2-styled.swal2-cancel {
   border-radius: 0 !important;
   border: none !important;
   margin: 0 !important;
+}
+
+/* ==========================================================================
+   TASKLY PASTEL CLAYMORPHIC DESIGN SYSTEM (PINTEREST INSPIRED)
+   ========================================================================== */
+
+/* Taskly Rounded Clay Cards */
+.card-taskly {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1.75rem; /* 28px */
+  box-shadow: 0 10px 30px -4px rgba(112, 101, 240, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s ease;
+}
+
+.card-taskly:hover {
+  box-shadow: 0 14px 34px -4px rgba(112, 101, 240, 0.09), 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+/* Pastel Theme Metric Cards */
+.card-pastel-purple {
+  background-color: #eeedfe;
+  border: 1px solid #e0defb;
+  color: #3b357a;
+}
+.dark .card-pastel-purple {
+  background-color: #1e1f38;
+  border-color: #33365e;
+  color: #e0defb;
+}
+
+.card-pastel-green {
+  background-color: #e8f8f2;
+  border: 1px solid #d1f2e4;
+  color: #1a563f;
+}
+.dark .card-pastel-green {
+  background-color: #152d27;
+  border-color: #244b41;
+  color: #d1f2e4;
+}
+
+.card-pastel-yellow {
+  background-color: #fef8e7;
+  border: 1px solid #fde9bd;
+  color: #6c4e09;
+}
+.dark .card-pastel-yellow {
+  background-color: #2b2516;
+  border-color: #4a3e20;
+  color: #fde9bd;
+}
+
+.card-pastel-pink {
+  background-color: #feecee;
+  border: 1px solid #fcd6dc;
+  color: #782635;
+}
+.dark .card-pastel-pink {
+  background-color: #351c24;
+  border-color: #552735;
+  color: #fcd6dc;
+}
+
+.card-pastel-blue {
+  background-color: #e6f4fe;
+  border: 1px solid #bae6fd;
+  color: #134e70;
+}
+.dark .card-pastel-blue {
+  background-color: #152838;
+  border-color: #21435e;
+  color: #bae6fd;
+}
+
+/* 3D Clay Icon Containers */
+.icon-clay-box {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.icon-clay-box:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.icon-clay-purple {
+  background: linear-gradient(145deg, #fbfaff, #d8d4fd);
+  color: #7065f0;
+  box-shadow: 0 8px 16px -2px rgba(112, 101, 240, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.icon-clay-green {
+  background: linear-gradient(145deg, #f7fdfb, #c4f3df);
+  color: #10b981;
+  box-shadow: 0 8px 16px -2px rgba(16, 185, 129, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.icon-clay-yellow {
+  background: linear-gradient(145deg, #fffdf8, #feebba);
+  color: #f59e0b;
+  box-shadow: 0 8px 16px -2px rgba(245, 158, 11, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.icon-clay-pink {
+  background: linear-gradient(145deg, #fff9fa, #fed0d7);
+  color: #f43f5e;
+  box-shadow: 0 8px 16px -2px rgba(244, 63, 94, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.icon-clay-blue {
+  background: linear-gradient(145deg, #f8fcff, #c2e7fe);
+  color: #0284c7;
+  box-shadow: 0 8px 16px -2px rgba(2, 132, 199, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.9), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Priority Pills */
+.pill-priority-high {
+  background-color: #feecee;
+  color: #ef4444;
+  border: 1px solid #fcd6dc;
+  border-radius: 9999px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+.dark .pill-priority-high {
+  background-color: #3b1c23;
+  color: #fca5a5;
+  border-color: #5c2b36;
+}
+
+.pill-priority-medium {
+  background-color: #fef8e7;
+  color: #d97706;
+  border: 1px solid #fde9bd;
+  border-radius: 9999px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+.dark .pill-priority-medium {
+  background-color: #332615;
+  color: #fcd34d;
+  border-color: #574120;
+}
+
+.pill-priority-low {
+  background-color: #e8f8f2;
+  color: #10b981;
+  border: 1px solid #d1f2e4;
+  border-radius: 9999px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+.dark .pill-priority-low {
+  background-color: #162f27;
+  color: #6ee7b7;
+  border-color: #265546;
+}
+
+/* Category Pills */
+.pill-cat-lavender {
+  background-color: #eeedfe;
+  color: #6a5ae0;
+  border-radius: 0.6rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+.dark .pill-cat-lavender {
+  background-color: #212344;
+  color: #a5b4fc;
+}
+
+.pill-cat-sky {
+  background-color: #e6f4fe;
+  color: #0284c7;
+  border-radius: 0.6rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+.dark .pill-cat-sky {
+  background-color: #172a3c;
+  color: #7dd3fc;
+}
+
+.pill-cat-mint {
+  background-color: #e8f8f2;
+  color: #059669;
+  border-radius: 0.6rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+.dark .pill-cat-mint {
+  background-color: #18332c;
+  color: #6ee7b7;
+}
+
+.pill-cat-rose {
+  background-color: #feecee;
+  color: #e11d48;
+  border-radius: 0.6rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+.dark .pill-cat-rose {
+  background-color: #381c25;
+  color: #fda4af;
+}
+
+.pill-cat-amber {
+  background-color: #fef8e7;
+  color: #d97706;
+  border-radius: 0.6rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+.dark .pill-cat-amber {
+  background-color: #332715;
+  color: #fcd34d;
+}
+
+/* Task Checkbox (Pastel Circular) */
+.taskly-checkbox {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.taskly-checkbox:hover {
+  border-color: #7065f0;
+  transform: scale(1.08);
+}
+.taskly-checkbox.checked {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+/* Mini Calendar Widget */
+.cal-day {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.cal-day:hover:not(.cal-day-active) {
+  background-color: #eeedfe;
+  color: #7065f0;
+}
+.cal-day-active {
+  background-color: #7065f0 !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(112, 101, 240, 0.4);
+}
+.cal-day-muted {
+  color: #cbd5e1;
+}
+.dark .cal-day-muted {
+  color: #475569;
 }

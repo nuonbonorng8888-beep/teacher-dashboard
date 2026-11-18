@@ -54,103 +54,127 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row antialiased">
 
-  <!-- ==================== LEFT SIDEBAR ==================== -->
-  <aside class="w-full md:w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700/80 shrink-0 flex flex-col z-30 transition-colors">
-    <!-- User Badge at Top of Sidebar -->
-    <div class="p-4 border-b border-slate-100 dark:border-slate-700/60">
-      <div class="flex items-center gap-3 p-2 bg-purple-50 dark:bg-purple-900/30 rounded-2xl border border-purple-100 dark:border-purple-800/40">
-        <div class="relative">
-          <img id="userAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-12 h-12 rounded-2xl bg-purple-200 dark:bg-purple-700 border-2 border-purple-400 dark:border-purple-600 shadow-md object-cover">
-          <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+  <!-- ==================== LEFT SIDEBAR (TASKLY PASTEL FLOATING STYLE) ==================== -->
+  <aside id="tasklySidebar" class="w-full md:w-64 bg-white dark:bg-slate-800 m-2 md:m-4 md:mr-0 rounded-[28px] border border-slate-200/80 dark:border-slate-700/80 shrink-0 flex flex-col z-30 transition-all duration-300 shadow-sm relative">
+    
+    <!-- Taskly App Brand Header -->
+    <div class="p-5 pb-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- 3D Soft Purple Checkbox Icon -->
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#7B70F5] to-[#5C4EE5] shadow-lg shadow-purple-500/25 flex items-center justify-center text-white text-base">
+          <i class="fa-solid fa-check stroke-[3]"></i>
         </div>
-        <div class="overflow-hidden">
-          <h3 id="userDisplayName" class="font-bold text-sm text-purple-900 dark:text-purple-200 truncate">នួន បូណង</h3>
-          <span id="userRole" class="text-xs text-purple-600 dark:text-purple-400 font-medium">គ្រូបង្រៀនគណិតវិទ្យា · វិទ្យាល័យព្រះយុគន្ធរ NGS</span>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h2 class="font-extrabold text-xl tracking-tight text-slate-800 dark:text-white font-poppins">Taskly</h2>
+            <span class="px-1.5 py-0.5 text-[9px] font-black tracking-wider uppercase rounded-md bg-[#EEEDFE] dark:bg-purple-950 text-[#7065F0] dark:text-purple-300">NGS</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium">Math Dashboard</p>
+        </div>
+      </div>
+      <!-- Mobile Close Button -->
+      <button id="btnMobileSidebarClose" class="md:hidden text-slate-400 hover:text-slate-600 p-1">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Teacher Identity Chip (Sidebar) -->
+    <div class="px-4 py-2">
+      <div class="flex items-center gap-2.5 p-2 bg-[#F8F7FD] dark:bg-slate-700/50 rounded-2xl border border-purple-100/60 dark:border-slate-700/50">
+        <div class="relative shrink-0">
+          <img id="userAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-900 border border-purple-300 dark:border-purple-600 object-cover shadow-sm">
+          <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+        </div>
+        <div class="overflow-hidden min-w-0">
+          <h3 id="userDisplayName" class="font-bold text-xs text-slate-800 dark:text-white truncate">នួន បូណង</h3>
+          <p id="userRole" class="text-[10px] text-purple-600 dark:text-purple-400 font-medium truncate">គ្រូបង្រៀនគណិតវិទ្យា NGS</p>
         </div>
       </div>
     </div>
 
     <!-- Navigation Menu Items -->
-    <div class="flex-1 overflow-y-auto px-3 py-4 space-y-6">
-      <!-- Section: ប្រចាំថ្ងៃ -->
-      <div>
-        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">ប្រចាំថ្ងៃ</p>
-        <div class="space-y-1">
-          <button data-tab="dashboard" class="nav-link nav-active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-house w-4 text-center text-purple-600"></i>
-            <span>ផ្ទាំងដើម</span>
-          </button>
-          <button data-tab="schedule" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-regular fa-calendar-days w-4 text-center text-purple-600"></i>
-            <span>កាលវិភាគបង្រៀន</span>
-          </button>
-          <button data-tab="attendance" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-clipboard-user w-4 text-center text-purple-600"></i>
-            <span>ហៅឈ្មោះ & វត្តមាន</span>
-          </button>
-          <button data-tab="lessonplans" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-book-bookmark w-4 text-center text-purple-600"></i>
-            <span>កិច្ចតែងការ</span>
-          </button>
-          <button data-tab="slides" class="nav-link w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition group">
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-person-chalkboard w-4 text-center text-purple-600"></i>
-              <span>ស្លាយបង្រៀន</span>
-            </div>
-            <span class="px-2 py-0.5 text-[10px] font-black rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">PPTX</span>
-          </button>
-          <button data-tab="questionbank" class="nav-link w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition group">
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-book-open-reader w-4 text-center text-purple-600"></i>
-              <span>ធនាគារសំណួរ</span>
-            </div>
-            <span class="px-2 py-0.5 text-[10px] font-black rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">5.4K</span>
-          </button>
+    <div class="flex-1 overflow-y-auto px-3 py-2 space-y-1">
+      <button data-tab="dashboard" class="nav-link nav-active w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-semibold text-sm transition">
+        <i class="fa-solid fa-house w-4 text-center"></i>
+        <span>Dashboard (ផ្ទាំងដើម)</span>
+      </button>
+      <button data-tab="lessonplans" class="nav-link w-full flex items-center justify-between px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <div class="flex items-center gap-3.5">
+          <i class="fa-regular fa-clipboard w-4 text-center text-[#7065F0]"></i>
+          <span>Tasks (កិច្ចតែងការ)</span>
         </div>
-      </div>
+        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-[#EEEDFE] text-[#7065F0] dark:bg-purple-950 dark:text-purple-300">201</span>
+      </button>
+      <button data-tab="schedule" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-regular fa-calendar-days w-4 text-center text-[#7065F0]"></i>
+        <span>Calendar (កាលវិភាគ)</span>
+      </button>
+      <button data-tab="portfolio" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-regular fa-folder-open w-4 text-center text-[#7065F0]"></i>
+        <span>Projects (ស្នាដៃ)</span>
+      </button>
+      <button data-tab="attendance" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-solid fa-user-group w-4 text-center text-[#7065F0]"></i>
+        <span>Team (វត្តមានសិស្ស)</span>
+      </button>
+      <button data-tab="grades" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-solid fa-chart-simple w-4 text-center text-[#7065F0]"></i>
+        <span>Reports (ពិន្ទុ & របាយការណ៍)</span>
+      </button>
+      <button data-tab="questionbank" class="nav-link w-full flex items-center justify-between px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <div class="flex items-center gap-3.5">
+          <i class="fa-solid fa-book-open-reader w-4 text-center text-[#7065F0]"></i>
+          <span>ធនាគារសំណួរ</span>
+        </div>
+        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">5.4K</span>
+      </button>
+      <button data-tab="slides" class="nav-link w-full flex items-center justify-between px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <div class="flex items-center gap-3.5">
+          <i class="fa-solid fa-person-chalkboard w-4 text-center text-[#7065F0]"></i>
+          <span>ស្លាយបង្រៀន PPTX</span>
+        </div>
+        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">១២</span>
+      </button>
+      <button data-tab="mathgames" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-solid fa-gamepad w-4 text-center text-[#7065F0]"></i>
+        <span>ល្បែងសិក្សា 🎮</span>
+      </button>
+      <button data-tab="tools" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-solid fa-toolbox w-4 text-center text-[#7065F0]"></i>
+        <span>ឧបករណ៍បង្រៀន</span>
+      </button>
+      <button data-tab="settings" class="nav-link w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] dark:hover:bg-slate-700/50 transition">
+        <i class="fa-solid fa-gear w-4 text-center text-[#7065F0]"></i>
+        <span>Settings (ការកំណត់)</span>
+      </button>
+    </div>
 
-      <!-- Section: លទ្ធផល & សិក្សា -->
-      <div>
-        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">លទ្ធផល & សិក្សា</p>
-        <div class="space-y-1">
-          <button data-tab="grades" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-chart-simple w-4 text-center text-purple-600"></i>
-            <span>បញ្ចូលពិន្ទុសិស្ស</span>
-          </button>
-          <button data-tab="portfolio" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-award w-4 text-center text-purple-600"></i>
-            <span>ស្នាដៃ & Portfolio</span>
-          </button>
+    <!-- Bottom Promo Card (Exact Pinterest Style with 3D Yellow Star) -->
+    <div class="p-3">
+      <div class="p-4 rounded-3xl bg-gradient-to-br from-[#EEEDFE] to-[#F7F6FE] dark:from-[#1E1F38] dark:to-[#17182C] border border-[#E0DEFB] dark:border-purple-900/40 text-center relative overflow-hidden shadow-sm">
+        <!-- 3D Yellow Star Badge -->
+        <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-gradient-to-br from-amber-300 to-amber-500 shadow-md shadow-amber-500/30 flex items-center justify-center text-white text-2xl transform hover:rotate-12 transition">
+          ⭐
         </div>
-      </div>
-
-      <!-- Section: ឧបករណ៍ & ការកំណត់ -->
-      <div>
-        <p class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 font-battambang">ឧបករណ៍ & ការកំណត់</p>
-        <div class="space-y-1">
-          <button data-tab="mathgames" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-gamepad w-4 text-center text-purple-600"></i>
-            <span>ល្បែងសិក្សាគណិត 🎮</span>
-          </button>
-          <button data-tab="tools" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-toolbox w-4 text-center text-purple-600"></i>
-            <span>ឧបករណ៍បង្រៀន</span>
-          </button>
-          <button data-tab="settings" class="nav-link w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700/50 transition">
-            <i class="fa-solid fa-sliders w-4 text-center text-purple-600"></i>
-            <span>ការកំណត់ & Backup</span>
-          </button>
-        </div>
+        <h4 class="font-extrabold text-xs text-slate-800 dark:text-white">Upgrade to Pro</h4>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+          Unlock more features and boost productivity.
+        </p>
+        <button onclick="document.querySelector('[data-tab=\'lessonplans\']').click()" class="mt-3 w-full py-2 px-3 rounded-xl bg-[#7065F0] hover:bg-[#5E52E2] text-white font-bold text-xs shadow-md shadow-purple-500/25 transition">
+          Upgrade Now
+        </button>
       </div>
     </div>
 
-    <!-- Bottom Actions -->
-    <div class="p-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
-      <button onclick="window.showStandardDialog({ title: 'កំណត់ទិន្នន័យឡើងវិញ', text: 'តើលោកគ្រូចង់កំណត់ទិន្នន័យឡើងវិញមែនទេ? ទិន្នន័យគំរូដើមនឹងត្រូវបានផ្ទុកឡើងវិញ។', icon: 'warning', showCancel: true, confirmText: 'កំណត់ឡើងវិញ', cancelText: 'បោះបង់', onConfirm: () => { window.appStore.reset(); location.reload(); } })" class="text-xs text-red-500 hover:text-red-700 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 font-medium">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span>កំណត់ឡើងវិញ</span>
+    <!-- Collapse Toggle Footer -->
+    <div class="px-5 py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+      <button id="btnSidebarCollapse" class="hover:text-purple-600 flex items-center gap-2 font-medium transition">
+        <i class="fa-solid fa-angles-left text-[11px]"></i>
+        <span>Collapse</span>
       </button>
-      <span class="text-[10px] text-slate-400 font-mono">v1.0 NGS</span>
+      <button onclick="window.showStandardDialog({ title: 'កំណត់ទិន្នន័យឡើងវិញ', text: 'តើលោកគ្រូចង់កំណត់ទិន្នន័យឡើងវិញមែនទេ? ទិន្នន័យគំរូដើមនឹងត្រូវបានផ្ទុកឡើងវិញ។', icon: 'warning', showCancel: true, confirmText: 'កំណត់ឡើងវិញ', cancelText: 'បោះបង់', onConfirm: () => { window.appStore.reset(); location.reload(); } })" title="Reset Data" class="hover:text-red-500 transition">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
     </div>
   </aside>
 
@@ -158,53 +182,74 @@
   <div class="flex-1 flex flex-col min-h-screen overflow-x-hidden">
     
     <!-- Top Header Bar -->
-    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700/80 px-4 md:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-20 transition-colors shadow-sm">
+    <header class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-700/80 px-4 md:px-8 py-3.5 flex items-center justify-between gap-4 sticky top-0 z-20 transition-colors">
       
-      <!-- School Info & Logo -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 flex items-center justify-center font-moul text-xs shadow-inner">
-          NGS
-        </div>
-        <div>
-          <h1 id="schoolTitle" class="font-bold text-sm md:text-base text-slate-900 dark:text-white font-moul leading-snug">
-            វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី
-          </h1>
-          <p id="academicYear" class="text-xs text-purple-600 dark:text-purple-400 font-medium">
-            ឆ្នាំសិក្សា ២០២៦-២០២៧
-          </p>
-        </div>
+      <!-- School Info (Preserved for compatibility) -->
+      <div class="hidden">
+        <h1 id="schoolTitle">វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី</h1>
+        <p id="academicYear">ឆ្នាំសិក្សា ២០២៦-២០២៧</p>
       </div>
 
-      <!-- Live Clock & Actions -->
+      <!-- Left: Floating Pill Search Bar -->
+      <div class="relative flex-1 max-w-md hidden sm:block">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input id="tasklyHeaderSearch" type="text" placeholder="Search tasks, projects, lesson plans..." class="w-full pl-10 pr-4 py-2.5 rounded-full bg-[#F8F7FD] dark:bg-slate-700/60 border border-slate-200/80 dark:border-slate-700 text-xs focus:outline-none focus:border-[#7065F0] focus:bg-white dark:focus:bg-slate-800 transition shadow-xs placeholder:text-slate-400">
+      </div>
+
+      <!-- Center (Mobile Toggle) -->
+      <div class="sm:hidden flex items-center gap-2">
+        <button id="btnMobileSidebarOpen" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <span class="font-extrabold text-base text-slate-800 dark:text-white">Taskly</span>
+      </div>
+
+      <!-- Right Actions: Notification Bell, Live Clock, Backup, Print, Theme, Profile -->
       <div class="flex items-center gap-3 ml-auto">
         <!-- Live Clock -->
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-700/60 text-xs text-slate-700 dark:text-slate-300 font-medium">
-          <i class="fa-regular fa-clock text-purple-600 dark:text-purple-400"></i>
+        <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F8F7FD] dark:bg-slate-700/60 text-xs text-slate-600 dark:text-slate-300 font-medium border border-slate-200/60 dark:border-slate-700/60">
+          <i class="fa-regular fa-clock text-[#7065F0]"></i>
           <span id="liveClock">ម៉ោង ០៦:១៣ ល្ងាច</span>
         </div>
 
+        <!-- Notification Bell (Exact Pinterest style with Pink Badge '3') -->
+        <div class="relative">
+          <button id="btnNotificationBell" title="ការជូនដំណឹង" class="w-10 h-10 rounded-2xl bg-white dark:bg-slate-700 border border-slate-200/80 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-purple-300 hover:text-[#7065F0] flex items-center justify-center transition shadow-xs">
+            <i class="fa-regular fa-bell text-sm"></i>
+          </button>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-[#F43F5E] text-white rounded-full text-[10px] font-black flex items-center justify-center shadow-xs">3</span>
+        </div>
+
         <!-- Backup Button -->
-        <button id="btnBackupJSON" title="ទាញយកឯកសារបម្រុងទុក (Backup)" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition">
-          <i class="fa-solid fa-floppy-disk text-purple-600"></i>
-          <span class="hidden md:inline">បម្រុងទុក</span>
+        <button id="btnBackupJSON" title="ទាញយកឯកសារបម្រុងទុក (Backup)" class="p-2 md:px-3 md:py-2 rounded-2xl border border-slate-200/80 dark:border-slate-600 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] hover:border-purple-300 flex items-center gap-1.5 transition shadow-xs">
+          <i class="fa-solid fa-floppy-disk text-[#7065F0]"></i>
+          <span class="hidden xl:inline">បម្រុងទុក</span>
         </button>
 
         <!-- Print Button -->
-        <button id="btnPrintReport" title="បោះពុម្ពរបាយការណ៍ (Print)" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition">
-          <i class="fa-solid fa-print text-purple-600"></i>
-          <span class="hidden md:inline">បោះពុម្ព</span>
+        <button id="btnPrintReport" title="បោះពុម្ពរបាយការណ៍ (Print)" class="p-2 md:px-3 md:py-2 rounded-2xl border border-slate-200/80 dark:border-slate-600 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] hover:border-purple-300 flex items-center gap-1.5 transition shadow-xs">
+          <i class="fa-solid fa-print text-[#7065F0]"></i>
+          <span class="hidden xl:inline">បោះពុម្ព</span>
         </button>
 
         <!-- Dark/Light Mode Toggle -->
-        <button id="btnToggleTheme" title="ផ្លាស់ប្ដូរពន្លឺ / ងងឹត" class="p-2 md:px-3 md:py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-slate-700 text-xs font-medium flex items-center gap-1.5 transition">
+        <button id="btnToggleTheme" title="ផ្លាស់ប្ដូរពន្លឺ / ងងឹត" class="p-2 md:px-3 md:py-2 rounded-2xl border border-slate-200/80 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-[#F8F7FD] text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
           <i class="fa-solid fa-circle-half-stroke text-amber-500"></i>
           <span class="hidden md:inline">ពណ៌ផ្ទៃ</span>
         </button>
 
-        <!-- Profile Chip -->
-        <div class="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-700">
-          <img id="headerAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-purple-300 shadow-sm object-cover">
-          <span class="text-xs font-bold text-purple-700 dark:text-purple-300 hidden lg:inline">Bonorng11</span>
+        <!-- Profile Chip (Exact Pinterest Right Header Profile) -->
+        <div class="flex items-center gap-2.5 pl-2 border-l border-slate-200/80 dark:border-slate-700">
+          <div class="relative shrink-0">
+            <img id="headerAvatar" src="teacher-profile.jpg?v=1.0" alt="Avatar" class="w-10 h-10 rounded-2xl border border-purple-200 dark:border-purple-800 shadow-xs object-cover bg-purple-50">
+          </div>
+          <div class="hidden sm:block text-left leading-tight">
+            <h4 class="text-xs font-bold text-slate-800 dark:text-white flex items-center gap-1">
+              <span id="headerTeacherName">Alex Smith</span>
+              <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 ml-0.5"></i>
+            </h4>
+            <p id="headerTeacherRole" class="text-[10px] text-slate-400 font-medium">Product Designer</p>
+          </div>
         </div>
       </div>
     </header>
@@ -212,237 +257,328 @@
     <!-- Content Pages Container -->
     <main class="flex-1 p-4 md:p-8 space-y-6">
 
-      <!-- ==================== TAB: DASHBOARD ==================== -->
+      <!-- ==================== TAB: DASHBOARD (TASKLY PASTEL REDESIGN) ==================== -->
       <section id="tab-dashboard" class="tab-content space-y-6">
         
-        <!-- Welcome Hero Banner -->
-        <div class="card-soft hero-gradient text-white p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-purple-600/10">
-          <div class="flex items-center gap-5 z-10">
-            <div class="relative shrink-0">
-              <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md p-1.5 shadow-lg border border-white/30 flex items-center justify-center">
-                <img id="bannerAvatar" src="teacher-profile.jpg?v=1.0" alt="Teacher Bonorng" class="w-full h-full object-cover rounded-xl shadow-inner">
-              </div>
-              <span class="absolute -bottom-1 -right-1 text-2xl">👨‍🏫</span>
-            </div>
-            <div>
-              <h2 id="greetingText" class="text-2xl md:text-3xl font-extrabold tracking-tight">
-                Good Evening, <span id="bannerTeacherName">Bonorng11</span>! 🕵️
-              </h2>
-              <p class="text-purple-100 text-xs md:text-sm mt-1">
-                ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យគ្រូបង្រៀន · វិទ្យាល័យព្រះយុគន្ធរ សាលារៀនជំនាន់ថ្មី (NGS) · មុខវិជ្ជា <span id="bannerSubject" class="font-bold underline">គណិតវិទ្យា</span>
-              </p>
-              <!-- Action Buttons -->
-              <div class="flex flex-wrap items-center gap-3 mt-4">
-                <button id="btnBannerAddPlan" class="px-4 py-2 rounded-xl bg-white text-purple-700 hover:bg-purple-50 font-bold text-xs shadow-md transition flex items-center gap-2">
-                  <i class="fa-solid fa-play"></i> ដាក់កិច្ចតែងការបង្រៀន
-                </button>
-                <button id="btnBannerPortfolio" class="px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 border border-white/40 text-white font-bold text-xs backdrop-blur-sm transition flex items-center gap-2">
-                  <i class="fa-solid fa-book"></i> តម្រុយសន្លឹកភាព (Portfolio)
-                </button>
-                <button onclick="document.querySelector('[data-tab=\'mathgames\']').click()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs shadow-md transition flex items-center gap-2">
-                  <i class="fa-solid fa-gamepad"></i> ល្បែងសិក្សាគណិត 🎮
-                </button>
-              </div>
-            </div>
+        <!-- Hidden Compatibility Elements for existing JS references -->
+        <div class="hidden">
+          <span id="bannerTeacherName"></span>
+          <span id="bannerSubject"></span>
+          <span id="countObservations">2</span>
+          <span id="countLessonPlans">201</span>
+          <span id="streakCount">12</span>
+          <button id="btnBannerAddPlan"></button>
+          <button id="btnBannerPortfolio"></button>
+          <div id="dashboardTasksList"></div>
+        </div>
+
+        <!-- Top Greeting Row -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 id="greetingText" class="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-white tracking-tight flex items-center gap-2">
+              Good morning, Alex! <span class="inline-block text-2xl">👋</span>
+            </h2>
+            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              Here's what's happening with your tasks today.
+            </p>
           </div>
 
-          <!-- Flame mascot on banner -->
-          <div class="hidden lg:flex flex-col items-center z-10">
-            <div class="animate-mascot bg-white/20 backdrop-blur-md p-3 rounded-2xl border border-white/30 shadow-lg text-center">
-              <span class="text-4xl">🔥</span>
-              <p class="text-[11px] font-bold mt-1 text-white">KhmerMath</p>
-              <span class="text-[9px] text-purple-200">គណិតវិទ្យា 🍀</span>
-            </div>
+          <div class="flex items-center gap-3">
+            <button id="btnTasklyNewTask" class="px-5 py-2.5 rounded-2xl bg-[#7065F0] hover:bg-[#5E52E2] text-white font-bold text-xs shadow-lg shadow-purple-500/25 flex items-center gap-2 transition transform hover:-translate-y-0.5 active:translate-y-0">
+              <i class="fa-solid fa-plus text-xs"></i>
+              <span>+ New Task</span>
+            </button>
           </div>
         </div>
 
-        <!-- Section: Classroom Tools & Attendance Today -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- Card 1: ហៅឈ្មោះសិស្ស -->
-          <div class="card-soft p-5 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-amber-500 text-lg">🔔</span>
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white">ហៅឈ្មោះសិស្ស</h3>
-              </div>
-              <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">ថ្ងៃនេះ - ថ្ងៃសុក្រ</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                ចុចលើមេរៀននីមួយៗ ដើម្បីហៅឈ្មោះសិស្ស — អាចទាញវត្តមានថ្ងៃនេះនឹងបង្ហាញនៅទីនេះ
-              </p>
-            </div>
-            <button onclick="document.querySelector('[data-tab=\'attendance\']').click()" class="mt-4 w-full py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 hover:bg-purple-100 font-bold text-xs transition text-center flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-clipboard-check"></i> បើកផ្ទាំងហៅឈ្មោះ
-            </button>
-          </div>
-
-          <!-- Card 2: កង់ចាប់ឈ្មោះ (Spinning Wheel) -->
-          <div class="card-soft p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:border-purple-400 transition group" id="btnOpenWheel">
-            <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-12 transition">
-              🎯
-            </div>
-            <h3 class="font-bold text-sm text-slate-800 dark:text-white mt-3">កង់ចាប់ឈ្មោះ</h3>
-            <span class="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium">ចុចដើម្បីបង្វិល</span>
-          </div>
-
-          <!-- Card 3: នាឡិកាកំណត់ពេល (Timer) -->
-          <div class="card-soft p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:border-purple-400 transition group" id="btnOpenTimer">
-            <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-6 transition">
-              ⏱️
-            </div>
-            <h3 class="font-bold text-sm text-slate-800 dark:text-white mt-3">នាឡិកាកំណត់ពេល</h3>
-            <span class="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium">ចុចដើម្បីបើក</span>
-          </div>
-        </div>
-
-        <!-- Section: កំណត់ចំណាំ & កិច្ចការផ្សេងៗ (Quick Task Logger) -->
-        <div class="card-soft p-6">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-xl">📝</span>
-            <div>
-              <h3 class="font-bold text-sm text-slate-800 dark:text-white">កំណត់ចំណាំ & កិច្ចការផ្សេងៗ</h3>
-              <p class="text-xs text-slate-400">កិច្ចការនៅសាលាក្រៅពីម៉ោងបង្រៀន (បើមាន) — ប្រជុំ ប្រចាំការ ត្រួតប្រឡង ជួយសិស្ស...</p>
-            </div>
-          </div>
-
-          <!-- Chips -->
-          <div class="flex flex-wrap gap-2 my-4">
-            <button class="task-chip bg-purple-600 text-white badge-tag border border-purple-600" data-category="ប្រជុំ">
-              🤝 ប្រជុំ
-            </button>
-            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ប្រចាំការ">
-              🛡️ ប្រចាំការ
-            </button>
-            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ត្រួតប្រឡង">
-              📝 ត្រួតប្រឡង
-            </button>
-            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ការងាររដ្ឋបាល">
-              📁 ការងាររដ្ឋបាល
-            </button>
-            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ជួយសិស្ស">
-              🧑‍🏫 ជួយសិស្ស
-            </button>
-            <button class="task-chip bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 badge-tag border border-slate-200 dark:border-slate-600" data-category="ផ្សេងៗ">
-              ✨ ផ្សេងៗ
-            </button>
-          </div>
-
-          <!-- Input and Submit Button -->
-          <div class="space-y-3">
-            <input id="quickTaskInput" type="text" placeholder="បន្ថែមព័ត៌មានតិចតួច (មិនចាំបាច់)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:border-purple-500 transition">
-            <button id="btnSubmitTask" class="w-full py-2.5 rounded-xl bg-purple-200 dark:bg-purple-900/60 hover:bg-purple-300 dark:hover:bg-purple-900 text-purple-900 dark:text-purple-200 font-bold text-sm transition">
-              រួចរាល់ ✓
-            </button>
-          </div>
-
-          <!-- Recent Logged Tasks List -->
-          <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/60">
-            <p class="text-xs font-bold text-slate-400 mb-2 font-battambang">កិច្ចការដែលបានកត់ត្រាថ្មីៗ៖</p>
-            <div id="dashboardTasksList" class="space-y-2">
-              <!-- Dynamically rendered -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Section: 3 Stat Cards (Streak & Stats) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- Stat 1 -->
-          <div class="card-soft p-5 bg-purple-50/50 dark:bg-purple-950/20 border-purple-100 dark:border-purple-900/40">
-            <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-300 flex items-center justify-center text-sm mb-3">
-              🎵
-            </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400">ការសង្កេតទទួលបាន</p>
-            <h3 id="countObservations" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">2</h3>
-            <span class="text-[11px] text-purple-600 dark:text-purple-400 mt-1 block">ទម្រង់សង្កេតក្នុងឆ្នាំសិក្សានេះ</span>
-          </div>
-
-          <!-- Stat 2 -->
-          <div class="card-soft p-5 bg-pink-50/50 dark:bg-pink-950/20 border-pink-100 dark:border-pink-900/40">
-            <div class="w-9 h-9 rounded-xl bg-pink-100 dark:bg-pink-900/60 text-pink-600 dark:text-pink-300 flex items-center justify-center text-sm mb-3">
-              💖
-            </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400">កិច្ចតែងការបង្រៀន (Lesson Plans)</p>
-            <h3 id="countLessonPlans" class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">3</h3>
-            <span class="text-[11px] text-pink-600 dark:text-pink-400 mt-1 block">កិច្ចតែងការដែលបានផ្ទៀងផ្ទាត់</span>
-          </div>
-
-          <!-- Stat 3 (Streak) -->
-          <div class="card-soft p-5 bg-sky-50/50 dark:bg-sky-950/20 border-sky-100 dark:border-sky-900/40">
-            <div class="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-900/60 text-sky-600 dark:text-sky-300 flex items-center justify-center text-sm mb-3">
-              💧
-            </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400">ភាពជាប់លាប់ (Current Streak)</p>
-            <div class="flex items-center gap-2 mt-1">
-              <h3 id="streakCount" class="text-3xl font-extrabold text-slate-900 dark:text-white">12</h3>
-              <span class="text-2xl animate-bounce">🔥</span>
-            </div>
-            <span class="text-[11px] text-sky-600 dark:text-sky-400 mt-1 block">ថ្ងៃកត់ត្រាកិច្ចតែងការជាប់ៗគ្នា</span>
-          </div>
-        </div>
-
-        <!-- Section: Charts (Listening Overview & Quality) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Weekly Hours Chart (2 cols) -->
-          <div class="card-soft p-6 lg:col-span-2">
-            <div class="flex items-center justify-between mb-4">
-              <div>
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white">Listening Overview (របាយការណ៍ប្រចាំសប្ដាហ៍)</h3>
-                <p class="text-xs text-slate-400">ម៉ោងបង្រៀន និងសកម្មភាពកែលម្អគរុកោសល្យ</p>
-              </div>
-              <span class="text-xs bg-purple-50 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg font-medium">សប្ដាហ៍នេះ</span>
-            </div>
-            <div class="h-56">
-              <canvas id="weeklyChart"></canvas>
-            </div>
-            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/60">
-              <span>មធ្យម ៥.២ ម៉ោង/ថ្ងៃ</span>
-              <span class="text-green-600 font-bold">កើនឡើង +១២% ធៀបនឹងសប្ដាហ៍មុន</span>
-            </div>
-          </div>
-
-          <!-- Quality Donut Chart (1 col) -->
-          <div class="card-soft p-6 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <h3 class="font-bold text-sm text-slate-800 dark:text-white">Top Genres (កម្រិតគុណភាពបង្រៀន)</h3>
-              </div>
-              <p class="text-xs text-slate-400 mb-4">ចំណាត់ថ្នាក់ពិន្ទុសង្កេតតាមស្ដង់ដារ ៥០ ពិន្ទុ</p>
-              <div class="h-44 relative flex items-center justify-center">
-                <canvas id="qualityChart"></canvas>
-              </div>
-            </div>
-            <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60">
-              <div class="flex items-center justify-between">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span> ល្អប្រសើរ</span>
-                <span class="font-bold">៦៥%</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> ល្អណាស់</span>
-                <span class="font-bold">២៥%</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> ល្អ</span>
-                <span class="font-bold">១០%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Banner: ស្វែងយល់ពីស្តង់ដារគ្រូកោសល្យ NGS -->
-        <div class="card-soft p-5 bg-gradient-to-r from-purple-100 via-indigo-50 to-pink-50 dark:from-purple-950/40 dark:via-indigo-950/30 dark:to-pink-950/30 border border-purple-200 dark:border-purple-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow">
-              ⭐
+        <!-- 4 Top Pastel Metric Cards (Exact Pinterest Style) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          
+          <!-- Card 1: Total Tasks (Pastel Lavender) -->
+          <div class="card-taskly card-pastel-purple p-5 flex items-center gap-4 cursor-pointer hover:scale-[1.02] transition" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()">
+            <div class="icon-clay-box icon-clay-purple shrink-0">
+              <i class="fa-solid fa-clipboard-list text-xl"></i>
             </div>
             <div>
-              <h3 class="font-bold text-sm md:text-base text-slate-900 dark:text-white">ស្វែងយល់ពីស្តង់ដារគ្រូកោសល្យ NGS ✨</h3>
-              <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                ស្វែងយល់ពីលក្ខណៈវិនិច្ឆ័យ ៥ ជំហានបង្រៀន (៥០ ពិន្ទុ) និងគន្លឹះរៀបចំកិច្ចតែងការគុណភាពខ្ពស់
+              <p class="text-xs font-semibold text-purple-700/80 dark:text-purple-300">Total Tasks</p>
+              <h3 id="tasklyTotalTasks" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-0.5">24</h3>
+              <p class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 flex items-center gap-1">
+                <span>↑ 12%</span> <span class="font-normal text-slate-400">from last week</span>
               </p>
             </div>
           </div>
-          <button onclick="document.querySelector('[data-tab=\'lessonplans\']').click()" class="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-purple-50 text-purple-700 dark:text-purple-300 font-bold text-xs shadow transition shrink-0 flex items-center gap-2">
-            ស្វែងយល់ឥឡូវនេះ (Explore Now) <i class="fa-solid fa-arrow-right"></i>
-          </button>
+
+          <!-- Card 2: Completed (Pastel Mint Green) -->
+          <div class="card-taskly card-pastel-green p-5 flex items-center gap-4 cursor-pointer hover:scale-[1.02] transition" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()">
+            <div class="icon-clay-box icon-clay-green shrink-0">
+              <i class="fa-solid fa-circle-check text-xl"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-emerald-700/80 dark:text-emerald-300">Completed</p>
+              <h3 id="tasklyCompletedTasks" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-0.5">16</h3>
+              <p class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-0.5 flex items-center gap-1">
+                <span>↑ 8%</span> <span class="font-normal text-slate-400">from last week</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: In Progress (Pastel Warm Peach/Yellow) -->
+          <div class="card-taskly card-pastel-yellow p-5 flex items-center gap-4 cursor-pointer hover:scale-[1.02] transition" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()">
+            <div class="icon-clay-box icon-clay-yellow shrink-0">
+              <i class="fa-solid fa-hourglass-half text-xl"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-amber-700/80 dark:text-amber-300">In Progress</p>
+              <h3 id="tasklyInProgressTasks" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-0.5">5</h3>
+              <p class="text-[11px] font-bold text-amber-600 dark:text-amber-400 mt-0.5 flex items-center gap-1">
+                <span>→ Same</span> <span class="font-normal text-slate-400">as last week</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4: Overdue (Pastel Blush Rose) -->
+          <div class="card-taskly card-pastel-pink p-5 flex items-center gap-4 cursor-pointer hover:scale-[1.02] transition" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()">
+            <div class="icon-clay-box icon-clay-pink shrink-0">
+              <i class="fa-solid fa-flag text-xl"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-rose-700/80 dark:text-rose-300">Overdue</p>
+              <h3 id="tasklyOverdueTasks" class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-0.5">3</h3>
+              <p class="text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-0.5 flex items-center gap-1">
+                <span>↓ 25%</span> <span class="font-normal text-slate-400">from last week</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Main 2-Column Section (8 cols Left + 4 cols Right on lg) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- ==================== LEFT COLUMN (8 COLS) ==================== -->
+          <div class="lg:col-span-8 space-y-6">
+
+            <!-- Main Tasks Card: "My Tasks" -->
+            <div class="card-taskly bg-white dark:bg-slate-800 p-6">
+              
+              <!-- Tasks Header & Controls -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-700/60">
+                
+                <!-- Title & Filter Tabs -->
+                <div>
+                  <h3 class="font-extrabold text-base text-slate-800 dark:text-white mb-2">My Tasks</h3>
+                  <div class="flex items-center gap-3 md:gap-4 text-xs font-semibold overflow-x-auto pb-1" id="taskFilterTabs">
+                    <button data-filter="all" class="task-filter-tab pb-1 border-b-2 border-[#7065F0] text-[#7065F0] whitespace-nowrap transition">All</button>
+                    <button data-filter="todo" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">To Do</button>
+                    <button data-filter="inprogress" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">In Progress</button>
+                    <button data-filter="done" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">Done</button>
+                    <button data-filter="g12" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">ថ្នាក់ទី ១២</button>
+                    <button data-filter="g11" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">ថ្នាក់ទី ១១</button>
+                    <button data-filter="g8" class="task-filter-tab pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-600 whitespace-nowrap transition">ថ្នាក់ទី ៨</button>
+                  </div>
+                </div>
+
+                <!-- Right Controls: Filter button & Sort dropdown -->
+                <div class="flex items-center gap-2.5">
+                  <button id="btnTaskFilterAction" class="px-3.5 py-1.5 rounded-xl border border-slate-200/90 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 flex items-center gap-1.5 shadow-2xs transition">
+                    <i class="fa-solid fa-filter text-slate-400 text-[11px]"></i>
+                    <span>Filter</span>
+                  </button>
+
+                  <div class="relative">
+                    <select id="taskSortSelect" class="px-3.5 py-1.5 rounded-xl border border-slate-200/90 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 appearance-none pr-8 focus:outline-none shadow-2xs cursor-pointer">
+                      <option value="due">Sort by: Due Date</option>
+                      <option value="priority">Sort by: Priority</option>
+                      <option value="grade">Sort by: Grade</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Tasks List Container -->
+              <div id="tasklyTaskList" class="divide-y divide-slate-100 dark:divide-slate-700/60">
+                <!-- Dynamically Rendered by js/app.js -->
+              </div>
+
+              <!-- Quick Task Inline Creator -->
+              <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
+                <input id="quickTaskInput" type="text" placeholder="+ Add a quick task (ឧទាហរណ៍៖ រៀបចំកិច្ចតែងការ ថ្នាក់ទី១២...)" class="flex-1 px-4 py-2.5 rounded-xl bg-[#F8F7FD] dark:bg-slate-700/60 border border-slate-200/80 dark:border-slate-600 text-xs focus:outline-none focus:border-[#7065F0]">
+                <button id="btnSubmitTask" class="px-5 py-2.5 rounded-xl bg-[#7065F0] hover:bg-[#5E52E2] text-white font-bold text-xs shadow-sm transition">
+                  Add
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Analytical Row: Tasks Overview (Curved Line Chart) & Tasks by Priority (Doughnut Chart) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+              
+              <!-- Tasks Overview (Curved Line Chart - 7 cols) -->
+              <div class="md:col-span-7 card-taskly bg-white dark:bg-slate-800 p-6 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-extrabold text-sm text-slate-800 dark:text-white">Tasks Overview</h3>
+                    <div class="relative">
+                      <select class="px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 appearance-none pr-6 cursor-pointer">
+                        <option>This Week</option>
+                        <option>Last Week</option>
+                        <option>This Month</option>
+                      </select>
+                      <i class="fa-solid fa-chevron-down absolute right-2 top-1/2 -translate-y-1/2 text-[9px] text-slate-400 pointer-events-none"></i>
+                    </div>
+                  </div>
+
+                  <div class="h-52 relative">
+                    <canvas id="weeklyChart"></canvas>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-slate-400 mt-2 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                  <span>ម៉ោងបង្រៀន & កិច្ចការប្រចាំសប្តាហ៍</span>
+                  <span class="text-emerald-600 font-bold">18 Tasks total</span>
+                </div>
+              </div>
+
+              <!-- Tasks by Priority (Doughnut Chart - 5 cols) -->
+              <div class="md:col-span-5 card-taskly bg-white dark:bg-slate-800 p-6 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-800 dark:text-white mb-3">Tasks by Priority</h3>
+                  
+                  <div class="h-44 relative flex items-center justify-center">
+                    <canvas id="qualityChart"></canvas>
+                  </div>
+                </div>
+
+                <!-- Priority Legend (High, Medium, Low) -->
+                <div class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 mt-3 pt-2 border-t border-slate-100 dark:border-slate-700/60">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-[#FB7185]"></span>
+                      <span class="font-medium">High</span>
+                    </span>
+                    <span class="font-bold text-slate-800 dark:text-white">8 <span class="font-normal text-slate-400">(33%)</span></span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-[#FBBF24]"></span>
+                      <span class="font-medium">Medium</span>
+                    </span>
+                    <span class="font-bold text-slate-800 dark:text-white">10 <span class="font-normal text-slate-400">(42%)</span></span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-[#34D399]"></span>
+                      <span class="font-medium">Low</span>
+                    </span>
+                    <span class="font-bold text-slate-800 dark:text-white">6 <span class="font-normal text-slate-400">(25%)</span></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- ==================== RIGHT COLUMN (4 COLS) ==================== -->
+          <div class="lg:col-span-4 space-y-6">
+
+            <!-- Widget 1: Interactive Mini Calendar -->
+            <div class="card-taskly bg-white dark:bg-slate-800 p-6">
+              
+              <!-- Calendar Header -->
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-extrabold text-sm text-slate-800 dark:text-white">Calendar</h3>
+                <div class="flex items-center gap-2">
+                  <span id="calMonthDisplay" class="text-xs font-bold text-slate-700 dark:text-slate-300">May 2024</span>
+                  <div class="flex items-center gap-1">
+                    <button id="btnCalPrev" class="w-6 h-6 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100 flex items-center justify-center text-[10px] transition">
+                      <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button id="btnCalNext" class="w-6 h-6 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:bg-slate-100 flex items-center justify-center text-[10px] transition">
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day of Week Row -->
+              <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-slate-400 mb-2">
+                <span>Mo</span>
+                <span>Tu</span>
+                <span>We</span>
+                <span>Th</span>
+                <span>Fr</span>
+                <span>Sa</span>
+                <span>Su</span>
+              </div>
+
+              <!-- Days Grid -->
+              <div id="miniCalendarGrid" class="grid grid-cols-7 gap-1 text-center">
+                <!-- Dynamically Rendered by js/app.js -->
+              </div>
+
+            </div>
+
+            <!-- Widget 2: Overall Progress Card -->
+            <div class="card-taskly bg-white dark:bg-slate-800 p-6">
+              <h3 class="font-extrabold text-sm text-slate-800 dark:text-white mb-2">Progress</h3>
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="font-medium text-slate-500">Overall Progress</span>
+                <span id="progressPercentNum" class="font-black text-slate-800 dark:text-white text-base">67%</span>
+              </div>
+              
+              <!-- Gradient Progress Bar -->
+              <div class="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden shadow-inner">
+                <div id="progressBarFill" class="h-full rounded-full bg-gradient-to-r from-[#34D399] to-[#10B981] transition-all duration-500" style="width: 67%;"></div>
+              </div>
+
+              <p id="progressCompletedText" class="text-[11px] text-slate-400 mt-2.5 font-medium">
+                16 of 24 tasks completed
+              </p>
+            </div>
+
+            <!-- Widget 3: Upcoming Tasks -->
+            <div class="card-taskly bg-white dark:bg-slate-800 p-6">
+              <h3 class="font-extrabold text-sm text-slate-800 dark:text-white mb-4">Upcoming Tasks</h3>
+              
+              <div id="upcomingTasksList" class="space-y-3.5">
+                <!-- Dynamically rendered by js/app.js -->
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+                <a href="javascript:void(0)" onclick="document.querySelector('[data-tab=\'lessonplans\']').click()" class="text-xs font-bold text-[#7065F0] hover:text-[#5E52E2] flex items-center justify-between group transition">
+                  <span>View all tasks</span>
+                  <i class="fa-solid fa-arrow-right text-[11px] transform group-hover:translate-x-1 transition"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Widget 4: Quick Classroom Tools Strip -->
+            <div class="card-taskly bg-white dark:bg-slate-800 p-4">
+              <div class="flex items-center justify-between mb-3 px-1">
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300">ឧបករណ៍បង្រៀនបន្ទាន់</span>
+                <span class="text-[10px] text-purple-600 font-bold">1-Click</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center">
+                <button id="btnOpenWheel" class="p-2.5 rounded-2xl bg-[#FEF8E7] dark:bg-amber-950/40 border border-[#FDE9BD] dark:border-amber-800/40 hover:scale-105 transition flex flex-col items-center">
+                  <span class="text-lg">🎯</span>
+                  <span class="text-[10px] font-bold text-amber-800 dark:text-amber-200 mt-1">ចាប់ឈ្មោះ</span>
+                </button>
+                <button id="btnOpenTimer" class="p-2.5 rounded-2xl bg-[#E6F4FE] dark:bg-sky-950/40 border border-[#BAE6FD] dark:border-sky-800/40 hover:scale-105 transition flex flex-col items-center">
+                  <span class="text-lg">⏱️</span>
+                  <span class="text-[10px] font-bold text-sky-800 dark:text-sky-200 mt-1">Timer</span>
+                </button>
+                <button onclick="document.querySelector('[data-tab=\'attendance\']').click()" class="p-2.5 rounded-2xl bg-[#E8F8F2] dark:bg-emerald-950/40 border border-[#D1F2E4] dark:border-emerald-800/40 hover:scale-105 transition flex flex-col items-center">
+                  <span class="text-lg">🔔</span>
+                  <span class="text-[10px] font-bold text-emerald-800 dark:text-emerald-200 mt-1">វត្តមាន</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
       </section>
