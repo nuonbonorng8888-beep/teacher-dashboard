@@ -185,6 +185,10 @@ def calibrate(plan):
         auto = sig_block_auto(plan, doc)
         if auto:
             fixes["sig_top"], fixes["sig_bot"] = auto
+    if plan["id"].startswith(("plan_g8_", "plan_g9_")):
+        hm = header_modes(doc)
+        if hm:
+            fixes["header_mode"] = hm
     skip = footer_skip(doc)
     if skip:
         fixes["footer_skip"] = skip
@@ -213,6 +217,26 @@ def sig_block_auto(plan, doc):
         return None
     r = sig_detect.block_on_page(doc[si])
     return (r[0], r[1]) if r else None
+
+
+def header_modes(doc):
+    """{page_index: 'm'|'n'} for Grade 8/9 pages whose top is not free enough for the full header
+    (full needs blank down to y=46; mini down to y=35; otherwise none). Full pages are not listed."""
+    out = {}
+    for i, pg in enumerate(doc):
+        W = pg.rect.width
+        pix = pg.get_pixmap(matrix=pymupdf.Matrix(2, 2), colorspace=pymupdf.csGRAY, alpha=False)
+        buf, st = pix.samples, pix.stride
+        top = None
+        for y in range(0, 140):
+            row = buf[y * st + int(60 * 2): y * st + int((W - 60) * 2)]
+            if row.translate(sig_detect._DARK).count(1) > 3:
+                top = y / 2
+                break
+        if top is None or top >= 47:
+            continue
+        out[str(i)] = "m" if top >= 35.5 else "n"
+    return out
 
 
 FOOTER_PARTS = (("L", 65.0, 260.0), ("C", 262.0, 335.0), ("R", 400.0, 547.0))   # x ranges of the 3 footer parts

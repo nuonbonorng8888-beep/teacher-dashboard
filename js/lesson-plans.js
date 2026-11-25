@@ -789,6 +789,33 @@
         // stamping an artificial running header on Grade 8 cuts off the title ("ដាច់ក្បាល") and causes printer margin clipping.
         const shouldStampHeader = (isGrade11 || isGrade12);
 
+        // Grades 8 and 9: same header as Grade 12 (logo + school name + rule). These PDFs have no old header,
+        // so nothing is whited out - only drawn where the page top is free. header_mode per page (measured by
+        // scripts/calibrate_whiteouts.py): 'f' full size, 'm' mini (content starts higher), 'n' none (no room).
+        if (isGrade8) {
+          const hMode = (woFix.header_mode && woFix.header_mode[String(pIdx)]) || 'f';
+          if (hMode !== 'n') {
+            const mini = hMode === 'm';
+            const logoSz = mini ? 17.0 : 20.0;
+            const logoTop = mini ? 14.0 : 16.0;
+            const textH = mini ? 12.5 : 15.0;
+            const textTop = mini ? 17.0 : 18.0;
+            const ruleY = mini ? 34.0 : 43.5;
+            if (logoImg) {
+              p.drawImage(logoImg, { x: 65.0, y: pageH - logoTop - logoSz, width: logoSz, height: logoSz });
+            }
+            if (headerTextImg) {
+              p.drawImage(headerTextImg, { x: logoImg ? 65.0 + logoSz + 7.0 : 65.0, y: pageH - textTop - textH, width: textH * headerTextAspect, height: textH });
+            }
+            p.drawLine({
+              start: { x: 65.0, y: pageH - ruleY },
+              end: { x: pageW - 65.0, y: pageH - ruleY },
+              thickness: 0.6,
+              color: PDFLib.rgb(0, 0, 0),
+            });
+          }
+        }
+
         if (shouldStampHeader) {
           const isCompactG12 = isGrade12 && (
             plan.header_type === 'compact' ||
