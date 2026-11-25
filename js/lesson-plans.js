@@ -664,6 +664,43 @@
 
     // Unified Dynamic PDF Custom Stamper (Running Header & Footer, Cover Header, Signatures)
     async applyPdfCustomStamps(doc, plan) {
+      const hdr = await this.applyPdfCustomStampsCore(doc, plan);
+      await this.makeRoomForHeader(doc, plan, hdr);
+    }
+
+    // Grade 8/9 pages whose content starts too high for the header (tables near the page top): shrink the whole
+    // finished page by ~2% (scale per page in js/lesson-plans-whiteout.js -> header_scale) and draw the full-size
+    // header in the gap. Done last, so every stamp (cover, signature, footer) moves together with the content.
+    async makeRoomForHeader(doc, plan, hdr) {
+      const fx = (typeof window !== 'undefined' && window.NGS_WHITEOUT_FIX && window.NGS_WHITEOUT_FIX[plan.id]) || {};
+      const scales = fx.header_scale;
+      if (!scales || !hdr) return;
+      const idxs = Object.keys(scales).map(Number).sort((a, b) => a - b);
+      for (const i of idxs) {
+        const old = doc.getPages()[i];
+        if (!old) continue;
+        const { width: W, height: H } = old.getSize();
+        const k = scales[String(i)];
+        const [emb] = await doc.embedPages([old]);
+        const np = doc.insertPage(i, [W, H]);
+        np.drawPage(emb, { x: W * (1 - k) / 2, y: 0, xScale: k, yScale: k });
+        doc.removePage(i + 1);
+        if (hdr.logoImg) {
+          np.drawImage(hdr.logoImg, { x: 65.0, y: H - 36.0, width: 20.0, height: 20.0 });
+        }
+        if (hdr.headerTextImg) {
+          np.drawImage(hdr.headerTextImg, { x: hdr.logoImg ? 92.0 : 65.0, y: H - 33.0, width: 15.0 * hdr.headerTextAspect, height: 15.0 });
+        }
+        np.drawLine({
+          start: { x: 65.0, y: H - 43.5 },
+          end: { x: W - 65.0, y: H - 43.5 },
+          thickness: 0.6,
+          color: PDFLib.rgb(0, 0, 0),
+        });
+      }
+    }
+
+    async applyPdfCustomStampsCore(doc, plan) {
       const pages = doc.getPages();
       if (!pages || pages.length === 0) return;
 
@@ -775,6 +812,8 @@
         console.warn('Error pre-rendering header text:', e);
       }
 
+      const hdr = { logoImg, headerTextImg, headerTextAspect };
+
       // ========================================================
       // 1. RUNNING HEADER & RUNNING FOOTER ON EVERY PAGE
       // ========================================================
@@ -790,30 +829,21 @@
         const shouldStampHeader = (isGrade11 || isGrade12);
 
         // Grades 8 and 9: same header as Grade 12 (logo + school name + rule). These PDFs have no old header,
-        // so nothing is whited out - only drawn where the page top is free. header_mode per page (measured by
-        // scripts/calibrate_whiteouts.py): 'f' full size, 'm' mini (content starts higher), 'n' none (no room).
-        if (isGrade8) {
-          const hMode = (woFix.header_mode && woFix.header_mode[String(pIdx)]) || 'f';
-          if (hMode !== 'n') {
-            const mini = hMode === 'm';
-            const logoSz = mini ? 17.0 : 20.0;
-            const logoTop = mini ? 14.0 : 16.0;
-            const textH = mini ? 12.5 : 15.0;
-            const textTop = mini ? 17.0 : 18.0;
-            const ruleY = mini ? 34.0 : 43.5;
-            if (logoImg) {
-              p.drawImage(logoImg, { x: 65.0, y: pageH - logoTop - logoSz, width: logoSz, height: logoSz });
-            }
-            if (headerTextImg) {
-              p.drawImage(headerTextImg, { x: logoImg ? 65.0 + logoSz + 7.0 : 65.0, y: pageH - textTop - textH, width: textH * headerTextAspect, height: textH });
-            }
-            p.drawLine({
-              start: { x: 65.0, y: pageH - ruleY },
-              end: { x: pageW - 65.0, y: pageH - ruleY },
-              thickness: 0.6,
-              color: PDFLib.rgb(0, 0, 0),
-            });
+        // so nothing is whited out - it is just drawn at the page top. Pages whose content starts too high are
+        // listed in header_scale: they are shrunk slightly and get their header in makeRoomForHeader().
+        if (isGrade8 && !(woFix.header_scale && woFix.header_scale[String(pIdx)])) {
+          if (logoImg) {
+            p.drawImage(logoImg, { x: 65.0, y: pageH - 36.0, width: 20.0, height: 20.0 });
           }
+          if (headerTextImg) {
+            p.drawImage(headerTextImg, { x: logoImg ? 92.0 : 65.0, y: pageH - 33.0, width: 15.0 * headerTextAspect, height: 15.0 });
+          }
+          p.drawLine({
+            start: { x: 65.0, y: pageH - 43.5 },
+            end: { x: pageW - 65.0, y: pageH - 43.5 },
+            thickness: 0.6,
+            color: PDFLib.rgb(0, 0, 0),
+          });
         }
 
         if (shouldStampHeader) {
@@ -1012,7 +1042,7 @@
       // 3. SIGNATURE PAGE (Authentic 3-Column Signature Block)
       // ========================================================
       if (plan.sig_page_index === null || plan.has_signatures === false) {
-        return;
+        return hdr;
       }
 
       // Hand-measured signature geometry (scripts/signature_overrides.json), top-down points.
@@ -1190,6 +1220,7 @@
           });
         }
       }
+      return hdr;
     }
 
     // --- PDF Quality Inspection Modal Helpers ---

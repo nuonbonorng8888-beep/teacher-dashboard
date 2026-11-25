@@ -186,9 +186,9 @@ def calibrate(plan):
         if auto:
             fixes["sig_top"], fixes["sig_bot"] = auto
     if plan["id"].startswith(("plan_g8_", "plan_g9_")):
-        hm = header_modes(doc)
-        if hm:
-            fixes["header_mode"] = hm
+        hs = header_scales(doc)
+        if hs:
+            fixes["header_scale"] = hs
     skip = footer_skip(doc)
     if skip:
         fixes["footer_skip"] = skip
@@ -219,12 +219,12 @@ def sig_block_auto(plan, doc):
     return (r[0], r[1]) if r else None
 
 
-def header_modes(doc):
-    """{page_index: 'm'|'n'} for Grade 8/9 pages whose top is not free enough for the full header
-    (full needs blank down to y=46; mini down to y=35; otherwise none). Full pages are not listed."""
+def header_scales(doc):
+    """{page_index: scale} for Grade 8/9 pages whose content starts above y=47 (no room for the header).
+    The finished page is scaled by this factor (about the bottom centre) so its first ink lands at y=51."""
     out = {}
     for i, pg in enumerate(doc):
-        W = pg.rect.width
+        W, H = pg.rect.width, pg.rect.height
         pix = pg.get_pixmap(matrix=pymupdf.Matrix(2, 2), colorspace=pymupdf.csGRAY, alpha=False)
         buf, st = pix.samples, pix.stride
         top = None
@@ -235,7 +235,7 @@ def header_modes(doc):
                 break
         if top is None or top >= 47:
             continue
-        out[str(i)] = "m" if top >= 35.5 else "n"
+        out[str(i)] = round((H - 51.0) / (H - top), 4)
     return out
 
 
