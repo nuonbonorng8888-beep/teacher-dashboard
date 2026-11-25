@@ -13,9 +13,10 @@ where n = order of that zone's rectangle on that page (matches call order in the
 
 Usage: python scripts/calibrate_whiteouts.py  [--plan id] [--dry]
 """
-import json, argparse
+import json, argparse, re
 from pathlib import Path
 import pymupdf
+import sig_detect
 from audit_whiteout_collisions import load_plans, stamp_rects, ROOT
 
 OUT = ROOT / "js" / "lesson-plans-whiteout.js"
@@ -172,10 +173,35 @@ def calibrate(plan):
     sig = SIG_OVERRIDES.get(plan["id"])
     if sig:
         fixes["sig"] = sig
+    else:
+        auto = sig_block_auto(plan, doc)
+        if auto:
+            fixes["sig_top"], fixes["sig_bot"] = auto
     pt = cover_font_pt(plan, doc)
     if pt:
         fixes["cover_font_pt"] = pt
     return fixes, notes
+
+
+def sig_page_index(plan, n):
+    spi = plan.get("sig_page_index")
+    if spi is None and "sig_page_index" in plan or plan.get("has_signatures") is False:
+        return None
+    si = spi if isinstance(spi, int) and spi < n else n - 1
+    g = plan.get("id", "")
+    if not isinstance(spi, int) and "_g12_" in g and n >= 4:
+        si = n - 2
+    return si
+
+
+def sig_block_auto(plan, doc):
+    """(top, bottom) top-down y of the OLD signature block on the page the JS stamps
+    (text lines or, failing that, images - see sig_detect.py). None if not found."""
+    si = sig_page_index(plan, len(doc))
+    if si is None:
+        return None
+    r = sig_detect.block_on_page(doc[si])
+    return (r[0], r[1]) if r else None
 
 
 def cover_font_pt(plan, doc):

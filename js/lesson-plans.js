@@ -36,6 +36,17 @@
     return String(num).replace(/[0-9]/g, d => KHMER_DIGITS[parseInt(d, 10)]);
   }
 
+  // Grade helpers. Grades 8 and 9 are organised in lessons (មេរៀន); Grades 11 and 12 in chapters (ជំពូក).
+  const GRADE_CODES = { 'ថ្នាក់ទី ៨': 'g8', 'ថ្នាក់ទី ៩': 'g9', 'ថ្នាក់ទី ១១': 'g11', 'ថ្នាក់ទី ១២': 'g12' };
+  const gradeCodeOf = (g) => GRADE_CODES[g] || 'g12';
+  const isLessonGrade = (g) => g === 'ថ្នាក់ទី ៨' || g === 'ថ្នាក់ទី ៩';
+  const defaultClassFor = (g) => {
+    if (g === 'ថ្នាក់ទី ៨') return '8NGS_B2';
+    if (g === 'ថ្នាក់ទី ៩') return '៩A';
+    if (g === 'ថ្នាក់ទី ១១') return '11NGS_P1 & 11NGS_C2';
+    return '១២A & ១២B';
+  };
+
   function formatKhmerDate(isoDateStr, includeDayName = true) {
     if (!isoDateStr) return '';
     const parts = isoDateStr.split('-');
@@ -73,12 +84,8 @@
       this.savedEndDate = localStorage.getItem('ngs_custom_end_date') || '2027-02-20';
       const rawSig = localStorage.getItem('ngs_custom_sig_date');
       this.savedSigDate = (!rawSig || rawSig === '2026-10-29') ? '2026-10-12' : rawSig;
-      const defaultClassForGrade = (g) => {
-        if (g === 'ថ្នាក់ទី ៨') return '8NGS_B2';
-        if (g === 'ថ្នាក់ទី ១១') return '11NGS_P1 & 11NGS_C2';
-        return '១២A & ១២B';
-      };
-      const gradeClassKey = 'ngs_custom_class_' + (this.selectedGrade === 'ថ្នាក់ទី ៨' ? 'g8' : (this.selectedGrade === 'ថ្នាក់ទី ១១' ? 'g11' : 'g12'));
+      const defaultClassForGrade = defaultClassFor;
+      const gradeClassKey = 'ngs_custom_class_' + gradeCodeOf(this.selectedGrade);
       this.savedClass = localStorage.getItem(gradeClassKey) || localStorage.getItem('ngs_custom_class') || defaultClassForGrade(this.selectedGrade);
       this.savedCadence = localStorage.getItem('ngs_custom_cadence') || 'auto_fit_range';
       this.selectedWeekdays = JSON.parse(localStorage.getItem('ngs_custom_weekdays') || '[1, 3, 5]'); // Mon, Wed, Fri
@@ -103,12 +110,8 @@
         this.savedEndDate = localStorage.getItem('ngs_custom_end_date') || '2027-02-20';
         const rawSig = localStorage.getItem('ngs_custom_sig_date');
         this.savedSigDate = (!rawSig || rawSig === '2026-10-29') ? '2026-10-12' : rawSig;
-        const defaultClassForGrade = (g) => {
-        if (g === 'ថ្នាក់ទី ៨') return '8NGS_B2';
-        if (g === 'ថ្នាក់ទី ១១') return '11NGS_P1 & 11NGS_C2';
-        return '១២A & ១២B';
-      };
-      const gradeClassKey = 'ngs_custom_class_' + (this.selectedGrade === 'ថ្នាក់ទី ៨' ? 'g8' : (this.selectedGrade === 'ថ្នាក់ទី ១១' ? 'g11' : 'g12'));
+        const defaultClassForGrade = defaultClassFor;
+      const gradeClassKey = 'ngs_custom_class_' + gradeCodeOf(this.selectedGrade);
       this.savedClass = localStorage.getItem(gradeClassKey) || localStorage.getItem('ngs_custom_class') || defaultClassForGrade(this.selectedGrade);
         this.savedCadence = localStorage.getItem('ngs_custom_cadence') || 'auto_fit_range';
 
@@ -144,10 +147,15 @@
         // Sync default grade classes if not customized
         const savedG8Class = localStorage.getItem('ngs_custom_class_g8');
         const savedG12Class = localStorage.getItem('ngs_custom_class_g12');
+        const savedG9Class = localStorage.getItem('ngs_custom_class_g9');
         this.plans.forEach(p => {
           if (p.grade === 'ថ្នាក់ទី ៨' && savedG8Class) {
             if (!customMap || !customMap[p.id] || !customMap[p.id].class_name) {
               p.class_name = savedG8Class;
+            }
+          } else if (p.grade === 'ថ្នាក់ទី ៩' && savedG9Class) {
+            if (!customMap || !customMap[p.id] || !customMap[p.id].class_name) {
+              p.class_name = savedG9Class;
             }
           } else if (p.grade === 'ថ្នាក់ទី ១២' && savedG12Class) {
             if (!customMap || !customMap[p.id] || !customMap[p.id].class_name) {
@@ -183,6 +191,8 @@
       // Update default class based on grade
       if (grade === 'ថ្នាក់ទី ៨') {
         this.savedClass = localStorage.getItem('ngs_custom_class_g8') || '8NGS_B2';
+      } else if (grade === 'ថ្នាក់ទី ៩') {
+        this.savedClass = localStorage.getItem('ngs_custom_class_g9') || '៩A';
       } else if (grade === 'ថ្នាក់ទី ១១') {
         this.savedClass = localStorage.getItem('ngs_custom_class_g11') || '11NGS_P1 & 11NGS_C2';
       } else if (grade === 'ថ្នាក់ទី ១២') {
@@ -297,11 +307,7 @@
         }
         if (this.savedClass) {
           localStorage.setItem('ngs_custom_class', this.savedClass);
-          if (this.selectedGrade === 'ថ្នាក់ទី ៨') {
-            localStorage.setItem('ngs_custom_class_g8', this.savedClass);
-          } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
-            localStorage.setItem('ngs_custom_class_g12', this.savedClass);
-          }
+          localStorage.setItem('ngs_custom_class_' + gradeCodeOf(this.selectedGrade), this.savedClass);
         }
         if (this.savedCadence) {
           localStorage.setItem('ngs_custom_cadence', this.savedCadence);
@@ -329,13 +335,14 @@
         localStorage.removeItem('ngs_custom_sig_date');
         localStorage.removeItem('ngs_custom_class');
         localStorage.removeItem('ngs_custom_class_g8');
+        localStorage.removeItem('ngs_custom_class_g9');
         localStorage.removeItem('ngs_custom_class_g12');
         localStorage.removeItem('ngs_custom_cadence');
         this.savedStartDate = '2026-10-19';
         this.savedEndDate = '2027-02-20';
         this.savedSigDate = '2026-10-12';
         this.savedCadence = 'auto_fit_range';
-        this.savedClass = this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_C1 & 8NGS_C2' : '១២A';
+        this.savedClass = ({ 'ថ្នាក់ទី ៨': '8NGS_C1 & 8NGS_C2', 'ថ្នាក់ទី ៩': '៩A' })[this.selectedGrade] || '១២A';
         this.plans = JSON.parse(JSON.stringify(window.NGS_LESSON_PLANS_DATA || []));
         this.render();
         if (window.showToast) {
@@ -389,11 +396,7 @@
       this.savedClass = cleanVal;
       try {
         localStorage.setItem('ngs_custom_class', cleanVal);
-        if (this.selectedGrade === 'ថ្នាក់ទី ៨') {
-          localStorage.setItem('ngs_custom_class_g8', cleanVal);
-        } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
-          localStorage.setItem('ngs_custom_class_g12', cleanVal);
-        }
+        localStorage.setItem('ngs_custom_class_' + gradeCodeOf(this.selectedGrade), cleanVal);
       } catch (e) {}
 
       // Update in memory plans for current grade
@@ -606,11 +609,7 @@
         localStorage.setItem('ngs_custom_end_date', endDateStr);
         localStorage.setItem('ngs_custom_sig_date', selectedSigDate);
         localStorage.setItem('ngs_custom_class', selectedClass);
-        if (this.selectedGrade === 'ថ្នាក់ទី ៨') {
-          localStorage.setItem('ngs_custom_class_g8', selectedClass);
-        } else if (this.selectedGrade === 'ថ្នាក់ទី ១២') {
-          localStorage.setItem('ngs_custom_class_g12', selectedClass);
-        }
+        localStorage.setItem('ngs_custom_class_' + gradeCodeOf(this.selectedGrade), selectedClass);
         localStorage.setItem('ngs_custom_cadence', cadenceMode);
         localStorage.setItem('ngs_custom_teacher', teacherName);
       } catch (e) {}
@@ -673,17 +672,20 @@
       const gradeKey = (() => {
         const g = String(plan.grade || '');
         if (/ទី\s*(៨|8)$/.test(g)) return 8;
+        if (/ទី\s*(៩|9)$/.test(g)) return 9;
         if (/ទី\s*(១១|11)$/.test(g)) return 11;
         if (/ទី\s*(១២|12)$/.test(g)) return 12;
-        const m = /_g(8|11|12)_/.exec(plan.id || '');
+        const m = /_g(8|9|11|12)_/.exec(plan.id || '');
         if (m) return Number(m[1]);
         const f = String(plan.pdf_file || '').split('/')[0];
         if (f.endsWith('ទី៨')) return 8;
+        if (f.endsWith('ទី៩')) return 9;
         if (f.endsWith('ទី១១')) return 11;
         if (f.endsWith('ទី១២')) return 12;
         return 0;
       })();
-      const isGrade8 = gradeKey === 8;
+      // Grade 9 uses exactly the Grade 8 template (no running header, same signature titles)
+      const isGrade8 = gradeKey === 8 || gradeKey === 9;
       const isGrade11 = gradeKey === 11;
       const isGrade12 = gradeKey === 12;
       const teacherFullName = this.getTeacherFullTitle(plan.teacher);
@@ -1002,12 +1004,17 @@
       if (sigPage) {
         const pageH = sigPage.getHeight();
         const pageW = sigPage.getWidth();
+        // Auto-measured top of the OLD signature block (first "…ព.ស.២៥…" / "រាជធានី…" line): start the
+        // whiteout there so no old date line is left above the new one.
+        const sigTopAuto = (!sigFix && typeof woFix.sig_top === 'number') ? woFix.sig_top : null;
         const min_y = (sigFix && typeof sigFix.y0 === 'number')
           ? sigFix.y0
-          : (typeof plan.sig_y0 === 'number')
-            ? plan.sig_y0
-            : (isGrade12 ? 480.0 : (isGrade11 ? 400.0 : 450.0));
-        const tableBottomY0 = sigFix ? sigFix.table_bottom : plan.table_bottom_y0;
+          : (sigTopAuto !== null)
+            ? sigTopAuto + 2.5
+            : (typeof plan.sig_y0 === 'number')
+              ? plan.sig_y0
+              : (isGrade12 ? 480.0 : (isGrade11 ? 400.0 : 450.0));
+        const tableBottomY0 = sigFix ? sigFix.table_bottom : (sigTopAuto !== null ? null : plan.table_bottom_y0);
         const sig_x = 28.0;
         const sig_w = pageW - 56.0; // covers full printable width edge-to-edge
         const isBottom = (pageH - min_y) <= 245.0;
@@ -1026,8 +1033,12 @@
         if (isBottom) {
           // Signature is in the bottom section of page:
           // Redact from y=30.0 up to whiteout_top (strictly below table border to avoid cutting boxes/text)
-          whiteout_y = 30.0;
-          whiteout_h = Math.max(150.0, whiteout_top - whiteout_y);
+          whiteout_y = 31.0;   // just above the footer rule (y=30)
+          // With a measured block top the box must NOT grow above it (a block near the page bottom would
+          // otherwise cut the table text above); the signature then simply gets a little less height.
+          whiteout_h = (sigFix || sigTopAuto !== null)
+            ? Math.max(60.0, whiteout_top - whiteout_y)
+            : Math.max(150.0, whiteout_top - whiteout_y);
           sig_h = Math.min(150.0, whiteout_h - 4.0);
           // Align signature canvas directly under whiteout_top so new date stamps right where old date was
           sig_y_bottom = Math.max(32.0, whiteout_top - sig_h - 2.0);
@@ -1040,8 +1051,9 @@
         }
 
         // Extend the whiteout down to the measured bottom of the old block (e.g. leftover "ឈ្មោះ......" lines)
-        if (sigFix && typeof sigFix.bottom === 'number') {
-          const newBottom = Math.max(30.0, pageH - sigFix.bottom);
+        const oldBlockBottom = sigFix ? sigFix.bottom : woFix.sig_bot;
+        if (typeof oldBlockBottom === 'number') {
+          const newBottom = Math.max(30.0, pageH - oldBlockBottom);
           if (newBottom < whiteout_y) {
             whiteout_h += whiteout_y - newBottom;
             whiteout_y = newBottom;
@@ -1049,10 +1061,11 @@
         }
 
         // 1. Redact / Whiteout the ENTIRE old signature envelope cleanly across the page
+        // Wider than the new block (x = 10 .. pageW-10): old date/title lines run past the 28pt margins
         sigPage.drawRectangle({
-          x: sig_x,
+          x: 10.0,
           y: whiteout_y,
-          width: sig_w,
+          width: pageW - 20.0,
           height: whiteout_h,
           color: PDFLib.rgb(1, 1, 1),
         });
@@ -1318,11 +1331,12 @@
       const g8Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ៨' || p.grade === 'ថ្នាក់ទី 8').length || 78;
       const g11Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ១១' || p.grade === 'ថ្នាក់ទី 11').length || 10;
       const g12Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ១២' || p.grade === 'ថ្នាក់ទី 12').length || 113;
+      const g9Count = this.plans.filter(p => p.grade === 'ថ្នាក់ទី ៩').length;
 
       const gradesList = [
         { id: 'ថ្នាក់ទី ៧', label: 'ថ្នាក់ទី ៧', count: 0, status: 'coming_soon' },
         { id: 'ថ្នាក់ទី ៨', label: 'ថ្នាក់ទី ៨', count: g8Count, status: 'active', icon: '⚡' },
-        { id: 'ថ្នាក់ទី ៩', label: 'ថ្នាក់ទី ៩', count: 0, status: 'coming_soon' },
+        { id: 'ថ្នាក់ទី ៩', label: 'ថ្នាក់ទី ៩', count: g9Count, status: g9Count ? 'active' : 'coming_soon', icon: g9Count ? '🚀' : undefined },
         { id: 'ថ្នាក់ទី ១០', label: 'ថ្នាក់ទី ១០', count: 0, status: 'coming_soon' },
         { id: 'ថ្នាក់ទី ១១', label: 'ថ្នាក់ទី ១១', count: g11Count, status: 'active', icon: '⭐' },
         { id: 'ថ្នាក់ទី ១២', label: 'ថ្នាក់ទី ១២', count: g12Count, status: 'active', icon: '⭐' }
@@ -1332,9 +1346,11 @@
       const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
       const isGrade11 = currentGrade === 'ថ្នាក់ទី ១១';
       const isGrade12 = currentGrade === 'ថ្នាក់ទី ១២';
+      const isGrade9 = currentGrade === 'ថ្នាក់ទី ៩';
       const unitLabel = isGrade12 ? 'ជំពូក' : 'មេរៀន';
       const defaultClasses = isGrade8
         ? ['8NGS_C1', '8NGS_C2', '8NGS_B', '8NGS_B2']
+        : isGrade9 ? ['៩A', '៩B', '៩A & ៩B']
         : (isGrade11 ? ['11NGS_P1', '11NGS_C2', '11NGS_P1 & 11NGS_C2', '១១A', '១១B'] : ['១២A', '១២B', '១២A & ១២B', '12NGS_1', '12NGS_2']);
 
       container.innerHTML = `
@@ -1466,7 +1482,7 @@
             <!-- Official Chapter Files Download Hub -->
             <div class="flex items-center gap-2 shrink-0">
               <span class="text-xs text-slate-400 font-bold hidden sm:inline">ឯកសារដើម NGS:</span>
-              ${isGrade8 ? `
+              ${isGrade9 ? '' : isGrade8 ? `
                 <div class="dropdown relative group">
                   <button class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-slate-800 hover:bg-purple-100 border border-purple-200 dark:border-slate-700 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 transition">
                     <i class="fa-solid fa-book-open text-purple-600"></i> សៀវភៅថ្នាក់ទី៨ ពេញ <i class="fa-solid fa-chevron-down text-[10px]"></i>
@@ -1639,6 +1655,10 @@
                     <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_B2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">8NGS_B2</button>
                     <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1 & 8NGS_C2')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">8NGS_C1 & 8NGS_C2 (២ ថ្នាក់)</button>
                     <button type="button" onclick="window.lessonPlansManager.setClassPreset('8NGS_C1, 8NGS_C2 & 8NGS_B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-[11px] text-purple-800 dark:text-purple-300 transition">8NGS_C1, 8NGS_C2 & 8NGS_B (៣ ថ្នាក់)</button>
+                  ` : isGrade9 ? `
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('៩A')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-slate-700 dark:text-slate-200 transition">៩A</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('៩B')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-slate-700 dark:text-slate-200 transition">៩B</button>
+                    <button type="button" onclick="window.lessonPlansManager.setClassPreset('៩A & ៩B')" class="px-2.5 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 border border-purple-300 font-bold text-purple-800 dark:text-purple-200 transition">៩A & ៩B</button>
                   ` : (isGrade11 ? `
                     <button type="button" onclick="window.lessonPlansManager.setClassPreset('11NGS_P1')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">11NGS_P1</button>
                     <button type="button" onclick="window.lessonPlansManager.setClassPreset('11NGS_C2')" class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 hover:bg-purple-100 border border-slate-200 dark:border-slate-600 font-bold text-[11px] text-slate-700 dark:text-slate-200 transition">11NGS_C2</button>
@@ -1782,7 +1802,7 @@
       if (!container) return;
 
       const currentGrade = this.selectedGrade || 'ថ្នាក់ទី ៨';
-      const unitLabel = currentGrade === 'ថ្នាក់ទី ៨' ? 'មេរៀន' : 'ជំពូក';
+      const unitLabel = isLessonGrade(currentGrade) ? 'មេរៀន' : 'ជំពូក';
       const filtered = this.getFilteredPlans();
 
       if (filtered.length === 0) {
@@ -1892,7 +1912,7 @@
                       ✓ ${p.status}
                     </span>
                     <span class="text-[11px] text-slate-400 font-mono">
-                      ⏱️ ${p.duration} · ${p.grade === 'ថ្នាក់ទី ៨' ? 'ម៉ោងទី ' + toKhmerNum(p.ch_lesson_num) : 'ស្តង់ដារ ៥ ជំហាន NGS'} (ពិន្ទុ ${p.score}/50)
+                      ⏱️ ${p.duration} · ${isLessonGrade(p.grade) ? 'ម៉ោងទី ' + toKhmerNum(p.ch_lesson_num) : 'ស្តង់ដារ ៥ ជំហាន NGS'} (ពិន្ទុ ${p.score}/50)
                     </span>
                   </div>
                   <h3 class="font-extrabold text-base text-slate-900 dark:text-white">
@@ -2043,7 +2063,7 @@
               <strong class="text-purple-700 dark:text-purple-300 text-sm">${p.date_khmer}</strong>
             </div>
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600 md:col-span-2">
-              <span class="block text-slate-400 font-bold">${p.grade === 'ថ្នាក់ទី ៨' ? 'មេរៀន ៖' : 'ជំពូក & មេរៀន៖'}</span>
+              <span class="block text-slate-400 font-bold">${isLessonGrade(p.grade) ? 'មេរៀន ៖' : 'ជំពូក & មេរៀន៖'}</span>
               <strong class="text-slate-800 dark:text-slate-200">${p.chapter}</strong>
             </div>
             <div class="bg-white dark:bg-slate-700 p-2.5 rounded-xl border border-purple-100 dark:border-slate-600 md:col-span-2">
@@ -2354,7 +2374,7 @@
 
     generatePrintableHtml(plans) {
       const currentGrade = this.selectedGrade || 'ថ្នាក់ទី ៨';
-      const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
+      const isGrade8 = isLessonGrade(currentGrade);   // lesson-based grade (8 or 9)
       const unitLabel = isGrade8 ? 'មេរៀន' : 'ជំពូក';
 
       return plans.map((p, idx) => {
@@ -2573,7 +2593,7 @@
 
         // Auto-sequence dates (strictly skipping Sat & Sun) and apply selected class & teacher
         const currentTeacher = this.savedTeacher || (this.selectedTeacher ? this.selectedTeacher : (plans[0].teacher || 'នួន បូណង'));
-        const currentClass = this.savedClass || plans[0].class_name || (this.selectedGrade === 'ថ្នាក់ទី ៨' ? '8NGS_B2' : '១២A');
+        const currentClass = this.savedClass || plans[0].class_name || defaultClassFor(this.selectedGrade);
         const startDateStr = this.savedStartDate || plans[0].date || '2026-10-19';
         const endDateStr = this.savedEndDate || '2027-02-20';
         const cadenceMode = this.savedCadence || 'auto_fit_range';
@@ -2682,7 +2702,7 @@
       if (!modal) return;
 
       const currentGrade = this.selectedGrade || 'ថ្នាក់ទី ៨';
-      const isGrade8 = currentGrade === 'ថ្នាក់ទី ៨';
+      const isGrade8 = isLessonGrade(currentGrade);   // lesson-based grade (8 or 9)
       const unitLabel = isGrade8 ? 'មេរៀន' : 'ជំពូក';
       const chapters = this.getGradeChapters();
       const allGradePlans = this.plans.filter(p => p.grade === currentGrade);

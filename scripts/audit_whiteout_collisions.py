@@ -27,17 +27,19 @@ def grade_flags(p):
     """Mirror of gradeKey in applyPdfCustomStamps: exactly one grade."""
     g, pid, f = p.get("grade", ""), p.get("id", ""), p.get("pdf_file", "")
     key = 0
-    for k, pat in ((8, r"ទី\s*(៨|8)$"), (11, r"ទី\s*(១១|11)$"), (12, r"ទី\s*(១២|12)$")):
+    for k, pat in ((8, r"ទី\s*(៨|8)$"), (9, r"ទី\s*(៩|9)$"), (11, r"ទី\s*(១១|11)$"), (12, r"ទី\s*(១២|12)$")):
         if re.search(pat, g):
             key = k; break
     if not key:
-        m = re.search(r"_g(8|11|12)_", pid)
+        m = re.search(r"_g(8|9|11|12)_", pid)
         if m:
             key = int(m.group(1))
     if not key:
         top = f.split("/")[0]
-        key = 8 if top.endswith("ទី៨") else 11 if top.endswith("ទី១១") else 12 if top.endswith("ទី១២") else 0
-    return key == 8, key == 11, key == 12
+        key = (8 if top.endswith("ទី៨") else 9 if top.endswith("ទី៩") else 11 if top.endswith("ទី១១")
+               else 12 if top.endswith("ទី១២") else 0)
+    # Grade 9 uses the Grade 8 template (mirrors isGrade8 in js/lesson-plans.js)
+    return key in (8, 9), key == 11, key == 12
 
 
 def num(v, default):
@@ -106,20 +108,24 @@ def stamp_rects(plan, n_pages, sizes):
     W, H = sizes[si]
     min_y = num(plan.get("sig_y0"), 480 if g12 else (400 if g11 else 450))
     tb = plan.get("table_bottom_y0")
+    if not sig and isinstance(plan.get("_sig_top"), (int, float)):
+        min_y = plan["_sig_top"] + 2.5
+        tb = None
     safe = max(tb + 1.2, min_y - 2.5) if isinstance(tb, (int, float)) and tb > 0 else min_y - 2.5
     wo_top = min(H - 30, H - safe)
     if (H - min_y) <= 245:
-        wo_y = 30.0
-        wo_h = max(150.0, wo_top - wo_y)
+        wo_y = 31.0
+        wo_h = max(60.0, wo_top - wo_y) if (sig or plan.get("_sig_top") is not None) else max(150.0, wo_top - wo_y)
     else:
         sig_h = num(plan.get("sig_h"), 150.0)
         wo_h = sig_h + 16
         wo_y = max(30.0, wo_top - wo_h)
-    if isinstance(sig.get("bottom"), (int, float)):
-        nb = max(30.0, H - sig["bottom"])
+    bot = sig.get("bottom") if sig else plan.get("_sig_bot")
+    if isinstance(bot, (int, float)):
+        nb = max(30.0, H - bot)
         if nb < wo_y:
             wo_h += wo_y - nb; wo_y = nb
-    out.append((si, "signature", R(H, 28, wo_y, W - 56, wo_h)))
+    out.append((si, "signature", R(H, 10, wo_y, W - 20, wo_h)))
     return out
 
 
@@ -178,9 +184,11 @@ def audit_plan(plan):
         return {"id": plan["id"], "error": "missing " + plan["pdf_file"]}
     doc = pymupdf.open(path)
     sizes = [(p.rect.width, p.rect.height) for p in doc]
-    sigfix = FIXES.get(plan["id"], {}).get("sig")
-    if sigfix:
-        plan = dict(plan, _sig=sigfix)
+    fx = FIXES.get(plan["id"], {})
+    if fx.get("sig"):
+        plan = dict(plan, _sig=fx["sig"])
+    elif "sig_top" in fx:
+        plan = dict(plan, _sig_top=fx["sig_top"], _sig_bot=fx["sig_bot"])
     rects = apply_fixes(plan, stamp_rects(plan, len(doc), sizes), sizes, FIXES)
     issues = []
     cache = {}
