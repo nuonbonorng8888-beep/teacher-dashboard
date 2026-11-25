@@ -100,3 +100,58 @@ def find_sig_page(doc):
         if r:
             return (i,) + r
     return None
+
+
+_DARK = bytes(1 if i < 150 else 0 for i in range(256))
+_SCALE = 2.0
+
+
+def _ink_rows(pix, r, scale=_SCALE):
+    """(top, bottom) of the real ink of a word in page points. A word's bbox is the font's line box
+    (a Khmer title can report 30pt for a 12pt line); only the ink matters for 'does this touch content'.
+    Rows that are one long dark run (a table border crossing the box) are ignored."""
+    x0, x1 = max(int(r.x0 * scale), 0), min(int(r.x1 * scale) + 1, pix.width)
+    y0, y1 = max(int(r.y0 * scale), 0), min(int(r.y1 * scale) + 1, pix.height)
+    if x1 - x0 < 2 or y1 - y0 < 2:
+        return None
+    buf, stride = pix.samples, pix.stride
+    rows = []
+    for y in range(y0, y1):
+        row = buf[y * stride + x0: y * stride + x1]
+        n = row.translate(_DARK).count(1)
+        if 0 < n < 0.85 * len(row):
+            rows.append(y)
+    if not rows:
+        return None
+    # cluster the ink rows (gap < 1.5pt = same text line); a thin cluster at the very top/bottom that is
+    # detached from the rest is a NEIGHBOUR's ink (e.g. dotted leaders of the row above) - drop it
+    gap = 1.5 * scale
+    clusters = [[rows[0], rows[0]]]
+    for y in rows[1:]:
+        if y - clusters[-1][1] <= gap:
+            clusters[-1][1] = y
+        else:
+            clusters.append([y, y])
+    thin = 1.8 * scale
+    while len(clusters) > 1 and clusters[0][1] - clusters[0][0] < thin:
+        clusters.pop(0)
+    while len(clusters) > 1 and clusters[-1][1] - clusters[-1][0] < thin:
+        clusters.pop()
+    return clusters[0][0] / scale, (clusters[-1][1] + 1) / scale
+
+
+def ink_words(page):
+    """Word rects trimmed to their real ink (top/bottom) in the header, cover and footer bands."""
+    H = page.rect.height
+    pix = page.get_pixmap(matrix=pymupdf.Matrix(_SCALE, _SCALE), colorspace=pymupdf.csGRAY, alpha=False)
+    out = []
+    for w in page.get_text("words"):
+        r = pymupdf.Rect(w[:4])
+        if r.is_empty:
+            continue
+        if r.y0 < 230 or r.y1 > H - 110:
+            ink = _ink_rows(pix, r)
+            if ink:
+                r = pymupdf.Rect(r.x0, max(r.y0, ink[0]), r.x1, min(r.y1, ink[1]))
+        out.append((r, w[4]))
+    return out

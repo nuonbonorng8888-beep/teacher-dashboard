@@ -891,17 +891,26 @@
           fctx.textBaseline = 'middle';
           const midY = 24;
 
+          // Parts that would print on top of page content (table/figure running to the page bottom) are left out
+          const skipParts = (woFix.footer_skip && woFix.footer_skip[String(pIdx)]) || '';
+
           // Left: Teacher Name
-          fctx.textAlign = 'left';
-          fctx.fillText(`បង្រៀនដោយ៖ ${teacherFullName}`, 15, midY);
+          if (!skipParts.includes('L')) {
+            fctx.textAlign = 'left';
+            fctx.fillText(`បង្រៀនដោយ៖ ${teacherFullName}`, 15, midY);
+          }
 
           // Center: Page number
-          fctx.textAlign = 'center';
-          fctx.fillText(`- ${toKhmerNum(pIdx + 1)} -`, 723, midY);
+          if (!skipParts.includes('C')) {
+            fctx.textAlign = 'center';
+            fctx.fillText(`- ${toKhmerNum(pIdx + 1)} -`, 723, midY);
+          }
 
           // Right: Phone number
-          fctx.textAlign = 'right';
-          fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1431, midY);
+          if (!skipParts.includes('R')) {
+            fctx.textAlign = 'right';
+            fctx.fillText(`លេខទូរស័ព្ទ៖ ${teacherPhone}`, 1431, midY);
+          }
 
           const footerImg = await doc.embedPng(b64ToUint8(fCanvas.toDataURL('image/png')));
 
@@ -921,7 +930,8 @@
       // ========================================================
       const coverIdx = plan.cover_page_index || 0;
       const coverPage = pages[coverIdx];
-      if (coverPage) {
+      // no_cover: the first page is a continuation page (no class/date/teacher rows) - nothing to stamp
+      if (coverPage && !plan.no_cover) {
         const pageH = coverPage.getHeight();
 
         // Match the original document: same font (Khmer OS Siemreap, regular) and same point size

@@ -70,7 +70,7 @@ srv = ThreadingHTTPServer(("127.0.0.1", 8097), partial(H, directory=str(ROOT)))
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 proc = subprocess.Popen([EDGE, "--headless=new", "--disable-gpu", f"--user-data-dir={OUT / '_edge'}",
                          "http://127.0.0.1:8097/__test"])
-ok = done.wait(timeout=180)
+ok = done.wait(timeout=900)
 proc.terminate(); srv.shutdown()
 print("finished:", ok)
 for pid in IDS:

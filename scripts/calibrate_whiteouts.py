@@ -37,10 +37,8 @@ MAX_GROW = 8.0
 def elements(page):
     W, H = page.rect.width, page.rect.height
     els = []
-    for w in page.get_text("words"):
-        r = pymupdf.Rect(w[:4])
-        if not r.is_empty:
-            els.append(("word", r))
+    for r, _t in sig_detect.ink_words(page):
+        els.append(("word", r))
     for d in page.get_drawings():
         for it in d["items"]:
             if it[0] == "l":
@@ -141,6 +139,16 @@ def fit(R0, els, zone, page_w, drop_old_line=False):
                 R = shrink_away(R, e, SHRINK_DIRS.get(zone, ("top", "bottom", "left", "right"))); moved = True
         if not moved:
             break
+    if zone == "header":
+        # The old header ends with a black rule (y~63 on Grade 12) which is also the table's top border on
+        # many pages. Everything above it is old header: reach it (minus 0.8pt) so no logo/Facebook/Website
+        # bits survive, even when a tall neighbouring title box made the content look closer than it is.
+        # first rule / table edge (horizontal or the top of a vertical border) below the Website underline (y~47)
+        rules = [e for kind, e in els if kind == "line" and 50 < e.y0 < 70 and (e.width > 20 or e.height > 20)]
+        if rules:
+            ry = min(e.y0 for e in rules)
+            if R.y1 < ry - 0.8 and ry - 0.8 - R0.y1 <= MAX_GROW:
+                R = pymupdf.Rect(R.x0, R.y0, R.x1, ry - 0.8)
     return R
 
 
@@ -177,6 +185,9 @@ def calibrate(plan):
         auto = sig_block_auto(plan, doc)
         if auto:
             fixes["sig_top"], fixes["sig_bot"] = auto
+    skip = footer_skip(doc)
+    if skip:
+        fixes["footer_skip"] = skip
     pt = cover_font_pt(plan, doc)
     if pt:
         fixes["cover_font_pt"] = pt
@@ -202,6 +213,32 @@ def sig_block_auto(plan, doc):
         return None
     r = sig_detect.block_on_page(doc[si])
     return (r[0], r[1]) if r else None
+
+
+FOOTER_PARTS = (("L", 65.0, 260.0), ("C", 262.0, 335.0), ("R", 400.0, 547.0))   # x ranges of the 3 footer parts
+
+
+def footer_skip(doc):
+    """{page_index: "LCR-subset"}: footer parts (teacher / page number / phone, drawn at y = H-27 .. H-12)
+    that would be printed on top of real page content (a table or figure that runs to the page bottom)."""
+    out = {}
+    for i, pg in enumerate(doc):
+        H, W = pg.rect.height, pg.rect.width
+        if W < 400:
+            continue
+        pix = pg.get_pixmap(matrix=pymupdf.Matrix(2, 2), colorspace=pymupdf.csGRAY, alpha=False)
+        buf, st = pix.samples, pix.stride
+        bad = ""
+        for key, x0, x1 in FOOTER_PARTS:
+            n = 0
+            for y in range(int((H - 28) * 2), min(int((H - 11) * 2), pix.height)):
+                row = buf[y * st + int(x0 * 2): y * st + int(x1 * 2)]
+                n += row.translate(sig_detect._DARK).count(1)
+            if n > 6:
+                bad += key
+        if bad:
+            out[str(i)] = bad
+    return out
 
 
 def cover_font_pt(plan, doc):

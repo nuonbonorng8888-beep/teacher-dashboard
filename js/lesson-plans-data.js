@@ -8924,7 +8924,7 @@ window.NGS_LESSON_PLANS_DATA = [
     "page_count": 4,
     "cover_page_index": 0,
     "class_x": 238.0,
-    "class_y0": 72.1,
+    "class_y0": 77.7,
     "date_x": 238.0,
     "box_y0": 150.2,
     "teacher_x": 238.0,
@@ -9951,12 +9951,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_1_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី1.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 77.5,
-    "date_x": 238.0,
-    "box_y0": 150.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 168.7,
+    "class_x": 205.2,
+    "class_y0": 79.3,
+    "date_x": 205.2,
+    "box_y0": 152.3,
+    "teacher_x": 205.2,
+    "teacher_y0": 170.5,
     "objectives": {
       "knowledge": [
         "ក្រោយក្ ៀនចប់ សិសសកាំណត់បានពីនិយមន័យអាសុីមតូតក្រទត និងបករាយលកខែណឌ"
@@ -10012,12 +10012,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_2_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី2.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 77.5,
-    "date_x": 238.0,
-    "box_y0": 150.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 168.7,
+    "class_x": 205.2,
+    "class_y0": 79.3,
+    "date_x": 205.2,
+    "box_y0": 152.3,
+    "teacher_x": 205.2,
+    "teacher_y0": 170.5,
     "objectives": {
       "knowledge": [
         "សិសសកាំណត់បានពីជាំហានទាាំងមូលថ្នោ សិកាទិសក្ៅអក្ង ភាពថ្នអនុគមន៍រាង"
@@ -10073,12 +10073,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_3_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី3.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 77.5,
-    "date_x": 238.0,
-    "box_y0": 150.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 168.7,
+    "class_x": 205.2,
+    "class_y0": 79.3,
+    "date_x": 205.2,
+    "box_y0": 152.3,
+    "teacher_x": 205.2,
+    "teacher_y0": 170.5,
     "objectives": {
       "knowledge": [
         "សិសសកាំណត់ ូបមនតបាំខបាងកិលអ័កស"
@@ -10195,12 +10195,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_5_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី5.pdf",
     "page_count": 5,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 77.5,
-    "date_x": 238.0,
-    "box_y0": 150.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 168.7,
+    "class_x": 205.2,
+    "class_y0": 79.3,
+    "date_x": 205.2,
+    "box_y0": 152.3,
+    "teacher_x": 205.2,
+    "teacher_y0": 170.5,
     "objectives": {
       "knowledge": [
         "សិសសអាចពនយល់ពីទាំនាក់ទាំនង វាងសមីោ អក្ង  x ខ លានបា៉ារា៉ាខម៉ារត និងចាំណុចរបសពវថ្នរោប"
@@ -10257,12 +10257,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_6_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី6.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "សិសសកាំណត់បានពីតថ្មាថ្នចាំនួន e និងនិយមន័យអនុគមន៍អិចសប៉ាូណង់"
@@ -10317,12 +10317,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_7_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី7.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្ធវីោ ង្ហ ជ្ជរកុមជាំនាញ សិសសបករាយពី ូបមនតលីមីតរតង់អននត"
@@ -10378,12 +10378,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_8_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី8.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "តាម យៈោ សក្ងេតគាំ ូរោប សិសសពនយល់ពីជាំហានថ្នោ សិកាអក្ង ភាព (ខ ន"
@@ -10438,12 +10438,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_9_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី9.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "តាម យៈោ វិភាគចាំណុច បត់ សិសសពិពណ៌នាពីលកខណៈថ្នអនុគមន៍រាង្ល"
@@ -10499,12 +10499,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_10_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី10.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្របីរបាស់រោបក្សុីបអក្ងេត សិសសពិភាកាអាំពីទាំនាក់ទាំនង វាង"
@@ -10560,12 +10560,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_11_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី11.pdf",
     "page_count": 3,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 87.6,
-    "date_x": 238.0,
-    "box_y0": 160.5,
-    "teacher_x": 238.0,
-    "teacher_y0": 178.8,
+    "class_x": 205.2,
+    "class_y0": 89.4,
+    "date_x": 205.2,
+    "box_y0": 162.4,
+    "teacher_x": 205.2,
+    "teacher_y0": 180.6,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្ដាោះរាយបញ្ជាក្សុីបអក្ងេតកនុងរកុម សិសសកាំណត់បានពីខ នកាំណត់"
@@ -10620,12 +10620,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_12_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី12.pdf",
     "page_count": 5,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 76.1,
-    "date_x": 238.0,
-    "box_y0": 149.0,
-    "teacher_x": 238.0,
-    "teacher_y0": 167.3,
+    "class_x": 205.2,
+    "class_y0": 77.9,
+    "date_x": 205.2,
+    "box_y0": 150.9,
+    "teacher_x": 205.2,
+    "teacher_y0": 169.1,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្ដាោះរាយបញ្ជាជ្ជរកុមជាំនាញ សិសសពនយល់ពី ូបមនតលីមីតសាំខាន់ៗ"
@@ -10682,12 +10682,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_13_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី13.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 76.1,
-    "date_x": 238.0,
-    "box_y0": 149.0,
-    "teacher_x": 238.0,
-    "teacher_y0": 167.3,
+    "class_x": 205.2,
+    "class_y0": 77.9,
+    "date_x": 205.2,
+    "box_y0": 150.9,
+    "teacher_x": 205.2,
+    "teacher_y0": 169.1,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្ដាោះរាយបញ្ជា សិសសពិពណ៌នាពីជាំហានថ្នោ សិកាអក្ង ភាពថ្ន"
@@ -10743,12 +10743,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_14_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី14.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 76.1,
-    "date_x": 238.0,
-    "box_y0": 149.0,
-    "teacher_x": 238.0,
-    "teacher_y0": 167.3,
+    "class_x": 205.2,
+    "class_y0": 77.9,
+    "date_x": 205.2,
+    "box_y0": 150.9,
+    "teacher_x": 205.2,
+    "teacher_y0": 169.1,
     "objectives": {
       "knowledge": [
         "តាម យៈោ វិភាគចាំណុចប ាក្ធៀប សិសសបករាយពីលកខណៈថ្នអនុគមន៍ខ ល"
@@ -10804,12 +10804,12 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_4_15_កិច្ចតែងការ_ជំពូក4_ម៉ោងទី15.pdf",
     "page_count": 4,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 76.1,
-    "date_x": 238.0,
-    "box_y0": 149.0,
-    "teacher_x": 238.0,
-    "teacher_y0": 167.3,
+    "class_x": 205.2,
+    "class_y0": 77.9,
+    "date_x": 205.2,
+    "box_y0": 150.9,
+    "teacher_x": 205.2,
+    "teacher_y0": 169.1,
     "objectives": {
       "knowledge": [
         "តាម យៈោ ក្ដាោះរាយបញ្ជាជ្ជក់ខសតង សិសសពិភាកាអាំពីទាំនាក់ទាំនង វាង"
@@ -11933,8 +11933,8 @@ window.NGS_LESSON_PLANS_DATA = [
     "pdf_file": "កិច្ចការតែងការទី១២/12_6_7_កិច្ចតែងការ_ជំពូក6_ម៉ោងទី7.pdf",
     "page_count": 5,
     "cover_page_index": 0,
-    "class_x": 238.0,
-    "class_y0": 88.3,
+    "class_x": 222.4,
+    "class_y0": 90.1,
     "date_x": 238.0,
     "box_y0": 172.8,
     "teacher_x": 238.0,
@@ -12537,7 +12537,8 @@ window.NGS_LESSON_PLANS_DATA = [
       2,
       3,
       4
-    ]
+    ],
+    "no_cover": true
   },
   {
     "id": "plan_g12_7_1",

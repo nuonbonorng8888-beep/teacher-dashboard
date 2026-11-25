@@ -12,6 +12,7 @@ Usage:  python scripts/audit_whiteout_collisions.py [--json out.json] [--plan pl
 import json, re, sys, argparse
 from pathlib import Path
 import pymupdf
+import sig_detect
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "js" / "lesson-plans-data.js"
@@ -75,10 +76,13 @@ def stamp_rects(plan, n_pages, sizes):
             out.append((i, "footer-wo", R(H, 60, 60, 495, 38)))
         if not overflow:
             out.append((i, "footer-line", R(H, 65, 29.7, W - 130, 0.6)))
-        out.append((i, "footer-text", R(H, 65, 12, 482, 15)))
+        skip = (plan.get("_footer_skip") or {}).get(str(i), "")
+        for key, x0, x1 in (("L", 65, 260), ("C", 262, 335), ("R", 400, 547)):
+            if key not in skip:
+                out.append((i, "footer-text", R(H, x0, 12, x1 - x0, 15)))
 
     ci = plan.get("cover_page_index") or 0
-    if ci < n_pages:
+    if ci < n_pages and not plan.get("no_cover"):
         W, H = sizes[ci]
         if plan.get("class_name"):
             x = num(plan.get("class_x"), 215 if g11 else 238)
@@ -185,6 +189,8 @@ def audit_plan(plan):
     doc = pymupdf.open(path)
     sizes = [(p.rect.width, p.rect.height) for p in doc]
     fx = FIXES.get(plan["id"], {})
+    if fx.get("footer_skip"):
+        plan = dict(plan, _footer_skip=fx["footer_skip"])
     if fx.get("sig"):
         plan = dict(plan, _sig=fx["sig"])
     elif "sig_top" in fx:
@@ -195,7 +201,8 @@ def audit_plan(plan):
     for pi, kind, rect in rects:
         if pi not in cache:
             pg = doc[pi]
-            cache[pi] = (pg.get_text("words"), list(segments(pg.get_drawings())))
+            words = [(r.x0, r.y0, r.x1, r.y1, t) for r, t in sig_detect.ink_words(pg)]
+            cache[pi] = (words, list(segments(pg.get_drawings())))
         words, segs = cache[pi]
         cut, covered = [], []
         for w in words:
